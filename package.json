@@ -1,0 +1,12 @@
+{
+  "name": "presentations",
+  "private": true,
+  "scripts": {
+    "new": "make new",
+    "serve": "make serve",
+    "build": "make build"
+  },
+  "dependencies": {
+    "reveal.js": "^5.2.1"
+  }
+}

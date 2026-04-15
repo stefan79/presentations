@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{TITLE}}</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  {{THEME_LINK}}
+  <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>{{TITLE}}</h1>
+        <p>{{DATE}}</p>
+      </section>
+
+      <section>
+        <h2>Slide 2</h2>
+        <p>Edit <code>talks/{{NAME}}/index.html</code> to add your content.</p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/math/math.js"></script>
+  <script src="../../templates/plugins/qrcode.js"></script>
+  <script src="../../templates/plugins/mermaid-init.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode, RevealMermaid]
+    });
+  </script>
+</body>
+</html>

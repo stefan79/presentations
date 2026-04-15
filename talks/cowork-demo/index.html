@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>cowork-demo</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
+  <style>
+    .reveal .mermaid svg {
+      max-height: 65vh;
+      max-width: 95%;
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section>
+        <h1>cowork-demo</h1>
+        <p>2026-04-14</p>
+      </section>
+
+      <!-- Introduction -->
+      <section>
+        <section data-markdown>
+          <textarea data-template>
+            ## Speaker Introduction
+            - **Name**: Stefan Siprell
+            - **Role**: Director at EPAM for Solution Architecture / Technology Consulting
+            - **Expertise**: 
+              - GenAI Applications
+              - GenAI Architecture, 
+              - Agentic and Software Modernization
+            - **Pet-Projects**: Encoders
+          </textarea>
+        </section>
+        <section >
+          <p>
+            <h2>Follow-Up</h2>
+            
+            We can meet at the booth or dinner, or you can reach out to me via linkedIn:
+
+
+            <div data-qr="https://www.linkedin.com/in/siprell"/>
+          </p>
+        </section>
+      </section>
+      <!-- Workshop Format-->
+      <section>
+        <section>
+          <h2>Workshop?</h2>
+          <h3>Limitations</h3>
+          <ul>
+            <li>Doing it live together would require approximately <strong>90 minutes</strong></li>
+            <li>Letting the agent run takes approximately <strong>30 minutes</strong></li>
+            <li>Token Based Workloads are hard to predict</li>
+            <li>You need a license for Claude Cowork</li>
+          </ul>
+        </section>
+        <section>
+          <h2>Workshop?</h2>
+          <h3>Adjustments</h3>
+          <ul>
+            <li>We will look at it together</li>
+            <li>We will use templates</li>
+            <li>You can download the presentation and run it yourself after the talk</li>
+          </ul>
+      </section>
+      <section>
+          <h2>Workshop?</h2>
+          <h3>Take Away</h3>
+          <ul>
+            <li>What can I do with Claude Cowork</li>
+            <li>How can I build something complex?</li>
+          </ul>
+      </section>
+      <section>
+        <h2>Customer Intelligence Agent</h2>
+        <h3>Challenge</h3>
+        <p>
+          As a solution architect I need to quickly help my sales colleague to prepare for a customer meeting. I am not a vertical specialist so I need to prepare for meetings in depth.
+        </p>
+        <h3>Solution</h3>
+        <p>
+          I <strong>shift-left</strong> GenAI and build a reusable plug-in that me and my colleagues can use. I dont become the <strong>AI gatekeeper</strong>, but the <strongAI>AI enabler.</strongAI>.
+        </p>
+      </section>
+      </section>
+
+      <!-- CoWork-->
+      <section>
+
+        <!-- The core shift -->
+        <section>
+          <h2>Chat answers questions.<br>Cowork finishes tasks.</h2>
+          <p>Chat is a conversation. Cowork is a working session: you describe an outcome,
+          Claude plans it, executes across your files and apps, and reports back when the work is done.</p>
+        </section>
+
+        <!-- Side by side -->
+        <section class="small">
+          <h2>Two modes, two operating models</h2>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5em;text-align:left;">
+            <div>
+              <h3>Regular Chat</h3>
+              <ul>
+                <li>Single question, single answer</li>
+                <li>No access to files or systems</li>
+                <li>Output lives in the chat window</li>
+                <li>User executes every step</li>
+                <li>Stateless between turns</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Claude Cowork</h3>
+              <ul>
+                <li>Multi-step task, end to end</li>
+                <li>Scoped access to folders and connectors</li>
+                <li>Real files created and edited in place</li>
+                <li>Claude executes, you steer</li>
+                <li>Persistent plan, parallel workstreams</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Comparison table -->
+        <section class="small">
+          <h2>What actually changes</h2>
+          <table>
+            <thead>
+              <tr><th>Dimension</th><th>Chat</th><th>Cowork</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Unit of work</td><td>A message</td><td>A deliverable</td></tr>
+              <tr><td>Context</td><td>Manually pasted</td><td>Read from files and apps</td></tr>
+              <tr><td>Output</td><td>Text to copy</td><td>Files updated in place</td></tr>
+              <tr><td>Duration</td><td>Seconds</td><td>Minutes to hours</td></tr>
+              <tr><td>Human role</td><td>Operator</td><td>Reviewer and approver</td></tr>
+              <tr><td>Integrations</td><td>None by default</td><td>MCP, Chrome, filesystem</td></tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- Use cases -->
+        <section>
+          <h2>Where it earns its keep</h2>
+          <p>High-effort, repeatable knowledge work.</p>
+          <ul>
+            <li><strong>Research synthesis</strong> — folder of sources plus a question, returns a structured summary</li>
+            <li><strong>Report assembly</strong> — inputs plus template, returns a first draft</li>
+            <li><strong>File and data operations</strong> — organize, rename, extract from receipts into clean spreadsheets</li>
+            <li><strong>Recurring workflows</strong> — scheduled pulls, weekly digests, morning triage</li>
+          </ul>
+        </section>
+
+        <!-- Use cases -->
+        <section>
+          <h2>Where it earns its keep</h2>
+          <p>High-effort, repeatable knowledge work.</p>
+          <ul>
+            <li><strong>Research synthesis</strong> — folder of sources plus a question, returns a structured summary</li>
+            <li><strong>Report assembly</strong> — inputs plus template, returns a first draft</li>
+            <li><strong>File and data operations</strong> — organize, rename, extract from receipts into clean spreadsheets</li>
+            <li><strong>Recurring workflows</strong> — scheduled pulls, weekly digests, morning triage</li>
+          </ul>
+        </section>
+
+        <!-- Management takeaway -->
+        <section>
+          <h2>The management lens</h2>
+          <ul>
+            <li>Tedious work that used to get skipped now gets done</li>
+            <li>Decisions stay with the human; execution moves to the agent</li>
+            <li>No technical background required — built for non-developers</li>
+            <li>Scoped access: folders and connectors you explicitly grant</li>
+            <li>Same agent architecture as Claude Code, wrapped for knowledge work</li>
+          </ul>
+        </section>
+
+        <section>
+          <h2>Overview Claude Cowork</h2>
+          <p>
+            <a href="https://claude.ai/cowork">https://claude.ai/cowork</a>
+            <img src="assets/screenshots/01_claude_latin.png"/>
+        </section>
+
+      </section>
+
+      <section>
+        <h2>Download Resources</h2>
+        <p>Access the plugin and presentation files from Google Drive:</p>
+        <div data-qr="https://drive.google.com/drive/folders/19Nd1ExXg3Bi5q4pkAkVg-EegI7D6KOOf?usp=sharing"/>
+      </section>
+
+        <!-- Overview slide -->
+        <section>
+          <h2>Building Blocks</h2>
+          <p>Start high-level: think knowledge + execution</p>
+          <div class="columns" style="text-align:left; margin-top:0.5em;">
+            <div>
+              <h3 style="color:var(--epam-blue);">Knowledge</h3>
+              <ul>
+                <li><strong>Skills</strong>: reusable playbooks Claude can follow</li>
+                <li><strong>CLAUDE.md</strong>: local rules for this workspace</li>
+              </ul>
+            </div>
+            <div>
+              <h3 style="color:var(--epam-blue);">Execution</h3>
+              <ul>
+                <li><strong>Agents</strong>: workers that do multi-step tasks</li>
+                <li><strong>MCP Tools</strong>: connections to external systems</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- Skills -->
+        <section class="small">
+          <h2>Skills</h2>
+          <p>A skill is reusable know-how: instructions that teach Claude how to do a specific kind of work</p>
+          <div class="columns" style="text-align:left;">
+            <div>
+              <h3>What it does</h3>
+              <ul>
+                <li>Encodes domain knowledge and best practices</li>
+                <li>Guides how Claude should approach a task</li>
+                <li>Improves consistency for repeated task types</li>
+              </ul>
+            </div>
+            <div>
+              <h3>When to use it</h3>
+              <ul>
+                <li><strong>Inbox triage</strong> &mdash; define how messages should be categorized</li>
+                <li><strong>PR review workflow</strong> &mdash; define how comments should be processed</li>
+                <li><strong>Meeting prep</strong> &mdash; define what material should be collected and summarized</li>
+              </ul>
+            </div>
+          </div>
+          <p class="subtitle">Benefit: reusable expertise without re-explaining the method each time</p>
+        </section>
+
+        <!-- Agents -->
+        <section class="small">
+          <h2>Agents</h2>
+          <p>An agent is the worker that takes a goal, decides the steps, and executes them end to end</p>
+          <div class="columns" style="text-align:left;">
+            <div>
+              <h3>What it does</h3>
+              <ul>
+                <li>Turns an objective into a concrete plan</li>
+                <li>Executes tasks across files, tools, and systems</li>
+                <li>Coordinates sub-agents when parallel execution helps</li>
+              </ul>
+            </div>
+            <div>
+              <h3>When to use it</h3>
+              <ul>
+                <li><strong>Customer brief</strong> &mdash; gather sources, analyze them, and draft the output</li>
+                <li><strong>Weekly reporting</strong> &mdash; collect updates and produce a finished report</li>
+                <li><strong>Code change delivery</strong> &mdash; inspect, edit, test, and prepare the final summary</li>
+              </ul>
+            </div>
+          </div>
+          <p class="subtitle">Benefit: delegated execution from goal to deliverable</p>
+          <aside class="notes">Sub-agents are isolated Claude instances with their own context window and tool access. Intermediate work stays inside the sub-agent and does not clutter the main conversation.</aside>
+        </section>
+
+        <!-- MCP Tools -->
+        <section class="small">
+          <h2>MCP Tools</h2>
+          <p>MCP tools are the connections that let Claude act on external systems</p>
+          <div class="columns" style="text-align:left;">
+            <div>
+              <h3>What it does</h3>
+              <ul>
+                <li>Connects Claude to apps, data, and services</li>
+                <li>Exposes actions like search, read, create, or update</li>
+                <li>Makes the same integration reusable across clients</li>
+              </ul>
+            </div>
+            <div>
+              <h3>When to use it</h3>
+              <ul>
+                <li><strong>Google Drive</strong> &mdash; read documents and assemble a report</li>
+                <li><strong>GitHub</strong> &mdash; inspect issues, PRs, and review comments</li>
+                <li><strong>CRM or ticketing</strong> &mdash; pull customer or case context into a workflow</li>
+              </ul>
+            </div>
+          </div>
+          <p class="subtitle">Benefit: Claude can work with live systems instead of only the chat history</p>
+        </section>
+
+        <!-- CLAUDE.md -->
+        <section class="small">
+          <h2>Folder Instructions (CLAUDE.md)</h2>
+          <p>Folder instructions are persistent local rules Claude reads at the start of each session</p>
+          <div class="columns" style="text-align:left;">
+            <div>
+              <h3>What it does</h3>
+              <ul>
+                <li>Sets expectations for how Claude should work here</li>
+                <li>Stores project context, preferences, and constraints</li>
+                <li>Reduces setup effort for every new session</li>
+              </ul>
+            </div>
+            <div>
+              <h3>When to use it</h3>
+              <ul>
+                <li><strong>Team standards</strong> &mdash; coding rules, review expectations, naming</li>
+                <li><strong>Communication style</strong> &mdash; tone, audience, brand voice</li>
+                <li><strong>Project context</strong> &mdash; goals, constraints, preferred workflows</li>
+              </ul>
+            </div>
+          </div>
+          <p class="subtitle">Benefit: Claude starts with the right context instead of being re-briefed every time</p>
+        </section>
+
+        <!-- Connectors and Plugins -->
+        <section class="small">
+          <h2>Connectors and Plugins</h2>
+          <p>Both extend Claude, but at different levels: connectors add managed access to systems, plugins package full solutions</p>
+          <div class="columns" style="text-align:left;">
+            <div>
+              <h3>What they do</h3>
+              <ul>
+                <li><strong>Connectors</strong> &mdash; managed integrations for systems like Google Drive, GitHub, or Slack</li>
+                <li><strong>Plugins</strong> &mdash; installable packs that can combine connectors, skills, commands, and agents</li>
+                <li><strong>Difference</strong> &mdash; connectors expose systems; plugins package workflows</li>
+              </ul>
+            </div>
+            <div>
+              <h3>When to use them</h3>
+              <ul>
+                <li><strong>Connector</strong> &mdash; Claude needs access to a live system or data source</li>
+                <li><strong>Plugin</strong> &mdash; you want a reusable role-based solution for a team or function</li>
+                <li><strong>Examples</strong> &mdash; connect Salesforce data, or install a sales research pack built on skills and agents</li>
+              </ul>
+            </div>
+          </div>
+          <p class="subtitle">Benefit: connectors provide access, plugins provide packaged capabilities</p>
+          <aside class="notes">Connectors are the managed layer on top of MCP and work across Claude clients. Plugins sit above that and bundle multiple capabilities into a more complete product experience.</aside>
+        </section>
+
+        <!-- Connector Marketplace -->
+        <section class="smaller">
+          <h2>Connector Marketplace</h2>
+          <p>Where you find managed integrations to external systems and data sources</p>
+          <img src="assets/screenshots/02_claude_connectors.png" alt="Connector marketplace screenshot" />
+          <p class="subtitle">Typical entries: Google Drive, GitHub, Slack, Notion, Salesforce, Snowflake. Look here when Claude needs secure access to a live system.</p>
+        </section>
+
+        <!-- Plugin Marketplace -->
+        <section class="smaller">
+          <h2>Plugin Marketplace</h2>
+          <p>Where you find packaged solutions that combine multiple Claude capabilities</p>
+          <img src="assets/screenshots/03_claude_plugins.png" alt="Plugin marketplace screenshot" />
+          <p class="subtitle">Typical entries: role-based packs for sales, finance, engineering, legal, or support. Look here when you want a reusable workflow built from skills, agents, and tools.</p>
+        </section>
+      </section>
+
+      <!-- Report Generation Pipeline -->
+      <section>
+
+        <section class="small">
+          <h2>What are we building</h2>
+          <p>We are building a First Meeting Generator</p>
+          <ol>
+            <li><strong>Assumed Capability Baseline</strong> &mdash; knwon / inferrred capabilities so we dont pitch implemented topics.</li>
+            <li><strong>Strategic Hypothesis</strong> &mdash; based on their and competitions market position we suggest cofirmable IT strategies.</li>
+            <li><strong>Questions to Asks</strong> &mdash; questions to validate the IT strategic hypothesis.</li>
+            <li><strong>Stratgic Imprepulses</strong> &mdash; specific offerings of our comppany to support the customer with strategies.</li>
+            <li><strong>PoC Suggestions</strong> &mdash; clear PoCs with determinable Business Value based on our Strategic Impulses.</li>
+          </ol>
+        </section>
+
+        <section class="small">
+          <h2>Report in Claude Cowork</h2>
+          <img src="assets/screenshots/04_claude_report.png" alt="Report outline screenshot" />
+        </section>
+
+        <section class="small">
+          <h2>Our First Skill</h2>
+          <h3>Customer Intelligence</h3>
+          <pre><code class="md">
+---
+name: customer-intel
+description: Run the full customer intelligence pipeline for a company. Generates strategic impulses, POCs, and meeting prep from company research.
+disable-model-invocation: true
+allowed-tools: Agent(company-profiler, market-researcher, tech-challenger, business-challenger) Read Write Bash WebSearch
+---
+
+# Customer Intelligence Pipeline
+
+(...)
+
+## Pipeline Stages
+
+### Phase 1: Company Profiling
+1. Check if `output/{domain}/master-data.json` exists (cache check — skip if present)
+2. If not cached, spawn **company-profiler** agent for the customer domain and name
+3. Verify `output/{domain}/master-data.json` and `output/{domain}/assessment.json` exist
+</code></pre>
+
+        </section>
+
+        <section class="smaller">
+          <h2>The Pipeline from the Skill</h2>
+          <p class="subtitle">Six phases from company domain to red-team-reviewed meeting pack</p>
+
+          <ul>
+            <li>
+              <strong>1 — Company Profiling.</strong>
+              Master data, financials &amp; IT assessment, and recent news for the target company, every fact grounded in a source URL.
+            </li>
+            <li>
+              <strong>2 — Competitive Landscape.</strong>
+              Identify 8–12 scale-matched competitors in the same industry and geographies, then profile each one in parallel.
+            </li>
+            <li>
+              <strong>3 — Market Intelligence.</strong>
+              Market analysis for the customer plus per-competitor market and head-to-head competition analyses (strengths, weaknesses, strategic implications).
+            </li>
+            <li>
+              <strong>4 — Strategic Synthesis.</strong>
+              Business-driven IT strategies across strength amplification, weakness compensation and new-niche differentiation — every strategy tied to an evidence ID, no vendor pitch.
+            </li>
+            <li>
+              <strong>5 — Sales Enablement.</strong>
+              Optional service matching against a vendor catalog, then a five-phase meeting prep: capability baseline, draft impulses, IS&nbsp;→&nbsp;TO&nbsp;BE research, POCs, novelty scoring &amp; sharpening.
+            </li>
+            <li>
+              <strong>6 — Report &amp; Red-Team Review.</strong>
+              Consolidated Markdown report plus parallel tech- and business-challenger reviews; findings are applied back into the report before it ships.
+            </li>
+          </ul>
+
+          <aside class="notes">
+            Each stage caches its output as JSON under <code>output/{domain}/</code>, so re-runs are incremental.
+            Skills: <code>/profile-company</code>, <code>/discover-competitors</code>, <code>/analyze-market</code>,
+            <code>/generate-strategies</code>, <code>/match-services</code>, <code>/prep-meeting</code>, <code>/review-report</code>
+            — or <code>/customer-intel</code> end-to-end.
+          </aside>
+        </section>
+
+        <!-- Used Skills -->
+        <section class="smaller">
+            <h2>Claude Cowork Skills</h2>
+            <ul>
+              <li><strong>customer-intel</strong> &mdash; Full pipeline orchestrator running phases 1-6: profiling, competitor discovery, market intelligence, strategy synthesis, service matching, and reviewed report
+          output</li>
+              <li><strong>profile-company</strong> &mdash; Generates company master data, business assessment, and recent news via a company-profiler agent</li>
+              <li><strong>discover-competitors</strong> &mdash; Finds 8-12 competitors via web search by industry, geography, and revenue scale, then profiles each in parallel</li>
+              <li><strong>analyze-market</strong> &mdash; Spawns market-researcher agents to produce market and competition analyses from existing data</li>
+              <li><strong>generate-strategies</strong> &mdash; Derives evidence-based IT strategies (strength amplification, weakness compensation, niche differentiation) using extended thinking</li>
+              <li><strong>match-services</strong> &mdash; Maps vendor catalog services to IT strategies with value contributions, engagement ideas, and gap analysis</li>
+              <li><strong>prep-meeting</strong> &mdash; 5-phase sales meeting prep producing strategic impulses and ranked POCs backed by web research</li>
+              <li><strong>review-report</strong> &mdash; Red-team quality gate spawning tech and business challengers to prioritize issues and apply keep/rewrite/remove actions</li>
+            </ul>
+        </section>
+
+        <section class="smaller">
+          <h2>Claude Cowork Agents</h2>
+          <ul>
+            <li><strong>company-profiler</strong> &mdash; Research agent that gathers master data, business assessment (revenue, employees, IT metrics, digital maturity), and up to 12 recent news items for a given
+        company via web search</li>
+            <li><strong>market-researcher</strong> &mdash; Analyzes market trends, demand patterns, and competitive positioning from news and assessment data; also produces competition analyses comparing customer vs.
+        competitor</li>
+            <li><strong>tech-challenger</strong> &mdash; Red-team reviewer that stress-tests technical correctness, architecture feasibility, data dependencies, governance gaps, and novelty of strategic
+        recommendations</li>
+            <li><strong>business-challenger</strong> &mdash; Red-team reviewer that challenges strategic relevance, customer specificity, stakeholder feasibility, value logic, and commercial differentiation of
+        recommendations</li>
+          </ul>
+        </section>
+
+        <section class="smaller">
+          <h2> Skill Details - Competition Generator - Part 1</h2>
+          <pre><code class="md">
+  ---
+  name: discover-competitors
+  description: Find 8-12 competitors for a company based on industry, market, and revenue scale
+  disable-model-invocation: true
+  allowed-tools: Agent(company-profiler) Read Write WebSearch
+  ---
+
+  # Discover Competitors
+
+  Find competitors for: **$ARGUMENTS**
+
+  Parse: `--domain domain`
+
+  ## Prerequisites
+  Read `output/{domain}/master-data.json` and `output/{domain}/assessment.json`. If they don't exist, tell the user to run `/profile-company` first.
+
+  ## Competition Discovery
+
+  Use web search to find competing companies. Definition of "competitor" (must satisfy ALL):
+  1. Operates in the same industry segments
+  2. Competes in the same geographic markets
+  3. Has comparable scale: revenue within ~0.5x to 2x of the customer
+  4. Must be an independent company or clearly identified business unit
+
+          </code></pre>             
+        </section>
+        <section class="smaller">
+          <h2> Skill Details - Competition Generator Part 2</h2>
+          <pre><code class="md">
+    Process:
+  1. Identify the customer's core segments, product lines, and main end-markets (use official sources first)
+  2. Identify revenue (most recent year); if private, use multiple estimates and show range
+  3. Search for competitors in those segments and markets. Prefer annual reports, investor decks, reputable industry publications, market reports. Avoid low-quality listicles.
+  4. Filter to 8-12 best matches
+  5. Provide evidence for each: 2-3 citations showing overlap in products/markets and approximate revenue
+
+  Important rules:
+  - Always include evidence of direct overlap (specific product lines or business segments)
+  - Avoid "same broad industry" matches — overlap must be specific
+  - If revenue is missing, provide estimate band with sources and lower confidence
+
+  Write `output/{domain}/competition.json`:
+  ```json
+  {
+    "customerLegalName": "...",
+    "customerDomain": "...",
+    "competition": [
+      { "competitionLegalName": "...", "competitionDomain": "..." }
+    ]
+  }
+
+  Profile Competitors
+
+  After writing competition.json, spawn company-profiler agents for each competitor — launch in PARALLEL where possible. Each profiles the competitor under output/{competitorDomain}/.
+          </code></pre>             
+        </section>
+      </section>
+
+      <section>
+          <section>
+            <h2>Demo Time</h2>
+            <p>Let's look at the skill and its execution in Claude Cowork</p>
+          </section>
+          <section>
+            <h2>Register the Plug-In</h2>
+            <img src="assets/screenshots/05_claude_register.png" alt="Registering the plugin screenshot" />
+          </section>
+          <section>
+            <h2>View the Plug-In</h2>
+            <img src="assets/screenshots/06_claude_agents.png" alt="Viewing the plugin screenshot" />
+          </section>
+          <section>
+            <h2>Doing the first call</h2>
+            <img src="assets/screenshots/07_claude_first_call.png" alt="First call screenshot" />
+          </section>
+          <section>
+            <h2>Following Up with a Skill</h2>
+            <img src="assets/screenshots/08_follow_up_agent.png" alt="Creating a follow-up agentI have " />
+          </section>
+      </section>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#00A0E3",
+        primaryTextColor: "#E6E9ED",
+        primaryBorderColor: "#00A0E3",
+        lineColor: "#8B949E",
+        secondaryColor: "#1a2332",
+        tertiaryColor: "#0D1117",
+        background: "#0D1117",
+        mainBkg: "#1a2332",
+        nodeBorder: "#00A0E3",
+        clusterBkg: "rgba(0,160,227,0.08)",
+        clusterBorder: "#00A0E3",
+        titleColor: "#E6E9ED",
+        edgeLabelBackground: "#0D1117",
+        nodeTextColor: "#E6E9ED"
+      },
+      flowchart: { htmlLabels: true, curve: "linear" },
+      fontSize: 14
+    });
+  </script>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/math/math.js"></script>
+  <script src="../../templates/plugins/qrcode.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode]
+    });
+  </script>
+</body>
+</html>
