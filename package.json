@@ -8,5 +8,8 @@
   },
   "dependencies": {
     "reveal.js": "^5.2.1"
+  },
+  "devDependencies": {
+    "decktape": "^3.16.1"
   }
 }

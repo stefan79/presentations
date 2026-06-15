@@ -13,15 +13,36 @@
       max-height: 65vh;
       max-width: 95%;
     }
+    .reveal {
+      position: relative;
+    }
+    .reveal::after {
+      content: '';
+      position: fixed;
+      bottom: 10px;
+      left: 10px;
+      width: 150px;
+      height: 50px;
+      background-image: url('../../templates/themes/epam-logo.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      opacity: 0.3;
+      z-index: 1000;
+    }
   </style>
 </head>
 <body>
   <div class="reveal">
     <div class="slides">
 
-      <section>
-        <h1>cowork-demo</h1>
-        <p>2026-04-14</p>
+      <section data-background-image="assets/screenshots/munich-cover.jpg" data-background-size="cover" data-background-position="center">
+        <div style="background: rgba(0,0,0,0.55); padding: 3rem; border-radius: 1rem; max-width: 900px;">
+          <h1 style="margin-bottom: 0.5rem; letter-spacing: 0.08em;">cowork-demo</h1>
+          <h3 style="margin-top: 0; color: #b3dfff;">NAICE2026</h3>
+          <p style="margin: 0.5rem 0 1.5rem; font-size: 1.2rem; color: #dcefff;">Showcasing customer intelligence and GenAI-powered workflow orchestration.</p>
+          <p style="margin: 0; font-size: 1.1rem; color: #ffffff;"><strong>Stefan Siprell</strong> — Director, Solution Architecture / Technology Consulting</p>
+          <p style="margin: 0.25rem 0 0; color: #a3c4ff;">April 15, 2026</p>
+        </div>
       </section>
 
       <!-- Introduction -->
@@ -82,11 +103,11 @@
         <h2>Customer Intelligence Agent</h2>
         <h3>Challenge</h3>
         <p>
-          As a solution architect I need to quickly help my sales colleague to prepare for a customer meeting. I am not a vertical specialist so I need to prepare for meetings in depth.
+          As a solution architect, I need to quickly help my sales colleague prepare for a customer meeting. I am not a vertical specialist, so I need to prepare for meetings in depth.
         </p>
         <h3>Solution</h3>
         <p>
-          I <strong>shift-left</strong> GenAI and build a reusable plug-in that me and my colleagues can use. I dont become the <strong>AI gatekeeper</strong>, but the <strongAI>AI enabler.</strongAI>.
+          I <strong>shift-left</strong> GenAI and build a reusable plugin that my colleagues and I can use. I don’t become the <strong>AI gatekeeper</strong>, but the <strong>AI enabler</strong>.
         </p>
       </section>
       </section>
@@ -146,39 +167,15 @@
           </table>
         </section>
 
-        <!-- Use cases -->
-        <section>
-          <h2>Where it earns its keep</h2>
-          <p>High-effort, repeatable knowledge work.</p>
+        <!-- Shift-left message -->
+        <section class="small">
+          <h2>Around Shift Left</h2>
+          <p>AI in modern life is not about personally generating one-off documents or artifacts. It’s about enabling colleagues to collaborate with tools and deliver repeatable capability.</p>
           <ul>
-            <li><strong>Research synthesis</strong> — folder of sources plus a question, returns a structured summary</li>
-            <li><strong>Report assembly</strong> — inputs plus template, returns a first draft</li>
-            <li><strong>File and data operations</strong> — organize, rename, extract from receipts into clean spreadsheets</li>
-            <li><strong>Recurring workflows</strong> — scheduled pulls, weekly digests, morning triage</li>
-          </ul>
-        </section>
-
-        <!-- Use cases -->
-        <section>
-          <h2>Where it earns its keep</h2>
-          <p>High-effort, repeatable knowledge work.</p>
-          <ul>
-            <li><strong>Research synthesis</strong> — folder of sources plus a question, returns a structured summary</li>
-            <li><strong>Report assembly</strong> — inputs plus template, returns a first draft</li>
-            <li><strong>File and data operations</strong> — organize, rename, extract from receipts into clean spreadsheets</li>
-            <li><strong>Recurring workflows</strong> — scheduled pulls, weekly digests, morning triage</li>
-          </ul>
-        </section>
-
-        <!-- Management takeaway -->
-        <section>
-          <h2>The management lens</h2>
-          <ul>
-            <li>Tedious work that used to get skipped now gets done</li>
-            <li>Decisions stay with the human; execution moves to the agent</li>
-            <li>No technical background required — built for non-developers</li>
-            <li>Scoped access: folders and connectors you explicitly grant</li>
-            <li>Same agent architecture as Claude Code, wrapped for knowledge work</li>
+            <li><strong>Enable colleagues</strong> — provide the agent and workflow, not a single generated output.</li>
+            <li><strong>Operationalize intelligence</strong> — make insights reusable, reviewable, and owned by the team.</li>
+            <li><strong>Keep the work in the system</strong> — use skills, agents, and connectors so the process is repeatable.</li>
+            <li><strong>Ship the agent</strong> — deliver the capability, not just the code or a document.</li>
           </ul>
         </section>
 
@@ -197,6 +194,7 @@
         <div data-qr="https://drive.google.com/drive/folders/19Nd1ExXg3Bi5q4pkAkVg-EegI7D6KOOf?usp=sharing"/>
       </section>
 
+      <section>
         <!-- Overview slide -->
         <section>
           <h2>Building Blocks</h2>
@@ -370,11 +368,11 @@
           <h2>What are we building</h2>
           <p>We are building a First Meeting Generator</p>
           <ol>
-            <li><strong>Assumed Capability Baseline</strong> &mdash; knwon / inferrred capabilities so we dont pitch implemented topics.</li>
-            <li><strong>Strategic Hypothesis</strong> &mdash; based on their and competitions market position we suggest cofirmable IT strategies.</li>
-            <li><strong>Questions to Asks</strong> &mdash; questions to validate the IT strategic hypothesis.</li>
-            <li><strong>Stratgic Imprepulses</strong> &mdash; specific offerings of our comppany to support the customer with strategies.</li>
-            <li><strong>PoC Suggestions</strong> &mdash; clear PoCs with determinable Business Value based on our Strategic Impulses.</li>
+            <li><strong>Assumed Capability Baseline</strong> &mdash; known / inferred capabilities so we don’t pitch implemented topics.</li>
+            <li><strong>Strategic Hypothesis</strong> &mdash; based on the customer’s and competitors’ market positions, we suggest confirmable IT strategies.</li>
+            <li><strong>Questions to Ask</strong> &mdash; questions to validate the IT strategic hypothesis.</li>
+            <li><strong>Strategic Impulses</strong> &mdash; specific offerings of our company to support the customer with strategies.</li>
+            <li><strong>PoC Suggestions</strong> &mdash; clear PoCs with determinable business value based on our strategic impulses.</li>
           </ol>
         </section>
 
@@ -557,8 +555,16 @@ allowed-tools: Agent(company-profiler, market-researcher, tech-challenger, busin
           </section>
           <section>
             <h2>Following Up with a Skill</h2>
-            <img src="assets/screenshots/08_follow_up_agent.png" alt="Creating a follow-up agentI have " />
+            <img src="assets/screenshots/08_follow_up_agent.png" alt="Following up with a skill screenshot" />
           </section>
+      </section>
+
+      <section data-background-image="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=1600&q=80" data-background-size="cover" data-background-position="center">
+        <div style="background: rgba(0,0,0,0.55); padding: 3rem; border-radius: 1rem; max-width: 900px;">
+          <h2 style="margin-bottom: 0.75rem;">Q&A</h2>
+          <p style="font-size: 1.2rem; color: #e8f7ff;">Questions, ideas, or follow-up thoughts?</p>
+          <p style="margin-top: 2rem; font-size: 1rem; color: #d1eaff;">Thanks for joining NAICE2026 — let’s keep the conversation going.</p>
+        </div>
       </section>
     </div>
   </div>
@@ -597,6 +603,7 @@ allowed-tools: Agent(company-profiler, market-researcher, tech-challenger, busin
   <script>
     Reveal.initialize({
       hash: true,
+      pdfSeparateFragments: false,
       plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode]
     });
   </script>

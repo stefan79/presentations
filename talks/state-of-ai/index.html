@@ -1,0 +1,933 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Current State of AI — Solution Architecture PoV</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
+  <style>
+    /* ── Slide-specific refinements ─────────── */
+    .reveal .mermaid svg {
+      max-height: 65vh;
+      max-width: 95%;
+    }
+
+    /* Cover progression arrow chain */
+    .progression {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+      margin: 1.5em 0 0;
+      font-size: 0.7em;
+      font-family: var(--r-heading-font);
+      font-weight: 600;
+    }
+    .progression .step {
+      padding: 0.4em 1em;
+      border-radius: 6px;
+      background: var(--epam-surface);
+      border: 1px solid var(--epam-border);
+      white-space: nowrap;
+    }
+    .progression .step.active {
+      background: linear-gradient(135deg, rgba(0, 160, 227, 0.2), rgba(0, 201, 167, 0.12));
+      border-color: var(--epam-blue);
+      color: #fff;
+    }
+    .progression .arrow {
+      color: var(--epam-subtle);
+      padding: 0 0.4em;
+      font-size: 1.1em;
+    }
+
+    /* 2x2 matrix */
+    .matrix-2x2 {
+      display: grid;
+      grid-template-columns: auto 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr;
+      gap: 0;
+      font-size: 0.65em;
+      text-align: left;
+      width: 90%;
+      margin: 0.5em auto;
+    }
+    .matrix-2x2 .corner { background: transparent; }
+    .matrix-2x2 .col-head,
+    .matrix-2x2 .row-head {
+      font-family: var(--r-heading-font);
+      font-weight: 600;
+      color: var(--epam-blue);
+      padding: 0.6em 0.8em;
+      display: flex;
+      align-items: center;
+    }
+    .matrix-2x2 .col-head { justify-content: center; border-bottom: 2px solid var(--epam-border); }
+    .matrix-2x2 .row-head { border-right: 2px solid var(--epam-border); }
+    .matrix-2x2 .cell {
+      padding: 0.8em 1em;
+      border: 1px solid var(--epam-border);
+      border-radius: 0;
+    }
+    .matrix-2x2 .cell.highlight {
+      background: linear-gradient(135deg, rgba(0, 160, 227, 0.12), rgba(0, 201, 167, 0.08));
+      border-color: rgba(0, 160, 227, 0.3);
+    }
+    .matrix-2x2 .cell.dim {
+      opacity: 0.5;
+    }
+
+    /* Architecture stack */
+    .arch-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      width: 92%;
+      margin: 0.5em auto;
+      font-size: 0.6em;
+    }
+    .arch-stack .layer {
+      display: grid;
+      grid-template-columns: 1fr 2fr 1.5fr;
+      gap: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--epam-border);
+    }
+    .arch-stack .layer.strategic {
+      border-color: rgba(0, 160, 227, 0.4);
+      box-shadow: 0 0 12px rgba(0, 160, 227, 0.08);
+    }
+    .arch-stack .layer-name {
+      padding: 0.6em 0.8em;
+      font-family: var(--r-heading-font);
+      font-weight: 600;
+      color: #fff;
+      background: rgba(0, 160, 227, 0.1);
+      display: flex;
+      align-items: center;
+    }
+    .arch-stack .layer.strategic .layer-name {
+      background: rgba(0, 160, 227, 0.2);
+      color: var(--epam-blue);
+    }
+    .arch-stack .layer-desc {
+      padding: 0.6em 0.8em;
+      background: var(--epam-surface);
+      display: flex;
+      align-items: center;
+    }
+    .arch-stack .layer-concern {
+      padding: 0.6em 0.8em;
+      background: var(--epam-surface);
+      color: var(--epam-subtle);
+      display: flex;
+      align-items: center;
+      border-left: 1px solid var(--epam-border);
+      font-style: italic;
+    }
+
+    /* Flywheel */
+    .flywheel {
+      position: relative;
+      width: 500px;
+      height: 280px;
+      margin: 0.3em auto;
+    }
+    .flywheel .fw-center {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(0, 160, 227, 0.15), rgba(0, 201, 167, 0.1));
+      border: 2px solid var(--epam-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-family: var(--r-heading-font);
+      font-weight: 700;
+      font-size: 0.55em;
+      color: #fff;
+    }
+    .flywheel .fw-node {
+      position: absolute;
+      width: 115px;
+      padding: 0.35em 0.5em;
+      background: var(--epam-surface);
+      border: 1px solid var(--epam-border);
+      border-radius: 8px;
+      text-align: center;
+      font-size: 0.48em;
+      font-weight: 500;
+      color: var(--r-main-color);
+    }
+    .flywheel .fw-node.gate {
+      border-color: var(--epam-accent);
+      color: var(--epam-accent);
+      font-size: 0.42em;
+    }
+    .flywheel .fw-node.missing {
+      border-color: rgba(227, 80, 0, 0.5);
+      color: #E35000;
+      border-style: dashed;
+    }
+
+    /* Roadmap table overrides */
+    .roadmap-table {
+      font-size: 0.42em;
+      line-height: 1.35;
+    }
+    .roadmap-table th {
+      white-space: nowrap;
+      font-size: 0.95em;
+    }
+    .roadmap-table td:first-child {
+      font-family: var(--r-heading-font);
+      font-weight: 600;
+      color: var(--epam-blue);
+      white-space: nowrap;
+      min-width: 140px;
+    }
+    .roadmap-table td {
+      vertical-align: top;
+      font-size: 0.95em;
+    }
+
+    /* Model portfolio stack */
+    .model-stack {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 3px;
+      margin: 0.8em auto;
+      height: 180px;
+      width: 80%;
+    }
+    .model-stack .tier {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: center;
+      border-radius: 6px 6px 0 0;
+      padding: 0.6em 0.4em;
+      font-size: 0.5em;
+      font-weight: 500;
+      position: relative;
+    }
+    .model-stack .tier .tier-label {
+      font-family: var(--r-heading-font);
+      font-weight: 700;
+      margin-bottom: 0.3em;
+      color: #fff;
+    }
+    .model-stack .tier .tier-desc {
+      color: var(--epam-subtle);
+      font-size: 0.85em;
+    }
+    .model-stack .t1 { height: 100%; background: linear-gradient(180deg, rgba(0,160,227,0.05), rgba(0,160,227,0.15)); border: 1px solid rgba(0,160,227,0.2); }
+    .model-stack .t2 { height: 70%; background: linear-gradient(180deg, rgba(0,160,227,0.08), rgba(0,160,227,0.2)); border: 1px solid rgba(0,160,227,0.25); }
+    .model-stack .t3 { height: 45%; background: linear-gradient(180deg, rgba(0,160,227,0.12), rgba(0,160,227,0.28)); border: 1px solid rgba(0,160,227,0.35); }
+    .model-stack .t4 { height: 25%; background: linear-gradient(180deg, rgba(0,201,167,0.15), rgba(0,201,167,0.35)); border: 1px solid rgba(0,201,167,0.4); }
+
+    /* Cat slide */
+    .cat-container {
+      position: relative;
+      display: inline-block;
+    }
+    .cat-container img {
+      border-radius: 16px;
+      border: 2px solid var(--epam-border);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════════════════════════ SLIDE 1 — COVER ═══════════════════════════════════════ -->
+      <section>
+        <h1 style="font-size: 1.8em; margin-bottom: 0.15em;">Current State of AI</h1>
+        <h3 style="color: var(--epam-blue); font-weight: 400; margin-top: 0; letter-spacing: 0;">Solution Architecture Point of View</h3>
+        <p style="color: var(--epam-subtle); font-size: 0.65em; margin: 0.8em 0 0;">From AI experiments to governed, measurable, context-rich AI</p>
+
+        <div class="progression" style="margin-top: 2em;">
+          <span class="step">PoC</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step">Governed Capability</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step active">Industrial Scale</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step">Bounded Autonomy</span>
+        </div>
+
+        <p style="margin: 2em 0 0; font-size: 0.6em; color: #fff;"><strong>Stefan Siprell</strong> &mdash; Director, Solution Architecture / Technology Consulting</p>
+        <p style="margin: 0.2em 0 0; color: var(--epam-subtle); font-size: 0.55em;">April 2026</p>
+
+        <aside class="notes">
+          Set the tone immediately: this is not a generic "AI is powerful" presentation. It is a Solution Architecture view on what breaks when companies try to scale AI. The progression visual anchors the entire narrative arc.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 2 — EXECUTIVE THESIS ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>AI crossed the usefulness threshold.<br>Enterprises have not crossed the control threshold.</h2>
+
+        <table style="width: 95%; margin-top: 0.6em; font-size: 0.75em;">
+          <thead>
+            <tr><th>What works today</th><th>What breaks at scale</th><th>Architecture response</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>GenAI, coding agents, MCP tools, copilots, skills, PoCs</td>
+              <td>Governance, traceability, determinism, integration, cost, ownership</td>
+              <td>Control plane, cards, semantic layer, evaluation, AI FinOps</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <ul class="compact" style="margin-top: 0.6em; font-size: 0.75em;">
+          <li class="fragment fade-up">Tooling is ahead of the operating model</li>
+          <li class="fragment fade-up">Customers merge GenAI, agentic use cases, MCP, skills, platforms &mdash; without lifecycle governance</li>
+          <li class="fragment fade-up">The missing layer is not another framework &mdash; it is <strong>lifecycle governance</strong> and <strong>measurable execution</strong></li>
+          <li class="fragment fade-up">Governance must be baked into agents, not attached after rollout</li>
+        </ul>
+
+        <aside class="notes">
+          Say: "The models are good enough to create value, but the operating model is not good enough to scale that value safely. Most customers are moving from PoC directly to platform thinking, but without governance, measurement, or cost discipline."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 3 — WORKSTREAMS OVERVIEW ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>Six workstreams for industrial AI</h2>
+
+        <div class="card-grid cols-3" style="margin-top: 0.5em; font-size: 0.65em; gap: 14px;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">1</span> Agentic Platform &amp; Governance</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Control plane, cards, lifecycle, policy, evaluation, observability, HITL, cost controls</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">2</span> Skills &amp; Capability Governance</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Skill inventory, evaluation, ownership, reuse tracking, governed enterprise capabilities</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">3</span> Brownfield &amp; Modernization</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Knowledge recovery, spec-driven execution, traceability, evidence-backed transformation</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">4</span> Semantic Layer &amp; Evidence Graph</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Governed context substrate, traceability, precise retrieval, cost reduction through specificity</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">5</span> AI FinOps &amp; Model Portfolio</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Cost visibility, model tiering, spend limits, cost-per-outcome economics</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;"><span class="badge" style="font-size: 0.75em; margin-right: 0.3em;">6</span> Adoption Beyond Engineering</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Manager co-working, role-specific playbooks, delegation, review, governance literacy</p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Introduce the six workstreams early so the audience has a mental map. Each subsequent slide dives into one or two of these. The workstreams are not sequential &mdash; they run in parallel and reinforce each other.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 4 — INDUSTRIALIZATION PROBLEM ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>Most agentic rollouts fail structurally, not technically</h2>
+
+        <div class="card-grid cols-5" style="margin-top: 0.5em; font-size: 0.55em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.4em;">Role-Emulating Agents</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Digital copies of human roles instead of redesigned delegation patterns</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.4em;">Governance as Afterthought</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Acceptable in PoCs, fatal at scale</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.4em;">Data Layer in Parallel</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Data lakes are not enough for agentic context</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.4em;">Premature Platform</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Expensive target architectures before real use cases teach requirements</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.4em;">Premature Technology</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Framework debates before strategy, IP, and governance questions</p>
+          </div>
+        </div>
+
+        <div class="callout fragment fade-up" style="margin-top: 0.8em; text-align: center; font-size: 0.75em;">
+          <strong>MCP standardized interoperability, not governance.</strong>
+        </div>
+
+        <aside class="notes">
+          Emphasize that these patterns are seen in customer work. Customers are not failing because they cannot build a demo. They are failing because they cannot answer who owns the agent, what it can do, how it is evaluated, what it costs, and what evidence it leaves.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 5 — TARGET ARCHITECTURE ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>The target architecture: control plane, runtime governance, semantic layer</h2>
+
+        <div class="arch-stack" style="margin-top: 0.6em;">
+          <div class="layer fragment fade-up">
+            <div class="layer-name">Experience</div>
+            <div class="layer-desc">Chat, IDE, portal, voice, email, workflow, API</div>
+            <div class="layer-concern">Meet users where they work</div>
+          </div>
+          <div class="layer strategic fragment fade-up">
+            <div class="layer-name">Control Plane</div>
+            <div class="layer-desc">Cards, lifecycle, policy, HITL, evaluation, telemetry, cost, identity</div>
+            <div class="layer-concern">Make governance executable</div>
+          </div>
+          <div class="layer fragment fade-up">
+            <div class="layer-name">Agent Runtime</div>
+            <div class="layer-desc">Skills, MCP tools, coding agents, multi-agent flows</div>
+            <div class="layer-concern">Run capabilities safely</div>
+          </div>
+          <div class="layer strategic fragment fade-up">
+            <div class="layer-name">Semantic Layer</div>
+            <div class="layer-desc">Business concepts, code facts, specs, tickets, SME feedback, traces</div>
+            <div class="layer-concern">Governed context &amp; traceability</div>
+          </div>
+          <div class="layer fragment fade-up">
+            <div class="layer-name">Systems of Record</div>
+            <div class="layer-desc">Git, Jira, CI/CD, CRM, ERP, legacy systems, data platforms</div>
+            <div class="layer-concern">Connect AI to enterprise reality</div>
+          </div>
+        </div>
+
+        <p class="fragment fade-up" style="text-align: center; margin-top: 0.6em; font-size: 0.7em; color: var(--epam-subtle);">
+          The market over-focuses on the runtime. Architectural leverage sits in the <strong style="color: var(--epam-blue);">control plane</strong> and <strong style="color: var(--epam-blue);">semantic layer</strong>.
+        </p>
+
+        <aside class="notes">
+          Say: "The market over-focuses on the runtime. But the architectural leverage sits in the control plane and semantic layer. The runtime runs agents; the control plane makes them governable; the semantic layer makes them specific, auditable, and cheaper to operate."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 6 — AGENTIC PLATFORM & GOVERNANCE ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>Agentic Platform &amp; Governance <span class="badge">Workstream 1</span></h2>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1.3;">
+            <table style="font-size: 0.8em; width: 100%;">
+              <thead><tr><th>Primitive</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr class="fragment fade-up"><td><strong>Skill Card</strong></td><td>What a skill does, reads/writes, owner, evaluation</td></tr>
+                <tr class="fragment fade-up"><td><strong>Tool Card</strong></td><td>Governance object for MCP tools and integrations</td></tr>
+                <tr class="fragment fade-up"><td><strong>Agent Card</strong></td><td>Purpose, boundaries, authority, evaluations, KPIs, policies</td></tr>
+                <tr class="fragment fade-up"><td><strong>Control Plane</strong></td><td>Lifecycle, evaluation, policy, observability, HITL, cost</td></tr>
+                <tr class="fragment fade-up"><td><strong>Semantic Layer</strong></td><td>Runtime context, evidence, feedback, traces, business rules</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="flex: 0.7;">
+            <h4 style="margin-bottom: 0.3em; font-size: 0.8em;">Build-out sequence</h4>
+            <ol class="compact" style="font-size: 0.72em; margin-left: 1.2em;">
+              <li class="fragment fade-up">Skills under observation</li>
+              <li class="fragment fade-up">MCP legitimized within BUs</li>
+              <li class="fragment fade-up">Agents as BU-crossing coordination</li>
+              <li class="fragment fade-up">Standing decisions / goal-oriented agents</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="callout fragment fade-up" style="margin-top: 0.5em; font-size: 0.7em; text-align: center;">
+          Governance is not a committee. In industrial agentic systems, <strong>governance is a runtime property</strong>.
+        </div>
+
+        <aside class="notes">
+          Say: "Governance is not a committee and not a document. In industrial agentic systems, governance is a runtime property. If there is no valid card, no evaluation, no owner, no trace, and no budget boundary, the capability should not be promoted."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 7 — AGENTIC SUITABILITY & TCO ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>Agentic Suitability &amp; TCO <span class="badge teal">Workstream 1</span></h2>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1.1;">
+            <div class="matrix-2x2" style="font-size: 0.95em;">
+              <div class="corner"></div>
+              <div class="col-head">Low decision effort</div>
+              <div class="col-head">High decision effort</div>
+              <div class="row-head" style="white-space: nowrap;">High volume</div>
+              <div class="cell"><span style="font-size: 0.9em;">Rule-based automation, scripts, RPA</span></div>
+              <div class="cell highlight"><strong style="font-size: 0.9em;">Strong candidate for agentic delegation</strong></div>
+              <div class="row-head" style="white-space: nowrap;">Low volume</div>
+              <div class="cell dim"><span style="font-size: 0.9em;">Do not automate</span></div>
+              <div class="cell"><span style="font-size: 0.9em;">Only if risk or value is high</span></div>
+            </div>
+          </div>
+          <div style="flex: 0.9;">
+            <ul class="compact" style="font-size: 0.68em;">
+              <li class="fragment fade-up">High volume + low complexity &rarr; deterministic automation</li>
+              <li class="fragment fade-up">Agentic value strongest where <strong>frequency meets judgment</strong></li>
+              <li class="fragment fade-up">Autonomy increases TCO; validate suitability against cost &amp; governance</li>
+            </ul>
+            <div class="callout warning fragment fade-up" style="width: 100%; margin-top: 0.5em; font-size: 0.68em; text-align: center;">
+              <strong>Don't over-agentify.</strong> If the task is deterministic, use deterministic automation.
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "This is where many customers over-agentify. They see high volume and immediately reach for agents. But if the task is deterministic, use deterministic automation. Agentic value is strongest when decision effort and variability make rules brittle."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 8 — SKILLS & CAPABILITY GOVERNANCE ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>Skills &amp; Capability Governance <span class="badge">Workstream 2</span></h2>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1;">
+            <h4 style="font-size: 0.85em; margin-bottom: 0.3em;">Skills are sticky notes in the wild</h4>
+            <ul class="compact fragment fade-up" style="font-size: 0.75em;">
+              <li>Teams and individuals create skills locally &mdash; fast, useful, <strong>ungoverned</strong></li>
+              <li>No inventory: nobody knows how many skills exist, what they do, or who owns them</li>
+              <li>No evaluation: skills are used but <strong>never measured for quality, cost, or drift</strong></li>
+              <li>No reuse tracking: the same capability is reinvented across teams</li>
+              <li>Skills become <strong>shadow IT capabilities</strong> &mdash; powerful but invisible to the organization</li>
+            </ul>
+
+            <div class="callout warning fragment fade-up" style="width: 100%; margin-top: 0.5em; font-size: 0.7em;">
+              <strong>Without evaluation, there is no long-term benefit.</strong> Skills that are never measured cannot improve, compound, or be trusted at scale.
+            </div>
+          </div>
+          <div style="flex: 0.9;">
+            <h4 class="fragment fade-up" style="font-size: 0.85em; margin-bottom: 0.3em;">The governance gap</h4>
+            <div class="card-grid cols-1 fragment fade-up" style="font-size: 0.68em; gap: 8px;">
+              <div class="card accent-top" style="padding: 10px 14px;">
+                <strong>Invisible proliferation</strong> &mdash; skills multiply without central visibility, creating ungoverned enterprise IT capabilities
+              </div>
+              <div class="card accent-top" style="padding: 10px 14px;">
+                <strong>No quality signal</strong> &mdash; without evaluation, bad skills survive as long as good ones
+              </div>
+              <div class="card accent-top" style="padding: 10px 14px;">
+                <strong>No ownership</strong> &mdash; when the creator leaves, the skill becomes orphaned but still runs
+              </div>
+              <div class="card accent-top" style="padding: 10px 14px;">
+                <strong>No cost attribution</strong> &mdash; token spend is invisible and unmanaged per skill
+              </div>
+            </div>
+
+            <p class="fragment fade-up subtitle" style="font-size: 0.65em; margin-top: 0.5em; text-align: center;">
+              From unmanaged skill usage &rarr; governed skills library
+            </p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "Skills are the new shadow IT. Teams create them because they are useful, but without inventory, evaluation, and ownership, they become ungoverned enterprise capabilities. The next architecture problem is turning skills from local productivity boosters into evaluated, reusable assets. Without evaluation, there is no compounding benefit &mdash; just growing risk."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 9 — BROWNFIELD & MODERNIZATION ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>Brownfield &amp; Modernization <span class="badge">Workstream 3</span></h2>
+
+        <blockquote class="fragment fade-up" style="font-size: 0.78em; margin-top: 0.4em;">
+          The problem is not the target technology. The problem is <strong>recovering business logic</strong> from legacy systems and preserving it through transformation.
+        </blockquote>
+
+        <div class="columns" style="margin-top: 0.5em;">
+          <div style="flex: 0.8;">
+            <div class="callout warning fragment fade-up" style="width: 100%; font-size: 0.68em;">
+              <h4 style="margin: 0 0 0.3em; font-size: 1em;">Current reality</h4>
+              <ul class="compact" style="font-size: 0.9em; margin-left: 0.8em;">
+                <li>Mixed results across teams</li>
+                <li>No repeatable approach yet</li>
+                <li>Many successes are senior experts doing bespoke work</li>
+                <li><strong>Heroic seniors are not a factory</strong></li>
+              </ul>
+            </div>
+          </div>
+          <div style="flex: 1.2;">
+            <h4 class="fragment fade-up" style="font-size: 0.8em; margin-bottom: 0.3em;">Playbook response</h4>
+            <div class="timeline fragment fade-up" style="font-size: 0.65em;">
+              <div>
+                <h4>Analyze</h4>
+                <p style="margin: 0; color: var(--epam-subtle);">Knowledge base, dependency map, risk classification, behavioral baseline</p>
+              </div>
+              <div>
+                <h4>Plan</h4>
+                <p style="margin: 0; color: var(--epam-subtle);">Target architecture, migration strategy, execution roadmap</p>
+              </div>
+              <div>
+                <h4>Execute</h4>
+                <p style="margin: 0; color: var(--epam-subtle);">Specs, generated code, tests, validation evidence, review feedback</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "Modernization is the strongest test case for industrial AI because it exposes the hardest problem: tacit knowledge. If we can recover, validate, and preserve legacy knowledge, we can make modernization repeatable instead of relying on a few seniors."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 10 — SPEC-DRIVEN EXECUTION ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>Spec-driven execution loop <span class="badge teal">Workstream 3</span></h2>
+
+        <div class="columns" style="margin-top: 0.2em;">
+          <div style="flex: 1.1;">
+            <div class="flywheel fragment fade-up">
+              <div class="fw-center">Knowledge<br>Base</div>
+              <div class="fw-node" style="top: 5px; left: 190px;">Source Evidence</div>
+              <div class="fw-node" style="top: 50px; right: 10px;">Specification</div>
+              <div class="fw-node" style="bottom: 50px; right: 10px;">Generated Artifact</div>
+              <div class="fw-node" style="bottom: 5px; left: 190px;">Automated Validation</div>
+              <div class="fw-node" style="bottom: 50px; left: 10px;">Deploy / Archive</div>
+              <div class="fw-node" style="top: 50px; left: 10px;">Feedback into KB</div>
+              <div class="fw-node gate" style="top: 130px; right: -5px;">Human Review Gate</div>
+              <div class="fw-node gate" style="bottom: 130px; left: -5px;">Human Review Gate</div>
+              <div class="fw-node missing" style="bottom: -5px; left: 30px; width: 140px;">Spec Review Loop</div>
+            </div>
+          </div>
+          <div style="flex: 0.9;">
+            <h4 style="font-size: 0.8em; margin-bottom: 0.3em;">Traceability chain</h4>
+            <p style="margin: 0 0 0.5em; font-family: var(--r-code-font); font-size: 0.7em; color: var(--epam-blue);">Source &rarr; KB &rarr; Spec &rarr; Code &rarr; Test &rarr; Deploy</p>
+
+            <div class="callout warning fragment fade-up" style="width: 100%; font-size: 0.72em;">
+              <h4 style="margin: 0 0 0.2em; font-size: 0.95em;">The missing feedback loop</h4>
+              <p style="margin: 0; font-size: 0.88em; color: var(--epam-subtle);">Most projects have no systematic process to <strong>create, review, and improve specs</strong>. Specifications are written once and never revisited. This is where the senior hero pattern comes from &mdash; only experienced architects intuitively close this loop.</p>
+            </div>
+
+            <p class="fragment fade-up" style="margin-top: 0.5em; font-size: 0.68em; color: var(--epam-subtle);">
+              Every generated artifact must carry receipts: what evidence was consumed, what model produced it, what gate accepted it, and what feedback was captured.
+            </p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "Traceability and determinism in AI-supported SDLC are not solved properly in the industry. But the deeper problem is the missing spec feedback loop. Most projects write specs once and move on. The senior hero pattern exists precisely because experienced architects close this loop intuitively &mdash; they revise specs based on what they learn during execution. Making this loop explicit and systematic is how we replace heroics with a repeatable process."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 11 — SEMANTIC LAYER ═══════════════════════════════════════ -->
+      <section class="smaller">
+        <h2>Semantic Layer &amp; Evidence Graph <span class="badge">Workstream 4</span></h2>
+
+        <blockquote class="fragment fade-up" style="font-size: 0.75em; margin-top: 0.2em;">
+          The semantic layer is not a data lake, not GraphRAG, and not a BI semantic model. It is the <strong>governed context substrate for AI</strong>.
+        </blockquote>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1;">
+            <h4 class="fragment fade-up" style="font-size: 0.78em; margin-bottom: 0.2em;">Example: an SDLC evidence graph captures</h4>
+            <div class="card-grid cols-2 fragment fade-up" style="font-size: 0.68em; gap: 6px;">
+              <div class="card" style="padding: 8px 12px;"><strong>Code facts</strong> &amp; business rules</div>
+              <div class="card" style="padding: 8px 12px;"><strong>Requirements</strong> &amp; specifications</div>
+              <div class="card" style="padding: 8px 12px;"><strong>Tickets, SOPs</strong> &amp; operational evidence</div>
+              <div class="card" style="padding: 8px 12px;"><strong>SME feedback</strong> &amp; human corrections</div>
+              <div class="card" style="padding: 8px 12px;"><strong>Agent traces</strong> &amp; tool outputs</div>
+              <div class="card" style="padding: 8px 12px;"><strong>Validation</strong> &amp; review decisions</div>
+            </div>
+            <p class="fragment fade-up subtitle" style="font-size: 0.6em; margin-top: 0.4em;">This is one domain graph. The same pattern applies to sales, operations, compliance, and any governed AI workflow.</p>
+          </div>
+          <div style="flex: 1;">
+            <h4 class="fragment fade-up" style="font-size: 0.78em; margin-bottom: 0.2em;">Why build the semantic layer</h4>
+            <div class="card-grid cols-1 fragment fade-up" style="font-size: 0.68em; gap: 6px;">
+              <div class="card accent-teal" style="padding: 10px 14px;">
+                <strong>Quality:</strong> Precise context produces better artifacts. Less hallucination, more grounded outputs, easier to validate.
+              </div>
+              <div class="card accent-teal" style="padding: 10px 14px;">
+                <strong>Traceability:</strong> Every AI output links back to evidence. Auditable, explainable, governable.
+              </div>
+              <div class="card accent-teal" style="padding: 10px 14px;">
+                <strong>Cost reduction:</strong> Smaller, specific prompts mean fewer tokens. Route to cheaper models when context is strong. Cache reusable context.
+              </div>
+              <div class="card accent-teal" style="padding: 10px 14px;">
+                <strong>Compounding value:</strong> Every correction, review, and feedback enriches the graph. AI gets better over time, not just faster.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "The semantic layer is both the quality layer and the cost layer. If context is precise, prompts are smaller, retrieval is better, generated artifacts are easier to validate, and we can route more work to smaller or cheaper models. The SDLC graph is just one example &mdash; the same pattern applies to any domain where AI needs governed, traceable context."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 12 — AI FINOPS & MODEL PORTFOLIO ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>AI FinOps &amp; Model Portfolio <span class="badge">Workstream 5</span></h2>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1;">
+            <table style="font-size: 0.7em; width: 100%;">
+              <thead><tr><th>Cost context</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr class="fragment fade-up"><td><strong>~$40&ndash;50/dev/day</strong></td><td>Workshop mode: heavy refactoring, no optimization</td></tr>
+                <tr class="fragment fade-up"><td><strong>~$6 avg / $12 p90</strong></td><td>Industry benchmark expectation (comparison, not target)</td></tr>
+              </tbody>
+            </table>
+
+            <ul class="compact fragment fade-up" style="font-size: 0.65em; margin-top: 0.5em;">
+              <li>Being more efficient is <strong>not automatically bottom-line value</strong></li>
+              <li>The stronger case: retire technical debt for <strong>bounded cost</strong></li>
+              <li>&ldquo;Kill a decade-old backlog for $250k&rdquo; is a business decision</li>
+            </ul>
+          </div>
+          <div style="flex: 1;">
+            <div class="model-stack fragment fade-up">
+              <div class="tier t1">
+                <span class="tier-label">Encoders</span>
+                <span class="tier-desc">Classification, retrieval, routing</span>
+              </div>
+              <div class="tier t2">
+                <span class="tier-label">Small</span>
+                <span class="tier-desc">Templated generation, formatting</span>
+              </div>
+              <div class="tier t3">
+                <span class="tier-label">Mid-tier</span>
+                <span class="tier-desc">Complex generation, analysis</span>
+              </div>
+              <div class="tier t4">
+                <span class="tier-label">Frontier</span>
+                <span class="tier-desc">High-uncertainty reasoning</span>
+              </div>
+            </div>
+            <p class="fragment fade-up" style="text-align: center; font-size: 0.6em; color: var(--epam-subtle); margin-top: 0.3em;">
+              Frontier models should be <strong style="color: var(--epam-accent);">scarce resources</strong>, not default infrastructure.
+            </p>
+          </div>
+        </div>
+
+        <aside class="notes">
+          Say: "Today many people are not worried enough about cost because governance is the immediate blocker. My assumption is that once governance is tackled, broad adoption will be hampered by unrestricted access to frontier models. The semantic layer and model portfolio are how we avoid that."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 13 — ADOPTION BEYOND ENGINEERING ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>Adoption Beyond Engineering <span class="badge">Workstream 6</span></h2>
+
+        <div class="columns" style="margin-top: 0.3em;">
+          <div style="flex: 1;">
+            <div class="card accent-teal fragment fade-up" style="font-size: 0.72em;">
+              <h4 style="font-size: 1em; margin-bottom: 0.3em; color: var(--epam-accent);">Claude Cowork for Managers</h4>
+              <ul class="compact" style="font-size: 0.9em; margin-left: 0.8em;">
+                <li>Workshop for non-technical users: very well received</li>
+                <li>High-leverage adoption path</li>
+                <li>AI cannot remain developer-only</li>
+                <li>Managers need to <strong>delegate, review, govern, and supervise</strong> AI-supported work</li>
+              </ul>
+            </div>
+          </div>
+          <div style="flex: 1.2;">
+            <table class="fragment fade-up" style="font-size: 0.68em; width: 100%;">
+              <thead><tr><th>Role group</th><th>Focus</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Managers</strong></td><td>Delegation, review, supervision, KPI interpretation</td></tr>
+                <tr><td><strong>Business Analysts</strong></td><td>Better requirements, spec quality, business-IT alignment</td></tr>
+                <tr><td><strong>Architects</strong></td><td>Traceability, target architecture, governance, modernization</td></tr>
+                <tr><td><strong>QA</strong></td><td>AI-assisted test generation, validation, review gates</td></tr>
+                <tr><td><strong>Operations</strong></td><td>Incident support, remediation, workflow automation</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="progression fragment fade-up" style="margin-top: 1em; font-size: 0.6em;">
+          <span class="step">Developer-only adoption</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step active">Organizational AI co-working</span>
+        </div>
+
+        <aside class="notes">
+          Say: "The manager workshop matters because broad AI adoption depends on non-technical leaders understanding how to work with AI output. They do not need to become prompt engineers. They need to understand delegation, traceability, review, governance, and when not to trust an output."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 14 — ROADMAP ═══════════════════════════════════════ -->
+      <section class="tiny">
+        <h2 style="font-size: 1.8em;">Roadmap: visibility &rarr; repeatability &rarr; scale &rarr; autonomy</h2>
+
+        <table class="roadmap-table" style="margin-top: 0.4em; width: 98%;">
+          <thead>
+            <tr>
+              <th>Workstream</th>
+              <th>6 months</th>
+              <th>1 year</th>
+              <th>2 years</th>
+              <th>Future</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Agentic Platform</td>
+              <td>Inventory skills, tools, MCPs, agents. Introduce Cards. Measure governed vs ungoverned.</td>
+              <td>BU-level MCP registries, evaluation, observability, HITL, ownership, cost tracking.</td>
+              <td>Enterprise control plane: lifecycle, policy, model routing, telemetry, auditability, cost.</td>
+              <td>Goal-oriented agents inside governed semantic boundaries.</td>
+            </tr>
+            <tr>
+              <td>2. Skills &amp; Capabilities</td>
+              <td>Baseline work profiles. Seed skills library from hackathon artifacts.</td>
+              <td>Reusable evaluated skills, ownership, regression checks, coding-agent governance.</td>
+              <td>L3 guided execution: agents generate PRs, specs, tests; humans approve risky steps.</td>
+              <td>Bounded L4 / AI-native delivery for safe domains.</td>
+            </tr>
+            <tr>
+              <td>3. Brownfield &amp; Modernization</td>
+              <td>Select 1&ndash;2 pilots. Build first KB from code, DBs, tickets, SOPs, SME validation.</td>
+              <td>Run source &rarr; KB &rarr; spec &rarr; artifact &rarr; validation &rarr; review loop. Prove repeatability.</td>
+              <td>Modernization factory: reusable agents, evidence graph, sequencing, portfolio metrics.</td>
+              <td>Debt retirement as portfolio capability, not heroic work.</td>
+            </tr>
+            <tr>
+              <td>4. Semantic Layer</td>
+              <td>Define evidence model. Connect initial tool graphs. Capture feedback &amp; traces.</td>
+              <td>Use for retrieval, prompt grounding, spec generation, validation, traceability. Introduce encoders.</td>
+              <td>Shared enterprise AI context substrate with provenance, drift, policy-aware retrieval.</td>
+              <td>Business-realtime semantic layer. Agents query &amp; write through governed paths.</td>
+            </tr>
+            <tr>
+              <td>5. AI FinOps</td>
+              <td>Make cost visible. Track cost per work profile.</td>
+              <td>Spend limits, model tiering, prompt optimization, caching, cost per artifact.</td>
+              <td>Portfolio economics: per accepted PR, migrated module, retired vulnerability.</td>
+              <td>Frontier models as scarce resources; encoders carry the volume.</td>
+            </tr>
+            <tr>
+              <td>6. Adoption</td>
+              <td>Productize Cowork for managers. Teach delegation, review, governance literacy.</td>
+              <td>Role-specific playbooks for BAs, architects, QA, product, operations.</td>
+              <td>AI-enabled operating model: leaders supervise via KPIs, cards, traces, gates.</td>
+              <td>Digital workforce supervision: humans maintain intent &amp; policies.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <aside class="notes">
+          Say: "The mistake would be to jump from successful workshops to broad AI rollout. The right sequence is visibility, then governed repeatability, then industrial scale, and only then bounded autonomy."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 15 — LEADERSHIP DECISIONS ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2 style="font-size: 1.25em;">Three leadership decisions</h2>
+
+        <div class="card-grid cols-3" style="margin-top: 0.6em; font-size: 0.65em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em;">Fund governance primitives</h4>
+            <p style="margin: 0.3em 0 0; color: var(--epam-subtle); font-size: 0.9em;">Cards, registries, control plane MVP, evaluation, observability, HITL, cost telemetry</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em;">Fund semantic layer &amp; modernization</h4>
+            <p style="margin: 0.3em 0 0; color: var(--epam-subtle); font-size: 0.9em;">Evidence graph, spec-driven loop, feedback capture, validation, traceability</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em;">Fund role-based adoption</h4>
+            <p style="margin: 0.3em 0 0; color: var(--epam-subtle); font-size: 0.9em;">AI-SDLC baselines, manager coworking, role playbooks, cost-per-outcome dashboards</p>
+          </div>
+        </div>
+
+        <div class="progression fragment fade-up" style="margin-top: 0.8em; font-size: 0.6em;">
+          <span class="step">Visibility</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step">Governed Repeatability</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step">Industrial Scale</span>
+          <span class="arrow">&rarr;</span>
+          <span class="step active">Bounded Autonomy</span>
+        </div>
+
+        <blockquote class="fragment fade-up" style="margin-top: 0.6em; font-size: 0.72em; text-align: center; font-style: normal;">
+          <strong>The winners will not be the companies with the most AI access.<br>They will be the companies with the best governed AI operating model.</strong>
+        </blockquote>
+
+        <aside class="notes">
+          End by contrasting "carpet rollout of frontier models" with a governed architecture. This keeps the close aligned with the Solution Architecture point of view.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 16 — REALITY CHECK & CLOSER ═══════════════════════════════════════ -->
+      <section class="small">
+        <h2>What we actually see in the market</h2>
+
+        <div class="card-grid cols-2" style="margin-top: 0.5em; font-size: 0.68em; gap: 14px;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;">Technology push, not business pull</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Most companies are head over heels scrambling to build AI platforms. We see a common lack of business pull &mdash; teams build because they can, not because a business outcome demands it.</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;">AI cost is severely underappreciated</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Workshop costs feel invisible today. Once adoption scales beyond engineering, unrestricted frontier-model access will hit budget walls nobody is planning for.</p>
+          </div>
+          <div class="card accent-top fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;">No semantic layer understanding</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Very few organizations recognize the semantic layer as the strategic asset it is. Most conflate it with data lakes or RAG &mdash; missing the governance, traceability, and cost benefits.</p>
+          </div>
+          <div class="card accent-teal fragment fade-up">
+            <h4 style="font-size: 1em; margin-bottom: 0.3em;">This will change fast</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">OpenAI Frontier and Claude Cowork / Claude Code are making agentic AI accessible to non-engineers. When managers and business users adopt AI co-working, the demand for governance, cost control, and semantic context will become urgent &mdash; not optional.</p>
+          </div>
+        </div>
+
+        <div class="callout fragment fade-up" style="margin-top: 0.6em; font-size: 0.72em; text-align: center;">
+          <strong>The question is not whether your organization will need governed AI. It is whether you will be ready when adoption outpaces your operating model.</strong>
+        </div>
+
+        <aside class="notes">
+          Say: "Right now most companies are building AI platforms because they feel they should, not because a business outcome pulled them there. Cost is invisible, the semantic layer is unknown, and governance is an afterthought. But OpenAI Frontier and Claude Cowork are about to put agentic AI into the hands of managers and business users. When that happens, the demand for everything we discussed today &mdash; governance, cost control, semantic context &mdash; will become urgent overnight."
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════════════════ SLIDE 17 — THANK YOU CAT ═══════════════════════════════════════ -->
+      <section>
+        <h2 style="margin-bottom: 0.4em;">Thank you!</h2>
+
+        <div class="cat-container">
+          <img src="assets/cat-questions.png" alt="A cat asking for questions" style="max-height: 45vh;" />
+        </div>
+
+        <p style="margin-top: 0.8em; font-size: 0.65em; color: #fff;"><strong>Stefan Siprell</strong> &mdash; Director, Solution Architecture / Technology Consulting</p>
+        <p style="margin: 0.3em 0 0; font-size: 0.55em; color: var(--epam-subtle);">The cat has spoken. Now it's your turn.</p>
+
+        <aside class="notes">
+          Keep it light. The cat slide is a palate cleanser after a dense 20-minute talk. Open for Q&amp;A.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/math/math.js"></script>
+  <script src="../../templates/plugins/qrcode.js"></script>
+  <script src="../../templates/plugins/mermaid-init.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: true,
+      transition: 'fade',
+      transitionSpeed: 'default',
+      plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode, RevealMermaid]
+    });
+  </script>
+</body>
+</html>

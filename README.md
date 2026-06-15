@@ -14,6 +14,7 @@ npm install
 make new NAME=my-talk                    # create a presentation
 make serve NAME=my-talk                  # serve + open in browser
 make build NAME=my-talk                  # export self-contained copy
+make pdf NAME=my-talk                    # export to PDF via Chrome
 make build-all                           # export all presentations
 make list                                # list all talks
 make clean                               # remove build output
@@ -51,6 +52,10 @@ make new NAME=my-talk THEME=epam
 - **`minimal`** — core reveal.js only, no plugins
 
 Templates are used only at creation time. After `make new`, each talk is independent and can be edited freely.
+
+## Exporting to PDF
+
+`make pdf NAME=my-talk` uses reveal.js's built-in print stylesheet and headless Chrome to export a PDF to `build/my-talk.pdf`. Requires Google Chrome installed.
 
 ## Building for distribution
 

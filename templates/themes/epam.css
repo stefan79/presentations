@@ -1,12 +1,18 @@
 /**
- * EPAM theme for reveal.js
+ * EPAM theme for reveal.js — v2 modernized
  *
  * Brand colors based on EPAM's visual identity:
  *   Primary blue:  #00A0E3
  *   Dark navy:     #0D1117
  *   Light gray:    #E6E9ED
+ *   Accent teal:   #00C9A7
+ *   Subtle gray:   #8B949E
  */
 
+/* ── Google Fonts ─────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ── Light background override ────────────── */
 section.has-light-background,
 section.has-light-background h1,
 section.has-light-background h2,
@@ -17,17 +23,18 @@ section.has-light-background h6 {
   color: #0D1117;
 }
 
+/* ── Custom properties ────────────────────── */
 :root {
   --r-background-color: #0D1117;
-  --r-main-font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --r-main-font: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --r-main-font-size: 42px;
-  --r-main-color: #E6E9ED;
+  --r-main-color: #C9D1D9;
   --r-block-margin: 20px;
   --r-heading-margin: 0 0 20px 0;
-  --r-heading-font: "Inter", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --r-heading-font: "Outfit", "Helvetica Neue", Helvetica, Arial, sans-serif;
   --r-heading-color: #FFFFFF;
-  --r-heading-line-height: 1.2;
-  --r-heading-letter-spacing: -0.02em;
+  --r-heading-line-height: 1.15;
+  --r-heading-letter-spacing: -0.03em;
   --r-heading-text-transform: none;
   --r-heading-text-shadow: none;
   --r-heading-font-weight: 700;
@@ -50,18 +57,49 @@ section.has-light-background h6 {
   --epam-dark: #0D1117;
   --epam-accent: #00C9A7;
   --epam-subtle: #8B949E;
+  --epam-surface: #161B22;
+  --epam-border: rgba(139, 148, 158, 0.15);
+  --epam-glow: rgba(0, 160, 227, 0.12);
 }
 
+/* ── Keyframes ────────────────────────────── */
+@keyframes epam-accent-draw {
+  from { width: 0; opacity: 0; }
+  to   { width: 72px; opacity: 1; }
+}
+
+@keyframes epam-fade-up {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes epam-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes epam-shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* ── Viewport & background ────────────────── */
 .reveal-viewport {
-  background: #0D1117;
+  background: var(--r-background-color);
+  background-image:
+    radial-gradient(ellipse 80% 60% at 20% 100%, rgba(0, 160, 227, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 50% at 85% 10%, rgba(0, 201, 167, 0.04) 0%, transparent 70%);
   background-color: var(--r-background-color);
 }
 
+/* ── Base typography ──────────────────────── */
 .reveal {
   font-family: var(--r-main-font);
   font-size: var(--r-main-font-size);
-  font-weight: normal;
+  font-weight: 400;
   color: var(--r-main-color);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .reveal ::selection {
@@ -78,7 +116,7 @@ section.has-light-background h6 {
 
 .reveal .slides section,
 .reveal .slides section > section {
-  line-height: 1.3;
+  line-height: 1.5;
   font-weight: inherit;
 }
 
@@ -102,10 +140,10 @@ section.has-light-background h6 {
   word-wrap: break-word;
 }
 
-.reveal h1 { font-size: var(--r-heading1-size); }
-.reveal h2 { font-size: var(--r-heading2-size); }
-.reveal h3 { font-size: var(--r-heading3-size); }
-.reveal h4 { font-size: var(--r-heading4-size); }
+.reveal h1 { font-size: var(--r-heading1-size); font-weight: 800; }
+.reveal h2 { font-size: var(--r-heading2-size); font-weight: 700; }
+.reveal h3 { font-size: var(--r-heading3-size); font-weight: 600; letter-spacing: -0.01em; }
+.reveal h4 { font-size: var(--r-heading4-size); font-weight: 500; }
 
 .reveal h1 {
   text-shadow: var(--r-heading1-text-shadow);
@@ -115,15 +153,16 @@ section.has-light-background h6 {
  * EPAM BRANDING
  *********************************************/
 
-/* Accent bar under h1 */
+/* Accent bar under h1 — animated draw-in */
 .reveal h1::after {
   content: "";
   display: block;
-  width: 80px;
-  height: 4px;
-  background: var(--epam-blue);
-  margin: 16px auto 0;
+  width: 72px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--epam-blue), var(--epam-accent));
+  margin: 18px auto 0;
   border-radius: 2px;
+  animation: epam-accent-draw 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.3s both;
 }
 
 /* Left-aligned slides get left-aligned bar */
@@ -137,10 +176,16 @@ section.has-light-background h6 {
   color: var(--epam-blue);
 }
 
+/* h3 in a lighter weight for contrast hierarchy */
+.reveal h3 {
+  color: rgba(255, 255, 255, 0.85);
+}
+
 /* Muted small text */
 .reveal small,
 .reveal .subtitle {
   color: var(--epam-subtle);
+  font-weight: 400;
 }
 
 /*********************************************
@@ -148,7 +193,7 @@ section.has-light-background h6 {
  *********************************************/
 .reveal p {
   margin: var(--r-block-margin) 0;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
 .reveal h1:last-child,
@@ -169,7 +214,8 @@ section.has-light-background h6 {
 
 .reveal strong,
 .reveal b {
-  font-weight: bold;
+  font-weight: 600;
+  color: #E6E9ED;
 }
 
 .reveal em {
@@ -185,9 +231,34 @@ section.has-light-background h6 {
 }
 
 .reveal ol { list-style-type: decimal; }
-.reveal ul { list-style-type: disc; }
-.reveal ul ul { list-style-type: square; }
-.reveal ul ul ul { list-style-type: circle; }
+.reveal ul { list-style-type: none; }
+.reveal ul ul { list-style-type: none; }
+.reveal ul ul ul { list-style-type: none; }
+
+/* Custom bullet styling */
+.reveal ul > li {
+  padding-left: 0.2em;
+  position: relative;
+}
+
+.reveal ul > li::marker {
+  color: var(--epam-blue);
+  content: "\25B8\0020";
+}
+
+.reveal ul ul > li::marker {
+  color: var(--epam-accent);
+  content: "\2013\0020";
+}
+
+.reveal ul ul ul > li::marker {
+  color: var(--epam-subtle);
+  content: "\00B7\0020";
+}
+
+.reveal li {
+  margin-bottom: 0.35em;
+}
 
 .reveal ul ul,
 .reveal ul ol,
@@ -200,17 +271,21 @@ section.has-light-background h6 {
 .reveal dt { font-weight: bold; }
 .reveal dd { margin-left: 40px; }
 
+/* ── Blockquotes ──────────────────────────── */
 .reveal blockquote {
   display: block;
   position: relative;
-  width: 70%;
+  width: 80%;
   margin: var(--r-block-margin) auto;
-  padding: 16px 24px;
+  padding: 24px 32px;
   font-style: italic;
-  background: rgba(0, 160, 227, 0.08);
-  border-left: 4px solid var(--epam-blue);
-  box-shadow: none;
-  border-radius: 0 4px 4px 0;
+  font-size: 0.95em;
+  color: #E6E9ED;
+  background: linear-gradient(135deg, rgba(0, 160, 227, 0.08) 0%, rgba(0, 201, 167, 0.04) 100%);
+  border-left: 3px solid var(--epam-blue);
+  border-radius: 0 8px 8px 0;
+  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(4px);
 }
 
 .reveal blockquote p:first-child,
@@ -220,6 +295,7 @@ section.has-light-background h6 {
 
 .reveal q { font-style: italic; }
 
+/* ── Code blocks ──────────────────────────── */
 .reveal pre {
   display: block;
   position: relative;
@@ -228,10 +304,12 @@ section.has-light-background h6 {
   text-align: left;
   font-size: 0.55em;
   font-family: var(--r-code-font);
-  line-height: 1.2em;
+  line-height: 1.45;
   word-wrap: break-word;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-  border-radius: 6px;
+  border: 1px solid var(--epam-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.03);
+  background: var(--epam-surface);
 }
 
 .reveal code {
@@ -240,31 +318,49 @@ section.has-light-background h6 {
   tab-size: 2;
 }
 
+/* Inline code */
+.reveal p code,
+.reveal li code,
+.reveal td code {
+  background: rgba(0, 160, 227, 0.1);
+  border: 1px solid rgba(0, 160, 227, 0.15);
+  border-radius: 4px;
+  padding: 0.1em 0.35em;
+  font-size: 0.85em;
+  color: var(--epam-blue);
+}
+
 .reveal pre code {
   display: block;
-  padding: 12px 16px;
+  padding: 16px 20px;
   overflow: auto;
   max-height: 400px;
   word-wrap: normal;
-  border-radius: 6px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
 }
 
 .reveal .code-wrapper { white-space: normal; }
 .reveal .code-wrapper code { white-space: pre; }
 
+/* ── Tables ───────────────────────────────── */
 .reveal table {
   margin: auto;
-  border-collapse: collapse;
+  border-collapse: separate;
   border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--epam-border);
 }
 
-.reveal table th { font-weight: bold; }
+.reveal table th { font-weight: 600; }
 
 .reveal table th,
 .reveal table td {
   text-align: left;
-  padding: 0.2em 0.5em 0.2em 0.5em;
-  border-bottom: 1px solid rgba(230, 233, 237, 0.2);
+  padding: 0.5em 0.8em;
+  border-bottom: 1px solid var(--epam-border);
 }
 
 .reveal table th[align=center],
@@ -277,7 +373,20 @@ section.has-light-background h6 {
 .reveal table tbody tr:last-child td { border-bottom: none; }
 
 .reveal table thead th {
+  background: rgba(0, 160, 227, 0.08);
   border-bottom: 2px solid var(--epam-blue);
+  color: #fff;
+  font-family: var(--r-heading-font);
+  font-size: 0.9em;
+  letter-spacing: 0.01em;
+}
+
+.reveal table tbody tr {
+  transition: background 0.2s ease;
+}
+
+.reveal table tbody tr:hover {
+  background: rgba(0, 160, 227, 0.04);
 }
 
 .reveal sup { vertical-align: super; font-size: smaller; }
@@ -299,12 +408,12 @@ section.has-light-background h6 {
 .reveal a {
   color: var(--r-link-color);
   text-decoration: none;
-  transition: color 0.15s ease;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
 }
 
 .reveal a:hover {
   color: var(--r-link-color-hover);
-  text-shadow: none;
+  text-shadow: 0 0 12px rgba(0, 160, 227, 0.3);
   border: none;
 }
 
@@ -317,22 +426,44 @@ section.has-light-background h6 {
  * Frame helper
  *********************************************/
 .reveal .r-frame {
-  border: 4px solid var(--r-main-color);
+  border: 2px solid rgba(230, 233, 237, 0.2);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
 }
 
-.reveal a .r-frame { transition: all 0.15s linear; }
+.reveal a .r-frame { transition: all 0.2s ease; }
 
 .reveal a:hover .r-frame {
   border-color: var(--r-link-color);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 0 20px rgba(0, 160, 227, 0.3);
+}
+
+/*********************************************
+ * FRAGMENT ANIMATIONS
+ *********************************************/
+.reveal .slides section .fragment {
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal .slides section .fragment.visible {
+  animation: epam-fade-up 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal .slides section .fragment.fade-up {
+  transform: translateY(24px);
+  opacity: 0;
+}
+
+.reveal .slides section .fragment.fade-up.visible {
+  transform: translateY(0);
+  opacity: 1;
 }
 
 /*********************************************
  * LAYOUT UTILITIES
  *********************************************/
 
-/* Two-column layout: wrap content in <div class="columns"> */
+/* Two-column layout */
 .reveal .columns {
   display: flex;
   gap: 40px;
@@ -351,6 +482,17 @@ section.has-light-background h6 {
 }
 
 .reveal .columns-3 > * {
+  flex: 1;
+}
+
+/* Four columns */
+.reveal .columns-4 {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.reveal .columns-4 > * {
   flex: 1;
 }
 
@@ -376,6 +518,273 @@ section.has-light-background h6 {
 }
 
 /*********************************************
+ * CARD COMPONENT
+ *********************************************/
+.reveal .card {
+  background: var(--epam-surface);
+  border: 1px solid var(--epam-border);
+  border-radius: 12px;
+  padding: 24px 28px;
+  text-align: left;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.reveal .card:hover {
+  border-color: rgba(0, 160, 227, 0.3);
+  box-shadow: 0 4px 20px rgba(0, 160, 227, 0.08);
+}
+
+.reveal .card h3,
+.reveal .card h4 {
+  margin-top: 0;
+  margin-bottom: 12px;
+}
+
+/* Card with top accent line */
+.reveal .card.accent-top {
+  border-top: 2px solid var(--epam-blue);
+}
+
+.reveal .card.accent-teal {
+  border-top: 2px solid var(--epam-accent);
+}
+
+/* Cards grid */
+.reveal .card-grid {
+  display: grid;
+  gap: 20px;
+  text-align: left;
+}
+
+.reveal .card-grid.cols-2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.reveal .card-grid.cols-3 {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.reveal .card-grid.cols-4 {
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.reveal .card-grid.cols-5 {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+/*********************************************
+ * STAT CALLOUT
+ *********************************************/
+.reveal .stat {
+  text-align: center;
+  padding: 16px;
+}
+
+.reveal .stat .stat-value {
+  font-family: var(--r-heading-font);
+  font-size: 2.4em;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--epam-blue), var(--epam-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.reveal .stat .stat-label {
+  font-size: 0.65em;
+  color: var(--epam-subtle);
+  margin-top: 6px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/*********************************************
+ * CALLOUT / HIGHLIGHT BOX
+ *********************************************/
+.reveal .callout {
+  background: linear-gradient(135deg, rgba(0, 160, 227, 0.1) 0%, rgba(0, 201, 167, 0.06) 100%);
+  border: 1px solid rgba(0, 160, 227, 0.2);
+  border-radius: 10px;
+  padding: 20px 28px;
+  margin: var(--r-block-margin) auto;
+  width: 85%;
+  text-align: left;
+  font-size: 0.9em;
+}
+
+.reveal .callout.warning {
+  background: linear-gradient(135deg, rgba(227, 160, 0, 0.1) 0%, rgba(227, 80, 0, 0.06) 100%);
+  border-color: rgba(227, 160, 0, 0.25);
+}
+
+.reveal .callout.warning strong {
+  color: #E3A000;
+}
+
+/*********************************************
+ * BADGE / TAG
+ *********************************************/
+.reveal .badge {
+  display: inline-block;
+  font-size: 0.55em;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 20px;
+  background: rgba(0, 160, 227, 0.15);
+  color: var(--epam-blue);
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+}
+
+.reveal .badge.teal {
+  background: rgba(0, 201, 167, 0.15);
+  color: var(--epam-accent);
+}
+
+.reveal .badge.subtle {
+  background: rgba(139, 148, 158, 0.15);
+  color: var(--epam-subtle);
+}
+
+/*********************************************
+ * TIMELINE / ROADMAP HELPER
+ *********************************************/
+.reveal .timeline {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+  text-align: left;
+  position: relative;
+}
+
+.reveal .timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--epam-blue), var(--epam-accent));
+  border-radius: 2px;
+}
+
+.reveal .timeline > * {
+  flex: 1;
+  padding: 20px 16px 0;
+  border-left: 1px solid var(--epam-border);
+}
+
+.reveal .timeline > *:first-child {
+  border-left: none;
+}
+
+.reveal .timeline h4 {
+  color: var(--epam-blue);
+  font-size: 0.85em;
+  margin-bottom: 8px;
+}
+
+/*********************************************
+ * DIVIDER
+ *********************************************/
+.reveal hr {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--epam-border), transparent);
+  margin: 1.5em auto;
+  width: 60%;
+}
+
+/*********************************************
+ * ICON GRID (emoji or SVG icons)
+ *********************************************/
+.reveal .icon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  text-align: center;
+}
+
+.reveal .icon-grid .icon-item {
+  padding: 20px 16px;
+}
+
+.reveal .icon-grid .icon-item .icon {
+  font-size: 2em;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.reveal .icon-grid .icon-item .icon-label {
+  font-size: 0.7em;
+  color: var(--epam-subtle);
+  font-weight: 500;
+}
+
+/*********************************************
+ * SECTION DIVIDER SLIDE
+ *********************************************/
+.reveal .slides section.section-divider {
+  text-align: left;
+  padding-left: 8%;
+}
+
+.reveal .slides section.section-divider h2 {
+  font-size: 2em;
+  margin-bottom: 0.3em;
+}
+
+.reveal .slides section.section-divider h2::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--epam-blue), var(--epam-accent));
+  margin-top: 16px;
+  border-radius: 2px;
+}
+
+.reveal .slides section.section-divider p {
+  color: var(--epam-subtle);
+  font-size: 0.9em;
+  max-width: 600px;
+}
+
+/*********************************************
+ * COVER SLIDE OVERLAY
+ *********************************************/
+.reveal .cover-overlay {
+  background: linear-gradient(135deg, rgba(13, 17, 23, 0.88) 0%, rgba(13, 17, 23, 0.72) 100%);
+  backdrop-filter: blur(8px) saturate(1.2);
+  padding: 3rem;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 160, 227, 0.1);
+  max-width: 900px;
+}
+
+/*********************************************
+ * EPAM LOGO WATERMARK
+ *********************************************/
+.reveal::after {
+  content: '';
+  position: fixed;
+  bottom: 14px;
+  left: 14px;
+  width: 120px;
+  height: 40px;
+  background-image: url('../../templates/themes/epam-logo.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.18;
+  z-index: 1000;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+/*********************************************
  * NAVIGATION CONTROLS
  *********************************************/
 .reveal .controls {
@@ -386,8 +795,34 @@ section.has-light-background h6 {
  * PROGRESS BAR
  *********************************************/
 .reveal .progress {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
   color: var(--r-link-color);
+  height: 3px;
+}
+
+.reveal .progress span {
+  background: linear-gradient(90deg, var(--epam-blue), var(--epam-accent));
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/*********************************************
+ * SLIDE NUMBER
+ *********************************************/
+.reveal .slide-number {
+  font-family: var(--r-heading-font);
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--epam-subtle);
+  background: none;
+  opacity: 0.6;
+}
+
+/*********************************************
+ * SLIDE TRANSITIONS
+ *********************************************/
+.reveal .slides > section,
+.reveal .slides > section > section {
+  transition: all 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /*********************************************
@@ -396,5 +831,9 @@ section.has-light-background h6 {
 @media print {
   .backgrounds {
     background-color: var(--r-background-color);
+  }
+
+  .reveal::after {
+    display: none;
   }
 }

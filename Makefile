@@ -11,7 +11,7 @@ else
   THEME_LINK := <link rel="stylesheet" href="../../node_modules/reveal.js/dist/theme/$(THEME).css">
 endif
 
-.PHONY: new serve build build-all list clean help
+.PHONY: new serve build build-all pdf list clean help
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
@@ -42,6 +42,18 @@ endif
 list: ## List all presentations
 	@echo "Presentations:"
 	@ls -1 talks/ 2>/dev/null || echo "  (none yet — run make new NAME=my-talk)"
+
+pdf: ## Export presentation to PDF (NAME= required, PORT=8000)
+ifndef NAME
+	$(error NAME is required. Usage: make pdf NAME=my-talk [PORT=8000])
+endif
+	@mkdir -p build
+	@echo "Starting server and exporting PDF..."
+	@python3 -m http.server $(PORT) &>/dev/null & SERVER_PID=$$!; \
+	sleep 1; \
+	npx decktape reveal "http://localhost:$(PORT)/talks/$(NAME)/" build/$(NAME).pdf; \
+	kill $$SERVER_PID 2>/dev/null; \
+	echo "Exported build/$(NAME).pdf"
 
 build: ## Build a self-contained copy (NAME= required)
 ifndef NAME
