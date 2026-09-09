@@ -1,0 +1,508 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MQ &amp; SAS Replacement via the Dark Factory</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
+  <style>
+    /* Deck-wide density: shrink the canvas typography so dense slides fit 960×700 */
+    :root { --r-main-font-size: 33px; --r-block-margin: 12px; }
+    .reveal .slides section { padding: 10px 8px; }
+    .reveal h2 { font-size: 1.2em; margin-bottom: 10px; }
+    .reveal section p { line-height: 1.35; }
+    .reveal .mermaid svg { max-height: 44vh; width: auto; }
+    .reveal section.diagram { padding: 6px 8px; }
+    .reveal section.diagram > h2 { font-size: 1.0em; margin-bottom: 0.2em; }
+    .reveal .lede { color: var(--epam-subtle); font-size: 0.72em; max-width: 900px; margin: 0.1em auto 0.3em; line-height: 1.3; }
+    /* traffic-light status pills */
+    .reveal .tl { display:inline-block; width:0.7em; height:0.7em; border-radius:50%; margin-right:0.35em; vertical-align:middle; }
+    .reveal .tl.built { background:#00C9A7; }
+    .reveal .tl.partial { background:#E3A000; }
+    .reveal .tl.build { background:#E35050; }
+    /* dense reference tables */
+    .reveal table.ref { font-size: 0.5em; }
+    .reveal table.ref th, .reveal table.ref td { padding: 0.35em 0.55em; }
+    .reveal .ourip { background: rgba(0,201,167,0.14); color:#E6E9ED; }
+    .reveal .keep { color: var(--epam-accent); font-weight:600; }
+    .reveal .oracle { color: var(--epam-subtle); text-decoration: line-through; }
+    .reveal .engine-band {
+      margin-top: 0.5em; border:1px solid rgba(0,160,227,0.3); border-radius:10px;
+      background: linear-gradient(135deg, rgba(0,160,227,0.10), rgba(0,201,167,0.05));
+      padding: 12px 20px; font-size:0.62em; text-align:center;
+    }
+    .reveal .appendix-tag { color: var(--epam-subtle); font-size:0.5em; letter-spacing:0.12em; text-transform:uppercase; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════════════ COVER ═══════════════════════════ -->
+      <section data-background-image="assets/cover.png" data-background-size="cover" data-background-position="center" class="cover" style="padding:0;">
+        <div style="width:100%; margin-top: 505px; background: linear-gradient(0deg, rgba(13,17,23,0.95) 0%, rgba(13,17,23,0.82) 60%, rgba(13,17,23,0) 100%); padding: 46px 6% 18px;">
+          <h1 style="font-size: 1.15em; margin: 0;">Replacing IBM&nbsp;MQ and SAS with the Dark&nbsp;Factory</h1>
+          <p style="font-size: 0.62em; color: var(--epam-blue); font-weight: 600; letter-spacing: 0.02em; margin: 0.5em 0 0;">reconstruct &middot; generate &middot; prove</p>
+          <p style="font-size: 0.5em; color: #fff; margin: 0.9em 0 0;"><strong>Stefan Siprell</strong></p>
+        </div>
+        <aside class="notes">
+          Lead with S1 + S2. The MQ questions come on S5/S6 (protocol compatibility, fallback); the SAS ones on S7 (translation coverage). Have the wire-protocol IP/licence answer ready — it is the first probe from a technical senior. Never say "mathematical guarantee"; say "differential proof to X% semantic coverage".
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S1 — GOVERNING THOUGHT ═══════════════════════════ -->
+      <section class="small">
+        <h2>The estate is the specification</h2>
+        <p style="font-size:0.8em; margin:0.2em 0 0.4em;">Both COTS exits fail the same way by hand: <strong>discovery by interview, migration per application, testing by opinion</strong>. The Dark Factory treats the running estate as an executable spec &mdash; <span class="kb-key">reconstruct</span> what is really used, <span class="kb-key">generate</span> the replacement, <span class="kb-key">prove</span> equivalence against the old system. What gets replaced differs; the method does not.</p>
+        <table style="font-size:0.6em; width:100%;">
+          <thead>
+            <tr><th></th><th>What we reconstruct</th><th>What we generate</th><th>What we keep from the old world</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>MQ</strong><br><span style="color:var(--epam-subtle);">~3.8k apps · ~1.1k queues</span></td>
+              <td>Semantic bins from client code + queue-manager config + traffic</td>
+              <td>A wire-compatible server per bin on a modern broker</td>
+              <td><span class="keep">Clients unchanged.</span> Native migration only where cheap; IBM MQ retained where semantics or economics demand</td>
+            </tr>
+            <tr>
+              <td><strong>SAS</strong><br><span style="color:var(--epam-subtle);">~2.8k programs · 186 reports</span></td>
+              <td>Lineage slice per report from programs, jobs, metadata, usage</td>
+              <td>The whole chain regenerated &mdash; BigQuery, Dataform, Composer, Looker</td>
+              <td><span class="oracle">SAS</span> &mdash; kept only as the execution oracle during parallel run, then retired</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="engine-band fragment fade-up">
+          <strong>Shared engine:</strong> static analysis → AST graph (JavaLens lineage) → runtime evidence → generated target → differential proof &nbsp;·&nbsp; one platform, two front ends.
+          <br><span style="color:var(--epam-subtle);">MQ is a <strong>compatibility</strong> problem (protocol facade). SAS is a <strong>re-implementation</strong> problem (behaviour recovery). Same pipeline, different synthesis stage.</span>
+        </div>
+        <p class="fragment fade-up" style="font-size:0.62em; color:var(--epam-blue); margin-top:0.4em;">Economics: migration speed is the cost driver &mdash; every month of dual running is licence + new platform. The factory compresses that window.</p>
+        <aside class="notes">
+          The governing thought. Make the asymmetry explicit and honest: for MQ the clients stay, for SAS everything is regenerated and SAS survives only as an oracle. The single line of business framing is the economics line at the bottom.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S2 — SHARED ENGINE ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>The shared engine &mdash; from source to proof</h2>
+        <p class="lede">Every capability already exists in JavaLens form. The factory generalises it and adds runtime evidence, generation, and differential testing.</p>
+        <pre class="mermaid">
+flowchart LR
+    D["<b>1 · Discover</b><br/><span style='font-size:11px'>source · bytecode/deps<br/>server config · logs/telemetry</span>"]
+    U["<b>2 · Understand</b><br/><span style='font-size:11px'>slicing + constant propagation<br/>resolve params reaching the API call</span>"]
+    C["<b>3 · Classify</b><br/><span style='font-size:11px'>flow → semantic bin<br/>static × runtime → req/dormant/absent</span>"]
+    S["<b>4 · Synthesize</b><br/><span style='font-size:11px'>compat-server + backend (MQ)<br/>BigQuery/Dataform/Looker (SAS)</span>"]
+    P["<b>5 · Prove</b><br/><span style='font-size:11px'>tests from observed scenarios<br/>same client vs mock &amp; real → compare</span>"]
+    D --> U --> C --> S --> P
+        </pre>
+        <div class="smaller" style="display:flex; gap:1.2em; justify-content:center; margin-top:0.3em; font-size:0.5em;">
+          <span><span class="tl built"></span><strong>Built</strong> (JavaLens)</span>
+          <span><span class="tl partial"></span><strong>Partial</strong></span>
+          <span><span class="tl build"></span><strong>To build</strong></span>
+        </div>
+        <table class="ref" style="width:96%; margin-top:0.4em;">
+          <thead><tr><th>Stage</th><th>JavaLens status</th><th>Gap to build</th></tr></thead>
+          <tbody>
+            <tr><td>Discover</td><td><span class="tl built"></span>Java source → AST graph, call edges</td><td>MQ config ingestion; COBOL/PL-I front end; SAS parser</td></tr>
+            <tr><td>Understand</td><td><span class="tl partial"></span>Call graph yes</td><td>Dataflow to resolve completed parameters (queue, persistence, syncpoint, get options, wait)</td></tr>
+            <tr><td>Classify</td><td><span class="tl build"></span>&mdash;</td><td>Bin taxonomy + evidence weighting</td></tr>
+            <tr><td>Synthesize</td><td><span class="tl build"></span>&mdash;</td><td>Generators (compat config / backend topology / BQ DDL / LookML)</td></tr>
+            <tr><td>Prove</td><td><span class="tl build"></span>&mdash;</td><td>Harness, mock, tolerance rules</td></tr>
+          </tbody>
+        </table>
+        <aside class="notes">
+          Name JavaLens explicitly and offer the demo. The point: this is not greenfield — the AST-to-graph, slicing and call resolution are done; what we add is runtime evidence, generation and differential testing.
+        </aside>
+      </section>
+
+      <!-- S3 (MQ estate — where it runs / how we size it) moved to appendix; see APPENDIX A1/A2 below. Other S-numbers kept per original outline. -->
+
+      <!-- ═══════════════════════════ S4 — MQ SEMANTIC BINS ═══════════════════════════ -->
+      <section class="small">
+        <h2>MQ &mdash; semantic bins, not a generic clone</h2>
+        <div class="callout" style="font-size:0.6em; width:96%; margin:0.1em auto 0.4em; padding:8px 16px;">
+          MQ runs on <strong>two cost regimes</strong> &mdash; z/OS (<strong>peak-timing</strong> driven) and distributed (<strong>licensing-hygiene</strong> driven). Estate sizing comes from platform accounting, not interviews. <span style="color:var(--epam-subtle);">Full diagnostic in appendix.</span>
+        </div>
+        <p style="font-size:0.75em; margin:0.1em 0 0.4em;">A one-size-fits-all MQ clone is not viable. A handful of bins covers the estate; each maps to a small, well-understood target.</p>
+        <table class="ref" style="width:98%;">
+          <thead><tr><th>Semantic bin</th><th>Signature</th><th>Target mapping</th><th>Facade complexity</th></tr></thead>
+          <tbody>
+            <tr><td>Fire-and-forget</td><td>PUT, no persistence, no syncpoint</td><td>AMQP/RabbitMQ · Pub/Sub</td><td>Low</td></tr>
+            <tr><td>Guaranteed delivery</td><td>Persistent + syncpoint</td><td>RabbitMQ (quorum) · Kafka</td><td>Medium</td></tr>
+            <tr><td>Request/reply</td><td>Correlation ID, reply-to queue</td><td>AMQP direct-reply · Kafka + key</td><td>Medium</td></tr>
+            <tr><td>Pub/sub</td><td>Topic strings, subscriptions</td><td>Pub/Sub · Kafka topics</td><td>Low–Med</td></tr>
+            <tr><td>Browse / selector / ordering</td><td>GET browse, selectors, group order</td><td>RabbitMQ + consumer logic</td><td>High</td></tr>
+            <tr><td>XA two-phase</td><td>XA with Db2/Oracle</td><td>Outbox / retain MQ</td><td>High</td></tr>
+            <tr><td>Exotic MQ-only</td><td>Groups, segmentation, report options, shared queues</td><td class="ourip">Retain IBM MQ</td><td>&mdash;</td></tr>
+          </tbody>
+        </table>
+        <div class="columns" style="gap:20px; margin-top:0.4em; font-size:0.58em;">
+          <div class="card" style="padding:10px 16px;"><h4 style="margin:0 0 3px;">Assignment</h4><p style="margin:0; color:var(--epam-subtle);">Static evidence (MQI/JMS calls + resolved options) × runtime evidence → classification with confidence. Reuse the <strong>Required / Dormant / Absent</strong> table (PAYMENT.REQUEST) from the mock-up.</p></div>
+          <div class="card accent-top" style="padding:10px 16px;"><h4 style="margin:0 0 3px;">Three honest outcomes</h4><p style="margin:0; color:var(--epam-subtle);">Compatible server · native migration · <strong>retain MQ</strong>. Retain is the correct answer for parts of the z/OS tier — say so.</p></div>
+        </div>
+        <aside class="notes">
+          Bin taxonomy is draft; estate share is a placeholder until scanned. The credibility move is admitting "retain MQ" is a legitimate outcome — a technical senior distrusts a pitch that claims 100% replacement.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S5 — MQ COMPAT FRONT END + PROOF ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>MQ &mdash; the compatible front end, proven</h2>
+        <p class="lede">Clients keep their IBM MQ client library. A generated protocol facade speaks MQ on one side, the target broker on the other. Equivalence is proven by differential testing against the real queue manager.</p>
+        <pre class="mermaid">
+flowchart LR
+    CL["<b>Unchanged client</b><br/><span style='font-size:11px'>IBM MQ client library<br/>no code change</span>"]
+    FE["<b>MQ-compatible front end</b><br/><span style='font-size:11px'>wire protocol + only the<br/>semantics the bin requires<br/><b>generated per bin</b></span>"]
+    BE["<b>Pluggable backend</b><br/><span style='font-size:11px'>RabbitMQ · Kafka · Pub/Sub<br/>or retained MQ</span>"]
+    CL --> FE --> BE
+    subgraph PROOF["⊕ Differential proof"]
+      RM["Real MQ"]
+      DT["Same scenarios<br/>+ property-based gen<br/>+ failure injection"]
+    end
+    FE -.compare.-> DT
+    RM -.compare.-> DT
+        </pre>
+        <div class="columns" style="gap:20px; font-size:0.58em;">
+          <div class="card accent-teal" style="padding:10px 16px;"><h4 style="margin:0 0 3px;">Why generate the facade per bin</h4><p style="margin:0; color:var(--epam-subtle);">Smaller surface → smaller IP/licence exposure → smaller test surface. Not one hand-written universal clone.</p></div>
+          <div class="callout warning" style="width:100%; margin:0; padding:10px 16px;"><strong>Wording discipline:</strong> evidence-based equivalence <em>to agreed tolerance</em>, not a mathematical guarantee. Coverage metric = compatibility confidence; state it explicitly.</div>
+        </div>
+        <aside class="notes">
+          The IP/licence question lands here first. Answer: clients keep IBM's licensed client; the facade re-implements only wire semantics the bin needs — have the interoperability/IP position ready (validate with DB, see S11). Proof = scenario extraction from analysed client logic + recorded traffic, run against real MQ and the compat server.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S6 — MQ ROLLOUT + KILL SWITCH ═══════════════════════════ -->
+      <section class="small">
+        <h2>MQ &mdash; steering, rollout, kill switch</h2>
+        <p style="font-size:0.72em; margin:0.1em 0 0.4em;">Rollout is a <strong>routing</strong> problem, not a client-change problem &mdash; and every step must be reversible without touching the client.</p>
+        <div class="columns" style="gap:22px;">
+          <div style="flex:1;">
+            <h4 style="font-size:0.62em; color:var(--epam-blue); margin:0 0 4px;">Steering options to validate</h4>
+            <ol style="font-size:0.56em; color:var(--epam-subtle); margin:0 0 8px 1.1em;">
+              <li>CCDT / connection-name repoint</li>
+              <li><strong>MQIPT</strong> or equivalent proxy, routing by rule — flip = cutover/fallback, no client change (licence/policy check)</li>
+              <li>DNS / LB level</li>
+            </ol>
+            <div class="callout warning" style="width:100%; margin:0 0 8px; padding:8px 14px; font-size:0.54em;">On z/OS, steering is coarser — queue-sharing group or QM-alias level. Call this out.</div>
+            <h4 style="font-size:0.62em; color:var(--epam-blue); margin:0 0 4px;">Cutover ladder</h4>
+            <p style="font-size:0.56em; color:var(--epam-subtle); margin:0;">DEV → TEST (diff suite green) → STAGE (replayed prod traffic) → PROD shadow → PROD active.</p>
+          </div>
+          <div style="flex:1;">
+            <div class="card accent-top" style="padding:12px 16px; font-size:0.57em;">
+              <h4 style="margin:0 0 5px;">Kill switch — two layers</h4>
+              <p style="margin:0 0 6px; color:var(--epam-subtle);"><strong>1 · Manual re-route in seconds</strong> — drain-then-flip or flip at queue-empty; idempotent consumers preferred.</p>
+              <p style="margin:0; color:var(--epam-subtle);"><strong>2 · Dead-man's switch</strong> — compat server stays authoritative only while observability renews the health check (message-count reconciliation, DLQ growth, latency percentiles, commit/rollback ratio, consumer lag). Missed heartbeat → <strong>auto-revert to MQ</strong>.</p>
+            </div>
+            <div class="callout" style="width:100%; margin:0.5em 0 0; padding:8px 14px; font-size:0.55em;">MQ stays <strong>warm</strong> per workload until the soak period clears, then licence retired per QM (z/OS: per MSU baseline via SCRT).</div>
+          </div>
+        </div>
+        <aside class="notes">
+          The fallback question is the second technical probe. The answer is the two-layer kill switch — especially the dead-man's switch: absence of positive health signal is itself the trigger, so a silent failure reverts rather than persists.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S7 — SAS STACK (NEW) ═══════════════════════════ -->
+      <section class="small">
+        <span class="appendix-tag">New in v2 · reference — move to appendix if staying at 8 slides</span>
+        <h2>SAS stack &mdash; and its GCP equivalent</h2>
+        <p style="font-size:0.66em; margin:0.05em 0 0.25em;">A SAS estate is a chain of 8–9 distinct technologies, source to report. Each has a natural GCP target; DB's BigQuery platform (PBDP) already provides the landing zone.</p>
+        <table class="ref" style="width:100%; font-size:0.44em;">
+          <thead><tr><th>Stage</th><th>SAS 9.4 / Viya component</th><th>Artefacts we parse</th><th>GCP equivalent</th></tr></thead>
+          <tbody>
+            <tr><td>Source access</td><td>SAS/ACCESS (Db2, Oracle, Teradata, ODBC), SAS/CONNECT, mainframe flat files/VSAM</td><td>LIBNAME, connection metadata</td><td>BigQuery federated/external, Datastream (CDC), Mainframe Connector, GCS landing</td></tr>
+            <tr><td>Data storage</td><td>.sas7bdat, SPDE, format catalogs, Metadata Server libs / CAS</td><td>Library defs, format catalogs</td><td>BigQuery datasets, UDFs for formats, Dataplex catalog</td></tr>
+            <tr><td>Transformation</td><td>DATA step, PROC SQL/SORT/MEANS/…, macro language, DI Studio jobs</td><td class="ourip"><strong>.sas programs, DI job XML, autoexec, execution logs (SYMBOLGEN/MPRINT/MLOGIC)</strong></td><td class="ourip"><strong>BigQuery SQL via Dataform (SQLX + JS), Dataflow/Dataproc, Cloud Run</strong></td></tr>
+            <tr><td>Analytics / models</td><td>SAS/STAT, /ETS, Enterprise Miner, Model Manager, VDMML</td><td>PROC REG/LOGISTIC code, model packages</td><td>BigQuery ML, Vertex AI (train/registry/predict), BQ DataFrames</td></tr>
+            <tr><td>Orchestration</td><td>Grid Manager/LSF, Process Manager, Control-M, cron, Stored Process</td><td>Schedule defs, job flows</td><td>Cloud Composer (Airflow), Workflows, Cloud Scheduler</td></tr>
+            <tr><td>BI / reporting</td><td>Enterprise Guide (.egp), Web Report Studio, Info Maps, OLAP, Visual Analytics</td><td>Report defs, Info Maps, VA XML/JSON</td><td>Looker (LookML semantic layer), Looker Studio, Connected Sheets</td></tr>
+            <tr><td>Distribution</td><td>ODS (PDF/Excel/HTML), e-mail, file drops</td><td>ODS statements, PROC EXPORT</td><td>Looker schedules, GCS drops, Gmail/Chat delivery</td></tr>
+            <tr><td>Governance</td><td>Metadata Server security, audit logs, SAS lineage</td><td>Metadata exports, logs</td><td>IAM, Dataplex lineage &amp; DQ, BigQuery audit logs</td></tr>
+          </tbody>
+        </table>
+        <div class="columns" style="gap:18px; margin-top:0.35em; font-size:0.52em;">
+          <div class="callout warning" style="width:100%; margin:0; padding:8px 14px;"><strong>BigQuery Migration Service does not cover SAS</strong> — it translates Teradata/Oracle/Snowflake/Redshift/Hive SQL. The SAS parser + DATA-step/macro translator is <strong>our IP</strong> (highlighted) — which is exactly why it becomes a reusable partner asset.</div>
+          <div class="callout" style="width:100%; margin:0; padding:8px 14px;"><strong>Generate into PBDP, don't reinvent.</strong> DB already runs BigQuery, Pub/Sub, Vertex AI, Terraform/GitHub Actions — the factory emits that pattern.</div>
+        </div>
+        <aside class="notes">
+          The SAS translation-coverage question lands here. The two highlighted cells are the defensible IP: no Google/COTS tool translates DATA step + macro. Everything else is a mapping to a standard GCP service.
+          On the "execution logs" artefact: static parsing of .sas resolves compile-time macro variables (%let, literal %do bounds) reliably, but NOT macro variables set from data at runtime — e.g. PROC SQL ... INTO :var or CALL SYMPUTX. Those need execution evidence: the resolved values surface in the job log when SYMBOLGEN/MPRINT/MLOGIC are enabled. Caveat for follow-up: this is log output from diagnostic options enabled on existing SAS jobs, not a file SAS emits automatically — jobs/environments may need re-running with those options on if historical logs weren't captured with them enabled.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S8 — SAS USAGE-DRIVEN SCOPE ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>SAS &mdash; usage-driven scope, lineage slices</h2>
+        <p class="lede">Do not migrate the estate. Migrate the reports people actually use, in the order that retires the most cost, with the full dependency slice behind each.</p>
+        <div class="columns" style="gap:22px; align-items:stretch;">
+          <div style="flex:1.15;">
+            <pre class="mermaid" style="margin:0;">
+flowchart TB
+    R["<b>Report</b> (usage × cost ranked)"]
+    R --> J["Job / schedule"]
+    J --> M["Macro / DATA step"]
+    M --> DS["Dataset"]
+    DS --> L["Loader / source"]
+    R -.slice = migration unit.-> L
+            </pre>
+          </div>
+          <div style="flex:1.25; font-size:0.56em; text-align:left;">
+            <p style="margin:0 0 6px;"><strong>1 · Usage &amp; cost ranking</strong> <span style="color:var(--epam-subtle);">from SAS logs, Metadata audit, scheduler, WRS/VA access logs: frequency, last accessed, consumers, compute &amp; licence share. Expect a long tail of dead reports → <strong>retire, not migrate</strong>. Output: ranked backlog + pilot ("amber") set.</span></p>
+            <p style="margin:0 0 6px;"><strong>2 · Map the solution space</strong> <span style="color:var(--epam-subtle);">— every S7 node becomes an AST/dependency node (SAS parser = new JavaLens front end).</span></p>
+            <p style="margin:0 0 6px;"><strong>3 · Lineage slice per report</strong> <span style="color:var(--epam-subtle);">— click a report, see the whole chain (loader → dataset → job → macro → report). Slice = migration unit.</span></p>
+            <p style="margin:0 0 6px;"><strong>4 · Target definition</strong> <span style="color:var(--epam-subtle);">— declarative mapping per S7; lane per slice: straight conversion / adaptation / redesign (SME decision).</span></p>
+            <p style="margin:0;"><strong>5 · Generate &amp; provision</strong> <span style="color:var(--epam-subtle);">— one action creates datasets, Dataform jobs, Composer DAGs, LookML; reuses already-migrated nodes so overlapping slices shrink.</span></p>
+          </div>
+        </div>
+        <aside class="notes">
+          The scope discipline is the whole argument: 186 reports, but the tail is dead. Usage-and-cost ranking decides order; lineage slicing decides the unit. Overlapping slices share migrated nodes — later waves get cheaper.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S9 — SAS PARALLEL RUN ═══════════════════════════ -->
+      <section class="small">
+        <h2>SAS &mdash; bulk migration, parallel run, user-in-the-loop</h2>
+        <p style="font-size:0.72em; margin:0.1em 0 0.4em;">Migrate slices in bulk, run SAS and target in parallel for a short window, prove equivalence differentially, and let users close the loop <strong>directly in the new report</strong>.</p>
+        <div class="card-grid cols-3" style="font-size:0.58em;">
+          <div class="card accent-top fragment fade-up"><h4 style="margin:0 0 4px;">Waves by lineage cluster</h4><p style="margin:0; color:var(--epam-subtle);">Component / vertical / hybrid graph cuts — migrate clusters, not files.</p></div>
+          <div class="card accent-teal fragment fade-up"><h4 style="margin:0 0 4px;">Parallel run = SAS as oracle</h4><p style="margin:0; color:var(--epam-subtle);">Every scheduled run compares SAS vs target (values, row counts, exceptions) to agreed tolerance. Google's mainframe <strong>Dual Run</strong> is the same idea — cite as precedent.</p></div>
+          <div class="card fragment fade-up"><h4 style="margin:0 0 4px;">Feedback overlay on Looker</h4><p style="margin:0; color:var(--epam-subtle);">Users flag discrepancies / request changes in place; feedback lands as tickets linked to the lineage node; SMEs see exceptions only.</p></div>
+        </div>
+        <div class="callout fragment fade-up" style="font-size:0.62em; margin-top:0.5em; width:92%;">
+          <strong>Retirement gate per slice:</strong> N green differential runs + no open feedback + owner sign-off → SAS account/job closed. Rollback trivial while SAS still serves.
+        </div>
+        <aside class="notes">
+          The comparison panel from the mock-up is reused here. The retirement gate is what makes the dual-run window bounded and auditable — and it is exactly the window Google funding shortens (S10).
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S10 — COMMERCIAL (NEW) ═══════════════════════════ -->
+      <section class="small">
+        <span class="appendix-tag">New in v2 · the only commercial slide</span>
+        <h2>Commercial model &mdash; Google-funded, reusable</h2>
+        <p style="font-size:0.68em; margin:0.05em 0 0.35em;">Both migrations land workload on GCP → fundable under Google's migration programmes. The factory itself is the reusable asset we take to the next bank.</p>
+        <div class="columns-3" style="gap:18px; font-size:0.52em; align-items:stretch;">
+          <div class="card accent-top">
+            <h4 style="margin:0 0 6px;">1 · Who pays what <span class="badge subtle">validate w/ Google PM</span></h4>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>RaMP:</strong> service funds offsetting partner PS — baseline ~20% of projected annual GCP consumption, cap $2M/workload (higher if "strategic") + quarterly credits on incremental tagged usage.</p>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>Fit:</strong> SAS → BigQuery/Looker is clean (new consumption). MQ qualifies where the target runs on GCP (Pub/Sub, RabbitMQ/Kafka on GKE); on-prem target → only assessment is fundable.</p>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>Assessment funding</strong> covers estate sizing (S3, S8-1); MAT is part of the offer.</p>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>Tokens:</strong> factory LLM = Gemini on Vertex inside DB's project → GCP consumption, counts to committed spend, offsettable. KPI: <strong>€ AI COGS / € licence retired</strong>.</p>
+            <p style="margin:0; color:var(--epam-subtle);"><strong>Marketplace private offer:</strong> procure against GCP commit, not a consulting budget.</p>
+          </div>
+          <div class="card accent-teal">
+            <h4 style="margin:0 0 6px;">2 · Reusable partner solution</h4>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);">Package as Partner Advantage "Build + Service": shared engine + SAS &amp; MQ front ends + generated-target templates (BigQuery/Dataform/Looker) + Terraform modules.</p>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>Fills a Google gap:</strong> BQ Migration Service has no SAS path; Google's mainframe tools cover COBOL/data, not MQ semantics. Both are white space for a partner accelerator.</p>
+            <p style="margin:0; color:var(--epam-subtle);"><strong>Credibility route:</strong> Data Analytics specialization · "Google Cloud Ready – BigQuery" for targets · co-sell registration on the DB deal · case study after pilot wave.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin:0 0 6px;">3 · What changes for DB</h4>
+            <p style="margin:0 0 8px; color:var(--epam-subtle);">Dual-run window is the cost. Google funding shortens it. The factory makes it repeatable across DB's other SAS/MQ estates (retail, corporate bank, asset management).</p>
+            <div class="callout" style="width:100%; margin:0; padding:8px 12px; font-size:0.92em;">
+              <strong>Who pays</strong><br>
+              <span style="color:var(--epam-subtle);">DB commit → target consumption</span><br>
+              <span style="color:var(--epam-accent);">Google credits → incremental usage</span><br>
+              <span style="color:var(--epam-blue);">Google service funds → partner PS</span>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Figures are Google's published baselines; DB's actual deal terms will differ — say so. The unit-economics KPI (€ AI COGS / € licence retired) already appears on the concept slides; keep it consistent.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ S11 — BUILD / VALIDATE / ASK ═══════════════════════════ -->
+      <section class="small">
+        <h2>What we build, what we validate, what we ask for</h2>
+        <p style="font-size:0.72em; margin:0.1em 0 0.4em;">Concrete enough to start; a handful of things need client and Google validation before the factory design is final.</p>
+        <div class="columns-3" style="gap:20px; font-size:0.55em; align-items:stretch;">
+          <div class="card accent-top">
+            <h4 style="margin:0 0 6px;">Build</h4>
+            <ol style="margin:0 0 0 1.1em; color:var(--epam-subtle);">
+              <li>Generalise JavaLens → shared engine + MQ/SAS front ends</li>
+              <li>Bin taxonomy + target mapping on a pilot slice</li>
+              <li>Mock server + differential harness</li>
+              <li>Steering / kill switch in non-prod</li>
+              <li>First pilot wave each</li>
+            </ol>
+          </div>
+          <div class="card accent-teal">
+            <h4 style="margin:0 0 6px;">Validate</h4>
+            <p style="margin:0 0 5px; color:var(--epam-subtle);"><strong>DB:</strong> z/OS vs distributed split + access to SMF/RACF/MQSC; permitted steering option (MQIPT vs repoint); IBM client-licence / interoperability / IP position on a wire-compatible server; SAS 9.4 vs Viya mix + metadata/audit access.</p>
+            <p style="margin:0; color:var(--epam-subtle);"><strong>Google:</strong> RaMP eligibility per workload; assessment funding; Marketplace listing path; Gemini credits.</p>
+          </div>
+          <div class="card">
+            <h4 style="margin:0 0 6px;">Ask</h4>
+            <div class="callout" style="width:100%; margin:0; padding:12px 16px; font-size:1em;">
+              Mandate for a pilot on <strong>one MQ workload + one SAS business product</strong>, run under <strong>RaMP assessment funding</strong>.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Close on the ask. Keep it small and fundable: one MQ workload, one SAS product, under assessment funding — so the first move costs DB little and proves the factory before scale.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ CLOSING ═══════════════════════════ -->
+      <section>
+        <h1 style="font-size:1.4em;">Reconstruct.<br>Generate.<br>Prove.</h1>
+        <p style="color:var(--epam-blue); font-size:0.7em; margin-top:0.8em;">One engine. A compatibility problem and a re-implementation problem. Same pipeline.</p>
+        <p style="color:var(--epam-subtle); font-size:0.55em; margin-top:1.4em;">Differential proof to agreed semantic coverage &middot; not a mathematical guarantee</p>
+        <aside class="notes">
+          The reframing to land: the estate is the specification. Everything else — bins, facades, lineage slices, dual run — is how we read that spec, rebuild against it, and prove we got it right.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ BACKUP DIVIDER ═══════════════════════════ -->
+      <section class="section-divider">
+        <h2>Backup</h2>
+        <p>Reference material — pull in on demand.</p>
+      </section>
+
+      <!-- ═══════════════════════════ BACKUP CONTENT ═══════════════════════════ -->
+      <section class="small">
+        <h2>Backup &mdash; reference material</h2>
+        <div class="card-grid cols-2" style="font-size:0.6em; margin-top:0.4em;">
+          <div class="card accent-top"><h4 style="margin:0 0 4px;">Full semantic-bin catalogue</h4><p style="margin:0; color:var(--epam-subtle);">MQI/JMS signatures, options resolved by slicing, runtime signals per bin.</p></div>
+          <div class="card accent-top"><h4 style="margin:0 0 4px;">Evidence weighting model</h4><p style="margin:0; color:var(--epam-subtle);">Static × runtime → confidence; what triggers a "dormant" review.</p></div>
+          <div class="card accent-teal"><h4 style="margin:0 0 4px;">SAS parser scope</h4><p style="margin:0; color:var(--epam-subtle);">DATA step grammar, macro pre-processor, PROC coverage matrix — which PROCs translate mechanically, which need redesign.</p></div>
+          <div class="card accent-teal"><h4 style="margin:0 0 4px;">JavaLens screenshots</h4><p style="margin:0; color:var(--epam-subtle);">AST graph, lineage slice, differential comparison panel — drop in when available.</p></div>
+        </div>
+        <div class="callout" style="font-size:0.6em; margin-top:0.6em; width:90%;">
+          <strong>Notes for the room:</strong> lead with S1+S2 · MQ questions come on S5/S6 (protocol compatibility, fallback) · SAS on S7 (translation coverage) · have the wire-protocol IP/licence answer ready · avoid "mathematical guarantee".
+        </div>
+        <aside class="notes">
+          Keep this slide for the pre-read version; in a 10-minute live slot, jump here only if a question needs it.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ APPENDIX A1 — MQ ESTATE: TWO COST REGIMES ═══════════════════════════ -->
+      <section class="small">
+        <span class="appendix-tag">Appendix A1 · MQ estate — reference / methodology</span>
+        <h2>MQ estate &mdash; two cost regimes, two diagnostics</h2>
+        <p style="font-size:0.62em; margin:0.05em 0 0.35em;">Not one MQ problem: z/OS and distributed are <strong>structurally different cost regimes</strong> &mdash; different evidence, different remediation levers. Sizing comes from the platform's own accounting, <strong>not interviews</strong>. <span class="badge">Working assumption · validate in week 1</span></p>
+        <table class="ref" style="width:100%; font-size:0.46em;">
+          <thead><tr><th style="width:15%;"></th><th style="width:42.5%;">z/OS tier &mdash; MSU / peak-timing</th><th style="width:42.5%;">Distributed tier &mdash; PVU·VPC / licensing hygiene</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Cost driver</strong></td>
+              <td>CPU seconds consumed during the mainframe's <strong>peak billing interval</strong> (rolling 4-hr average). MSU-based &mdash; MQ's peak-window activity pushes up the <em>whole LPAR's</em> billing tier, not just MQ's own line item.</td>
+              <td>Licensed <strong>core capacity</strong> (PVU or VPC), independent of actual usage. A server is billed at <strong>full capacity</strong> unless sub-capacity tracking is active.</td>
+            </tr>
+            <tr>
+              <td><strong>What makes it expensive</strong></td>
+              <td><strong>Timing, not volume.</strong> A queue manager processing millions of off-peak batch messages can be nearly free; modest volume landing in the 9am peak window is expensive.</td>
+              <td><strong>Licensing hygiene, not volume.</strong> Missing ILMT = full-capacity billing regardless of load. Oversized or scattered-across-hosts deployments inflate the countable core footprint.</td>
+            </tr>
+            <tr>
+              <td><strong>How you find the money</strong></td>
+              <td>Pull <strong>SMF 115/116</strong> records + SCRT/MSU reports → a ranked list, per queue manager, of exactly which workloads hit the peak billing window and how much MSU they burn. Source of truth = platform accounting.</td>
+              <td>Two-step check: (1) which hosts run MQ <strong>without ILMT</strong> reporting &mdash; exposed to full-capacity billing by default; (2) which hosts are oversized/shared, where consolidating MQ + ACE + DataPower (all PVU-priced) onto fewer right-sized hosts directly shrinks the bill.</td>
+            </tr>
+            <tr>
+              <td><strong>Remediation lever</strong></td>
+              <td>Target specific <strong>workloads / time windows</strong> for offload &mdash; move traffic off z/OS or shift it outside the peak interval.</td>
+              <td>Target specific <strong>hosts / configuration gaps</strong> &mdash; fix ILMT coverage and consolidate footprint, largely independent of traffic patterns.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout warning" style="font-size:0.52em; width:96%; margin:0.4em auto 0; padding:8px 16px;">
+          These are <strong>not two flavours of one optimization</strong> &mdash; they are structurally different problems needing different evidence and different levers. Keep the two paths distinct; do not merge them into a single "reduce MQ cost" story.
+        </div>
+        <aside class="notes">
+          The z/OS share is the single biggest driver of both licence cost and migration difficulty. On z/OS you chase peak-window timing (SMF/SCRT); on distributed you chase licensing hygiene (ILMT coverage + consolidation). Flag clearly which parts are assumption vs known.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ APPENDIX A2 — MQ ESTATE: TOPOLOGY & SIZING SOURCES ═══════════════════════════ -->
+      <section class="small">
+        <span class="appendix-tag">Appendix A2 · MQ estate — reference / methodology</span>
+        <h2>MQ estate &mdash; topology &amp; sizing sources</h2>
+        <p style="font-size:0.62em; margin:0.05em 0 0.35em;">The diagnostic inventory behind the two-regime split: what runs where, and which platform sources we read to size it.</p>
+        <div class="columns" style="gap:24px;">
+          <div style="flex:1.05;">
+            <div class="card accent-top" style="padding:12px 16px; font-size:0.58em; margin-bottom:10px;">
+              <h4 style="margin:0 0 4px;">z/OS tier &mdash; the expensive licence tier</h4>
+              <p style="margin:0; color:var(--epam-subtle);">MQ for z/OS co-located with CICS / IMS / Db2; queue-sharing groups on the Coupling Facility; CICS–MQ &amp; IMS bridges; COBOL/PL-I MQI callers. <strong>Priced on MSU.</strong></p>
+            </div>
+            <div class="card accent-teal" style="padding:12px 16px; font-size:0.58em; margin-bottom:10px;">
+              <h4 style="margin:0 0 4px;">Distributed tier &mdash; the backbone</h4>
+              <p style="margin:0; color:var(--epam-subtle);">MQ on AIX/Linux (± MQ Appliance); JMS via WebSphere/Liberty &amp; Spring, C/.NET (XMS). <strong>Integration middleware is itself an MQ consumer</strong> — IIB / ACE flows, DataPower, MFT — often the biggest hidden users.</p>
+            </div>
+            <div class="card" style="padding:12px 16px; font-size:0.55em;">
+              <h4 style="margin:0 0 4px;">Edge cases to look for</h4>
+              <p style="margin:0; color:var(--epam-subtle);">MQ Advanced (AMS, MFT, Telemetry) · XA with Db2/Oracle · MQ Light / AMQP · cluster/CCDT routing.</p>
+            </div>
+          </div>
+          <div style="flex:1.35;">
+            <table class="ref" style="width:100%;">
+              <thead><tr><th>Layer</th><th>What we read</th><th>What it gives</th></tr></thead>
+              <tbody>
+                <tr><td>z/OS accounting</td><td>SMF 115/116, SCRT/MSU reports</td><td>QMs, per-task MQ calls, volumes, licence cost/QM</td></tr>
+                <tr><td>Config</td><td>MQSC/<code>DISPLAY</code> dumps, CSQ defs, <code>runmqsc</code>/<code>dspmq</code>/REST, CCDT, cluster repos</td><td>Queues, channels, topics, persistence, who connects where</td></tr>
+                <tr><td>Security</td><td>RACF / OAM profiles</td><td>Which identities (=apps) may touch which queues</td></tr>
+                <tr><td>Runtime</td><td>QM/config events, channel status, Instana/Dynatrace/AppDynamics, Splunk/ELK</td><td>Observed vs possible → required/dormant/absent</td></tr>
+                <tr><td>Inventory</td><td>CMDB (ServiceNow), IBM ILMT, ADDI if present</td><td>App ↔ QM ↔ owner map, licence baseline</td></tr>
+                <tr><td>Code</td><td>Git/RTC/Endevor, bytecode + MQ client libs</td><td>What each app <em>can</em> do (static bins)</td></tr>
+                <tr><td>Google side</td><td>Mainframe Assessment Tool; PBDP on BigQuery</td><td>Reuse for COBOL/JCL inventory + baseline</td></tr>
+              </tbody>
+            </table>
+            <div class="callout" style="font-size:0.55em; width:100%; margin:0.4em 0 0; padding:10px 16px;">
+              Output: one row per <strong>(application, QM, queue/topic, bin, confidence)</strong> — the "estate" panel on the mock-up: <strong>3,842 apps · 1,126 queues · 287 QMs</strong>.
+            </div>
+          </div>
+        </div>
+        <aside class="notes">
+          Estate = queues × apps × semantics, not just queue managers. This "What we read / What it gives" table is the diagnostic inventory behind the two-cost-regime split on A1 — the ILMT / SMF / SCRT rows map directly onto the distributed vs z/OS diagnostics.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/math/math.js"></script>
+  <script src="../../templates/plugins/qrcode.js"></script>
+  <script>
+    // Render mermaid BEFORE Reveal takes over. The diagrams use HTML labels
+    // (<b>/<span>), which measure to zero height inside a hidden slide — so we
+    // must render them while every section is still visible in normal flow.
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#00A0E3", primaryTextColor: "#E6E9ED", primaryBorderColor: "#00A0E3",
+        lineColor: "#8B949E", secondaryColor: "#1a2332", tertiaryColor: "#0D1117",
+        background: "#0D1117", mainBkg: "#1a2332", nodeBorder: "#00A0E3",
+        clusterBkg: "rgba(0,160,227,0.08)", clusterBorder: "#00A0E3", titleColor: "#E6E9ED",
+        edgeLabelBackground: "#0D1117", nodeTextColor: "#E6E9ED"
+      },
+      flowchart: { htmlLabels: true, curve: "linear" },
+      fontSize: 14
+    });
+
+    var sections = Array.prototype.slice.call(document.querySelectorAll('.reveal .slides section'));
+    sections.forEach(function (s) { s.style.display = 'block'; });
+
+    function startReveal() {
+      sections.forEach(function (s) { s.style.display = ''; });
+      Reveal.initialize({
+        hash: true,
+        center: false,
+        slideNumber: 'c/t',
+        plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode]
+      });
+    }
+
+    mermaid.run({ querySelector: '.mermaid' }).then(startReveal).catch(startReveal);
+  </script>
+</body>
+</html>
