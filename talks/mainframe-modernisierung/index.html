@@ -118,6 +118,44 @@
     .reveal .logo { position: absolute; bottom: 30px; left: 56px; height: 30px; opacity: 0.9; }
     .reveal table.wave { font-size: 13px; width: 100%; }
     .reveal table.wave th, .reveal table.wave td { padding: 7px 9px; }
+
+    /* ── Slide 02: chaos → order morph (chips move to their column) ── */
+    .reveal .morph { position: relative; height: 400px; margin-top: 6px; }
+    .reveal .morph .mchip {
+      position: absolute; font-size: 12px; padding: 5px 9px; white-space: nowrap; z-index: 2;
+      transition: left .85s cubic-bezier(.22,1,.36,1), top .85s cubic-bezier(.22,1,.36,1), transform .85s cubic-bezier(.22,1,.36,1);
+    }
+    .reveal .morph .scaf { opacity: 0; transition: opacity .5s ease .3s; }
+    .reveal .morph:has(.morph-trigger.visible) .scaf { opacity: 1; }
+    .reveal .morph .col-f { position: absolute; top: 0; left: 0; width: 100%; }
+    .reveal .morph .col-h { position: absolute; top: 30px; width: 23%; }
+    .reveal .morph .col-c { position: absolute; top: 64px; width: 23%; }
+    .reveal .morph .col-o { position: absolute; top: 330px; width: 23%; }
+    .reveal .morph .col-x { position: absolute; top: 372px; left: 20%; }
+    .reveal .morph .cL1 { left: 0; } .reveal .morph .cL2 { left: 25.5%; }
+    .reveal .morph .cL3 { left: 51%; } .reveal .morph .cL4 { left: 76.5%; }
+    /* chaos (default) chip positions — must live in CSS so the :has() ordered rules can override */
+    .reveal .morph .m1  { left: 12%; top: 210px; transform: rotate(-3deg); }
+    .reveal .morph .m2  { left: 57%; top: 302px; transform: rotate(2deg); }
+    .reveal .morph .m3  { left: 23%; top: 120px; transform: rotate(4deg); }
+    .reveal .morph .m4  { left: 63%; top: 92px;  transform: rotate(-2deg); }
+    .reveal .morph .m5  { left: 9%;  top: 315px; transform: rotate(3deg); }
+    .reveal .morph .m6  { left: 34%; top: 255px; transform: rotate(-4deg); }
+    .reveal .morph .m7  { left: 69%; top: 212px; transform: rotate(2deg); }
+    .reveal .morph .m8  { left: 45%; top: 150px; transform: rotate(-3deg); }
+    .reveal .morph .m9  { left: 80%; top: 308px; transform: rotate(3deg); }
+    .reveal .morph .m10 { left: 40%; top: 44px;  transform: rotate(-2deg); }
+    /* ordered chip targets — revealed when the fragment trigger becomes visible */
+    .reveal .morph:has(.morph-trigger.visible) .m1  { left: 0;      top: 116px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m2  { left: 0;      top: 152px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m3  { left: 25.5%;  top: 116px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m4  { left: 25.5%;  top: 152px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m5  { left: 51%;    top: 116px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m6  { left: 51%;    top: 152px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m7  { left: 51%;    top: 188px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m8  { left: 76.5%;  top: 116px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m9  { left: 76.5%;  top: 152px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m10 { left: 0;      top: 372px; transform: none; }
   </style>
 </head>
 <body>
@@ -182,85 +220,50 @@
       <section data-marker="02 / 18">
         <h2 class="title">„Und jetzt soll AI den Code schreiben?" — jeder Einwand bekommt eine Phase, <span class="ac">ein Ergebnis und ein klassisches Pendant</span>.</h2>
 
-        <div style="position:relative; height:410px; margin-top:8px;">
+        <div class="morph">
+          <!-- Scaffolds: phase structure, revealed on the same step the chips settle -->
+          <div class="scaf col-f sup-line">Ihre Leute haben Einwände — berechtigt. Wir clustern sie auf vier Phasen. So liest sich die Agenda.</div>
+          <div class="scaf col-h cL1"><div class="node" style="padding:7px; font-size:15px;">Analysieren</div></div>
+          <div class="scaf col-h cL2"><div class="node" style="padding:7px; font-size:15px;">Planen</div></div>
+          <div class="scaf col-h cL3"><div class="node" style="padding:7px; font-size:15px;">Umsetzen</div></div>
+          <div class="scaf col-h cL4"><div class="node" style="padding:7px; font-size:15px;">Überführen</div></div>
+          <div class="scaf col-c cL1 sup-line" style="font-style:italic;">klassisch: Assessment &amp; Discovery</div>
+          <div class="scaf col-c cL2 sup-line" style="font-style:italic;">klassisch: Design &amp; Blueprint</div>
+          <div class="scaf col-c cL3 sup-line" style="font-style:italic;">klassisch: Build &amp; Migrate</div>
+          <div class="scaf col-c cL4 sup-line" style="font-style:italic;">klassisch: Test, Cutover &amp; Go-live</div>
+          <div class="scaf col-o cL1"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Landkarte · Wellen · Regeln · Testgerüst</div></div>
+          <div class="scaf col-o cL2"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Regelwerk · Zielbild · bepreiste Roadmap</div></div>
+          <div class="scaf col-o cL3"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: geprüfter Code · lernende Wissensbasis</div></div>
+          <div class="scaf col-o cL4"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: live · Rückfall · Belegkette</div></div>
+          <div class="scaf col-x"><span class="xref">und bauen sie in Phasen auf</span> <span class="sup-line">— quer über alle Phasen (Prüfstand)</span></div>
 
-          <!-- STATE 1: chaos cloud -->
-          <div class="fragment fade-out" data-fragment-index="0" style="position:absolute; inset:0; display:flex; flex-wrap:wrap; align-content:center; justify-content:center; gap:4px 6px; padding:0 40px;">
-            <span class="qchip" style="margin:18px 10px 6px; transform:rotate(-2deg);">„Sloppy."</span>
-            <span class="qchip" style="margin:4px 22px 20px; transform:rotate(3deg);">„Halluziniert."</span>
-            <span class="qchip" style="margin:26px 8px 4px; transform:rotate(-4deg);">„Fast richtig ist falsch."</span>
-            <span class="qchip" style="margin:10px 30px 24px; transform:rotate(2deg);">„Tokens werden zu teuer."</span>
-            <span class="qchip" style="margin:22px 6px 8px; transform:rotate(-1deg);">„Niemand kann so viel Code prüfen."</span>
-            <span class="qchip" style="margin:6px 26px 22px; transform:rotate(4deg);">„Wer haftet?"</span>
-            <span class="qchip" style="margin:20px 12px 6px; transform:rotate(-3deg);">„Ein Mainframe ist zu groß dafür."</span>
-            <span class="qchip" style="margin:8px 20px 26px; transform:rotate(1deg);">„Wir haben weder Doku noch Tests."</span>
-            <span class="qchip" style="margin:24px 10px 4px; transform:rotate(-2deg);">„Der Cutover ist das Risiko."</span>
-            <span class="qchip" style="margin:6px 24px 20px; transform:rotate(3deg);">„Wir hängen am Modellanbieter."</span>
-          </div>
+          <!-- The ten objection chips — one DOM set. They start scattered (chaos) and MOVE to their column on the fragment step. -->
+          <span class="qchip mchip m1">„Ein Mainframe ist zu groß dafür."</span>
+          <span class="qchip mchip m2">„Wir haben weder Doku noch Tests."</span>
+          <span class="qchip mchip m3">„Halluziniert."</span>
+          <span class="qchip mchip m4">„Tokens werden zu teuer."</span>
+          <span class="qchip mchip m5">„Sloppy."</span>
+          <span class="qchip mchip m6">„Fast richtig ist falsch."</span>
+          <span class="qchip mchip m7">„Niemand kann so viel Code prüfen."</span>
+          <span class="qchip mchip m8">„Der Cutover ist das Risiko."</span>
+          <span class="qchip mchip m9">„Wer haftet?"</span>
+          <span class="qchip mchip m10">„Wir hängen am Modellanbieter."</span>
 
-          <!-- STATE 2: ordered four-phase layout -->
-          <div class="fragment fade-in" data-fragment-index="0" style="position:absolute; inset:0; display:flex; flex-direction:column;">
-            <div class="sup-line" style="margin:0 0 10px;">Ihre Leute haben Einwände — berechtigt. Wir clustern sie auf vier Phasen. So liest sich die Agenda.</div>
-
-            <div style="display:flex; gap:12px; flex:1;">
-              <!-- 1 Analysieren -->
-              <div style="flex:1; display:flex; flex-direction:column;">
-                <div class="node" style="padding:7px; font-size:15px;">Analysieren</div>
-                <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Assessment &amp; Discovery</div>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Ein Mainframe ist zu groß dafür."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Wir haben weder Doku noch Tests."</span>
-                <div style="margin-top:auto;"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Landkarte · Wellen · Regeln · Testgerüst</div></div>
-              </div>
-              <!-- 2 Planen -->
-              <div style="flex:1; display:flex; flex-direction:column;">
-                <div class="node" style="padding:7px; font-size:15px;">Planen</div>
-                <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Design &amp; Blueprint</div>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Halluziniert."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Tokens werden zu teuer."</span>
-                <div style="margin-top:auto;"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Regelwerk · Zielbild · bepreiste Roadmap</div></div>
-              </div>
-              <!-- 3 Umsetzen -->
-              <div style="flex:1; display:flex; flex-direction:column;">
-                <div class="node" style="padding:7px; font-size:15px;">Umsetzen</div>
-                <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Build &amp; Migrate</div>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Sloppy."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Fast richtig ist falsch."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Niemand kann so viel prüfen."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Tokens werden zu teuer."</span>
-                <div style="margin-top:auto;"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: geprüfter Code · lernende Wissensbasis</div></div>
-              </div>
-              <!-- 4 Überführen -->
-              <div style="flex:1; display:flex; flex-direction:column;">
-                <div class="node" style="padding:7px; font-size:15px;">Überführen</div>
-                <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Test, Cutover &amp; Go-live</div>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Der Cutover ist das Risiko."</span>
-                <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:6px;">„Wer haftet?"</span>
-                <div style="margin-top:auto;"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: live · Rückfall · Belegkette</div></div>
-              </div>
-            </div>
-
-            <!-- Bottom strip: cross-phase objection -->
-            <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-top:12px;">
-              <span class="qchip" style="font-size:12px; padding:5px 9px;">„Wir hängen am Modellanbieter."</span>
-              <span class="xref">und bauen sie in Phasen auf</span>
-              <span class="sup-line">— quer über alle Phasen (Prüfstand)</span>
-            </div>
-          </div>
-
+          <!-- invisible fragment: one Down press flips :has(.morph-trigger.visible) → chips settle + scaffolds fade in -->
+          <span class="fragment morph-trigger" data-fragment-index="0" style="position:absolute; width:1px; height:1px; opacity:0; pointer-events:none;"></span>
         </div>
 
         <aside class="notes">
           Erst das Chaos: alle zehn Einwände liegen ungeordnet im Raum — berechtigt, aber ohne Struktur.
-          Ein Klick clustert sie auf die vier Phasen mit klassischem Pendant und Ergebnis. Die konkreten Antworten je Einwand kommen erst später, Abschnitt für Abschnitt.
+          Ein Klick — dieselben Kacheln wandern an ihren Platz — clustert sie auf die vier Phasen mit klassischem Pendant und Ergebnis. Die konkreten Antworten je Einwand kommen erst später, Abschnitt für Abschnitt.
         </aside>
       </section>
 
       <!-- ═══════════════════════ BREAKER A ═══════════════════════ -->
-      <section class="breaker">
+      <section class="breaker" data-background-image="assets/breaker-analysieren.png" data-background-size="cover" data-background-position="center">
         <div class="bg" style="background:
-          radial-gradient(ellipse 70% 90% at 85% 20%, rgba(0,160,227,0.22), transparent 60%),
-          linear-gradient(120deg, #0b0f14 0%, #0D1117 60%, #101821 100%);"></div>
-        <div class="imgtag"><span class="tag tag-owner">[Stefan: vier Breaker-Bilder einer Bildfamilie]</span></div>
+          linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
+          linear-gradient(to right, rgba(13,17,23,0.82) 0%, rgba(13,17,23,0.2) 45%, transparent 72%);"></div>
         <div class="wrap">
           <div class="sec">Abschnitt 1</div>
           <h1>Analysieren — <span class="ac">erst verstehen, dann schneiden</span></h1>
@@ -422,11 +425,10 @@
       </section>
 
       <!-- ═══════════════════════ BREAKER B ═══════════════════════ -->
-      <section class="breaker">
+      <section class="breaker" data-background-image="assets/breaker-planen.png" data-background-size="cover" data-background-position="center">
         <div class="bg" style="background:
-          radial-gradient(ellipse 70% 90% at 85% 25%, rgba(0,201,167,0.20), transparent 60%),
-          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #0e1a18 100%);"></div>
-        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 2 der Bildfamilie]</span></div>
+          linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
+          linear-gradient(to right, rgba(13,17,23,0.82) 0%, rgba(13,17,23,0.2) 45%, transparent 72%);"></div>
         <div class="wrap">
           <div class="sec">Abschnitt 2</div>
           <h1>Planen — <span class="ac">das Zielbild in die Wissensbasis</span></h1>
@@ -552,11 +554,10 @@
       </section>
 
       <!-- ═══════════════════════ BREAKER C ═══════════════════════ -->
-      <section class="breaker">
+      <section class="breaker" data-background-image="assets/breaker-umsetzen.png" data-background-size="cover" data-background-position="center">
         <div class="bg" style="background:
-          radial-gradient(ellipse 70% 90% at 82% 20%, rgba(0,160,227,0.22), transparent 60%),
-          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #101a24 100%);"></div>
-        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 3 der Bildfamilie]</span></div>
+          linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
+          linear-gradient(to right, rgba(13,17,23,0.82) 0%, rgba(13,17,23,0.2) 45%, transparent 72%);"></div>
         <div class="wrap">
           <div class="sec">Abschnitt 3</div>
           <h1>Umsetzen — <span class="ac">generieren mit Quellenverweis und Gates</span></h1>
@@ -807,6 +808,57 @@
         </div>
         <div class="body-line" style="margin-top:28px;">Keine Laufzeit-Abhängigkeit von der Factory — ein anderer Lieferant kann gegen dieselbe Wissensbasis bauen.</div>
         <aside class="notes">Der Endzustand, ein Satz je Asset. Lock-in: die Body-Zeile. ~1 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ RECAP 4 (nach Abschnitt 4 — alles gelöst) ═══════════════════════ -->
+      <section>
+        <h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">alle vier Phasen sind gelöst</span> — jeder Einwand hat seine Antwort in der Wissensbasis.</h2>
+        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt jetzt alle Phasen — der Kreis ist geschlossen.</div>
+        <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
+          <!-- Analysieren — SOLVED -->
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div class="node" style="padding:7px; font-size:15px;">Analysieren</div>
+            <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Assessment &amp; Discovery</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Ein Mainframe ist zu groß dafür."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Übergangsarchitektur, Schnitt in Wellen</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Wir haben weder Doku noch Tests."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Estate Scanner: Regeln, Tests, Simulationen</div>
+            <div style="margin-top:auto"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Landkarte · Wellen · Regeln · Testgerüst</div></div>
+          </div>
+          <!-- Planen — SOLVED -->
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div class="node" style="padding:7px; font-size:15px;">Planen</div>
+            <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Design &amp; Blueprint</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Halluziniert."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Wissensbasis aus fünf Zeugen</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Tokens werden zu teuer." (1)</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Roadmap mit Preis je Welle</div>
+            <div style="margin-top:auto"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: Regelwerk · Zielbild · bepreiste Roadmap</div></div>
+          </div>
+          <!-- Umsetzen — SOLVED -->
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div class="node" style="padding:7px; font-size:15px;">Umsetzen</div>
+            <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Build &amp; Migrate</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Sloppy." · „Fast richtig ist falsch."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Quellenverweis, Gates, Vollständigkeitsprüfung</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Niemand kann so viel prüfen."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Review-Umgebung je Owner</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Tokens werden zu teuer." (2)</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Das Schwungrad</div>
+            <div style="margin-top:auto"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: geprüfter Code · lernende Wissensbasis</div></div>
+          </div>
+          <!-- Überführen — SOLVED -->
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div class="node" style="padding:7px; font-size:15px;">Überführen</div>
+            <div class="sup-line" style="font-style:italic; margin:4px 0 8px;">klassisch: Test, Cutover &amp; Go-live</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Der Cutover ist das Risiko."</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Router, Monitoring, Rückfall</div>
+            <span class="qchip" style="display:block; font-size:12px; padding:5px 9px; margin-bottom:4px;">„Wer haftet?"</span>
+            <div class="sup-line" style="margin:2px 0 8px; color:var(--epam-accent);">→ Nachvollziehbarkeit des Harness</div>
+            <div style="margin-top:auto"><div class="chip" style="display:block; font-size:12px; border-color:var(--epam-accent); background:rgba(0,201,167,0.08); color:var(--epam-accent);">Ergebnis: live · Rückfall · Belegkette</div></div>
+          </div>
+        </div>
+        <aside class="notes">Zwischenstand nach Abschnitt 4: alle vier Phasen sind beantwortet, die Antworten stehen in der Wissensbasis — Überleitung zum Abschluss. Der Modellanbieter-Einwand wird auf der Schlussfolie beantwortet (Prüfstand).</aside>
       </section>
 
       <!-- ═══════════════════════ 18 / 18 ═══════════════════════ -->
