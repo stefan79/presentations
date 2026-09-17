@@ -128,9 +128,9 @@
     .reveal .morph .scaf { opacity: 0; transition: opacity .5s ease .3s; }
     .reveal .morph:has(.morph-trigger.visible) .scaf { opacity: 1; }
     .reveal .morph .col-f { position: absolute; top: 0; left: 0; width: 100%; }
-    .reveal .morph .col-h { position: absolute; top: 30px; width: 23%; }
-    .reveal .morph .col-c { position: absolute; top: 64px; width: 23%; }
-    .reveal .morph .col-o { position: absolute; top: 330px; width: 23%; }
+    .reveal .morph .col-h { position: absolute; top: 34px; width: 23%; }
+    .reveal .morph .col-c { position: absolute; top: 68px; width: 23%; }
+    .reveal .morph .col-o { position: absolute; top: 252px; width: 23%; }
     .reveal .morph .col-x { position: absolute; top: 372px; left: 20%; }
     .reveal .morph .cL1 { left: 0; } .reveal .morph .cL2 { left: 25.5%; }
     .reveal .morph .cL3 { left: 51%; } .reveal .morph .cL4 { left: 76.5%; }
@@ -146,15 +146,15 @@
     .reveal .morph .m9  { left: 80%; top: 308px; transform: rotate(3deg); }
     .reveal .morph .m10 { left: 40%; top: 44px;  transform: rotate(-2deg); }
     /* ordered chip targets — revealed when the fragment trigger becomes visible */
-    .reveal .morph:has(.morph-trigger.visible) .m1  { left: 0;      top: 116px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m2  { left: 0;      top: 152px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m3  { left: 25.5%;  top: 116px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m4  { left: 25.5%;  top: 152px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m5  { left: 51%;    top: 116px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m6  { left: 51%;    top: 152px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m7  { left: 51%;    top: 188px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m8  { left: 76.5%;  top: 116px; transform: none; }
-    .reveal .morph:has(.morph-trigger.visible) .m9  { left: 76.5%;  top: 152px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m1  { left: 0;      top: 120px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m2  { left: 0;      top: 158px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m3  { left: 25.5%;  top: 120px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m4  { left: 25.5%;  top: 158px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m5  { left: 51%;    top: 120px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m6  { left: 51%;    top: 158px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m7  { left: 51%;    top: 196px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m8  { left: 76.5%;  top: 120px; transform: none; }
+    .reveal .morph:has(.morph-trigger.visible) .m9  { left: 76.5%;  top: 158px; transform: none; }
     .reveal .morph:has(.morph-trigger.visible) .m10 { left: 0;      top: 372px; transform: none; }
   </style>
 </head>
@@ -271,8 +271,44 @@
         </div>
       </section>
 
-      <!-- ═══════════════════════ 03 / 18 ═══════════════════════ -->
+      <!-- ═══════════════════════ 03 / 18 — Code ≠ Spezifikation (nach vorn gezogen) ═══════════════════════ -->
       <section data-marker="03 / 18">
+        <h2 class="title" style="font-size:24px;">Code ist nicht die Spezifikation: vierzig Jahre Zwänge, Fehler und Notlösungen sind eingefroren — <span class="ac">niemals Code allein migrieren</span>.</h2>
+        <div style="display:flex; gap:24px; margin-top:18px;">
+          <div style="flex:1;">
+            <div class="sup-line" style="margin-bottom:6px;">Eine Zeile COBOL — was war gewollt?</div>
+            <pre style="font-size:13px; width:100%; margin:0;"><code>       IF  KD-TYP = '7'
+           COMPUTE RABATT = BETRAG * 0.0725
+           ADD 1 TO BETRAG            *&gt; seit 1994 – ?
+       ELSE
+           COMPUTE RABATT = BETRAG * STD-SATZ
+       END-IF
+       MOVE RABATT TO AUSGABE-FELD</code></pre>
+            <div class="chip" style="display:block; margin-top:10px; border-color:#E3A000; color:#E3A000; background:rgba(227,160,0,0.08); font-size:13px;">Warum Kundentyp 7? Warum 0,0725? Warum das „+1"? — Der Code verrät die Absicht nicht.</div>
+          </div>
+          <div style="flex:1;">
+            <div class="sup-line" style="margin-bottom:8px; color:#fff; font-weight:600;">Diese eine Zeile kann alles davon sein:</div>
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+              <div class="card" style="padding:10px 12px;"><div class="cl" style="margin:0;">Bugfix für ein <strong style="color:#fff;">anderes</strong> Problem</div></div>
+              <div class="card" style="padding:10px 12px;"><div class="cl" style="margin:0;">Undokumentierte Änderung</div></div>
+              <div class="card" style="padding:10px 12px;"><div class="cl" style="margin:0;">Workaround um eine Plattformgrenze</div></div>
+              <div class="card" style="padding:10px 12px;"><div class="cl" style="margin:0;">Unerfahrener Entwickler</div></div>
+              <div class="card" style="padding:10px 12px;"><div class="cl" style="margin:0;">Schlichter Fehler — nie bemerkt</div></div>
+              <div class="card accent-teal" style="padding:10px 12px;"><div class="cl" style="margin:0;">Echte Fachregel — gewollt</div></div>
+            </div>
+            <div class="sup-line" style="margin-top:10px;">Aus dem Code allein nicht zu unterscheiden.</div>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:18px;">
+          <div class="body-line" style="max-width:64%;">Der Code sagt, <strong style="color:#fff;">was</strong> geschieht — nicht, <strong style="color:#fff;">warum</strong>. Anforderungen entstehen erst mit Kontext.</div>
+          <div class="sup-line" style="max-width:34%; text-align:right;">Code migrieren, wie er ist = Lift-and-Shift in Verkleidung — die Unfälle ziehen mit um.</div>
+        </div>
+        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: COBOL-Beispiel illustrativ — Formulierung ok?]</span></div>
+        <aside class="notes">Zuerst die These: niemals Code allein migrieren. Das COBOL-Snippet zeigt eine mehrdeutige Regel; die Karten zählen auf, was hinter einer Zeile stecken kann — aus dem Code nicht unterscheidbar. „Was hängt zusammen" beantwortet die nächste Folie. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 04 / 18 — Übergangsarchitektur / Landschaft ═══════════════════════ -->
+      <section data-marker="04 / 18">
         <span class="qchip answer">„Ein Mainframe ist zu groß dafür."</span>
         <h2 class="title" style="font-size:25px; max-width:74%;">So wird ein Mainframe abgelöst: <span class="ac">Komponente für Komponente, Welle für Welle</span> — beide Systeme laufen, bis die letzte Welle drüben ist.</h2>
         <div style="display:flex; gap:16px; margin-top:20px;">
@@ -310,30 +346,8 @@
           </div>
           <div class="sup-line" style="max-width:32%; text-align:right;">Strangler-Muster <span class="sh">(Strangler)</span>: ablösen hinter einer Fassade, statt Big Bang.</div>
         </div>
-        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner">[Stefan: Übergangsarchitektur-Figur — neu zeichnen oder Phase-3-Strangler-Figur aus dem Playbook]</span></div>
-        <aside class="notes">Das Prädikat für alles Folgende — die Übergangsarchitektur. Overlap ist per Bereich, nicht bestandsweit. ~1,5 min.</aside>
-      </section>
-
-      <!-- ═══════════════════════ 04 / 18 ═══════════════════════ -->
-      <section data-marker="04 / 18">
-        <h2 class="title" style="font-size:25px;">Code ist das Ergebnis von vierzig Jahren Zwängen, Design, Fehlern und Widersprüchen — <span class="ac">ihn zu migrieren, wie er ist, ist Lift-and-Shift in Verkleidung</span>.</h2>
-        <div style="display:flex; gap:24px; margin-top:22px;">
-          <div class="card accent-top" style="flex:1; border-top-color:var(--epam-subtle);">
-            <h4>§ „Was soll gelten?" — Nein.</h4>
-            <div class="cl">Code zeigt die Zwänge der Plattform, auf der er entstand.</div>
-            <div class="cl">Rundungsregel 1994, Batch-Notlösung 2003 — im Code identisch.</div>
-            <div class="cl">Wer Regeln nur aus Code liest, baut die Unfälle nach.</div>
-          </div>
-          <div class="card accent-teal" style="flex:1;">
-            <h4>🗺 „Was hängt womit zusammen?" — Ja, vollständig.</h4>
-            <div class="cl">Kein Dokument, kein Kopf kennt alle Verbindungen — der Code schon.</div>
-            <div class="cl">Welche Programme welche Daten anfassen, welche Transaktionen Tabellen teilen.</div>
-            <div class="cl">Für die Wellen ist genau das die Frage.</div>
-          </div>
-        </div>
-        <div class="body-line" style="text-align:center; margin-top:34px;">Der Code ist die Landkarte des Bestands — nicht sein Regelwerk.</div>
-        <div class="sup-line" style="text-align:center; margin-top:14px;"><span class="tag tag-confirm">[CONFIRM: 1994/2003-Beispiel ist illustrativ — Formulierung ok?]</span></div>
-        <aside class="notes">Die Ehrlichkeitsfolie — warum Code allein keine Anforderungen ergibt und dennoch die einzige vollständige Karte ist. ~1,5 min.</aside>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner">[Stefan: Wellen-Diagramm — Bereiche wandern Welle für Welle hinter Fassade/Router, mit CDC-Naht und Adaptern für die Koexistenz]</span></div>
+        <aside class="notes">Nach „Code allein migrieren wir nie": wie wir es stattdessen tun — die Übergangsarchitektur. Overlap ist per Bereich, nicht bestandsweit. Wellen-Diagramm-Ausbau folgt. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 05 / 18 ═══════════════════════ -->
