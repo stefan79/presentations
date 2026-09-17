@@ -10,152 +10,114 @@
   <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
   <style>
     /* ─────────────────────────────────────────────────────────────
-       Deck: Mainframe-Modernisierung · house style epam · 16:9 (1280×720)
-       Density posture: airy-spoken. One visual per slide.
+       Deck v3: Mainframe-Modernisierung · house style epam · 16:9 (1280×720)
+       Four phase sections (Analysieren · Planen · Umsetzen · Überführen),
+       each with a breaker; objection-chip system; airy-spoken density.
        ───────────────────────────────────────────────────────────── */
     :root { --r-main-font-size: 24px; --r-block-margin: 10px; }
+    .reveal::after { display: none !important; }   /* kill global logo watermark */
 
-    /* kill the global logo watermark — footer is text-only except cover + ask */
-    .reveal::after { display: none !important; }
-
-    .reveal .slides section {
-      padding: 46px 56px 40px;
-      height: 720px;
-      box-sizing: border-box;
-    }
+    .reveal .slides section { padding: 46px 56px 40px; height: 720px; box-sizing: border-box; }
 
     /* ── Slide title band ─────────────────────────────── */
     .reveal .title {
-      font-family: var(--r-heading-font);
-      font-weight: 700;
-      color: #fff;
-      font-size: 30px;
-      line-height: 1.2;
-      letter-spacing: -0.02em;
-      margin: 0 0 4px;
-      max-width: 92%;
+      font-family: var(--r-heading-font); font-weight: 700; color: #fff;
+      font-size: 29px; line-height: 1.2; letter-spacing: -0.02em; margin: 0 0 6px; max-width: 90%;
     }
     .reveal .title .ac { color: var(--epam-blue); }
-    .reveal .lead-in {
-      color: var(--epam-subtle);
-      font-size: 18px;
-      font-style: italic;
-      margin: 0 0 10px;
-    }
-    .reveal .teil {
-      color: var(--epam-accent);
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      margin: 2px 0 14px;
-    }
+    .reveal .lead-in { color: var(--epam-subtle); font-size: 18px; font-style: italic; margin: 0 0 10px; }
+    .reveal .teil { color: var(--epam-accent); font-size: 15px; font-weight: 600; letter-spacing: 0.04em; margin: 2px 0 12px; }
     .reveal .subline { color: var(--epam-subtle); font-size: 15px; }
 
-    /* ── Section marker (top-left) + footer ───────────── */
-    .reveal .marker {
-      position: absolute; top: 20px; left: 56px;
-      font-family: var(--r-heading-font);
-      font-size: 14px; color: var(--epam-subtle);
-      letter-spacing: 0.08em; font-weight: 500;
-    }
-    .reveal .deck-footer {
-      position: absolute; bottom: 14px; left: 56px; right: 56px;
-      display: flex; justify-content: space-between;
-      font-size: 11px; color: rgba(139,148,158,0.75);
-      letter-spacing: 0.04em; font-family: var(--r-heading-font);
-    }
+    /* ── Marker (top-left) + footer ───────────────────── */
+    .reveal .marker { position: absolute; top: 20px; left: 56px; font-family: var(--r-heading-font); font-size: 14px; color: var(--epam-subtle); letter-spacing: 0.08em; font-weight: 500; }
+    .reveal .deck-footer { position: absolute; bottom: 14px; left: 56px; right: 56px; display: flex; justify-content: space-between; font-size: 11px; color: rgba(139,148,158,0.75); letter-spacing: 0.04em; font-family: var(--r-heading-font); }
     .reveal .deck-footer .mid { color: var(--epam-subtle); }
 
-    /* ── Karte / Regelwerk icon pair (§2, slides 03–06) ── */
-    .reveal .icons { position: absolute; top: 18px; right: 56px; display: flex; gap: 10px; }
-    .reveal .icons .ic {
-      width: 40px; height: 40px; border-radius: 9px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: 20px; border: 1.5px solid var(--epam-border);
-      color: var(--epam-subtle); background: transparent;
-      position: relative;
+    /* ── Objection quote chip (§2) ────────────────────── */
+    .reveal .qchip {
+      display: inline-block; font-size: 14px; font-weight: 500; color: #C9D1D9;
+      padding: 7px 13px; border-radius: 8px; border: 1px solid rgba(139,148,158,0.45);
+      background: rgba(139,148,158,0.06); font-style: italic;
     }
-    .reveal .icons .ic.on {
-      border-color: var(--epam-blue);
-      background: rgba(0,160,227,0.16);
-      color: #fff;
-    }
-    .reveal .icons .ic .cap {
-      position: absolute; top: 44px; right: 0; white-space: nowrap;
-      font-size: 10px; color: var(--epam-subtle); letter-spacing: 0.02em;
-    }
+    .reveal .qchip.answer { position: absolute; top: 18px; right: 56px; }
 
-    /* ── Cross-reference chip (§3) ────────────────────── */
-    .reveal .xref {
-      display: inline-block; font-size: 14px; font-weight: 500;
-      padding: 5px 12px; border-radius: 18px;
-      background: rgba(0,160,227,0.10); border: 1px solid rgba(0,160,227,0.28);
-      color: var(--epam-blue); letter-spacing: 0.01em;
-    }
+    /* ── Cross-reference chip (§4) ────────────────────── */
+    .reveal .xref { display: inline-block; font-size: 14px; font-weight: 500; padding: 5px 12px; border-radius: 18px; background: rgba(0,160,227,0.10); border: 1px solid rgba(0,160,227,0.28); color: var(--epam-blue); }
     .reveal .xref::before { content: "→ "; opacity: 0.8; }
 
-    /* ── Placeholder tags (visible until resolved) ───── */
+    /* ── Placeholder tags ─────────────────────────────── */
     .reveal .tag { font-size: 13px; font-style: normal; line-height: 1.3; display: inline-block; }
     .reveal .tag-confirm, .reveal .tag-owner { color: #E35050; }
     .reveal .tag-open { color: #E3A000; }
 
     /* ── Klartext-Schatten (§1) ───────────────────────── */
-    .reveal .kt { color: #fff; }
     .reveal .sh { color: var(--epam-subtle); font-size: 0.62em; font-weight: 400; }
 
-    /* ── Body / supporting lines in bottom band ───────── */
+    /* ── Body / supporting lines ──────────────────────── */
     .reveal .body-line { font-size: 22px; color: #E6E9ED; line-height: 1.28; margin: 4px 0; }
+    .reveal .body-line .ac { color: var(--epam-blue); }
     .reveal .sup-line  { font-size: 14px; color: var(--epam-subtle); line-height: 1.3; margin: 4px 0; }
 
-    /* ── Number tiles (slides 01, 12) ─────────────────── */
+    /* ── Number tiles ─────────────────────────────────── */
     .reveal .tile-row { display: flex; gap: 16px; align-items: stretch; }
-    .reveal .tile {
-      flex: 1; background: var(--epam-surface); border: 1px solid var(--epam-border);
-      border-radius: 12px; padding: 18px 16px; text-align: left; position: relative;
-      display: flex; flex-direction: column;
-    }
+    .reveal .tile { flex: 1; background: var(--epam-surface); border: 1px solid var(--epam-border); border-radius: 12px; padding: 18px 16px; text-align: left; display: flex; flex-direction: column; }
     .reveal .tile.accent { border-color: rgba(0,201,167,0.55); }
-    .reveal .tile .num {
-      font-family: var(--r-heading-font); font-weight: 800; letter-spacing: -0.03em;
-      font-size: 44px; line-height: 1;
-      background: linear-gradient(135deg, var(--epam-blue), var(--epam-accent));
-      -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-    }
+    .reveal .tile .num { font-family: var(--r-heading-font); font-weight: 800; letter-spacing: -0.03em; font-size: 46px; line-height: 1; background: linear-gradient(135deg, var(--epam-blue), var(--epam-accent)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
     .reveal .tile .cap { font-size: 14px; color: #C9D1D9; margin-top: 8px; line-height: 1.25; }
     .reveal .tile .src { font-size: 12px; color: var(--epam-subtle); margin-top: auto; padding-top: 8px; }
 
-    /* ── Generic content cards ────────────────────────── */
+    /* ── Cards ────────────────────────────────────────── */
     .reveal .card { padding: 16px 18px; }
-    .reveal .card h4 { margin: 0 0 8px; font-size: 20px; }
+    .reveal .card h4 { margin: 0 0 8px; font-size: 20px; color: #fff; }
     .reveal .card .cl { font-size: 15px; color: var(--epam-subtle); margin: 4px 0; line-height: 1.3; }
 
-    /* ── Node / chip primitives for diagrams ──────────── */
-    .reveal .node {
-      background: rgba(0,160,227,0.12); border: 1.5px solid var(--epam-blue);
-      border-radius: 12px; padding: 14px 20px; color: #fff; font-weight: 600;
-      font-family: var(--r-heading-font); text-align: center;
-    }
+    /* ── Node / chip primitives ───────────────────────── */
+    .reveal .node { background: rgba(0,160,227,0.12); border: 1.5px solid var(--epam-blue); border-radius: 12px; padding: 14px 20px; color: #fff; font-weight: 600; font-family: var(--r-heading-font); text-align: center; }
     .reveal .node.teal { background: rgba(0,201,167,0.12); border-color: var(--epam-accent); }
-    .reveal .chip {
-      display: inline-block; background: var(--epam-surface); border: 1px solid var(--epam-border);
-      border-radius: 8px; padding: 8px 12px; font-size: 14px; color: #C9D1D9;
-    }
+    .reveal .chip { display: inline-block; background: var(--epam-surface); border: 1px solid var(--epam-border); border-radius: 8px; padding: 8px 12px; font-size: 14px; color: #C9D1D9; }
     .reveal .chip.blue { background: rgba(0,160,227,0.10); border-color: rgba(0,160,227,0.3); color: #fff; }
     .reveal .arrow { color: var(--epam-subtle); font-size: 22px; align-self: center; }
+    .reveal .hex { color: var(--epam-accent); font-size: 18px; align-self: center; }
 
-    /* screenshot placeholder */
-    .reveal .shot {
-      background: repeating-linear-gradient(135deg, #12161c, #12161c 12px, #151a21 12px, #151a21 24px);
-      border: 1px dashed rgba(139,148,158,0.4); border-radius: 10px;
-      display: flex; align-items: center; justify-content: center; text-align: center;
-      color: var(--epam-subtle); font-size: 12px; padding: 14px;
-    }
+    /* ── Outcome strip (repeating, last slide of each section) ── */
+    .reveal .outcome { border: 1px solid rgba(0,201,167,0.5); background: rgba(0,201,167,0.07); border-radius: 10px; padding: 10px 16px; font-size: 14px; color: #E6E9ED; }
+    .reveal .outcome b { color: var(--epam-accent); }
 
-    .reveal .g { display: grid; }
-    .reveal table.wave { font-size: 13px; width: 100%; }
-    .reveal table.wave th, .reveal table.wave td { padding: 8px 10px; }
+    /* ── Screenshot / UI-mock placeholder ─────────────── */
+    .reveal .shot { background: repeating-linear-gradient(135deg, #12161c, #12161c 12px, #151a21 12px, #151a21 24px); border: 1px dashed rgba(139,148,158,0.4); border-radius: 10px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--epam-subtle); font-size: 12px; padding: 14px; }
+    .reveal .mock { background: #10141a; border: 1px solid var(--epam-border); border-radius: 10px; text-align: left; overflow: hidden; }
+    .reveal .mock .bar { background: rgba(0,160,227,0.08); border-bottom: 1px solid var(--epam-border); padding: 8px 14px; font-size: 13px; color: #C9D1D9; }
+    .reveal .mock .rows { padding: 6px 0; }
+    .reveal .mock .row { display: flex; gap: 12px; padding: 8px 14px; border-bottom: 1px solid rgba(139,148,158,0.08); font-size: 13px; color: #C9D1D9; align-items: center; }
+    .reveal .mock .row.sel { background: rgba(0,160,227,0.08); }
+    .reveal .mock .pill { font-size: 11px; padding: 2px 8px; border-radius: 12px; }
+    .reveal .mock .ok { background: rgba(0,201,167,0.16); color: var(--epam-accent); }
+    .reveal .mock .warn { background: rgba(227,160,0,0.16); color: #E3A000; }
+
+    /* ── Matrix (slide 19) ────────────────────────────── */
+    .reveal .matrix { width: 100%; border-collapse: separate; border-spacing: 0; font-size: 13px; }
+    .reveal .matrix th { font-family: var(--r-heading-font); font-size: 13px; color: #fff; padding: 6px 8px; text-align: center; border-bottom: 1px solid var(--epam-blue); }
+    .reveal .matrix td { padding: 7px 8px; border-bottom: 1px solid rgba(139,148,158,0.12); }
+    .reveal .matrix td.lbl { color: #C9D1D9; text-align: left; }
+    .reveal .matrix td.cell { text-align: center; color: var(--epam-blue); font-size: 16px; }
+    .reveal .matrix .span { background: rgba(0,201,167,0.12); color: var(--epam-accent); text-align: center; border-radius: 6px; font-size: 12px; padding: 6px; }
+
+    /* ── Breaker (§3) ─────────────────────────────────── */
+    .reveal section.breaker { padding: 0; }
+    .reveal .breaker .bg { position: absolute; inset: 0; }
+    .reveal .breaker .wrap { position: absolute; left: 72px; bottom: 96px; width: 78%; text-align: left; }
+    .reveal .breaker .sec { font-family: var(--r-heading-font); font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--epam-blue); margin-bottom: 14px; }
+    .reveal .breaker h1 { font-size: 56px; line-height: 1.06; margin: 0; text-align: left; }
+    .reveal .breaker h1::after { display: none; }
+    .reveal .breaker h1 .ac { color: var(--epam-blue); }
+    .reveal .breaker .sup { color: #C9D1D9; font-size: 19px; margin-top: 20px; max-width: 82%; line-height: 1.35; }
+    .reveal .breaker .imgtag { position: absolute; top: 20px; left: 56px; }
+
     .reveal .appendix-tag { color: var(--epam-subtle); font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; }
     .reveal .logo { position: absolute; bottom: 30px; left: 56px; height: 30px; opacity: 0.9; }
+    .reveal table.wave { font-size: 13px; width: 100%; }
+    .reveal table.wave th, .reveal table.wave td { padding: 7px 9px; }
   </style>
 </head>
 <body>
@@ -172,585 +134,547 @@
           <div style="font-family:var(--r-heading-font); font-weight:800; font-size:64px; line-height:1.04; letter-spacing:-0.03em; color:#fff;">Mainframe-<br>Modernisierung</div>
           <div style="font-family:var(--r-heading-font); font-weight:600; font-size:34px; line-height:1.15; letter-spacing:-0.02em; color:var(--epam-blue); margin-top:22px; max-width:80%;">Vom Bestandsüberblick zur AI-gestützten Transformation</div>
           <div style="width:72px; height:3px; background:linear-gradient(90deg,var(--epam-blue),var(--epam-accent)); border-radius:2px; margin:26px 0;"></div>
-          <div style="font-size:26px; color:#E6E9ED; font-weight:400;">Wir wissen, was wir haben — wir wissen, was wir bauen.</div>
+          <div style="font-size:26px; color:#E6E9ED;">Wir wissen, was wir haben — wir wissen, was wir bauen.</div>
           <div style="font-size:14px; color:var(--epam-subtle); margin-top:30px;">
             <span class="tag tag-confirm">[CONFIRM: Veranstaltungsname]</span> ·
             <span class="tag tag-confirm">[CONFIRM: Datum]</span> ·
             Stefan Siprell, EPAM · Public
           </div>
+          <div class="tag tag-owner" style="margin-top:10px;">[Stefan: Cover-Motiv — Bild aus Wissensbasis- oder Traceability-Paper, oder anderes eigenes Bild]</div>
         </div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM" style="bottom:40px; left:64px; height:34px;">
-        <aside class="notes">
-          Der Untertitel ist die Schlusszeile des CFP-Abstracts — das Publikum erkennt den Vortrag wieder, für den es sich angemeldet hat. Noch keine Behauptung. Reuse des Cover-Motivs aus dem Wissensbasis- oder Traceability-Paper geplant.
-        </aside>
+        <aside class="notes">Untertitel = Schlusszeile des Abstracts. Noch keine Behauptung.</aside>
       </section>
 
-      <!-- ═══════════════════════ 01 / 13 ═══════════════════════ -->
-      <section data-marker="01 / 13">
-        <h2 class="title" style="font-size:27px;">Mainframe-Modernisierung ist keine Technologieentscheidung — sie muss <span class="ac">das Wissen zurückholen</span>, das das Haus verlassen hat.</h2>
-        <div class="tile-row" style="margin-top:18px;">
-          <div class="tile">
-            <div class="num">800 Mrd.</div>
-            <div class="cap">Zeilen COBOL im täglichen Einsatz</div>
-            <div class="src"><span class="tag tag-confirm">[CONFIRM: Micro-Focus-Umfrage 2022 — oder IBM 220 Mrd.?]</span></div>
-          </div>
-          <div class="tile">
-            <div class="num">71 %</div>
-            <div class="cap">der Mainframe-Teams sind unterbesetzt</div>
-            <div class="src"><span class="tag tag-confirm">[CONFIRM: Deloitte 2025?]</span></div>
-          </div>
-          <div class="tile">
-            <div class="num">79 %</div>
-            <div class="cap">nennen Mainframe-Talent als größte Herausforderung</div>
-            <div class="src"><span class="tag tag-confirm">[CONFIRM: Deloitte 2025?]</span></div>
-          </div>
-          <div class="tile">
-            <div class="num">55 % + 19 %</div>
-            <div class="cap">des IT-Budgets für Wartung und Pflichtupgrades</div>
-            <div class="src"><span class="tag tag-confirm">[CONFIRM: Deloitte 2026 — Originalquelle?]</span></div>
-          </div>
-          <div class="tile accent">
-            <div class="num" style="font-size:20px; -webkit-text-fill-color:#E35050; background:none; color:#E35050;"><span class="tag tag-owner">[Stefan: eigene PoC-Zahl — Zeilen gescannt, Regeln gefunden, Stunden]</span></div>
-            <div class="cap"><span class="tag tag-owner">[Stefan: Caption zur PoC-Zahl]</span></div>
-            <div class="src" style="color:var(--epam-accent);">eigene Messung</div>
-          </div>
+      <!-- ═══════════════════════ 01 / 19 ═══════════════════════ -->
+      <section data-marker="01 / 19">
+        <h2 class="title">Die meisten Modernisierungen scheitern nicht an der Zieltechnologie — sie <span class="ac">scheitern an unverstandener Fachlogik</span>.</h2>
+        <div class="tile-row" style="margin-top:20px;">
+          <div class="tile"><div class="num">74 %</div><div class="cap">haben ein Modernisierungsprojekt begonnen — und nicht abgeschlossen</div><div class="src">Advanced, Mainframe Modernization Business Barometer 2020</div></div>
+          <div class="tile"><div class="num">22 %</div><div class="cap">Erfolgsquote rein intern geplanter Projekte — 46 % planen so</div><div class="src">Advanced, 4th annual report 2024</div></div>
+          <div class="tile"><div class="num">80 %</div><div class="cap">änderten ihre Mainframe-Strategie im letzten Jahr — Big Bang weicht Phasen</div><div class="src">Kyndryl, State of Mainframe Modernization 2025</div></div>
+          <div class="tile"><div class="num">16 %</div><div class="cap">davon wegen Budget- und Skill-Problemen oder gescheiterter Ansätze</div><div class="src">Kyndryl 2025</div></div>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:26px;">
-          <div>
-            <div class="body-line">Die Technologie ist wählbar.</div>
-            <div class="body-line">Das Wissen steckt im Code und in wenigen Köpfen.</div>
-          </div>
-          <div class="sup-line" style="max-width:38%; text-align:right;">AI liest Millionen Zeilen in Stunden — aber Lesen ist nicht Verstehen.</div>
+          <div class="body-line" style="max-width:56%;">Die Zieltechnologie ist wählbar. Die Fachlogik muss erst verstanden werden.</div>
+          <div class="sup-line" style="max-width:40%; text-align:right;">Unser Befund aus dem Playbook, keine Statistik: Wer die Analyse überspringt, findet die Regeln im Abnahmetest.</div>
         </div>
-        <aside class="notes">
-          Hook und Tension auf einer Folie. Jede Kachel trägt Quelle und Jahr; Kachel 5 ist unsere eigene Messung (Akzentrahmen). Body-Zeile 1 gesteht zu, dass Technologie wählbar ist; Zeile 2 benennt, was es nicht ist. ~1,5 min.
-        </aside>
+        <div class="sup-line" style="margin-top:8px;"><span class="tag tag-confirm">[CONFIRM: Kachel 2 — Advanced nennt 22 % Erfolg (intern geplant) und 46 % interne Planung; beide Zahlen auf einer Kachel behalten?]</span></div>
+        <aside class="notes">Situation in Zahlen über Modernisierungsprojekte, nicht über den Bestand. Letzte Zeile ist unsere These, keine Statistik. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 02 / 13 ═══════════════════════ -->
-      <section data-marker="02 / 13">
-        <div class="lead-in">Wie modernisieren wir zu einem bekannten Preis — und behalten die Kontrolle?</div>
-        <h2 class="title" style="font-size:25px;">Die Wissensbasis lebt: aus dem Bestand gewonnen, um das Zielbild ergänzt, <span class="ac">an jedem Gate korrigiert</span> — am Ende die kuratierten Anforderungen.</h2>
-
-        <div style="display:flex; align-items:center; gap:26px; margin-top:26px; justify-content:center;">
-          <div style="display:flex; flex-direction:column; gap:10px;">
-            <div class="chip">aus dem Bestand gewonnen</div>
-            <div class="chip">um Zielbild-Entscheidungen ergänzt</div>
-            <div class="chip">an jedem Gate korrigiert</div>
+      <!-- ═══════════════════════ 02 / 19 ═══════════════════════ -->
+      <section data-marker="02 / 19">
+        <h2 class="title">„Und jetzt soll AI den Code schreiben?" — Ihre Leute haben recht, <span class="ac">und die Daten geben ihnen recht</span>.</h2>
+        <div style="display:flex; gap:26px; margin-top:18px;">
+          <div style="flex:1.2; display:grid; grid-template-columns:1fr 1fr; gap:10px; align-content:start;">
+            <span class="qchip">„Sloppy."</span>
+            <span class="qchip">„Halluziniert."</span>
+            <span class="qchip">„Fast richtig ist falsch."</span>
+            <span class="qchip">„Tokens werden zu teuer."</span>
+            <span class="qchip">„Niemand kann so viel Code prüfen."</span>
+            <span class="qchip">„Wer haftet?"</span>
+            <span class="qchip">„Ein Mainframe ist zu groß dafür."</span>
+            <span class="qchip">„Wir haben weder Doku noch Tests."</span>
+            <span class="qchip">„Der Cutover ist das Risiko."</span>
+            <span class="qchip">„Wir hängen am Modellanbieter."</span>
           </div>
-          <div class="arrow">→</div>
-          <div class="node teal" style="padding:22px 28px; font-size:22px;">Wissensbasis</div>
-          <div style="flex:1; display:flex; flex-direction:column; align-items:center; gap:8px;">
-            <div style="display:flex; align-items:center; gap:10px;">
-              <div class="chip blue">Analyze</div><span class="arrow" style="font-size:16px;">—</span>
-              <div class="chip blue">Plan</div><span class="arrow" style="font-size:16px;">—</span>
-              <div class="chip blue">Execute</div>
+          <div style="flex:0.85; display:flex; flex-direction:column; gap:12px;">
+            <div class="tile" style="padding:12px 16px;"><div class="num" style="font-size:34px;">84 %</div><div class="cap">der Entwickler nutzen AI-Werkzeuge oder planen es</div></div>
+            <div class="tile" style="padding:12px 16px;"><div class="num" style="font-size:34px;">46 %</div><div class="cap">misstrauen der Genauigkeit der Ergebnisse — 2024 waren es 31 %</div></div>
+            <div class="tile" style="padding:12px 16px;"><div class="num" style="font-size:34px;">66 %</div><div class="cap">verbringen mehr Zeit damit, „fast richtigen" AI-Code zu korrigieren</div><div class="src">Stack Overflow Developer Survey 2025, 49.000 Antworten</div></div>
+          </div>
+        </div>
+        <div style="margin-top:18px;">
+          <div class="body-line">Beide Seiten haben recht.</div>
+          <div class="body-line">Die Antwort ist nicht mehr AI — <span class="ac">sondern Grounding, Gates und Belege</span>.</div>
+        </div>
+        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: zehn Einwände wie gedruckt — ergänzen oder streichen, was dieser Raum nicht sagen würde?]</span></div>
+        <aside class="notes">Complication — das Spannungsfeld. Die Einwände des Raums, in ihren Worten, durch Entwicklerdaten gestützt. Nichts wird hier beantwortet. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 03 / 19 ═══════════════════════ -->
+      <section data-marker="03 / 19">
+        <h2 class="title">Jeder Einwand hat eine Phase, in der er beantwortet wird — <span class="ac">wir gehen sie der Reihe nach durch</span>.</h2>
+        <div style="display:flex; gap:14px; margin-top:18px; align-items:stretch;">
+          <div style="flex:1;">
+            <div class="node" style="padding:8px; font-size:16px;">Analysieren</div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Ein Mainframe ist zu groß dafür."</span><div class="sup-line">Übergangsarchitektur, Schnitt in Wellen</div></div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Weder Doku noch Tests."</span><div class="sup-line">Estate Scanner: Regeln, Tests, Simulationen</div></div>
+          </div>
+          <div style="flex:1;">
+            <div class="node" style="padding:8px; font-size:16px;">Planen</div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Halluziniert."</span><div class="sup-line">Wissensbasis aus fünf Zeugen</div></div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Tokens werden zu teuer." (1)</span><div class="sup-line">Roadmap mit Preis je Welle</div></div>
+          </div>
+          <div style="flex:1;">
+            <div class="node" style="padding:8px; font-size:16px;">Umsetzen</div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Sloppy." · „Fast richtig ist falsch."</span><div class="sup-line">Quellenverweis, Gates, Vollständigkeitsprüfung</div></div>
+            <div style="margin-top:8px;"><span class="qchip" style="display:block;">„Niemand kann so viel prüfen."</span><div class="sup-line">Review-Umgebung je Owner</div></div>
+            <div style="margin-top:8px;"><span class="qchip" style="display:block;">„Tokens werden zu teuer." (2)</span><div class="sup-line">Das Schwungrad</div></div>
+          </div>
+          <div style="flex:1;">
+            <div class="node" style="padding:8px; font-size:16px;">Überführen</div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Der Cutover ist das Risiko."</span><div class="sup-line">Router, Monitoring, Rückfall</div></div>
+            <div style="margin-top:10px;"><span class="qchip" style="display:block;">„Wer haftet?"</span><div class="sup-line">Nachvollziehbarkeit des Harness</div></div>
+          </div>
+        </div>
+        <div style="margin-top:16px; display:flex; align-items:center; gap:12px;">
+          <span class="qchip">„Wir hängen am Modellanbieter."</span>
+          <span class="xref">und bauen sie in Phasen auf</span>
+          <span class="sup-line">(Prüfstand)</span>
+        </div>
+        <aside class="notes">Clustering-Folie, zugleich Agenda. Präsentator kehrt an jedem Breaker verbal hierher zurück; Spaltenköpfe = Breaker-Namen. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ BREAKER A ═══════════════════════ -->
+      <section class="breaker">
+        <div class="bg" style="background:
+          radial-gradient(ellipse 70% 90% at 85% 20%, rgba(0,160,227,0.22), transparent 60%),
+          linear-gradient(120deg, #0b0f14 0%, #0D1117 60%, #101821 100%);"></div>
+        <div class="imgtag"><span class="tag tag-owner">[Stefan: vier Breaker-Bilder einer Bildfamilie]</span></div>
+        <div class="wrap">
+          <div class="sec">Abschnitt 1</div>
+          <h1>Analysieren — <span class="ac">erst verstehen, dann schneiden</span></h1>
+          <div class="sup">Was der Code über den Bestand weiß, holen wir vollständig heraus — und trauen ihm nur bei einer Frage.</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 04 / 19 ═══════════════════════ -->
+      <section data-marker="04 / 19">
+        <span class="qchip answer">„Ein Mainframe ist zu groß dafür."</span>
+        <h2 class="title" style="font-size:25px; max-width:74%;">So wird ein Mainframe abgelöst: <span class="ac">Komponente für Komponente, Welle für Welle</span> — beide Systeme laufen, bis die letzte Welle drüben ist.</h2>
+        <div style="display:flex; gap:16px; margin-top:20px;">
+          <!-- State 1 -->
+          <div style="flex:1;">
+            <div class="sup-line" style="text-align:center; color:#fff; font-weight:600; margin-bottom:8px;">Heute</div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; padding:12px; min-height:190px;">
+              <div class="node" style="font-size:13px; padding:10px;">Mainframe<br><span style="font-size:11px; font-weight:400;">Transaktionen, Batch-Jobs, VSAM/DB2</span></div>
             </div>
-            <div class="sup-line" style="text-align:center; max-width:320px;">Quellenverweis: von der Legacy-Codezeile bis zum deployten Increment</div>
           </div>
-          <div class="arrow">→</div>
-          <div class="chip" style="border-color:var(--epam-accent); color:#fff;">kuratierte Anforderungen</div>
+          <!-- State 2 -->
+          <div style="flex:1;">
+            <div class="sup-line" style="text-align:center; color:#fff; font-weight:600; margin-bottom:8px;">Während der Wellen</div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; padding:12px; min-height:190px; display:flex; flex-direction:column; gap:8px;">
+              <div class="node" style="font-size:12px; padding:8px;">Mainframe</div>
+              <div class="chip blue" style="text-align:center; font-size:12px;">Fassade und Router</div>
+              <div class="node teal" style="font-size:12px; padding:8px;">Zielplattform: Services, DB</div>
+              <div class="sup-line" style="text-align:center; color:var(--epam-accent); font-size:12px;">↕ Daten-Naht: beide Welten aktuell (CDC)</div>
+            </div>
+          </div>
+          <!-- State 3 -->
+          <div style="flex:1;">
+            <div class="sup-line" style="text-align:center; color:#fff; font-weight:600; margin-bottom:8px;">Danach</div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; padding:12px; min-height:190px; display:flex; flex-direction:column; gap:8px;">
+              <div style="border:1px dashed rgba(139,148,158,0.4); border-radius:10px; padding:8px; text-align:center; color:var(--epam-subtle); font-size:12px;">Mainframe (abgeschaltet)</div>
+              <div class="chip blue" style="text-align:center; font-size:12px;">Router</div>
+              <div class="node teal" style="font-size:12px; padding:8px;">Zielplattform</div>
+            </div>
+          </div>
         </div>
-
-        <div style="position:absolute; left:56px; right:56px; bottom:56px;">
-          <div class="body-line"><span class="kt">Jede Spezifikation und jede Codezeile trägt ihren Quellenverweis.</span></div>
-          <div class="sup-line"><span class="kt" style="color:#fff; font-weight:600;">Quellenverweis</span> <span class="sh">(Citation)</span> = der Verweis von einem Stück Arbeit auf das Wissen, das es begründet.</div>
-          <div style="margin-top:10px;"><span class="xref">treibt drei Schwungräder</span></div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:18px;">
+          <div>
+            <div class="body-line">Jede Welle nimmt einen Bereich mit — Logik und die Daten, die dazugehören.</div>
+            <div class="body-line">Der Mainframe schrumpft, bis er abgeschaltet wird.</div>
+          </div>
+          <div class="sup-line" style="max-width:32%; text-align:right;">Strangler-Muster <span class="sh">(Strangler)</span>: ablösen hinter einer Fassade, statt Big Bang.</div>
         </div>
-        <aside class="notes">
-          Question + Point of View. Die drei Zuflüsse zeigen: die Basis wird vom Prozess gespeist, nicht von Disziplin; der Faden zeigt, dass sie benutzt wird. Wie Korrekturen geroutet werden, ist Sache der Schwungrad-Folie — bei Nachfrage der Chip. ~1,5 min.
-        </aside>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner">[Stefan: Übergangsarchitektur-Figur — neu zeichnen oder Phase-3-Strangler-Figur aus dem Playbook]</span></div>
+        <aside class="notes">Das Prädikat für alles Folgende — die Übergangsarchitektur. Overlap ist per Bereich, nicht bestandsweit. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 03 / 13 ═══════════════════════ -->
-      <section data-marker="03 / 13">
-        <div class="icons">
-          <div class="ic">🗺</div>
-          <div class="ic">§</div>
-        </div>
-        <h2 class="title">Zwei Fragen an den Code: Eine <span class="ac">beantwortet er exakt</span> — die andere nicht allein.</h2>
-
-        <div style="display:flex; gap:24px; margin-top:26px;">
+      <!-- ═══════════════════════ 05 / 19 ═══════════════════════ -->
+      <section data-marker="05 / 19">
+        <h2 class="title" style="font-size:25px;">Code ist das Ergebnis von vierzig Jahren Zwängen, Design, Fehlern und Widersprüchen — <span class="ac">ihn zu migrieren, wie er ist, ist Lift-and-Shift in Verkleidung</span>.</h2>
+        <div style="display:flex; gap:24px; margin-top:22px;">
           <div class="card accent-top" style="flex:1; border-top-color:var(--epam-subtle);">
-            <h4 style="color:#fff;">§ „Was soll gelten?" — Nein.</h4>
-            <div class="cl">Fachregeln und Notlösungen sind in 40 Jahren zusammengewachsen.</div>
+            <h4>§ „Was soll gelten?" — Nein.</h4>
+            <div class="cl">Code zeigt die Zwänge der Plattform, auf der er entstand.</div>
             <div class="cl">Rundungsregel 1994, Batch-Notlösung 2003 — im Code identisch.</div>
             <div class="cl">Wer Regeln nur aus Code liest, baut die Unfälle nach.</div>
           </div>
           <div class="card accent-teal" style="flex:1;">
-            <h4 style="color:#fff;">🗺 „Was hängt womit zusammen?" — Ja, vollständig.</h4>
+            <h4>🗺 „Was hängt womit zusammen?" — Ja, vollständig.</h4>
             <div class="cl">Kein Dokument, kein Kopf kennt alle Verbindungen — der Code schon.</div>
             <div class="cl">Welche Programme welche Daten anfassen, welche Transaktionen Tabellen teilen.</div>
-            <div class="cl">Für den Umzug ist genau das die Frage.</div>
+            <div class="cl">Für die Wellen ist genau das die Frage.</div>
           </div>
         </div>
-
-        <div class="body-line" style="text-align:center; margin-top:30px;">Der Code ist die Landkarte des Bestands — nicht sein Regelwerk.</div>
-        <div class="sup-line" style="text-align:center; margin-top:14px;"><span class="tag tag-confirm">[CONFIRM: 1994/2003-Beispiel ist illustrativ, kein Kundenfall — Formulierung ok?]</span></div>
-        <aside class="notes">
-          Setzt die Unterscheidung vor jedem Screenshot. Pre-emption des scheinbaren Widerspruchs „Code ist unzuverlässig / wir planen aus Code". Gesprochene Brücke: „Mit der Karte planen wir den Umzug, das Regelwerk schreiben wir mit allen Zeugen." Beide Icons hier nur umrissen. ~2 min.
-        </aside>
+        <div class="body-line" style="text-align:center; margin-top:34px;">Der Code ist die Landkarte des Bestands — nicht sein Regelwerk.</div>
+        <div class="sup-line" style="text-align:center; margin-top:14px;"><span class="tag tag-confirm">[CONFIRM: 1994/2003-Beispiel ist illustrativ — Formulierung ok?]</span></div>
+        <aside class="notes">Die Ehrlichkeitsfolie — warum Code allein keine Anforderungen ergibt und dennoch die einzige vollständige Karte ist. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 04 / 13 ═══════════════════════ -->
-      <section data-marker="04 / 13">
-        <div class="icons">
-          <div class="ic on">🗺</div>
-          <div class="ic">§</div>
-        </div>
-        <h2 class="title" style="font-size:26px;">Die Landkarte: Der Estate Scanner zeigt, was zusammenhängt — der Migration Planner, <span class="ac">was gemeinsam umzieht</span>.</h2>
-
+      <!-- ═══════════════════════ 06 / 19 ═══════════════════════ -->
+      <section data-marker="06 / 19">
+        <span class="qchip answer">„Wir haben weder Doku noch Tests."</span>
+        <h2 class="title" style="font-size:26px; max-width:74%;">Der Estate Scanner <span class="ac">liest den Bestand</span>: was womit zusammenhängt — und welche Regeln der Code heute umsetzt.</h2>
         <div style="display:flex; gap:20px; margin-top:18px;">
           <div style="flex:1;">
-            <div class="shot" style="height:270px;">
-              <div>
-                <div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Estate Scanner — Data Trace / Call Trace</div>
-                <span class="tag tag-owner">[Stefan: Estate-Scanner-Trace-Screenshot, in Mainframe-Vokabular annotiert oder aus einem COBOL-Bestand, Hero-Crop ≥ 800 px]</span>
-              </div>
-            </div>
+            <div class="shot" style="height:250px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Estate Scanner — Data / Call Trace</div><span class="tag tag-owner">[Stefan: Estate-Scanner-Trace-Screenshot, in Mainframe-Vokabular annotiert oder aus einem COBOL-Bestand]</span></div></div>
             <div class="sup-line" style="margin-top:8px;">Was liest und schreibt diese Transaktion? Wer ruft wen?</div>
-            <div class="sup-line" style="color:#C9D1D9;">CICS-Transaktion · Batch-Job (JCL) · Copybook / VSAM / DB2-Tabelle · CALL/PERFORM-Kette</div>
+            <div class="sup-line" style="color:#C9D1D9;">CICS-Transaktion · Batch-Job (JCL) · Copybook / VSAM / DB2 · CALL/PERFORM-Kette</div>
           </div>
           <div style="flex:1;">
-            <div class="shot" style="height:270px;">
-              <div>
-                <div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Migration Planner — Slices &amp; Naht</div>
-                <span class="tag tag-owner">[Stefan: Migration-Planner-Screenshot mit 3–4 Slices und einer sichtbaren CDC-Naht]</span>
-              </div>
-            </div>
-            <div class="sup-line" style="margin-top:8px;">Was zieht gemeinsam um, in welcher Reihenfolge? Welche Daten müssen währenddessen in beiden Welten aktuell bleiben?</div>
-            <div class="sup-line" style="color:#C9D1D9;">Slice 1: am wenigsten verflochten · Naht (CDC)</div>
+            <div class="shot" style="height:250px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Estate Scanner — wiedergewonnene Regeln</div><span class="tag tag-owner">[Stefan: Estate-Scanner-Screenshot der wiedergewonnenen Anforderungen (Regel-Cluster mit Code-Beleg)]</span></div></div>
+            <div class="sup-line" style="margin-top:8px;">Welche Regeln setzt der Code heute um? Als belegte Vorschläge, mit Link in den Code.</div>
+            <div class="sup-line" style="color:#C9D1D9;">Regelvorschlag · Beleg im Code · Status: zu prüfen</div>
           </div>
         </div>
-
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:16px;">
-          <div>
-            <div class="body-line">Alles auf dieser Folie ist aus dem Code abgelesen — nicht geraten.</div>
-            <div class="body-line">Jeder Slice trägt seine Größe: Transaktionen, Datenobjekte, Regeln.</div>
-          </div>
-          <div><span class="xref">die Prüfkapazität setzt den Preis</span></div>
+          <div class="body-line">Abgelesen, nicht geraten — und Vorschläge, keine Wahrheit.</div>
+          <div><span class="xref">aus fünf Zeugen gespeist</span><div class="sup-line" style="text-align:right; margin-top:4px;">Die Regeln werden im nächsten Abschnitt zu Zeugen</div></div>
         </div>
-        <div class="sup-line" style="margin-top:8px;"><span class="tag tag-confirm">[CONFIRM: Fineract/Java-Beispiel mit Mainframe-Annotationen akzeptabel, oder braucht der Raum ein COBOL-Beispiel?]</span> &nbsp; <span style="color:#E35050; font-size:12px;">Gated: erst lieferbar, wenn beide Screenshots vorliegen.</span></div>
-        <aside class="notes">
-          Beantwortet die exakte Frage mit echten Artefakten; erzeugt Slices und Größen für die Preis-Folie. Nur Karte, kein Regelwerk hier. Annotationen sprechen CICS/JCL/VSAM. Differentiator ist das rechte Panel: Slices nach Verflechtung geordnet plus Nähte. ~3 min.
-        </aside>
+        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Fineract/Java-Beispiel mit Mainframe-Annotationen akzeptabel, oder COBOL-Beispiel nötig?]</span> · <span style="color:#E35050; font-size:12px;">Gated: nur mit beiden Screenshots.</span></div>
+        <aside class="notes">Werkzeug des Abschnitts — Karte plus rückwirkend gewonnene Anforderungen als belegte Vorschläge. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 05a / 13 ═══════════════════════ -->
-      <section data-marker="05 / 13">
-        <div class="icons">
-          <div class="ic">🗺</div>
-          <div class="ic on">§</div>
-        </div>
-        <h2 class="title" style="font-size:25px;">Das Regelwerk: Ein Wissensmodell <span class="ac">führt alle Zeugen zusammen</span> — Code, Spezifikationen, Historie, Verhalten, Menschen.</h2>
-        <div class="teil">Teil 1 — Fünf Zeugen, ein Modell</div>
-
-        <div style="display:flex; align-items:center; gap:22px; margin-top:6px;">
-          <div style="flex:1.3; display:grid; grid-template-columns:1fr 1fr; gap:12px;">
-            <div class="card"><h4 style="font-size:18px; color:#fff;">Code</h4><div class="cl">was läuft — Regelvorschläge mit Beleg, keine Wahrheit</div></div>
-            <div class="card" style="border-color:rgba(0,160,227,0.35);"><h4 style="font-size:18px; color:#fff;">Spezifikationen &amp; Zielbild</h4><div class="cl">die Absicht — mit FINIUS fachlich als Graph analysiert und formuliert</div><div class="sup-line" style="color:var(--epam-blue);">FINIUS</div></div>
-            <div class="card"><h4 style="font-size:18px; color:#fff;">Ticket- und Fehlerhistorie</h4><div class="cl">die Randfälle und das Warum</div></div>
-            <div class="card"><h4 style="font-size:18px; color:#fff;">Aufgezeichnetes Verhalten</h4><div class="cl">was das System nachweislich tut</div></div>
-            <div class="card" style="grid-column:span 2;"><h4 style="font-size:18px; color:#fff;">Menschen</h4><div class="cl">was nirgends steht — Fachexperten</div></div>
+      <!-- ═══════════════════════ 07 / 19 ═══════════════════════ -->
+      <section data-marker="07 / 19">
+        <h2 class="title" style="font-size:25px;">Der Migration Planner <span class="ac">schneidet den Bestand in Wellen</span> — fehlende Tests werden nachgebildet, alles Unverbundene simuliert.</h2>
+        <div style="display:flex; gap:20px; margin-top:18px;">
+          <div style="flex:1.15;">
+            <div class="shot" style="height:230px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Migration Planner — Slices &amp; Naht</div><span class="tag tag-owner">[Stefan: Migration-Planner-Screenshot mit 3–4 Slices und einer CDC-Naht]</span></div></div>
+            <div class="sup-line" style="margin-top:8px;">Was zieht gemeinsam um, in welcher Reihenfolge? Am wenigsten verflochten zuerst.</div>
+            <div class="sup-line" style="color:#C9D1D9;">Slice 1 · Slice 2 · Naht (CDC) · je Slice: Transaktionen, Datenobjekte, Regeln</div>
           </div>
-          <div class="arrow" style="font-size:30px;">→</div>
-          <div class="node teal" style="padding:26px 24px; font-size:20px;">Ein<br>Wissensmodell</div>
+          <div style="flex:0.85; display:flex; flex-direction:column; gap:10px;">
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:4px;">Wellenfolge</h4><div class="cl" style="margin:0;">entlang der Übergangsarchitektur, Bereich für Bereich</div></div>
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:4px;">Tests nachbilden</h4><div class="cl" style="margin:0;">aus aufgezeichnetem Verhalten: Eingabe, Ausgabe, erwarteter Zustand</div></div>
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:4px;">Unverbundenes simulieren</h4><div class="cl" style="margin:0;">jedes System, das nicht angebunden oder nicht unter unserer Kontrolle ist</div></div>
+          </div>
         </div>
-
-        <div style="position:absolute; left:56px; right:56px; bottom:52px;">
-          <div class="body-line">FINIUS liefert die fachliche Seite, der Estate Scanner die technische.</div>
-          <div class="body-line">Die Wissensbasis führt beide zusammen.</div>
-          <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[FINIUS: Logo-Datei und Freigabe der Formulierung „fachlich als Graph analysiert und formuliert"]</span> · <span class="tag tag-confirm">[CONFIRM: FINIUS im Raum? Dann Begriff „Business Services" zu Karte 2]</span></div>
-        </div>
-        <aside class="notes">
-          Beantwortet die zweite Frage konstruktiv; positioniert FINIUS als fachliche, Estate Scanner als technische Seite eines Modells. Der Code ist einer von fünf Zeugen, seine Karte sagt „keine Wahrheit". ~1,5 min.
-        </aside>
+        <div class="outcome" style="margin-top:16px;"><b>Ergebnis des Abschnitts:</b> Slices · Wellenfolge · wiedergewonnene Regeln · Testgerüst · Simulationen</div>
+        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: „Tests nachbilden aus aufgezeichnetem Verhalten" — Behavioral Baseline (Phase 2) als Quelle nennen?]</span> · <span style="color:#E35050; font-size:12px;">Gated: nur mit Screenshot.</span></div>
+        <aside class="notes">Vom Verstehen zum Schnitt; das Ergebnis des Abschnitts. Tests pinnen beobachtetes Verhalten; Unerreichbares wird simuliert, nicht angenommen. ~2 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 05b / 13 ═══════════════════════ -->
-      <section data-marker="05 / 13">
-        <div class="icons">
-          <div class="ic">🗺</div>
-          <div class="ic on">§</div>
+      <!-- ═══════════════════════ BREAKER B ═══════════════════════ -->
+      <section class="breaker">
+        <div class="bg" style="background:
+          radial-gradient(ellipse 70% 90% at 85% 25%, rgba(0,201,167,0.20), transparent 60%),
+          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #0e1a18 100%);"></div>
+        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 2 der Bildfamilie]</span></div>
+        <div class="wrap">
+          <div class="sec">Abschnitt 2</div>
+          <h1>Planen — <span class="ac">das Zielbild in die Wissensbasis</span></h1>
+          <div class="sup">Aus fünf Zeugen wird ein Regelwerk, aus dem Regelwerk ein Zielbild, aus dem Zielbild eine bepreiste Roadmap.</div>
         </div>
-        <h2 class="title" style="font-size:25px;">Das Regelwerk: Ein Wissensmodell <span class="ac">führt alle Zeugen zusammen</span> — Code, Spezifikationen, Historie, Verhalten, Menschen.</h2>
-        <div class="teil">Teil 2 — Was jedes Fragment trägt</div>
-
-        <div style="display:flex; gap:22px; margin-top:6px;">
-          <div style="flex:0.9;">
-            <div class="card accent-top">
-              <h4 style="font-size:19px;">Fragment: Beitragsrundung bei Tarifwechsel</h4>
-              <div class="cl"><strong style="color:#fff;">Herkunft:</strong> Policy-Dokument v5.2 §4 · Code: RATE-CALC ¶3200</div>
-              <div class="cl"><strong style="color:#fff;">Status:</strong> vom Fachexperten bestätigt (ungeprüft → geprüft → bestätigt)</div>
-              <div class="cl"><strong style="color:#fff;">Verankert durch:</strong> Szenario „Tarifwechsel zur Monatsmitte"</div>
-              <div class="cl"><strong style="color:#fff;">Owner:</strong> Tarif-Team</div>
-            </div>
-          </div>
-          <div style="flex:1.1;">
-            <div class="shot" style="height:230px;">
-              <div>
-                <div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Wissensbasis als Website — Seite mit Kopf-Feldern &nbsp;<span style="color:var(--epam-accent);">(Analogie)</span></div>
-                <span class="tag tag-owner">[Stefan: Screenshot der veröffentlichten KB-Website — eine Seite, Kopf sichtbar; falls nicht bereit, eine Analogie-Seite eines Open-Source-Repos, betitelt „Analogie"]</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:18px;">
-          <div>
-            <div class="body-line">Widersprüche zwischen Zeugen werden eskaliert — nie stillschweigend aufgelöst.</div>
-            <div class="body-line">Die Originaldokumente bleiben maßgeblich.</div>
-            <div class="body-line">Für alle lesbar: als Website veröffentlicht, geprüft wie Code.</div>
-          </div>
-          <div class="sup-line" style="max-width:30%; text-align:right;">Vollständig genug zum Planen, vertrauenswürdig genug zum Generieren.</div>
-        </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Beispiel-Fragment „Beitragsrundung bei Tarifwechsel" — Versicherungsbeispiel passend, oder auf eine Bankregel wechseln?]</span></div>
-        <aside class="notes">
-          Zeigt, was das Modell vertrauenswürdig macht: Herkunft, Status, verankerndes Szenario, Owner, Widerspruchsbehandlung — und dass es für alle lesbar ist. Status- und Owner-Zeile: Pflege je Fragment und benannt; „geprüft wie Code" = Prüfung im Tooling, nicht in Disziplin. ~1 min.
-        </aside>
       </section>
 
-      <!-- ═══════════════════════ 06 / 13 ═══════════════════════ -->
-      <section data-marker="06 / 13">
-        <div class="icons">
-          <div class="ic on">🗺</div>
-          <div class="ic on">§</div>
-        </div>
-        <h2 class="title" style="font-size:24px;">Karte und Regelwerk liegen vor: Das Zielbild wandert in die Wissensbasis — wir <span class="ac">iterieren, bis jede Welle geschnitten ist</span>.</h2>
-
-        <div style="display:flex; gap:24px; margin-top:14px; align-items:center;">
-          <div style="flex:1.6; position:relative; height:300px;">
-            <!-- triangle: Zielbild (top) · Bestand (bottom-left) · Wissensbasis (bottom-right) -->
-            <div class="node" style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:180px;">Zielbild</div>
-            <div class="chip blue" style="position:absolute; left:50%; top:66px; transform:translateX(-50%); width:250px; text-align:center; font-size:12px; padding:5px 8px;">Zielbild-Erarbeitung mit FINIUS im fachlichen Graph</div>
-            <div class="node teal" style="position:absolute; left:1%; bottom:0; width:175px;">Bestand<br><span style="font-size:12px; font-weight:400;">(Landkarte)</span></div>
-            <div class="node teal" style="position:absolute; right:1%; bottom:0; width:175px;">Wissensbasis<br><span style="font-size:12px; font-weight:400;">(Regelwerk)</span></div>
-            <div class="sup-line" style="position:absolute; left:0; top:150px; width:210px;">↖ Was bricht, wenn wir dieses Fragment ändern?</div>
-            <div class="sup-line" style="position:absolute; right:0; top:150px; width:210px; text-align:right;">Entscheidungen werden Fragmente mit Owner ↗</div>
-            <div class="sup-line" style="position:absolute; left:50%; bottom:22px; transform:translateX(-50%); text-align:center; width:240px;">↓ Welche Slices berührt diese Entscheidung?</div>
+      <!-- ═══════════════════════ 08 / 19 ═══════════════════════ -->
+      <section data-marker="08 / 19">
+        <span class="qchip answer">„Halluziniert."</span>
+        <h2 class="title" style="font-size:25px; max-width:76%;">Die Wissensbasis wird <span class="ac">aus fünf Zeugen gespeist</span> — Code, Spezifikationen, Historie, Verhalten, Menschen — nicht aus einem.</h2>
+        <div style="display:flex; gap:22px; margin-top:16px; align-items:center;">
+          <div style="flex:1.15; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:3px;">Code</h4><div class="cl" style="margin:0;">was läuft — die Regelvorschläge des Estate Scanners</div></div>
+            <div class="card" style="padding:12px 14px; border-color:rgba(0,160,227,0.35);"><h4 style="font-size:17px; margin-bottom:3px;">Spezifikationen &amp; Zielbild</h4><div class="cl" style="margin:0;">die Absicht — mit FINIUS fachlich als Graph analysiert und formuliert</div></div>
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:3px;">Ticket- und Fehlerhistorie</h4><div class="cl" style="margin:0;">die Randfälle und das Warum</div></div>
+            <div class="card" style="padding:12px 14px;"><h4 style="font-size:17px; margin-bottom:3px;">Aufgezeichnetes Verhalten</h4><div class="cl" style="margin:0;">was das System nachweislich tut</div></div>
+            <div class="card" style="padding:12px 14px; grid-column:span 2;"><h4 style="font-size:17px; margin-bottom:3px;">Menschen</h4><div class="cl" style="margin:0;">was nirgends steht</div></div>
           </div>
-          <div class="arrow">→</div>
-          <div style="flex:0.7; display:flex; flex-direction:column; gap:12px;">
-            <div class="chip blue" style="text-align:center;">Welle 1</div>
-            <div class="chip blue" style="text-align:center;">Welle 2</div>
-            <div class="chip blue" style="text-align:center;">Welle n</div>
-          </div>
-        </div>
-
-        <div style="position:absolute; left:56px; right:56px; bottom:50px;">
-          <div class="body-line">Je Bereich: Zielarchitektur, Strategie, Automatisierungsgrad — entschieden, nicht geschätzt.</div>
-          <div class="body-line">Die Roadmap ist ein Abhängigkeitsgraph — kein Gantt.</div>
-          <div class="sup-line"><span class="kt" style="color:#fff; font-weight:600;">Bereich</span> <span class="sh">(Bounded Context)</span> = fachlich abgeschlossener Teil · <span class="kt" style="color:#fff; font-weight:600;">Strategie</span> <span class="sh">(Strangler / Branch-by-Abstraction / Spec-driven rebuild)</span> = schrittweise ablösen, hinter einer Abstraktion umbauen oder neu bauen</div>
-          <div class="sup-line">Die Iteration endet, wenn jede Welle Bereich, Strategie, Grad und Preis hat. &nbsp; <span class="tag tag-confirm">[CONFIRM: drei Strategienamen in Klartext ok?]</span></div>
-        </div>
-        <aside class="notes">
-          Der nahtlose Übergang aus dem Abstract; die Planungsschleife zwischen Bestand, Zielbild und Wissensbasis; Output sind Wellen. Exit-Kriterium in der letzten Supporting-Zeile. „risikobasiert sequenziert" wird gesprochen, nicht gedruckt. ~2,5 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 07 / 13 ═══════════════════════ -->
-      <section data-marker="07 / 13">
-        <h2 class="title" style="font-size:24px;">Was eine Welle kostet: Umfang × Strategie × Automatisierungsgrad × Review-Kapazität — <span class="ac">die Prüfkapazität setzt den Preis</span>.</h2>
-
-        <table class="wave" style="margin-top:18px;">
-          <thead>
-            <tr>
-              <th>Welle</th><th>Bereiche</th><th>Umfang (Transaktionen / Datenobjekte / Regeln)</th>
-              <th>Strategie</th><th>Grad</th><th>Teamprofil</th><th>Iterationen</th><th>Preisrahmen</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td colspan="8" style="color:#E35050;"><span class="tag tag-owner">[Stefan: Welle 1 — Werte]</span></td></tr>
-            <tr><td colspan="8" style="color:#E35050;"><span class="tag tag-owner">[Stefan: Welle 2 — Werte]</span></td></tr>
-            <tr><td colspan="8" style="color:#E35050;"><span class="tag tag-owner">[Stefan: Welle 3 — Werte]</span></td></tr>
-          </tbody>
-        </table>
-        <div class="sup-line" style="margin-top:8px;"><span class="tag tag-confirm">[CONFIRM: sanitisierte Referenz-Welle — oder Tabelle als „illustrativ" kennzeichnen?]</span> &nbsp; <span style="color:#E35050; font-size:12px;">Gated: erst lieferbar, wenn der Status entschieden ist.</span></div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:22px;">
-          <div>
-            <div class="body-line">Höherer Automatisierungsgrad: weniger Implementierer, mehr erfahrene Prüfer.</div>
-            <div class="body-line">Nicht die Generierung bestimmt den Preis — die Menschen, die prüfen müssen.</div>
-            <div class="sup-line">Gesprochen: wie groß, wie wir es bewegen, wie viel die Maschine übernimmt, wie viele Menschen prüfen.</div>
-          </div>
-          <div><span class="xref">treibt drei Schwungräder</span><div class="sup-line" style="text-align:right; margin-top:4px;">Warum der Preis je Welle sinkt</div></div>
-        </div>
-        <aside class="notes">
-          Die Manager-Frage, als anwendbare Formel beantwortet, mit der ehrlichen Aussage, dass das menschliche Gate den Preis setzt. Tabelle entweder sanitisierte Referenzdaten oder sichtbar „illustrativ" — nichts dazwischen. ~2 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 08a / 13 ═══════════════════════ -->
-      <section data-marker="08 / 13">
-        <h2 class="title">Spec-Driven Development mit menschlichen Gates ist die Basis — <span class="ac">das fügen wir hinzu</span>.</h2>
-        <div class="teil">Teil 1 — Basis und Erweiterung</div>
-
-        <div style="margin-top:8px;">
-          <div class="subline" style="font-weight:600; color:#fff;">Die Basis — kennt jeder</div>
-          <div style="display:flex; align-items:center; gap:8px; margin:12px 0;">
-            <div class="chip">Spezifizieren</div><span class="arrow" style="font-size:16px;">→</span>
-            <span style="color:var(--epam-accent);">⬡</span><span class="arrow" style="font-size:16px;">→</span>
-            <div class="chip">Generieren</div><span class="arrow" style="font-size:16px;">→</span>
-            <span style="color:var(--epam-accent);">⬡</span><span class="arrow" style="font-size:16px;">→</span>
-            <div class="chip">Menschliches Review</div><span class="arrow" style="font-size:16px;">→</span>
-            <div class="chip">Validieren</div><span class="arrow" style="font-size:16px;">→</span>
-            <span style="color:var(--epam-accent);">⬡</span><span class="arrow" style="font-size:16px;">→</span>
-            <div class="chip">Abnehmen</div>
-          </div>
-          <div class="sup-line">Gates sind nicht verhandelbar. &nbsp;(⬡ = menschliches Gate)</div>
-        </div>
-
-        <div style="margin-top:20px;">
-          <div class="subline" style="font-weight:600; color:#fff;">Unsere Erweiterung</div>
-          <div style="display:flex; gap:10px; margin-top:10px; flex-wrap:wrap;">
-            <div class="chip blue" style="font-size:13px;">Spezifizieren: Wissenslücke? An den Kurator, nicht an den Entwickler</div>
-            <div class="chip blue" style="font-size:13px;">Ohne Quellenverweis gilt eine Anforderung als erfunden</div>
-            <div class="chip blue" style="font-size:13px;">Menschliches Review: Prüf-Oberfläche <span style="opacity:0.85;">→ Jeder Owner sieht nur seinen Ausschnitt</span></div>
-            <div class="chip blue" style="font-size:13px;">Abnehmen: Beleg je Increment <span style="opacity:0.85;">→ Jeder Schritt hinterlässt einen Beleg</span></div>
-            <div class="chip blue" style="font-size:13px;">Prüfstand für AI-Bausteine <span style="opacity:0.85;">→ treibt drei Schwungräder</span></div>
-          </div>
-        </div>
-
-        <div class="body-line" style="margin-top:24px;">Die Erweiterung macht die Gates präzise statt teuer.</div>
-        <div class="sup-line" style="margin-top:6px;"><span class="kt" style="color:#fff; font-weight:600;">Prüf-Oberfläche</span> <span class="sh">(IRE)</span> · <span class="kt" style="color:#fff; font-weight:600;">Prüfstand</span> <span class="sh">(Skill Workbench)</span> — hier erste Nennung, definiert auf den Folgefolien.</div>
-        <aside class="notes">
-          Gesteht die bekannte Basis vollständig zu, zeigt die Erweiterungen als Index — jede zeigt vorwärts auf die Folie, die sie beweist. Kreuzverweise §3 nutzen die Akzentphrasen exakt. Drei Hexagons auf der Linie, Teil 2 benennt, wer entscheidet. ~1,5 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 08b / 13 ═══════════════════════ -->
-      <section data-marker="08 / 13">
-        <h2 class="title">Spec-Driven Development mit menschlichen Gates ist die Basis — <span class="ac">das fügen wir hinzu</span>.</h2>
-        <div class="teil">Teil 2 — Wer entscheidet, und wo die Maschine arbeitet</div>
-
-        <div style="display:flex; gap:18px; margin-top:10px;">
-          <div class="card accent-top" style="flex:1;"><h4 style="font-size:19px;">Bank oder Versicherer</h4><div class="cl">besitzt Interpretation, Materialität und Release</div></div>
-          <div class="card accent-teal" style="flex:1;"><h4 style="font-size:19px;">Lieferteam</h4><div class="cl">verantwortet die Qualität und den Betrieb der Werkstatt</div></div>
-          <div class="card" style="flex:1;"><h4 style="font-size:19px;">AI</h4><div class="cl">entscheidet nichts — kein Agent generiert, genehmigt und released seine eigene Änderung</div></div>
-        </div>
-
-        <div style="margin-top:20px; border:1px solid rgba(0,160,227,0.3); border-radius:12px; background:linear-gradient(135deg,rgba(0,160,227,0.08),rgba(0,201,167,0.04)); padding:18px 22px;">
-          <h4 style="margin:0 0 12px; font-size:19px; color:#fff;">Abgeschottete Werkstatt <span class="sh">(Sandbox)</span></h4>
-          <div style="display:flex; gap:10px; flex-wrap:wrap;">
-            <div class="chip">freigegebene Modelle</div>
-            <div class="chip">kein Internet</div>
-            <div class="chip">keine Produktionsdaten</div>
-            <div class="chip">jede Konfiguration versioniert</div>
-          </div>
-        </div>
-
-        <div class="sup-line" style="margin-top:20px;">Das <span class="kt" style="color:#fff; font-weight:600;">Fließband</span> <span class="sh">(Harness)</span> um das Modell ist austauschbar — jeder Baustein hat feste Ein- und Ausgaben.</div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: „Bank oder Versicherer" — oder nur der Institutstyp des Publikums?]</span></div>
-        <aside class="notes">
-          Wer entscheidet und wo die Maschine arbeitet — Verantwortungsgrenze und abgeschottete Werkstatt, damit niemand „lights-out" hört. Der Begriff „Dark Factory" erscheint nie. ~1 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 09 / 13 ═══════════════════════ -->
-      <section data-marker="09 / 13">
-        <h2 class="title" style="font-size:24px;">Das Gate bleibt echt, ohne Review-Ermüdung: <span class="ac">Jeder Owner sieht nur seinen Ausschnitt</span> — ein Agent prüft vorab.</h2>
-
-        <div style="display:flex; gap:22px; margin-top:16px;">
-          <div style="flex:1.7;">
-            <div class="node" style="width:82%; margin:0 auto; padding:10px 16px; font-size:16px;">Änderungsantrag <span class="sh">(Pull Request)</span>: maschinell erzeugt, viele Einheiten</div>
-            <div style="text-align:center; color:var(--epam-subtle); font-size:18px; margin:6px;">↓</div>
-            <div class="chip blue" style="display:block; width:82%; margin:0 auto; text-align:center;">Herkunftsgraph <span class="sh">(Lineage-Graph)</span>: Quellenverweis → Fragment → Owner</div>
-            <div style="text-align:center; color:var(--epam-subtle); font-size:18px; margin:6px;">↓</div>
-            <div style="display:flex; gap:10px;">
-              <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0;">Tarif- und Produkt-Owner</h4></div>
-              <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0;">Schaden- und Leistungs-Owner</h4></div>
-              <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0;">Datenschutz-Owner</h4></div>
-            </div>
-            <div class="sup-line" style="text-align:center; margin-top:8px;">Jeder sieht nur die Einheiten, die seine Regeln umsetzen.</div>
-          </div>
-          <div style="flex:1;">
-            <div class="card accent-teal">
-              <h4 style="font-size:18px;">Vorprüfer zuerst <span class="sh">(Diff-Alignment-Agent)</span></h4>
-              <div class="cl">Vergleicht jede Einheit mit dem Fragment, das sie umsetzt.</div>
-              <div class="cl">Ergebnis: ein Befund, kein Urteil.</div>
-              <div class="chip" style="display:block; margin-top:10px; font-style:italic; border-color:var(--epam-accent);">„Nutzt die Fristregel, liest den Wert aber nie — hier schauen."</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:16px;">
-          <div class="body-line">Abdeckung steigt, Aufwand sinkt — nichts wird überflogen.</div>
-          <div class="sup-line" style="max-width:40%; text-align:right;"><span class="kt" style="color:#fff; font-weight:600;">Prüf-Oberfläche</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit.</div>
-        </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[Stefan: IRE-Screenshot oder Mock; sonst Figure 5 des Traceability-Papers mit diesen drei Ownern nachbauen]</span> · <span class="tag tag-confirm">[CONFIRM: Owner Tarif/Leistung/Datenschutz passend? Für Bank: Zins-, Zahlungs-, Datenschutz-Owner]</span></div>
-        <aside class="notes">
-          Beantwortet den Einwand jedes Managers („meine Leute ertrinken in maschinengeschriebenen Diffs") mit dem Mechanismus, heute. Nichts wird überflogen; die Last sinkt, weil nichts Fremdes auf einem Tisch landet. Der Agent liefert einen Befund, kein Urteil. ~2 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 10a / 13 ═══════════════════════ -->
-      <section data-marker="10 / 13">
-        <h2 class="title" style="font-size:24px;">Auditierbare Evidenz vom Legacy-Code bis zum deployten Increment: <span class="ac">Jeder Schritt hinterlässt einen Beleg</span>.</h2>
-        <div class="teil">Teil 1 — Die Belegkette</div>
-
-        <div style="display:flex; gap:8px; margin-top:12px; align-items:stretch;">
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Wissensbeleg</h4><div class="cl" style="font-size:12px;">Quellen und freigegebene Interpretationen <span style="opacity:0.85;">→ führt alle Zeugen zusammen</span></div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">Grundlage</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Spezifikationsbeleg</h4><div class="cl" style="font-size:12px;">Anforderungen mit Quellenverweisen, Freigabe durch den Fach-Owner</div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">definiert</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Generierungsbeleg</h4><div class="cl" style="font-size:12px;">Modell, Skills, Agenten, Werkzeuge, Werkstatt-Konfiguration</div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">gebaut</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Build- und Prüfbeleg</h4><div class="cl" style="font-size:12px;">Commit, Stückliste (SBOM), Tests, Scans, Befunde, befristete Ausnahmen</div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">geprüft</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Release-Beleg</h4><div class="cl" style="font-size:12px;">Hashes, signierter Herkunftsnachweis, Freigaben, Rollback</div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">freigegeben</div></div>
-          <div class="card accent-teal" style="flex:1; padding:12px;"><h4 style="font-size:15px; margin:0 0 4px;">Übergabe-Beleg</h4><div class="cl" style="font-size:12px;"><span style="opacity:0.85;">→ jede weitere Änderung wird günstiger</span> (Übergabepaket dort)</div><div class="chip blue" style="font-size:11px; padding:3px 8px; margin-top:6px;">übernommen</div></div>
-        </div>
-
-        <div class="body-line" style="margin-top:28px;">Jeder Beleg beantwortet: Was war gefragt, welche Quellen, welche Werkzeuge, welche Tests, wer gab frei.</div>
-        <div class="sup-line" style="margin-top:8px;"><span class="kt" style="color:#fff; font-weight:600;">Stückliste</span> <span class="sh">(SBOM)</span> · <span class="kt" style="color:#fff; font-weight:600;">signierter Herkunftsnachweis</span> <span class="sh">(Provenance attestation)</span> — hier erste Nennung.</div>
-        <aside class="notes">
-          Der Track Record — wie die Software definiert, gebaut, geprüft, released und von wem — als Kette, die der Prozess erzeugt, nicht nachträglich geschrieben. Dieselben Stationen wie auf „das fügen wir hinzu". Station 1 zeigt zurück auf „führt alle Zeugen zusammen". ~1,25 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 10b / 13 ═══════════════════════ -->
-      <section data-marker="10 / 13">
-        <h2 class="title" style="font-size:24px;">Auditierbare Evidenz vom Legacy-Code bis zum deployten Increment: <span class="ac">Jeder Schritt hinterlässt einen Beleg</span>.</h2>
-        <div class="teil">Teil 2 — Die vier Fragen</div>
-
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:12px;">
-          <div class="card accent-top"><h4 style="font-size:19px;">Woher kommt dieses Verhalten?</h4><div class="cl">Codezeile → Fragment → Anforderung → Einheit → Test</div></div>
-          <div class="card accent-top"><h4 style="font-size:19px;">Wurde etwas ohne regelndes Wissen gebaut?</h4><div class="cl">Abdeckungsabfrage — jede Lücke ist ein Befund</div></div>
-          <div class="card accent-top"><h4 style="font-size:19px;">Haben die Richtigen das Richtige geprüft?</h4><div class="cl">Freigaben je Owner, namentlich</div></div>
-          <div class="card accent-top"><h4 style="font-size:19px;">Wie sah es zum Cutover aus?</h4><div class="cl">Der Stand zu einer Revision — reproduzierbar</div></div>
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:22px;">
-          <div class="body-line" style="max-width:58%;">Belegt ist, dass Code und Menschen übereinstimmen — nicht, dass beide recht haben.</div>
-          <div class="sup-line" style="max-width:38%; text-align:right;">Manipulationssicher, ohne Chatverlauf · DORA · EU AI Act · Modellrisiko — eine Evidenz, mehrere Regime</div>
-        </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Regime-Zeile — DORA / EU AI Act / Modellrisiko für diesen Raum, oder branchenspezifisch ergänzen?]</span></div>
-        <aside class="notes">
-          Die vier Fragen eines Governance-Boards, aus der Kette beantwortet, plus die ehrliche Grenze: belegt ist Übereinstimmung, nicht Richtigkeit. Eine Evidenz dient mehreren Regimen. ~0,75 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 11a / 13 ═══════════════════════ -->
-      <section data-marker="11 / 13">
-        <h2 class="title" style="font-size:25px;">Ein Signal — das Urteil am Gate — <span class="ac">treibt drei Schwungräder</span>: Wissen, Skills, Aufsicht.</h2>
-        <div class="teil">Teil 1 — Die drei Schwungräder</div>
-
-        <div style="display:flex; align-items:center; gap:18px; margin-top:12px;">
-          <div class="node" style="padding:18px 20px; font-size:16px; max-width:190px;">Urteil am Gate<br><span style="font-size:12px; font-weight:400;">— mit Quellenverweis</span></div>
           <div class="arrow" style="font-size:28px;">→</div>
-          <div style="flex:1; display:flex; gap:14px;">
-            <div class="card accent-teal" style="flex:1;"><h4 style="font-size:18px;">Wissen</h4><div class="cl">Ablehnung landet am Fragment und beim Owner</div><div class="cl">nächste Iteration startet auf korrigiertem Wissen</div></div>
-            <div class="card accent-teal" style="flex:1;"><h4 style="font-size:18px;">Skills</h4><div class="cl">Urteile werden Testfälle für den Prüfstand</div><div class="cl">günstigstes Modell je Rolle</div></div>
-            <div class="card accent-teal" style="flex:1;"><h4 style="font-size:18px;">Aufsicht</h4><div class="cl">Routineprüfungen wandern je Concern zum Vorprüfer</div><div class="cl">der Mensch prüft nur noch Ausnahmen</div></div>
+          <div style="flex:0.9;">
+            <div class="node teal" style="padding:16px; font-size:18px;">Eine Wissensbasis</div>
+            <div class="shot" style="height:120px; margin-top:10px;"><div><span class="tag tag-owner" style="font-size:11px;">[FINIUS: Screenshot Anforderungs-Graph (anonymisiert) + Wortmarke; Freigabe der Karte-2-Formulierung]</span></div></div>
+            <div class="sup-line" style="text-align:center; color:var(--epam-blue); margin-top:4px;">FINIUS</div>
           </div>
         </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:36px;">
-          <div class="body-line" style="font-size:26px;">Einmal aufgezeichnet, dreimal genutzt.</div>
-          <div class="sup-line" style="max-width:46%; text-align:right;"><span class="kt" style="color:#fff; font-weight:600;">Prüfstand</span> <span class="sh">(Skill Workbench)</span>: AI-Bausteine werden getestet, bevor sie laufen — darauf verlassen wir uns, nicht auf Modelle.</div>
-        </div>
-        <aside class="notes">
-          Der Mechanismus hinter „an jedem Gate korrigiert": ein aufgezeichnetes Urteil, dreimal genutzt. Rad 3: je Concern, Mensch auf Ausnahmen; Versöhnung mit „Gates sind nicht verhandelbar" auf „von der Korrektur zur Kuratierung verlagern". ~2 min.
-        </aside>
+        <div class="body-line" style="margin-top:16px;">Jedes Fragment trägt Herkunft, Status und Owner. Widersprüche werden eskaliert, nie glattgebügelt.</div>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: FINIUS im Raum? Dann „Business Services" zu Karte 2]</span></div>
+        <aside class="notes">Antwort auf Halluzination: das Modell, gegen das die AI generiert, ist aus jedem Zeugen gemerged. Code ist eine von fünf Karten. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 11b / 13 ═══════════════════════ -->
-      <section data-marker="11 / 13">
-        <h2 class="title" style="font-size:25px;">Ein Signal — das Urteil am Gate — <span class="ac">treibt drei Schwungräder</span>: Wissen, Skills, Aufsicht.</h2>
-        <div class="teil">Teil 2 — Die Wirkung</div>
-
-        <div style="display:flex; align-items:flex-end; justify-content:center; gap:0; margin-top:24px; height:230px;">
-          <div class="sup-line" style="align-self:center; margin-right:20px;">Preis je Welle<br><span style="color:var(--epam-subtle);">(schematisch)</span></div>
-          <div style="display:flex; align-items:flex-end; gap:52px; position:relative;">
-            <div style="text-align:center;"><div style="width:90px; height:200px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:8px 8px 0 0;"></div><div class="sup-line">Welle 1</div></div>
-            <div style="text-align:center;"><div style="width:90px; height:140px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:8px 8px 0 0;"></div><div class="sup-line">Welle 2</div></div>
-            <div style="text-align:center;"><div style="width:90px; height:88px; background:linear-gradient(180deg,var(--epam-accent),rgba(0,201,167,0.4)); border-radius:8px 8px 0 0;"></div><div class="sup-line">Welle 3</div></div>
-            <div class="chip" style="position:absolute; left:72px; top:-6px; font-size:12px;">Wissen: weniger Nacharbeit</div>
-            <div class="chip" style="position:absolute; left:190px; top:60px; font-size:12px;">Skills und Aufsicht: günstigere Modelle, freie Prüfkapazität</div>
-          </div>
+      <!-- ═══════════════════════ 09 / 19 ═══════════════════════ -->
+      <section data-marker="09 / 19">
+        <h2 class="title" style="font-size:25px;">Die Wissensbasis <span class="ac">bleibt aktuell, weil Wächter im Werkzeug sitzen</span> — nicht in der Disziplin der Beitragenden.</h2>
+        <div style="display:flex; gap:14px; margin-top:22px;">
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Prüfung bei jeder Änderung</h4><div class="cl">Struktur, Vokabular, Links — maschinell geprüft, bevor etwas hineinkommt.</div></div>
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Alarm bei Drift</h4><div class="cl">Ändert sich der Code unter einer Seite, wird sie markiert.</div></div>
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Widerspruchsprüfung</h4><div class="cl">Seiten zum selben Thema werden gegeneinander gelesen.</div></div>
+          <div class="card accent-teal" style="flex:1;"><h4 style="font-size:18px;">Rückfluss aus Reviews</h4><div class="cl">Ablehnungen im Review landen an der verursachenden Seite <span style="opacity:0.85;">→ macht die Wissensbasis besser</span></div></div>
         </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:22px;">
-          <div>
-            <div class="body-line">Deshalb ist die dritte Welle günstiger als die erste.</div>
-            <div class="body-line">Der Engpass ist das Gate — Schwungrad 3 wirkt direkt auf den Preis.</div>
-          </div>
-          <div class="sup-line" style="max-width:38%; text-align:right;">Branchenwerte: 40–50 % kürzere Laufzeit, 20–30 % mehr Produktivität <span class="tag tag-confirm">[CONFIRM: McKinsey-Zahl wie im Playbook — auf der Folie attribuieren?]</span></div>
-        </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[Stefan: eigene Beschleunigungszahl aus PoC oder Angebot, falls vorhanden — ersetzt die Branchenspanne, ggf. Werte auf die Balken]</span></div>
-        <aside class="notes">
-          Die Wirkung — warum Welle 3 günstiger ist als Welle 1. Die Spanne ist „Branchenwerte", das Diagramm „schematisch"; die eigene Zahl ersetzt die Spanne, falls sie landet. Behauptet wird die Richtung, argumentiert auf Teil 1, nicht die Steigung. ~1 min.
-        </aside>
+        <div class="chip blue" style="display:block; margin-top:16px; text-align:center;">Kuratoren-Queue: ein Owner und ein Status je Seite — ungeprüft, geprüft, bestätigt</div>
+        <div class="sup-line" style="margin-top:18px;">Liegt in Git, veröffentlicht als Website — geprüft wie Code, gelesen wie ein Wiki.</div>
+        <aside class="notes">Die Pflege-Antwort: wie die Basis über ein mehrmonatiges Programm korrekt bleibt. Wächter im Werkzeug, nicht in Disziplin. Guard 2 ist, was ein Wiki nie hatte. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 12 / 13 ═══════════════════════ -->
-      <section data-marker="12 / 13">
-        <h2 class="title" style="font-size:24px;">Am Ende bleibt mehr als neuer Code: Wissensbasis, Anforderungen, Zielbild und Belege — <span class="ac">jede weitere Änderung wird günstiger</span>.</h2>
-        <div class="subline" style="margin-top:8px; color:#fff; font-weight:600;">Was Sie behalten</div>
+      <!-- ═══════════════════════ 10 / 19 ═══════════════════════ -->
+      <section data-marker="10 / 19">
+        <span class="qchip answer">„Tokens werden zu teuer."</span>
+        <h2 class="title" style="font-size:24px; max-width:76%;">Das Zielbetriebsmodell wandert in die Wissensbasis — im Dialog mit dem Estate Scanner <span class="ac">entstehen Budget, Zeitplan und Roadmap</span>.</h2>
+        <div style="display:flex; gap:20px; margin-top:14px;">
+          <div style="flex:1; position:relative; height:230px;">
+            <div class="node" style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:200px; font-size:15px;">Zielbetriebsmodell <span class="sh">(Target Operating Model)</span></div>
+            <div class="chip blue" style="position:absolute; left:50%; top:74px; transform:translateX(-50%); width:230px; text-align:center; font-size:12px; padding:5px 8px;">Zielbild-Erarbeitung mit FINIUS im fachlichen Graph</div>
+            <div class="node teal" style="position:absolute; left:0; bottom:0; width:165px; font-size:14px;">Bestand<br><span style="font-size:11px; font-weight:400;">(Estate Scanner)</span></div>
+            <div class="node teal" style="position:absolute; right:0; bottom:0; width:165px; font-size:14px;">Wissensbasis</div>
+            <div class="sup-line" style="position:absolute; left:0; top:130px; width:190px; font-size:12px;">↖ Was bricht, wenn wir das ändern?</div>
+            <div class="sup-line" style="position:absolute; right:0; top:130px; width:190px; text-align:right; font-size:12px;">Entscheidungen werden Fragmente mit Owner ↗</div>
+            <div class="sup-line" style="position:absolute; left:50%; bottom:8px; transform:translateX(-50%); text-align:center; width:230px; font-size:12px;">↓ Welche Slices berührt diese Entscheidung?</div>
+          </div>
+          <div style="flex:1;">
+            <table class="wave">
+              <thead><tr><th>Welle</th><th>Bereich</th><th>Strategie</th><th>Grad</th><th>Preis</th></tr></thead>
+              <tbody>
+                <tr><td colspan="5" style="color:#E35050;"><span class="tag tag-owner">[Stefan: drei illustrative oder sanitisierte Zeilen]</span></td></tr>
+                <tr><td colspan="5" style="height:26px;"></td></tr>
+                <tr><td colspan="5" style="height:26px;"></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <div class="body-line">Der Preis einer Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</div>
+          <div class="sup-line">Epics und Migrationsplan liegen in der Wissensbasis — nicht in einem Projektplan daneben. &nbsp;<span class="tag tag-confirm">[CONFIRM: „Zielbetriebsmodell" oder durchgängig „Zielbild"?]</span></div>
+        </div>
+        <div class="outcome" style="margin-top:10px;"><b>Ergebnis des Abschnitts:</b> Regelwerk · Zielbetriebsmodell · bepreiste, sequenzierte Roadmap — alles in der Wissensbasis</div>
+        <aside class="notes">Der Plan: Dokumente rein, TOM definiert, Schleife mit dem Scanner, Wellen bepreist. Schleife endet, wenn jede Welle eine Zeile hat. ~2 min.</aside>
+      </section>
 
+      <!-- ═══════════════════════ BREAKER C ═══════════════════════ -->
+      <section class="breaker">
+        <div class="bg" style="background:
+          radial-gradient(ellipse 70% 90% at 82% 20%, rgba(0,160,227,0.22), transparent 60%),
+          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #101a24 100%);"></div>
+        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 3 der Bildfamilie]</span></div>
+        <div class="wrap">
+          <div class="sec">Abschnitt 3</div>
+          <h1>Umsetzen — <span class="ac">generieren mit Quellenverweis und Gates</span></h1>
+          <div class="sup">Spezifizieren, implementieren, prüfen — und jedes Urteil am Gate macht die nächste Welle besser.</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 11 / 19 ═══════════════════════ -->
+      <section data-marker="11 / 19">
+        <span class="qchip answer">„Fast richtig ist falsch."</span>
+        <h2 class="title" style="font-size:24px; max-width:76%;">Spec-Driven Development ist Industriestandard — wir fügen den Quellenverweis hinzu: <span class="ac">nichts wird ohne belegtes Wissen generiert</span>.</h2>
+        <div style="display:flex; gap:24px; margin-top:20px;">
+          <div style="flex:0.85;">
+            <div class="subline" style="font-weight:600; color:#fff; margin-bottom:12px;">Die Basis — Industriestandard</div>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div class="chip">Spezifizieren</div>
+              <div style="text-align:center;"><span class="hex">⬡</span></div>
+              <div class="chip">Generieren</div>
+              <div class="chip">Menschliches Review <span class="hex" style="font-size:14px;">⬡</span></div>
+              <div class="chip">Validieren</div>
+              <div class="chip">Abnehmen <span class="hex" style="font-size:14px;">⬡</span></div>
+            </div>
+            <div class="sup-line" style="margin-top:10px;">Gates sind nicht verhandelbar. (⬡ = Gate)</div>
+          </div>
+          <div style="flex:1.15;">
+            <div class="subline" style="font-weight:600; color:#fff; margin-bottom:12px;">Unsere Ergänzung: der Quellenverweis</div>
+            <div class="body-line">Jeder Satz einer Spezifikation zitiert ein Fragment der Wissensbasis.</div>
+            <div class="body-line">Fehlt der Verweis, gilt der Satz als erfunden — Fehler, nicht Warnung.</div>
+            <div class="body-line" style="border-left:3px solid var(--epam-blue); padding-left:12px;">Unterspezifiziert heißt Halluzinationsrisiko — erst die Wissensbasis fixen, dann generieren.</div>
+          </div>
+        </div>
+        <div class="sup-line" style="margin-top:16px;"><span style="color:#fff; font-weight:600;">Quellenverweis</span> <span class="sh">(Citation)</span>: der Verweis von einem Stück Arbeit auf das Wissen, das es begründet.</div>
+        <aside class="notes">SDD einmal erklärt; der Quellenverweis macht „fast richtig" vor der Generierung fangbar. Rechte Spalte nennt die eine Regel, die Copilot nicht hat. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 12 / 19 ═══════════════════════ -->
+      <section data-marker="12 / 19">
+        <h2 class="title" style="font-size:23px;">Pipeline 1, Spezifizieren: Aus den Quellen entsteht eine Spezifikation, sie wird auf Vollständigkeit geprüft und <span class="ac">von Menschen freigegeben, bevor Code entsteht</span>.</h2>
+        <div style="display:flex; align-items:stretch; gap:8px; margin-top:24px;">
+          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Quellen</h4><div class="cl" style="margin:0;">Wissensbasis, Epic, Bestand</div></div>
+          <span class="arrow">→</span>
+          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Spezifikation generieren</h4><div class="cl" style="margin:0;">jede Anforderung mit Quellenverweis</div></div>
+          <span class="arrow">→</span>
+          <div class="card" style="flex:1.1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Vollständigkeit prüfen</h4><div class="cl" style="margin:0;">jede Anforderung belegt, jedes kuratierte Fragment genutzt, jeder Verweis auflösbar</div></div>
+          <span class="hex" style="font-size:22px;">⬡</span>
+          <div class="card accent-teal" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Freigegebene Spezifikation</h4><div class="cl" style="margin:0;">ein Deliverable, Teil der Anwendung, zurück in die Wissensbasis</div></div>
+        </div>
+        <div class="chip" style="display:inline-block; margin-top:14px; font-size:13px; border-color:var(--epam-accent);">⬡ Review-Umgebung: der Fach-Owner gibt frei — oder lehnt ab</div>
+        <div style="margin-top:18px; border-top:1px dashed rgba(139,148,158,0.3); padding-top:12px;">
+          <div class="sup-line" style="color:#E3A000;">↩ Ablehnung → Signal → Wissensbasis wird korrigiert</div>
+          <div class="sup-line">Wissenslücke gefunden? Sie geht an den Kurator, nicht an den Entwickler.</div>
+        </div>
+        <aside class="notes">Erste Beispiel-Pipeline, Station für Station; die geprüfte Spezifikation ist Deliverable und geht in die Wissensbasis; Ablehnungen werden Signale. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 13 / 19 ═══════════════════════ -->
+      <section data-marker="13 / 19">
+        <span class="qchip answer">„Sloppy."</span>
+        <h2 class="title" style="font-size:23px; max-width:76%;">Pipeline 2, Implementieren: Aus der freigegebenen Spezifikation entstehen Code und Tests — <span class="ac">geprüft gegen das Fragment, das sie umsetzen</span>, dann erst gemergt.</h2>
+        <div style="display:flex; align-items:stretch; gap:8px; margin-top:22px;">
+          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin:0;">Freigegebene Spezifikation</h4></div>
+          <span class="arrow">→</span>
+          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Code und Tests generieren</h4><div class="cl" style="margin:0;">der Quellenverweis steht neben jeder Einheit im Code</div></div>
+          <span class="arrow">→</span>
+          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Vorprüfer <span class="sh">(Diff-Alignment-Agent)</span></h4><div class="cl" style="margin:0;">ein Agent vergleicht jede Einheit mit ihrem Fragment — Befund, kein Urteil</div></div>
+          <span class="hex" style="font-size:22px;">⬡</span>
+          <div class="card accent-teal" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Merge</h4><div class="cl" style="margin:0;">die neue Komponente wird im Estate Scanner registriert — die Karte wächst mit dem Ziel</div></div>
+        </div>
+        <div class="chip" style="display:inline-block; margin-top:14px; font-size:13px; border-color:var(--epam-accent);">⬡ Review-Umgebung: jeder Owner prüft seinen Ausschnitt <span style="opacity:0.85; color:var(--epam-blue);">→ sieht nur seinen Ausschnitt</span></div>
+        <div class="sup-line" style="margin-top:18px;"><span style="color:#fff; font-weight:600;">Abgeschottete Werkstatt</span> <span class="sh">(Sandbox)</span>: freigegebene Modelle, kein Internet, keine Produktionsdaten.</div>
+        <aside class="notes">Zweite Pipeline; der Quellenverweis wandert in den Code; neue Komponenten registrieren sich im Estate Scanner. Merge-Kandidat mit Pipeline 1 bei Zeitdruck. ~1 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 14 / 19 ═══════════════════════ -->
+      <section data-marker="14 / 19">
+        <span class="qchip answer">„Niemand kann so viel Code prüfen."</span>
+        <h2 class="title" style="font-size:24px; max-width:76%;">Das Gate bleibt echt, ohne Review-Ermüdung: <span class="ac">Jeder Owner sieht nur seinen Ausschnitt</span> — vorgeprüft, mit Fundstelle.</h2>
+        <div class="mock" style="margin-top:18px;">
+          <div class="bar">Änderungsantrag <span class="sh">(Pull Request)</span>: 38 Einheiten &nbsp;·&nbsp; mein Ausschnitt: 6 &nbsp;·&nbsp; Owner: Tarif-Team</div>
+          <div class="rows">
+            <div class="row"><span style="flex:1.4;">Einheit</span><span style="flex:2; color:var(--epam-subtle);">Fragment, das sie umsetzt</span><span style="flex:2.4; color:var(--epam-subtle);">Befund des Vorprüfers</span><span style="flex:1.2; text-align:right;">Freigeben / Ablehnen</span></div>
+            <div class="row sel"><span style="flex:1.4;">RATE-CALC ¶3200</span><span style="flex:2;">Beitragsrundung bei Tarifwechsel</span><span style="flex:2.4; color:#E3A000; font-style:italic;">„Nutzt die Fristregel, liest den Wert aber nie — hier schauen."</span><span style="flex:1.2; text-align:right;"><span class="pill warn">prüfen</span></span></div>
+            <div class="row"><span style="flex:1.4;">POLICY-VALIDate</span><span style="flex:2;">Tarifwechsel Monatsmitte</span><span style="flex:2.4; color:var(--epam-accent);">Deckt Fragment vollständig</span><span style="flex:1.2; text-align:right;"><span class="pill ok">bereit</span></span></div>
+            <div class="row"><span style="flex:1.4;">…</span><span style="flex:2; color:var(--epam-subtle);">4 weitere Einheiten in meinem Ausschnitt</span><span style="flex:2.4;"></span><span style="flex:1.2;"></span></div>
+          </div>
+          <div class="bar" style="background:rgba(227,160,0,0.08); border-top:1px solid var(--epam-border); border-bottom:none;">Ablehnungsgrund: Fragment falsch · Fragment unklar · Umsetzung falsch &nbsp;→&nbsp; Signal an die Wissensbasis</div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
+          <div class="body-line">Abdeckung steigt, Aufwand sinkt — nichts wird überflogen.</div>
+          <div class="sup-line" style="max-width:36%; text-align:right;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit.</div>
+        </div>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner">[Stefan / Design: UI-Mock der Review-Umgebung; Owner Tarif/Leistung/Datenschutz — passend für den Raum?]</span> · <span style="color:#E35050; font-size:12px;">Gated: nur mit Mock.</span></div>
+        <aside class="notes">Der Review-Prozess konkret; der UI-Mock ist die Folie. Sechs von 38 sind die des Owners, alle sechs vorgeprüft. Der Befund ist ein Zeiger, die Entscheidung ein Knopf. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 15 / 19 ═══════════════════════ -->
+      <section data-marker="15 / 19">
+        <span class="qchip answer">„Tokens werden zu teuer."</span>
+        <h2 class="title" style="font-size:23px; max-width:76%;">Ein Schwungrad: Jede Ablehnung <span class="ac">macht die Wissensbasis besser</span> — und je mehr Anwendungen auf derselben Domäne, desto günstiger die Factory.</h2>
+        <div style="display:flex; gap:18px; margin-top:16px; align-items:center;">
+          <div style="flex:1;">
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div class="chip blue" style="font-size:13px;">1 · Ablehnung mit Grund und Quellenverweis</div>
+              <div class="chip blue" style="font-size:13px;">2 · Die Wissensbasis fragt: Welches Fragment, was fehlt?</div>
+              <div class="chip blue" style="font-size:13px;">3 · Der Owner korrigiert — Stammeswissen wird explizit</div>
+              <div class="chip blue" style="font-size:13px;">4 · Die nächste Generierung startet auf besserem Wissen</div>
+            </div>
+          </div>
+          <div style="flex:0.9;">
+            <div class="mock" style="padding:0;">
+              <div class="bar" style="border-bottom:none;">Rückfrage der Wissensbasis</div>
+              <div style="padding:12px 14px; font-size:13px; color:#C9D1D9; font-style:italic;">„Diese Ablehnung betrifft ‚Beitragsrundung bei Tarifwechsel'. Was fehlte: Regel unklar / Regel falsch / Ausnahme nicht beschrieben?"</div>
+            </div>
+            <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner" style="font-size:11px;">[Stefan / Design: UI-Mock der Rückfrage]</span></div>
+          </div>
+          <div style="flex:0.8; text-align:center;">
+            <div class="sup-line" style="margin-bottom:6px;">Kosten je Anwendung, gleiche Domäne (schematisch)</div>
+            <div style="display:flex; align-items:flex-end; justify-content:center; gap:10px; height:120px;">
+              <div style="width:26px; height:110px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:5px 5px 0 0;"></div>
+              <div style="width:26px; height:78px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:5px 5px 0 0;"></div>
+              <div style="width:26px; height:52px; background:linear-gradient(180deg,var(--epam-accent),rgba(0,201,167,0.4)); border-radius:5px 5px 0 0;"></div>
+              <div style="width:26px; height:34px; background:linear-gradient(180deg,var(--epam-accent),rgba(0,201,167,0.4)); border-radius:5px 5px 0 0;"></div>
+            </div>
+            <div class="sup-line">1. Anwendung · 2. · 3. · n</div>
+          </div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
+          <div class="body-line" style="max-width:62%;">Wir sammeln, was nur in Köpfen war — und machen es für jede weitere Welle nutzbar.</div>
+          <div class="sup-line" style="max-width:34%; text-align:right;"><span class="tag tag-owner">[Stefan: eigene Zahl — Nacharbeitsstunden oder Fehlerrate je Welle, aus PoC/Angebot]</span></div>
+        </div>
+        <aside class="notes">Das eine Schwungrad; Stammeswissen wird explizit; die Ökonomie. Segment 3: der Fix landet im Wissen, nicht im Code. Kurve schematisch. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ BREAKER D ═══════════════════════ -->
+      <section class="breaker">
+        <div class="bg" style="background:
+          radial-gradient(ellipse 70% 90% at 84% 22%, rgba(0,201,167,0.20), transparent 60%),
+          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #0e1a18 100%);"></div>
+        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 4 der Bildfamilie]</span></div>
+        <div class="wrap">
+          <div class="sec">Abschnitt 4</div>
+          <h1>Überführen — <span class="ac">live gehen, ohne den Atem anzuhalten</span></h1>
+          <div class="sup">Der Router entscheidet, das Monitoring wacht, der Rückfall ist eingebaut — und jeder Schritt ist belegt.</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 16 / 19 ═══════════════════════ -->
+      <section data-marker="16 / 19">
+        <span class="qchip answer">„Der Cutover ist das Risiko."</span>
+        <h2 class="title" style="font-size:23px; max-width:76%;">Live gehen mit dem Strangler-Muster: Die AI generiert den Router, überwacht den neuen Verkehr — <span class="ac">und darf den Router zurückschalten</span>, innerhalb der Regeln, die Menschen setzen.</h2>
+        <div style="margin-top:16px; position:relative; border:1px solid var(--epam-border); border-radius:12px; padding:20px; min-height:210px;">
+          <div class="sup-line" style="text-align:center; color:#C9D1D9;">Monitor-Agent: vergleicht Ergebnisse, Fehlerraten, Antwortzeiten</div>
+          <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:16px;">
+            <div class="node" style="width:150px; font-size:15px;">Mainframe</div>
+            <div style="text-align:center;">
+              <div class="chip blue" style="font-size:12px;">Router: alt · neu · beide (Schattenlauf)</div>
+              <div class="sup-line" style="color:#E3A000; margin-top:6px; font-size:12px;">⟲ Rückfall auf alt — Auslöser: Monitor (Policy) · Bestätigung: Mensch</div>
+            </div>
+            <div class="node teal" style="width:170px; font-size:14px;">Neue Komponente (Welle n)</div>
+          </div>
+          <div class="chip" style="display:block; margin-top:16px; text-align:center; font-size:13px;">Policy: Schwellwerte, Zeitfenster, wer informiert wird, wer den finalen Schnitt freigibt</div>
+        </div>
+        <div style="margin-top:16px;">
+          <div class="body-line">Router und Monitor entstehen in derselben Pipeline — mit Quellenverweis auf das Zielbetriebsmodell.</div>
+          <div class="body-line">Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt.</div>
+        </div>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: Rückfall-Semantik — Monitor löst automatisch innerhalb Schwellwerten aus, Mensch bestätigt den finalen Schnitt; ist der Bestätigungsschritt richtig?]</span></div>
+        <aside class="notes">Die Übergangs-Antwort: wie eine Welle live geht, was sie überwacht, wer sie zurückholen darf. Der Hebel ist durch eine Policy begrenzt, der finale Schnitt ist menschlich. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 17 / 19 ═══════════════════════ -->
+      <section data-marker="17 / 19">
+        <span class="qchip answer">„Wer haftet?"</span>
+        <h2 class="title" style="font-size:24px; max-width:76%;">Der Harness garantiert die Nachvollziehbarkeit: <span class="ac">fünf Zusagen, die jeder Prüfer nachlesen kann</span> — von der Spezifikation bis zum Modell, das gebaut hat.</h2>
+        <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 1</span><span class="body-line" style="margin:0;">Jede Spezifikation vollständig auf Quellenverweise gestützt.</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 2</span><span class="body-line" style="margin:0;">Wissensbasis versioniert — jeder Verweis zeigt auf einen festen Stand.</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 3</span><span class="body-line" style="margin:0;">Jede generierte Einheit rückverfolgbar bis zur Wissensbasis.</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 4</span><span class="body-line" style="margin:0;">Jede menschliche Entscheidung festgehalten — Person und Zeitpunkt.</span></div>
+          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 5</span><span class="body-line" style="margin:0;">Jeder Teil trägt sein Modell und seine Skill-Version.</span></div>
+        </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
+          <div class="sup-line" style="max-width:58%;">Belege statt Beteuerungen — für DORA, EU AI Act und jede künftige Änderung. &nbsp;<span class="tag tag-confirm">[CONFIRM: Regime — DORA und EU AI Act, oder branchenspezifisch ergänzen?]</span></div>
+          <div class="sup-line" style="max-width:40%; text-align:right;">Ehrliche Grenze: Belegt ist, dass Code und Menschen übereinstimmen — nicht, dass beide recht haben.</div>
+        </div>
+        <div class="outcome" style="margin-top:10px;"><b>Ergebnis des Abschnitts:</b> Welle live · Rückfall eingebaut · vollständige Belegkette</div>
+        <aside class="notes">Der Track Record um den Harness; der regulatorische Haken und der Zukunfts-Haken. Die fünf Zeilen erzeugt der Harness, nicht nachträglich geschrieben. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 18 / 19 ═══════════════════════ -->
+      <section data-marker="18 / 19">
+        <h2 class="title" style="font-size:25px;">Am Ende bleibt mehr als neuer Code — <span class="ac">jede weitere Änderung wird günstiger</span>, weil Anforderungen und Implementierung getrennt sind.</h2>
+        <div class="subline" style="margin-top:10px; color:#fff; font-weight:600;">Was Sie behalten</div>
         <div class="tile-row" style="margin-top:14px;">
-          <div class="tile"><h4 style="margin:0 0 8px; font-size:19px; color:#fff;">Anwendung</h4><div class="cap">Code, Regeln, Schemata, Konfiguration</div></div>
-          <div class="tile accent"><h4 style="margin:0 0 8px; font-size:19px; color:#fff;">Wissensbasis</h4><div class="cap">Export mit Quellen, Historie, Freigaben — die kuratierten Anforderungen und das Zielbild</div></div>
-          <div class="tile"><h4 style="margin:0 0 8px; font-size:19px; color:#fff;">Engineering</h4><div class="cap">Spezifikationen, Tests, synthetische Daten, Build-Pipeline</div></div>
-          <div class="tile"><h4 style="margin:0 0 8px; font-size:19px; color:#fff;">Betrieb</h4><div class="cap">Runbooks, Rollback, Monitoring, Wissenstransfer</div></div>
-          <div class="tile"><h4 style="margin:0 0 8px; font-size:19px; color:#fff;">Nachweise</h4><div class="cap">Stückliste, Belegkette, Hashes</div></div>
+          <div class="tile"><h4 style="margin:0 0 8px; font-size:20px; color:#fff;">Anwendung</h4><div class="cap">Code, Regeln, Schemata, Konfiguration</div></div>
+          <div class="tile accent"><h4 style="margin:0 0 8px; font-size:20px; color:#fff;">Wissensbasis</h4><div class="cap">kuratierte Anforderungen, Zielbetriebsmodell, Historie, Freigaben</div></div>
+          <div class="tile"><h4 style="margin:0 0 8px; font-size:20px; color:#fff;">Engineering und Betrieb</h4><div class="cap">Spezifikationen, Tests, synthetische Daten, Build-Pipeline, Runbooks</div></div>
+          <div class="tile"><h4 style="margin:0 0 8px; font-size:20px; color:#fff;">Belege</h4><div class="cap">die fünf Zusagen, nachlesbar je Einheit</div></div>
         </div>
-
-        <div style="margin-top:26px;">
-          <div class="body-line">Anforderungen und Implementierung sind getrennt: Folgeänderungen zitieren dasselbe Wissen.</div>
-          <div class="body-line">Keine Laufzeit-Abhängigkeit von der Factory-Umgebung — ein anderer Lieferant kann gegen dieselbe Wissensbasis bauen.</div>
-          <div class="sup-line" style="margin-top:6px;">Die Wissensbasis lebt weiter — jetzt als Ihr Regelwerk.</div>
-        </div>
-        <aside class="notes">
-          Der Endzustand — was das Institut behält, die Trennung von Anforderungen und Implementierung, Unabhängigkeit von der Factory; Rückruf zur Leitidee. Kachel 2 mit Akzentrahmen — das Asset, um das es geht. Lock-in: Body-Zeile 2; „und wenn Sie weg sind?": Wissenstransfer + Export. ~1,5 min.
-        </aside>
+        <div class="body-line" style="margin-top:28px;">Keine Laufzeit-Abhängigkeit von der Factory — ein anderer Lieferant kann gegen dieselbe Wissensbasis bauen.</div>
+        <aside class="notes">Der Endzustand, ein Satz je Asset. Lock-in: die Body-Zeile. ~1 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 13a / 13 ═══════════════════════ -->
-      <section data-marker="13 / 13">
-        <h2 class="title" style="font-size:24px;">Ausblick: Mit der AI starten, die Sie heute haben — und den Aufwand <span class="ac">von der Korrektur zur Kuratierung verlagern</span>.</h2>
-        <div class="teil">Teil 1 — Vier Schritte</div>
-
-        <div style="display:flex; gap:12px; margin-top:10px;">
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:16px; margin:0 0 6px;">Heutige Assistenten nutzen</h4><div class="cl" style="font-size:13px;">Lessons Learnt strukturiert erfassen — jede Korrektur ist ein Signal.</div><div class="chip" style="font-size:11px; padding:4px 8px; margin-top:8px;">Gate: Korrekturen liegen als Daten vor</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:16px; margin:0 0 6px;">Wissensbasis ins Zentrum</h4><div class="cl" style="font-size:13px;">Spezifikationen tragen Quellenverweise, Korrekturen fließen zurück.</div><div class="chip" style="font-size:11px; padding:4px 8px; margin-top:8px;">Gate: die erste Welle zitiert</div></div>
-          <div class="card" style="flex:1; padding:12px;"><h4 style="font-size:16px; margin:0 0 6px;">Wissen ausbauen, Fließband tauschen</h4><div class="cl" style="font-size:13px;">Bausteine auf dem Prüfstand, Modell je Rolle.</div><div class="chip" style="font-size:11px; padding:4px 8px; margin-top:8px;">Gate: Modellwechsel ist Routine</div></div>
-          <div class="card accent-teal" style="flex:1; padding:12px;"><h4 style="font-size:16px; margin:0 0 6px;">Freigaben auf Autopilot — mit Nachweis</h4><div class="cl" style="font-size:13px;">Das Gate bleibt — der Mensch prüft je Concern die Ausnahmen.</div></div>
+      <!-- ═══════════════════════ 19 / 19 ═══════════════════════ -->
+      <section data-marker="19 / 19">
+        <span class="qchip answer">„Wir hängen am Modellanbieter."</span>
+        <h2 class="title" style="font-size:24px; max-width:76%;">Wir komponieren und engineeren unsere Factory aus Bausteinen — <span class="ac">und bauen sie in Phasen auf</span>.</h2>
+        <div style="display:flex; gap:24px; margin-top:16px;">
+          <div style="flex:1.1;">
+            <table class="matrix">
+              <thead><tr><th style="text-align:left;">Baustein</th><th>Analysieren</th><th>Planen</th><th>Umsetzen</th><th>Überführen</th></tr></thead>
+              <tbody>
+                <tr><td class="lbl">Estate Scanner</td><td class="cell">●</td><td></td><td></td><td class="cell">●</td></tr>
+                <tr><td class="lbl">Wissensbasis + FINIUS</td><td class="cell">●</td><td class="cell">●</td><td class="cell">●</td><td class="cell">●</td></tr>
+                <tr><td class="lbl">SDD-Pipelines / Harness</td><td></td><td></td><td class="cell">●</td><td></td></tr>
+                <tr><td class="lbl">Review-Umgebung</td><td></td><td></td><td class="cell">●</td><td></td></tr>
+                <tr><td class="lbl">Router + Monitor</td><td></td><td></td><td></td><td class="cell">●</td></tr>
+                <tr><td class="lbl">Prüfstand <span class="sh">(Skill Workbench)</span></td><td colspan="4" class="span">Token-Budget je Rolle · Modellwechsel als Routine</td></tr>
+                <tr><td class="lbl">Belege</td><td class="cell">●</td><td class="cell">●</td><td class="cell">●</td><td class="cell">●</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="flex:1;">
+            <div class="sup-line" style="margin:2px 0;"><span style="color:var(--epam-blue); font-weight:700;">1.</span> Modernisierung scheitert an unverstandener Fachlogik — erst Karte und Regelwerk, dann Code.</div>
+            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">2.</span> Nichts ohne Quellenverweis — und jedes Urteil am Gate verbessert die Wissensbasis.</div>
+            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">3.</span> Menschen entscheiden an Gates. Belege zeigen wer, was, womit.</div>
+            <div class="sup-line" style="margin:8px 0; border-left:3px solid var(--epam-accent); padding-left:10px; color:#E6E9ED;"><span style="color:var(--epam-accent); font-weight:700;">4.</span> Wir komponieren und engineeren unsere Factory aus Bausteinen — und bauen sie in Phasen auf.</div>
+          </div>
         </div>
-
-        <!-- shifting bars -->
-        <div style="display:flex; gap:12px; margin-top:14px;">
-          <div style="flex:1; height:26px; border-radius:6px; overflow:hidden; display:flex;"><div style="width:80%; background:#E3A000;"></div><div style="width:20%; background:var(--epam-accent);"></div></div>
-          <div style="flex:1; height:26px; border-radius:6px; overflow:hidden; display:flex;"><div style="width:60%; background:#E3A000;"></div><div style="width:40%; background:var(--epam-accent);"></div></div>
-          <div style="flex:1; height:26px; border-radius:6px; overflow:hidden; display:flex;"><div style="width:40%; background:#E3A000;"></div><div style="width:60%; background:var(--epam-accent);"></div></div>
-          <div style="flex:1; height:26px; border-radius:6px; overflow:hidden; display:flex;"><div style="width:20%; background:#E3A000;"></div><div style="width:80%; background:var(--epam-accent);"></div></div>
-        </div>
-        <div style="display:flex; justify-content:space-between; margin-top:8px;">
-          <div class="sup-line"><span style="color:#E3A000;">■</span> Generierungen korrigieren &nbsp; <span style="color:var(--epam-accent);">■</span> Wissen kuratieren &nbsp; <span class="tag tag-confirm">[CONFIRM: illustrative Anteile 80/20 → 60/40 → 40/60 → 20/80?]</span></div>
-          <div class="sup-line"><span class="kt" style="color:#fff; font-weight:600;">Reifegrad</span> <span class="sh">(automation maturity)</span> 1 → 2 → 3</div>
-        </div>
-        <aside class="notes">
-          Der eigene Pfad des Publikums in vier gegateten Schritten. Schritt 4: das Gate bleibt, nur der Anteil des Menschen ändert sich — konsistent mit Rad 3. Beginnt mit dem, was sie schon betreiben; jedes Gate ist beobachtbar, nicht datiert. ~1,5 min.
-        </aside>
-      </section>
-
-      <!-- ═══════════════════════ 13b / 13 ═══════════════════════ -->
-      <section data-marker="13 / 13">
-        <h2 class="title" style="font-size:23px;">Ausblick: Mit der AI starten, die Sie heute haben — und den Aufwand <span class="ac">von der Korrektur zur Kuratierung verlagern</span>.</h2>
-        <div class="teil">Teil 2 — Der erste Schritt</div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; height:340px; text-align:center;">
-          <div style="font-size:28px; color:var(--epam-blue); margin-bottom:22px;">🗺</div>
-          <div style="font-size:36px; font-family:var(--r-heading-font); font-weight:700; color:#fff; letter-spacing:-0.02em;">Erster Schritt: den Bestand scannen.</div>
-          <div class="body-line" style="margin-top:22px;">Nach dem Scan aufhören ist ein gültiges Ergebnis — Landkarte und Preisrahmen bleiben.</div>
-          <div class="body-line">Die Wissensbasis lebt — und sie beginnt mit der Karte.</div>
-        </div>
-
-        <div class="sup-line" style="text-align:center; margin-top:10px;">EPAM Estate Scanner und Wissensbasis — mit FINIUS für das fachliche Regelwerk. <span class="tag tag-confirm">[CONFIRM: FINIUS auf der Ask-Folie nennen?]</span></div>
+        <div class="sup-line" style="margin-top:14px;">EPAM Estate Scanner, Wissensbasis, Harness und Review-Umgebung — mit FINIUS für das fachliche Regelwerk. &nbsp;<span class="tag tag-confirm">[CONFIRM: Takeaways 1–3 Formulierung; FINIUS in der Zeile nennen?]</span></div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM">
-        <aside class="notes">
-          Die Bitte — den Bestand scannen — mit dem Aufhören als gültigem Ergebnis und dem Rückruf zur Leitidee. Die einzige Body-Folie, auf der EPAM genannt wird. Was nach dem Aufhören bleibt, ist benannt. ~0,5 min.
-        </aside>
+        <aside class="notes">Der Abschluss: Bausteine über vier Phasen; der Prüfstand als Antwort auf „Modellanbieter"; vier Takeaways. Die Folie, auf der EPAM genannt wird. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX DIVIDER ═══════════════════════ -->
-      <section class="section-divider" data-marker="Appendix">
+      <section class="section-divider">
         <h2>Anhang</h2>
         <p>Referenzfolien A–F — werden gelesen, nicht präsentiert. Auf Nachfrage eingeblendet.</p>
       </section>
@@ -760,13 +684,13 @@
         <span class="appendix-tag">Anhang A · Prüfstand</span>
         <h2 class="title" style="font-size:24px;">Der Prüfstand hält die Bausteine ehrlich: <span class="ac">Quellenverweise werden getestet</span>, bevor ein Baustein läuft.</h2>
         <div style="display:flex; gap:16px; margin-top:20px;">
-          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Gemockte Wissensbasis</h4><div class="cl">Feste Fragmente mit bekannten Ankern und Hashes — der Prüfstand prüft, ob ein Baustein genau die richtigen Quellenverweise ausgibt.</div></div>
-          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Evaluation über Modelle und Kontextlasten</h4><div class="cl">Zitiert das Modell, zitiert es korrekt, erfindet es? Ergebnis: Modell je Rolle und die Kontextgrenze, ab der Genauigkeit sinkt.</div></div>
-          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Regression auf echten Urteilen</h4><div class="cl">Jede Prompt-Änderung läuft gegen vergangene Fälle. Bricht die Quellenverweis-Treue, wird nicht ausgeliefert.</div></div>
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Gemockte Wissensbasis</h4><div class="cl">Feste Fragmente mit bekannten Ankern — der Prüfstand prüft, ob ein Baustein genau die richtigen Quellenverweise ausgibt.</div></div>
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Evaluation über Modelle und Kontextlasten</h4><div class="cl">Zitiert das Modell, zitiert es korrekt, erfindet es? Ergebnis: Modell je Rolle, Kontextgrenze, Token-Budget.</div></div>
+          <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Regression auf echten Urteilen</h4><div class="cl">Jede Prompt- oder Modelländerung läuft gegen vergangene Fälle. Bricht die Verweis-Treue, wird nicht ausgeliefert.</div></div>
         </div>
         <div class="sup-line" style="margin-top:20px;">Ein günstigeres Modell darf kuratieren, wenn es unter Last keine Quellen erfindet — das entscheidet der Prüfstand, nicht der Geschmack.</div>
         <div class="chip" style="margin-top:14px; font-size:12px;">Skill Workbench (SWB)</div>
-        <aside class="notes">Nutzen, wenn jemand fragt, wie die AI vom Erfinden von Quellen abgehalten wird oder wie Laufkosten kontrolliert werden.</aside>
+        <aside class="notes">Nutzen, wenn jemand fragt, wie die AI vom Erfinden von Quellen abgehalten wird oder was bei Modellwechsel passiert.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX B ═══════════════════════ -->
@@ -774,22 +698,13 @@
         <span class="appendix-tag">Anhang B · Beleg</span>
         <h2 class="title" style="font-size:24px;">So sieht ein Beleg aus: <span class="ac">jeder Schritt ist nachlesbar</span>, ohne Chatverlauf.</h2>
         <div style="display:flex; gap:18px; margin-top:18px; align-items:flex-start;">
-          <div style="flex:1.4;">
-            <div class="shot" style="height:300px; font-family:var(--r-code-font); text-align:left; align-items:flex-start;">
-              <span class="tag tag-owner">[Stefan: abstrahierter Generierungsbeleg (YAML) — Abschnitte: Identität und freigegebene Grundlage, Factory-Konfiguration, erzeugte Artefakte, Prüfung und Befunde, Freigaben, Integrität — modelliert nach Appendix A des NatWest-Papers, Kundennamen entfernt]</span>
-            </div>
-          </div>
+          <div style="flex:1.4;"><div class="shot" style="height:300px; text-align:left; align-items:flex-start;"><span class="tag tag-owner">[Stefan: abstrahierter Generierungsbeleg (YAML) — Identität und freigegebene Grundlage, Factory-Konfiguration, erzeugte Artefakte, Prüfung und Befunde, Freigaben, Integrität; Kundennamen entfernt]</span></div></div>
           <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
-            <div class="chip">Auftrag</div>
-            <div class="chip">Grundlage</div>
-            <div class="chip">Konfiguration</div>
-            <div class="chip">Ergebnisse</div>
-            <div class="chip">Prüfungen</div>
-            <div class="chip">Freigaben und Hashes</div>
+            <div class="chip">Auftrag</div><div class="chip">Grundlage</div><div class="chip">Konfiguration</div><div class="chip">Ergebnisse</div><div class="chip">Prüfungen</div><div class="chip">Freigaben und Hashes</div>
           </div>
         </div>
         <div class="sup-line" style="margin-top:16px;">Sechs Blöcke: Auftrag · Grundlage · Konfiguration · Ergebnisse · Prüfungen · Freigaben und Hashes.</div>
-        <aside class="notes">Nutzen, wenn jemand fragt, was ein Beleg tatsächlich enthält. Keine Prompts, kein Chat — Verweise, Versionen und Hashes.</aside>
+        <aside class="notes">Nutzen, wenn jemand fragt, was ein Beleg enthält. Keine Prompts, kein Chat — Verweise, Versionen, Hashes.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX C ═══════════════════════ -->
@@ -797,8 +712,7 @@
         <span class="appendix-tag">Anhang C · Wissensbasis</span>
         <h2 class="title" style="font-size:24px;">Die Wissensbasis ist ein Git-Repository: <span class="ac">Struktur liegt im Werkzeug</span>, nicht in der Disziplin.</h2>
         <div style="display:flex; gap:18px; margin-top:18px; align-items:flex-start;">
-          <div style="flex:0.85;">
-            <pre style="font-size:12px; width:100%;"><code>kb_id
+          <div style="flex:0.85;"><pre style="font-size:12px; width:100%;"><code>kb_id
 category
 contexts
 layers
@@ -806,9 +720,7 @@ concerns
 source_refs
 validation
 related
-verified_by</code></pre>
-            <div class="sup-line">Beispiel-Header aus dem Wissensbasis-Paper</div>
-          </div>
+verified_by</code></pre><div class="sup-line">Beispiel-Header aus dem Wissensbasis-Paper</div></div>
           <div style="flex:1.15;">
             <div class="cl" style="font-size:15px;">Skill-Layer: Beitragende beantworten Fragen, das Werkzeug schreibt den Header.</div>
             <div class="cl" style="font-size:15px;">CI auf jedem Pull Request: Schema, kontrollierte Vokabulare, Fragment-IDs, Links, Split-Regel.</div>
@@ -816,8 +728,7 @@ verified_by</code></pre>
             <div class="cl" style="font-size:15px;">Zwei Konsumenten: der Agenten-Pfad pinnt Ergebnisse, der interaktive Pfad nicht.</div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:16px;">Veröffentlicht als Website; die Freigabe ist der Pull-Request-Approve, nicht ein Klick auf der Seite.</div>
-        <aside class="notes">Nutzen, wenn ein Architekt fragt, wie die Wissensbasis strukturiert oder gepflegt wird. Kontrollierte Vokabulare fallen in CI durch; ein Concern umzubenennen ist ein mechanischer Sweep.</aside>
+        <aside class="notes">Nutzen, wenn ein Architekt fragt, wie die Basis strukturiert, abgerufen oder gegatet wird. Kontrollierte Vokabulare fallen in CI durch.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX D ═══════════════════════ -->
@@ -828,8 +739,7 @@ verified_by</code></pre>
           <div style="flex:1.15;">
             <div class="chip" style="display:block; margin-bottom:8px;">Modul → Einheit (Methode, Konstante, Test — als Syntaxbaum-Knoten, nicht als Datei)</div>
             <div class="chip" style="display:block; margin-bottom:8px;">CITES (Rolle, Revision, Hash) → Wissensfragment</div>
-            <div class="chip" style="display:block; margin-bottom:8px;">TOUCHES: Revision → geänderte Einheiten</div>
-            <div class="chip" style="display:block;">SOURCED_FROM: Fragment → Ursprung (Dokument, Interview)</div>
+            <div class="chip" style="display:block;">TOUCHES: Revision → geänderte Einheiten</div>
           </div>
           <div style="flex:0.85; display:flex; flex-direction:column; gap:10px;">
             <div class="card" style="padding:12px;"><div class="cl" style="margin:0;"><strong style="color:#fff;">Native Graph-DB</strong> — schnellste Traversalen, neue Infrastruktur</div></div>
@@ -837,8 +747,8 @@ verified_by</code></pre>
             <div class="card" style="padding:12px;"><div class="cl" style="margin:0;"><strong style="color:#fff;">Abgeleiteter Index, bei Merge neu gebaut</strong> — wegwerfbar, nur lesend</div></div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:16px;">Empfehlung: auf der relationalen Basis beginnen, den Graph als materialisierte Sicht behandeln, erst bei Bedarf migrieren — der Graph lohnt sich ab etwa tausend Seiten.</div>
-        <aside class="notes">Nutzen, wenn jemand fragt, wo die Herkunft lebt oder welche Datenbank sie braucht. Antwort: Option 2 und die Empfehlung.</aside>
+        <div class="sup-line" style="margin-top:16px;">Empfehlung: relationale Basis zuerst, Graph als materialisierte Sicht, Migration erst bei Bedarf.</div>
+        <aside class="notes">Nutzen, wenn jemand fragt, wo die Herkunft lebt oder welche Datenbank sie braucht. Antwort: Option 2.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX E ═══════════════════════ -->
@@ -848,15 +758,15 @@ verified_by</code></pre>
         <table class="wave" style="margin-top:16px; font-size:12px;">
           <thead><tr><th>Regime</th><th>Erwartung</th><th>Evidenz</th></tr></thead>
           <tbody>
-            <tr><td><strong>EU AI Act</strong></td><td>technische Dokumentation, Aufzeichnung, Nachvollziehbarkeit, menschliche Aufsicht</td><td>Herkunftsgraph, Owner-Ausschnitte, gepinnte Kette</td></tr>
-            <tr><td><strong>DORA</strong></td><td>Nachvollziehbarkeit von IKT-Änderungen</td><td>TOUCHES-Historie mit Quellenverweisen</td></tr>
-            <tr><td><strong>Modellrisiko-Praxis</strong> (SR 11-7, PRA SS1/23)</td><td>Entwicklungsnachweis, Audit-Trail von Ausgaben zu Eingaben</td><td>die Kette je Einheit</td></tr>
+            <tr><td><strong>EU AI Act</strong></td><td>Dokumentation, Aufzeichnung, Nachvollziehbarkeit, menschliche Aufsicht</td><td>Herkunftsgraph, Owner-Ausschnitte, gepinnte Kette</td></tr>
+            <tr><td><strong>DORA</strong></td><td>Nachvollziehbarkeit von IKT-Änderungen</td><td>Änderungshistorie mit Quellenverweisen</td></tr>
+            <tr><td><strong>Modellrisiko-Praxis</strong></td><td>Entwicklungsnachweis, Audit-Trail von Ausgaben zu Eingaben</td><td>die Kette je Einheit</td></tr>
             <tr><td><strong>ISO/IEC 42001</strong></td><td>Nachvollziehbarkeit als System, nicht als Einzelabfrage</td><td>—</td></tr>
           </tbody>
         </table>
         <div class="chip" style="display:block; margin-top:14px; font-size:12px;">Bank/Versicherer: Regulierungsperimeter, Interpretation, Materialität, Restrisiko, Release · Lieferteam: Softwarequalität, Betrieb der Werkstatt nach vereinbarten Kontrollen</div>
-        <div class="sup-line" style="margin-top:12px;">Keine Rechtsauskunft — die Anwendbarkeit bestimmt das Institut. &nbsp; <span class="tag tag-confirm">[CONFIRM: bankspezifische Zeilen (SR 11-7, PRA SS1/23) für diesen Raum behalten?]</span></div>
-        <aside class="notes">Nutzen, wenn Compliance oder Risk fragt, welche Regulierung dies erfüllt oder wer was besitzt. Die Zeilen ordnen Evidenz Erwartungen zu, nicht Zertifizierung.</aside>
+        <div class="sup-line" style="margin-top:12px;">Keine Rechtsauskunft — die Anwendbarkeit bestimmt das Institut.</div>
+        <aside class="notes">Nutzen, wenn Compliance/Risk fragt, welche Regulierung dies erfüllt. Zeilen ordnen Evidenz Erwartungen zu, nicht Zertifizierung.</aside>
       </section>
 
       <!-- ═══════════════════════ APPENDIX F ═══════════════════════ -->
@@ -870,24 +780,15 @@ verified_by</code></pre>
           <div class="chip blue" style="flex:1; text-align:center; font-size:12px;">4 Iterative Modernization</div>
           <div class="chip blue" style="flex:1; text-align:center; font-size:12px;">5 Validation &amp; Cutover</div>
         </div>
-        <div class="sup-line" style="text-align:center; margin-top:8px;">Analyze (1–2) · Plan (3) · Execute (4–5)</div>
-
-        <div style="display:flex; gap:18px; margin-top:16px;">
-          <div style="flex:1;">
-            <div class="cl" style="font-size:13px;"><strong style="color:#fff;">Grad 0:</strong> manuell</div>
-            <div class="cl" style="font-size:13px;"><strong style="color:#fff;">Grad 1:</strong> AI unterstützt einzelne Schritte</div>
-            <div class="cl" style="font-size:13px;"><strong style="color:#fff;">Grad 2:</strong> AI generiert, Menschen prüfen</div>
-            <div class="cl" style="font-size:13px;"><strong style="color:#fff;">Grad 3:</strong> AI generiert und validiert, Menschen prüfen Ausnahmen</div>
-          </div>
-          <div style="flex:1;">
-            <div class="chip" style="display:block; margin-bottom:6px; font-size:12px;">Landkarte → 1 · Regelwerk → 1–2</div>
-            <div class="chip" style="display:block; margin-bottom:6px; font-size:12px;">Zielbild, Wellen → 3</div>
-            <div class="chip" style="display:block; margin-bottom:6px; font-size:12px;">Gates, Belege, Schwungräder → 4</div>
-            <div class="chip" style="display:block; font-size:12px;">Übergabe → 5</div>
-          </div>
+        <div class="sup-line" style="text-align:center; margin-top:10px;">Analysieren → 1–2 · Planen → 3 · Umsetzen → 4 · Überführen → 5</div>
+        <div style="margin-top:18px;">
+          <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 0:</strong> manuell</div>
+          <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 1:</strong> AI unterstützt Schritte</div>
+          <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 2:</strong> AI generiert, Menschen prüfen</div>
+          <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 3:</strong> AI generiert und validiert, Menschen prüfen Ausnahmen</div>
         </div>
-        <div class="sup-line" style="margin-top:14px;">Reifegrad je Bereich, steigt mit Nachweis — nie pauschal.</div>
-        <aside class="notes">Nutzen, wenn jemand die Gesamtmethode erfragt oder wo die Vortragsteile darin sitzen. Datenmigration und Cutover-Detail sind bewusst außerhalb des Vortragsumfangs.</aside>
+        <div class="sup-line" style="margin-top:16px;">Reifegrad je Bereich, steigt mit Nachweis — nie pauschal.</div>
+        <aside class="notes">Nutzen, wenn jemand die Gesamtmethode erfragt. Datenmigration/Cutover-Detail ist bewusst außerhalb des Vortragsumfangs.</aside>
       </section>
 
     </div>
@@ -897,14 +798,12 @@ verified_by</code></pre>
   <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
   <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
   <script>
-    // Inject the section marker (top-left) and the three-part footer on every
-    // body/appendix slide (any section carrying data-marker). Cover has none.
+    // Section marker (top-left) + three-part footer on every marked body/appendix
+    // slide. Cover and breakers carry no data-marker → no marker, no footer.
     document.querySelectorAll('.reveal .slides section[data-marker]').forEach(function (s) {
       var m = s.dataset.marker;
       var marker = document.createElement('div');
-      marker.className = 'marker';
-      marker.textContent = m;
-      s.appendChild(marker);
+      marker.className = 'marker'; marker.textContent = m; s.appendChild(marker);
       var f = document.createElement('div');
       f.className = 'deck-footer';
       f.innerHTML = '<span>EPAM · Public</span><span class="mid">Mainframe-Modernisierung</span><span>' + m + '</span>';
@@ -912,13 +811,8 @@ verified_by</code></pre>
     });
 
     Reveal.initialize({
-      width: 1280,
-      height: 720,
-      margin: 0.04,
-      center: false,
-      hash: true,
-      slideNumber: false,
-      transition: 'slide',
+      width: 1280, height: 720, margin: 0.04,
+      center: false, hash: true, slideNumber: false, transition: 'slide',
       plugins: [RevealNotes, RevealHighlight]
     });
   </script>
