@@ -186,18 +186,37 @@
     .reveal .gnode .ty { font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--epam-subtle); }
     .reveal .gband { position: absolute; font-size: 12px; font-weight: 600; z-index: 2; }
 
-    /* ── Slide 07: knowledge-base composition (stack + ownership colours) ── */
-    .reveal .oband { display: flex; gap: 14px; align-items: center; border: 1px solid var(--epam-border); border-radius: 10px; padding: 9px 14px; background: var(--epam-surface); }
-    .reveal .oband .scope { flex: none; width: 172px; }
-    .reveal .oband .scope b { color: #fff; font-family: var(--r-heading-font); font-size: 15px; display: block; line-height: 1.1; }
-    .reveal .oband .scope span { color: var(--epam-subtle); font-size: 11px; }
-    .reveal .oband .frags { flex: 1; }
-    .reveal .ochip { display: inline-block; font-size: 12px; padding: 4px 10px; border-radius: 7px; border: 1px solid; color: #E6E9ED; margin: 3px 4px 3px 0; }
-    .reveal .own-ea  { border-color: #00A0E3; background: rgba(0,160,227,0.14); }
-    .reveal .own-sec { border-color: #E35050; background: rgba(227,80,80,0.14); }
-    .reveal .own-biz { border-color: #00C9A7; background: rgba(0,201,167,0.14); }
-    .reveal .own-qa  { border-color: #E3A000; background: rgba(227,160,0,0.14); }
-    .reveal .own-gov { border-color: #A970FF; background: rgba(169,112,255,0.14); }
+    /* ── Slide 07: knowledge-base composition as a top-down tree ── */
+    .reveal .tree ul { display: flex; justify-content: center; padding-top: 18px; position: relative; margin: 0; list-style: none; }
+    .reveal .tree li { list-style: none; position: relative; padding: 18px 6px 0; display: flex; flex-direction: column; align-items: center; }
+    /* connectors between a node and its children */
+    .reveal .tree li::before, .reveal .tree li::after {
+      content: ''; position: absolute; top: 0; width: 50%; height: 18px;
+      border-top: 1.5px solid rgba(139,148,158,0.55);
+    }
+    .reveal .tree li::before { right: 50%; }
+    .reveal .tree li::after { left: 50%; border-left: 1.5px solid rgba(139,148,158,0.55); }
+    .reveal .tree li:only-child::before, .reveal .tree li:only-child::after { display: none; }
+    .reveal .tree li:first-child::before, .reveal .tree li:last-child::after { border: 0 none; }
+    .reveal .tree li:last-child::before { border-right: 1.5px solid rgba(139,148,158,0.55); }
+    .reveal .tree ul ul::before {
+      content: ''; position: absolute; top: 0; left: 50%; width: 0; height: 18px;
+      border-left: 1.5px solid rgba(139,148,158,0.55);
+    }
+    .reveal .tree .tn {
+      display: inline-block; border: 1.5px solid var(--epam-border); background: var(--epam-surface);
+      border-radius: 8px; padding: 7px 11px; font-family: var(--r-heading-font); font-size: 12.5px;
+      font-weight: 600; color: #E6E9ED; white-space: nowrap; line-height: 1.15;
+    }
+    .reveal .tree .tn .ty { display: block; font-size: 9px; color: var(--epam-subtle); text-transform: uppercase; letter-spacing: 0.05em; font-weight: 500; }
+    .reveal .tree .tn.root { font-size: 16px; font-weight: 700; background: rgba(0,201,167,0.16); border-color: var(--epam-accent); color: #fff; }
+    .reveal .tree .tn.lvl1 { font-size: 14px; color: #fff; }
+    .reveal .tree .tn.own-ea  { border-color: #00A0E3; background: rgba(0,160,227,0.14); }
+    .reveal .tree .tn.own-sec { border-color: #E35050; background: rgba(227,80,80,0.14); }
+    .reveal .tree .tn.own-biz { border-color: #00C9A7; background: rgba(0,201,167,0.14); }
+    .reveal .tree .tn.own-qa  { border-color: #E3A000; background: rgba(227,160,0,0.14); }
+    .reveal .tree .tn.own-gov { border-color: #A970FF; background: rgba(169,112,255,0.14); }
+    .reveal .tree .tn.tech    { border-color: var(--epam-blue); background: rgba(0,160,227,0.10); }
     .reveal .odot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; margin-right: 5px; vertical-align: middle; }
   </style>
 </head>
@@ -560,54 +579,66 @@
 
       <!-- ═══════════════════════ 07 / 18 ═══════════════════════ -->
       <section data-marker="07 / 18">
-        <h2 class="title" style="font-size:23px; max-width:88%;">So ist die Wissensbasis aufgebaut: <span class="ac">nach Aspekten geclustert, mit klarem Owner</span> — von Enterprise-Governance bis zum Testplan.</h2>
-        <div class="sup-line" style="margin-top:2px;">Sie bildet die Umgebung des Kunden informationell ab — kompositorische Hierarchien, jedes Fragment mit einem Owner.</div>
+        <h2 class="title" style="font-size:23px; max-width:90%;">So ist die Wissensbasis aufgebaut — eine <span class="ac">kompositorische Hierarchie mit klarem Owner</span>, von der Wissensbasis bis hinunter zu den Komponenten.</h2>
 
-        <div style="display:flex; flex-direction:column; gap:8px; margin-top:12px;">
-          <div class="oband">
-            <div class="scope"><b>Unternehmen</b><span>gilt für alles darunter</span></div>
-            <div class="frags">
-              <span class="ochip own-gov">Compliance &amp; Governance</span>
-              <span class="ochip own-ea">EA-Standards &amp; Architektur-Qualität</span>
-              <span class="ochip own-sec">Security-Policies</span>
-              <span class="ochip own-qa">Qualitäts- &amp; Design-Praktiken</span>
-            </div>
-          </div>
-          <div class="oband" style="margin-left:40px;">
-            <div class="scope"><b>Geschäftsbereich / Programm</b><span>je Business-Line oder Programm</span></div>
-            <div class="frags">
-              <span class="ochip own-biz">Programm-Vorgaben</span>
-              <span class="ochip own-ea">Migrationsplan</span>
-              <span class="ochip own-sec">Sicherheitsvorgaben</span>
-            </div>
-          </div>
-          <div class="oband" style="margin-left:80px;">
-            <div class="scope"><b>Projekt / Anwendung</b><span>je Anwendung</span></div>
-            <div class="frags">
-              <span class="ochip own-biz">Anforderungen</span>
-              <span class="ochip own-qa">Testpläne</span>
-              <span class="ochip own-ea">Design-Entscheidungen</span>
-              <span class="ochip own-sec">Datenschutz-Anforderungen</span>
-            </div>
-          </div>
+        <div class="tree" style="margin-top:6px;">
+          <ul>
+            <li>
+              <span class="tn root">Wissensbasis</span>
+              <ul>
+                <li>
+                  <span class="tn lvl1">Unternehmen</span>
+                  <ul>
+                    <li><span class="tn own-gov">Compliance &amp; Governance</span></li>
+                    <li><span class="tn own-ea">EA-Standards</span></li>
+                    <li><span class="tn own-sec">Security</span></li>
+                    <li><span class="tn own-qa">Quality</span></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="tn lvl1">Programm</span>
+                  <ul>
+                    <li><span class="tn own-biz">Vorgaben</span></li>
+                    <li><span class="tn own-ea">Migrationsplan</span></li>
+                  </ul>
+                </li>
+                <li>
+                  <span class="tn lvl1">Anwendung: Tarifierung</span>
+                  <ul>
+                    <li><span class="tn own-biz">Anforderungen</span></li>
+                    <li><span class="tn own-qa">Testpläne</span></li>
+                    <li>
+                      <span class="tn tech"><span class="ty">referenziert Graph</span>Technik</span>
+                      <ul>
+                        <li><span class="tn tech">COBOL</span></li>
+                        <li><span class="tn tech">JCL</span></li>
+                        <li><span class="tn tech">DB2</span></li>
+                        <li><span class="tn tech">MQ</span></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
         </div>
 
-        <div class="sup-line" style="margin-top:10px;">
-          Owner: <span class="odot" style="background:#00A0E3;"></span>EA / Architektur &nbsp;
-          <span class="odot" style="background:#E35050;"></span>Security &nbsp;
-          <span class="odot" style="background:#00C9A7;"></span>Business &nbsp;
-          <span class="odot" style="background:#E3A000;"></span>Quality &nbsp;
-          <span class="odot" style="background:#A970FF;"></span>Compliance / Governance
-        </div>
-
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:10px;">
           <div>
+            <div class="sup-line" style="margin-bottom:4px;">
+              Owner: <span class="odot" style="background:#00A0E3;"></span>EA / Architektur &nbsp;
+              <span class="odot" style="background:#E35050;"></span>Security &nbsp;
+              <span class="odot" style="background:#00C9A7;"></span>Business &nbsp;
+              <span class="odot" style="background:#E3A000;"></span>Quality &nbsp;
+              <span class="odot" style="background:#A970FF;"></span>Compliance / Governance &nbsp;·&nbsp;
+              <span class="odot" style="background:#00A0E3;"></span>Technik = Komponenten aus dem Graphen
+            </div>
             <div class="body-line">Jedes Fragment hat einen Owner — diese Herkunft speist später den Review-Zyklus.</div>
-            <div class="sup-line">↩ Referenziert Komponenten aus dem Graphen (Abschnitt Analysieren) · als <span style="font-family:var(--r-heading-font); font-weight:600;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span> <b style="color:#E6E9ED;">Open Knowledge Format (OKF)</b> in einem <b style="color:#E6E9ED;">versionierten Wiki (Git)</b>. <span class="tag tag-owner">[Google: offizielle Wortmarke]</span></div>
+            <div class="sup-line">Als <span style="font-family:var(--r-heading-font); font-weight:600;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span> <b style="color:#E6E9ED;">Open Knowledge Format (OKF)</b> in einem <b style="color:#E6E9ED;">versionierten Wiki (Git)</b>. <span class="tag tag-owner">[Google: offizielle Wortmarke]</span></div>
           </div>
           <div style="text-align:right;"><span class="xref">sieht nur seinen Ausschnitt</span><br><span class="xref" style="margin-top:6px; display:inline-block;">aus fünf Zeugen gespeist</span></div>
         </div>
-        <aside class="notes">Fokus: die Komposition der Wissensbasis, nicht ihre Speisung. Sie bildet die Kundenumgebung ab — Compliance/Governance und EA/Security/Quality auf Enterprise-Ebene, Programm-/Projekt-/Anwendungs-Aspekte darunter. Geclustert nach Aspekt, mit Owner und kompositorischer Hierarchie. Owner ist entscheidend: er speist später die Lineage des Review-Zyklus. Fragmente referenzieren Graph-Komponenten aus Abschnitt 1; die Basis ist OKF in einem versionierten Wiki (Git). ~1,5 min.</aside>
+        <aside class="notes">Fokus: die Komposition der Wissensbasis als kompositorische Hierarchie (Baum). Wurzel Wissensbasis → Unternehmen (Governance/EA/Security/Quality) · Programm · Anwendung. Die Anwendung reicht bis zu den technischen Komponenten hinunter, die den Graphen aus Abschnitt 1 referenzieren. Jedes Fragment hat einen Owner (farblich) — diese Lineage speist später den Review-Zyklus. Basis: Google OKF in einem versionierten Wiki (Git). ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 08 / 18 ═══════════════════════ -->
