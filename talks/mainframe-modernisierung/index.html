@@ -807,37 +807,49 @@
 
       <!-- ═══════════════════════ 10 / 18 ═══════════════════════ -->
       <section data-marker="10 / 18">
-        <h2 class="title" style="font-size:24px; max-width:86%;">Spec-Driven Development: die Spezifikation ist <span class="ac">eine vollständige Beschreibung der Arbeit</span>.</h2>
-        <div style="display:flex; gap:22px; margin-top:14px;">
-          <div style="flex:1;">
-            <div class="body-line">Eine Spec beschreibt die Arbeit vollständig: <b style="color:#fff;">was zu bauen und wie zu testen</b> ist.</div>
-            <div class="sup-line" style="margin-top:8px;">Format: <b style="color:#fff;">OpenSpec</b> — Artefakte: Proposal · Requirements &amp; Szenarien · Tasks · Design. <span class="tag tag-confirm">[CONFIRM: OpenSpec-Artefakte]</span></div>
-            <div class="card accent-teal" style="margin-top:12px; padding:12px 14px;">
-              <div class="cl" style="margin:0; color:#E6E9ED; font-size:14px;">Die Wissensbasis hält das Wissen für alles. Die <b style="color:#fff;">Spec ist eine Kopie genau des Wissens</b>, das dieses Increment braucht — um es zu <b style="color:#fff;">bauen und zu testen</b>, gegen alle geltenden Anforderungen und Vorgaben.</div>
+        <h2 class="title" style="font-size:23px; max-width:88%;">Spec-Driven Development: kuratiertes Wissen fließt als <span class="ac">Zitate in die OpenSpec-Dateien</span> — die vollständige Beschreibung der Arbeit.</h2>
+        <div style="display:flex; gap:22px; margin-top:12px;">
+          <!-- LEFT: KB → curate → citation package → OpenSpec files -->
+          <div style="flex:1.15; display:flex; flex-direction:column; align-items:center; gap:5px;">
+            <div class="node teal" style="display:inline-flex; align-items:center; gap:10px; padding:8px 16px; font-size:15px;">
+              <svg viewBox="0 0 44 30" width="40" height="27" style="flex:none;"><rect x="1" y="1" width="42" height="28" rx="4" fill="rgba(139,148,158,0.08)" stroke="rgba(139,148,158,0.6)"/><rect x="7" y="6" width="30" height="18" rx="3" fill="rgba(0,160,227,0.12)" stroke="rgba(0,160,227,0.6)"/><rect x="13" y="11" width="18" height="8" rx="2" fill="rgba(0,201,167,0.14)" stroke="rgba(0,201,167,0.7)"/></svg>
+              Wissensbasis
             </div>
-            <div class="sup-line" style="margin-top:10px;">Die Spec wird <b style="color:#E6E9ED;">Teil der Lieferung und des Codes</b> — kein Dokument daneben.</div>
+            <div class="sup-line" style="text-align:center; margin:1px 0;">↓ <b style="color:#E6E9ED;">kuratieren</b> — der Curation-Graph schlägt Zitate vor, prüft Abdeckung, findet Lücken</div>
+            <div class="card accent-teal" style="width:100%; padding:8px 12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;"><b style="color:#fff; font-size:14px;">Wissenspaket</b><span class="sup-line" style="margin:0;">kuratierte Zitate</span></div>
+              <div style="font-family:var(--r-code-font); font-size:11px; color:var(--epam-accent); margin-top:3px; line-height:1.5;">kb://rate-calc/rundung#§4 · kb://vertrag/tarifwechsel · kb://obj/vertrag · kb://test/tarifwechsel</div>
+            </div>
+            <div class="sup-line" style="text-align:center; margin:1px 0;">↓ <b style="color:#E6E9ED;">OpenSpec</b> verteilt die Zitate in die Dateien</div>
+            <div style="display:flex; gap:7px; width:100%;">
+              <div class="card accent-top" style="flex:1; padding:7px 9px; text-align:center; border-top-color:var(--epam-accent);"><div style="font-family:var(--r-code-font); font-size:12px; color:var(--epam-accent);">proposal.md</div><div class="cl" style="margin:1px 0 0; font-size:10px;">Intent · Warum/Was</div></div>
+              <div class="card" style="flex:1; padding:7px 9px; text-align:center;"><div style="font-family:var(--r-code-font); font-size:12px; color:var(--epam-blue);">spec.md</div><div class="cl" style="margin:1px 0 0; font-size:10px;">Requirements · Szenarien</div></div>
+              <div class="card" style="flex:1; padding:7px 9px; text-align:center;"><div style="font-family:var(--r-code-font); font-size:12px; color:var(--epam-blue);">design.md</div><div class="cl" style="margin:1px 0 0; font-size:10px;">Design</div></div>
+              <div class="card" style="flex:1; padding:7px 9px; text-align:center;"><div style="font-family:var(--r-code-font); font-size:12px; color:var(--epam-blue);">tasks.md</div><div class="cl" style="margin:1px 0 0; font-size:10px;">Todos</div></div>
+            </div>
           </div>
+          <!-- RIGHT: the high-level intent file (proposal.md) with real citations -->
           <div style="flex:1;">
-            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:6px;">Spec (Markdown) — jeder Satz mit Quellenverweis</div>
-            <div style="background:#10141a; border:1px solid var(--epam-border); border-radius:10px; padding:11px 14px; font-family:var(--r-code-font); font-size:12px; line-height:1.5; color:#C9D1D9;">
-              <div style="color:var(--epam-subtle);"># change: rate-calc-01 · Beitragsrundung</div>
-              <div style="color:#fff; margin-top:5px;">## Requirement</div>
-              <div>Bei Tarifwechsel zur Monatsmitte wird der</div>
-              <div>Beitrag kaufmännisch gerundet.</div>
-              <div>Quellen: <span style="color:var(--epam-accent);">[[kb:rate-calc/rundung-§4]]</span> ·</div>
-              <div style="text-indent:3.6em;"><span style="color:var(--epam-accent);">[[kb:vertrag/tarifwechsel]]</span></div>
-              <div style="color:#fff; margin-top:5px;">## Szenario: Wechsel zur Monatsmitte</div>
-              <div>Gegeben Vertrag <span style="color:var(--epam-accent);">[[kb:obj/vertrag]]</span></div>
-              <div>Wenn Tarif zum 15. wechselt</div>
-              <div>Dann Beitrag gerundet <span style="color:var(--epam-accent);">[[kb:rate-calc/rundung-§4]]</span></div>
-              <div style="color:#fff; margin-top:5px;">## Tasks</div>
-              <div>- [ ] RATE-CALC ¶3200 neu bauen</div>
-              <div>- [ ] Tests aus <span style="color:var(--epam-accent);">[[kb:test/tarifwechsel]]</span></div>
+            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:5px;">proposal.md — der Intent, hoch angesetzt und leicht zu verstehen</div>
+            <div style="background:#10141a; border:1px solid var(--epam-accent); border-radius:10px; padding:11px 14px; font-family:var(--r-code-font); font-size:12px; line-height:1.5; color:#C9D1D9;">
+              <div style="color:var(--epam-subtle);"># change: rate-calc-01</div>
+              <div style="color:#fff; margin-top:5px;">## Warum</div>
+              <div>Beitragsrundung bei Tarifwechsel muss stimmen —</div>
+              <div>heute in RATE-CALC ¶3200 verankert.</div>
+              <div style="color:#fff; margin-top:5px;">## Was ändert sich</div>
+              <div>Rundungsregel neu bauen, prüfbar gegen die</div>
+              <div>Fachregel.</div>
+              <div style="color:#fff; margin-top:5px;">## Grundlage</div>
+              <div style="color:var(--epam-accent);">kb://rate-calc/rundung#§4 @c1a9f3d</div>
+              <div style="color:var(--epam-accent); text-indent:1.2em;">sha256:9c1f… role=grounds</div>
+              <div style="color:var(--epam-accent);">kb://vertrag/tarifwechsel#mitte @c1a9f3d</div>
+              <div style="color:var(--epam-accent); text-indent:1.2em;">sha256:4e77… role=grounds</div>
             </div>
+            <div class="sup-line" style="margin-top:5px;">Zitat = Fragment <b style="color:#E6E9ED;">@Revision</b> + <b style="color:#E6E9ED;">sha256</b> + <b style="color:#E6E9ED;">role</b> — an die Git-Revision gepinnt, in CI auf Aktualität prüfbar.</div>
           </div>
         </div>
-        <div class="body-line" style="margin-top:10px;">Alles, was gebaut und getestet wird, steht in der Spec — belegt durch die Wissensbasis. <span class="xref">schleifen die Quellenverweise durch</span></div>
-        <aside class="notes">Was ist SDD: die Spezifikation als vollständige Beschreibung der Arbeit (was bauen, wie testen), im OpenSpec-Format mit seinen Artefakten. Kernbild: die Wissensbasis hält alles Wissen; die Spec ist eine Kopie genau des Wissens, das dieses Increment braucht — mit Quellenverweisen. Die Spec wird Teil der Lieferung und des Codes. ~1,5 min.</aside>
+        <div class="body-line" style="margin-top:8px;">Die Spec ist eine Kopie genau des Wissens, das dieses Increment braucht — und wird Teil der Lieferung. <span class="xref">schleifen die Quellenverweise durch</span></div>
+        <aside class="notes">Diagramm von oben: Wissensbasis → Kuratieren (der Curation-Graph schlägt Zitate vor, prüft Abdeckung, findet Lücken → Kurator-Queue) → ein Wissenspaket aus kuratierten Zitaten → OpenSpec verteilt die Zitate in seine Dateien (proposal/Intent, spec/Requirements+Szenarien, design, tasks/Todos). Beispiel ist die proposal.md (Intent), weil sie hoch angesetzt und leicht verständlich ist. Zitatformat nach dem Traceability-Paper: kb://kontext#anker @revision sha256:… role=… — an die Git-Revision gepinnt, in CI auf Aktualität prüfbar. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 11 / 18 ═══════════════════════ -->
@@ -847,11 +859,11 @@
 
         <!-- the citation chain: same citation carried through -->
         <div style="display:flex; align-items:stretch; gap:0; margin-top:16px;">
-          <div class="node teal" style="flex:1; padding:12px; font-size:15px; text-align:center;">Wissensbasis<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Fragment <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
+          <div class="node teal" style="flex:1; padding:12px; font-size:15px; text-align:center;">Wissensbasis<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Fragment <span style="color:var(--epam-accent); font-family:var(--r-code-font);">kb://rate-calc/rundung#§4</span></span></div>
           <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
-          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Spezifikation<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Anforderung zitiert <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
+          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Spezifikation<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">zitiert <span style="color:var(--epam-accent); font-family:var(--r-code-font);">…#§4 role=grounds</span></span></div>
           <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
-          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Einheit · Code + Test<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Quellenverweis <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
+          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Einheit · Code + Test<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Zitat <span style="color:var(--epam-accent); font-family:var(--r-code-font);">…#§4 role=implements</span></span></div>
         </div>
         <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ derselbe Quellenverweis — durchgeschliffen von der Quelle bis ins Increment</div>
 
