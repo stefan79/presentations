@@ -621,55 +621,61 @@
       <!-- ═══════════════════════ 08 / 18 ═══════════════════════ -->
       <section data-marker="08 / 18">
         <span class="qchip answer">„Halluziniert."</span>
-        <h2 class="title" style="font-size:23px; max-width:82%;">Die Wissensbasis wird <span class="ac">aus fünf Zeugen gespeist</span> — dann hält ein Kreislauf aus Generieren, Prüfen (HITL) und Anreichern sie lebendig.</h2>
-        <div style="display:flex; gap:8px; margin-top:12px; align-items:center;">
-          <!-- LEFT: seeding (five witnesses) -->
-          <div style="flex:0.9;">
-            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:6px;">Seeding — fünf Zeugen</div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Code</h4><div class="cl" style="margin:0; font-size:12px;">Regelvorschläge des Estate Scanners</div></div>
-              <div class="card" style="padding:7px 12px; border-color:rgba(0,160,227,0.35);"><h4 style="font-size:14px; margin:0;">Spezifikationen &amp; Zielbild</h4><div class="cl" style="margin:0; font-size:12px;">Absicht — mit FINIUS als Graph</div></div>
-              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Ticket- &amp; Fehlerhistorie</h4><div class="cl" style="margin:0; font-size:12px;">Randfälle und das Warum</div></div>
-              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Aufgezeichnetes Verhalten</h4><div class="cl" style="margin:0; font-size:12px;">was das System nachweislich tut</div></div>
-              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Menschen</h4><div class="cl" style="margin:0; font-size:12px;">was nirgends steht</div></div>
-            </div>
-          </div>
-          <!-- seeding arrow -->
-          <div style="flex:none; text-align:center; color:var(--epam-subtle);"><div style="font-size:26px; line-height:1;">→</div><div style="font-size:11px;">speist</div></div>
+        <h2 class="title" style="font-size:23px; max-width:86%;">Erst Priming, dann aktiv: die Wissensbasis <span class="ac">fragt von sich aus nach außen</span> — bei Lücken, Widersprüchen oder einem HITL-Signal.</h2>
 
-          <!-- RIGHT: the circular loop around the knowledge base -->
-          <div style="flex:1.5;">
-            <div style="position:relative; width:400px; height:300px; margin:0 auto;">
-              <svg viewBox="0 0 400 300" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
-                <defs>
-                  <marker id="aht" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00C9A7"/></marker>
-                  <marker id="ahg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B949E"/></marker>
-                </defs>
-                <!-- clockwise loop: Generieren → HITL → Anreichern → Generieren -->
-                <g fill="none" stroke="#00C9A7" stroke-width="2.2" marker-end="url(#aht)">
-                  <path d="M214,58 Q352,120 306,192"/>
-                  <path d="M298,230 Q200,304 104,230"/>
-                  <path d="M80,192 Q40,100 184,56"/>
-                </g>
-                <!-- bot ↔ knowledge base -->
-                <path d="M96,102 Q150,124 176,138" fill="none" stroke="#8B949E" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ahg)"/>
-              </svg>
-              <!-- knowledge base (centre) -->
-              <div class="node teal" style="position:absolute; left:200px; top:142px; transform:translate(-50%,-50%); font-size:15px; padding:12px 16px;">Wissensbasis</div>
-              <!-- loop stations -->
-              <div class="chip blue" style="position:absolute; left:200px; top:40px; transform:translate(-50%,-50%); font-size:13px;">Generieren</div>
-              <div class="chip blue" style="position:absolute; left:315px; top:214px; transform:translate(-50%,-50%); font-size:13px; text-align:center;">Menschliche Prüfung<br><span style="color:var(--epam-subtle); font-size:11px;">HITL</span></div>
-              <div class="chip blue" style="position:absolute; left:85px; top:214px; transform:translate(-50%,-50%); font-size:13px;">Anreichern</div>
-              <!-- bot -->
-              <div class="chip" style="position:absolute; left:70px; top:88px; transform:translate(-50%,-50%); font-size:12px; text-align:center; border-color:var(--epam-subtle);">🤖 Bot<br><span style="color:var(--epam-subtle); font-size:10px;">Widersprüche · Interview</span></div>
-            </div>
+        <div style="position:relative; width:100%; height:300px; margin-top:10px;">
+          <svg viewBox="0 0 1000 300" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+            <defs>
+              <marker id="s8t" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00C9A7"/></marker>
+              <marker id="s8g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B949E"/></marker>
+              <marker id="s8a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#E3A000"/></marker>
+            </defs>
+            <!-- 1) priming → KB (one-time) -->
+            <line x1="182" y1="146" x2="352" y2="140" stroke="#8B949E" stroke-width="2" marker-end="url(#s8g)"/>
+            <text x="266" y="128" text-anchor="middle" font-size="12" font-family="'Outfit',sans-serif" fill="#8B949E" stroke="#0D1117" stroke-width="3" paint-order="stroke">Bootstrapping · einmalig</text>
+            <!-- 2) KB → outside world (active request) -->
+            <line x1="440" y1="132" x2="792" y2="150" stroke="#00C9A7" stroke-width="2.8" marker-end="url(#s8t)"/>
+            <text x="600" y="182" text-anchor="middle" font-size="13" font-family="'Outfit',sans-serif" fill="#00C9A7" stroke="#0D1117" stroke-width="3.5" paint-order="stroke">Aktive Anfrage nach außen</text>
+            <!-- trigger connector: Auslöser → the active request -->
+            <line x1="628" y1="104" x2="628" y2="132" stroke="#E3A000" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#s8a)"/>
+            <text x="686" y="120" font-size="11" font-family="'Outfit',sans-serif" fill="#E3A000" stroke="#0D1117" stroke-width="3" paint-order="stroke">löst aus</text>
+            <!-- 3) answer → enrich → back to KB -->
+            <path d="M886,214 Q650,300 405,166" fill="none" stroke="#00C9A7" stroke-width="2.4" marker-end="url(#s8t)"/>
+            <text x="648" y="288" text-anchor="middle" font-size="13" font-family="'Outfit',sans-serif" fill="#00C9A7" stroke="#0D1117" stroke-width="3.5" paint-order="stroke">Antwort → Anreichern</text>
+          </svg>
+
+          <!-- Priming panel (bootstrapping, one-time) -->
+          <div style="position:absolute; left:0.3%; top:38px; width:200px; border:1px solid var(--epam-border); border-radius:10px; background:var(--epam-surface); padding:8px 11px;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 6px;">Priming <span style="color:var(--epam-subtle); font-weight:400;">— einmalig</span></div>
+            <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Code</span>
+            <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Spezifikationen &amp; Zielbild</span>
+            <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Ticket- &amp; Fehlerhistorie</span>
+            <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Aufgezeichnetes Verhalten</span>
+            <span class="chip" style="display:block; font-size:12px; padding:4px 9px;">Menschen</span>
+          </div>
+
+          <!-- Knowledge base (centre) -->
+          <div class="node teal" style="position:absolute; left:39%; top:135px; transform:translate(-50%,-50%); font-size:16px; padding:14px 18px;">Wissensbasis</div>
+
+          <!-- Auslöser (what triggers the outbound request) -->
+          <div style="position:absolute; left:50.5%; top:14px; width:250px; border:1px solid rgba(227,160,0,0.5); border-radius:10px; background:rgba(227,160,0,0.07); padding:7px 11px;">
+            <div class="sup-line" style="color:#E3A000; font-weight:600; margin:0 0 4px;">Auslöser der Anfrage</div>
+            <div class="cl" style="margin:0; font-size:12.5px;">🕳 Lücke in der Abdeckung</div>
+            <div class="cl" style="margin:0; font-size:12.5px;">⚡ Widerspruch der Fragmente</div>
+            <div class="cl" style="margin:0; font-size:12.5px;">🙋 HITL: falsch oder fehlt</div>
+          </div>
+
+          <!-- Außenwelt (the outside world it reaches out to) -->
+          <div style="position:absolute; left:79.5%; top:92px; width:205px; border:1px solid rgba(0,201,167,0.5); border-radius:10px; background:rgba(0,201,167,0.06); padding:9px 12px;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 6px;">Außenwelt</div>
+            <div class="cl" style="margin:0; font-size:13px;">Fachexperten — Interview</div>
+            <div class="cl" style="margin:0; font-size:13px;">Quellsysteme</div>
+            <div class="cl" style="margin:0; font-size:13px;">Dokumente</div>
           </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:8px;">
-          <div class="body-line" style="max-width:74%; font-size:19px;">Ein Bot prüft Widersprüche und fragt nach (Interview), um den Graphen zu verbessern; jede menschliche Prüfung reichert die Wissensbasis an — der Kreis schließt sich.</div>
-          <div class="sup-line" style="max-width:24%; text-align:right;">Seeding einmalig · der Kreislauf dauerhaft.</div>
-        </div>
-        <aside class="notes">Antwort auf Halluzination: das Modell ist aus fünf Zeugen gespeist — Code ist nur einer. Danach lebt die Wissensbasis in einem Kreislauf: Generieren → menschliche Prüfung (HITL) → Anreichern → zurück in die Basis. Ein Bot sitzt im Loop und prüft Widersprüche bzw. fragt per Interview nach, um den Graphen zu verbessern. Seeding-Boxen sind frei anordbar; der Kreislauf ist der Kern. ~1,5 min.</aside>
+
+        <div class="body-line" style="margin-top:6px; font-size:19px;">Die Basis wartet nicht: erkennt sie eine Lücke, einen Widerspruch oder erhält ein HITL-Signal, stellt sie selbst eine Anfrage nach außen — und reichert sich mit der Antwort an.</div>
+        <aside class="notes">Zwei Phasen: (1) Priming/Bootstrapping — die Basis wird einmalig aus Code, Spezifikationen, Historie, Verhalten, Menschen aufgebaut. (2) Aktiver Abgleich im Betrieb — erkennt die Basis eine Abdeckungslücke, einen Widerspruch zwischen Fragmenten oder erhält sie ein HITL-Signal (falsch/fehlt), stellt sie proaktiv eine Anfrage an die Außenwelt: Interview mit Fachexperten, Quellsysteme, Dokumente. Die Antwort reichert die Basis an. Das ist die Antwort auf Halluzination: aktives Schließen von Wissenslücken statt Raten. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 09 / 18 ═══════════════════════ -->
