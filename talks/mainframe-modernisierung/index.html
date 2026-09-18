@@ -621,31 +621,11 @@
       <!-- ═══════════════════════ 08 / 18 ═══════════════════════ -->
       <section data-marker="08 / 18">
         <span class="qchip answer">„Halluziniert."</span>
-        <h2 class="title" style="font-size:23px; max-width:86%;">Erst Priming, dann aktiv: die Wissensbasis <span class="ac">fragt von sich aus nach außen</span> — bei Lücken, Widersprüchen oder einem HITL-Signal.</h2>
+        <h2 class="title" style="font-size:23px; max-width:88%;">Erst Priming, dann der Kreislauf: <span class="ac">Generieren → Review → Erweitern</span> um die Wissensbasis — Menschen prüfen und ergänzen.</h2>
 
-        <div style="position:relative; width:100%; height:300px; margin-top:10px;">
-          <svg viewBox="0 0 1000 300" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
-            <defs>
-              <marker id="s8t" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00C9A7"/></marker>
-              <marker id="s8g" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B949E"/></marker>
-              <marker id="s8a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#E3A000"/></marker>
-            </defs>
-            <!-- 1) priming → KB (one-time) -->
-            <line x1="182" y1="146" x2="352" y2="140" stroke="#8B949E" stroke-width="2" marker-end="url(#s8g)"/>
-            <text x="266" y="128" text-anchor="middle" font-size="12" font-family="'Outfit',sans-serif" fill="#8B949E" stroke="#0D1117" stroke-width="3" paint-order="stroke">Bootstrapping · einmalig</text>
-            <!-- 2) KB → outside world (active request) -->
-            <line x1="440" y1="132" x2="792" y2="150" stroke="#00C9A7" stroke-width="2.8" marker-end="url(#s8t)"/>
-            <text x="600" y="182" text-anchor="middle" font-size="13" font-family="'Outfit',sans-serif" fill="#00C9A7" stroke="#0D1117" stroke-width="3.5" paint-order="stroke">Aktive Anfrage nach außen</text>
-            <!-- trigger connector: Auslöser → the active request -->
-            <line x1="628" y1="104" x2="628" y2="132" stroke="#E3A000" stroke-width="1.6" stroke-dasharray="4 3" marker-end="url(#s8a)"/>
-            <text x="686" y="120" font-size="11" font-family="'Outfit',sans-serif" fill="#E3A000" stroke="#0D1117" stroke-width="3" paint-order="stroke">löst aus</text>
-            <!-- 3) answer → enrich → back to KB -->
-            <path d="M886,214 Q650,300 405,166" fill="none" stroke="#00C9A7" stroke-width="2.4" marker-end="url(#s8t)"/>
-            <text x="648" y="288" text-anchor="middle" font-size="13" font-family="'Outfit',sans-serif" fill="#00C9A7" stroke="#0D1117" stroke-width="3.5" paint-order="stroke">Antwort → Anreichern</text>
-          </svg>
-
-          <!-- Priming panel (bootstrapping, one-time) -->
-          <div style="position:absolute; left:0.3%; top:38px; width:200px; border:1px solid var(--epam-border); border-radius:10px; background:var(--epam-surface); padding:8px 11px;">
+        <div style="display:flex; gap:6px; align-items:center; margin-top:10px;">
+          <!-- Priming feeds in from the side -->
+          <div style="flex:none; width:210px; border:1px solid var(--epam-border); border-radius:10px; background:var(--epam-surface); padding:8px 11px;">
             <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 6px;">Priming <span style="color:var(--epam-subtle); font-weight:400;">— einmalig</span></div>
             <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Code</span>
             <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Spezifikationen &amp; Zielbild</span>
@@ -653,29 +633,40 @@
             <span class="chip" style="display:block; font-size:12px; padding:4px 9px; margin-bottom:4px;">Aufgezeichnetes Verhalten</span>
             <span class="chip" style="display:block; font-size:12px; padding:4px 9px;">Menschen</span>
           </div>
+          <div style="flex:none; text-align:center; color:var(--epam-subtle); width:70px;"><div style="font-size:30px; line-height:1;">→</div><div style="font-size:11px;">Priming</div></div>
 
-          <!-- Knowledge base (centre) -->
-          <div class="node teal" style="position:absolute; left:39%; top:135px; transform:translate(-50%,-50%); font-size:16px; padding:14px 18px;">Wissensbasis</div>
-
-          <!-- Auslöser (what triggers the outbound request) -->
-          <div style="position:absolute; left:50.5%; top:14px; width:250px; border:1px solid rgba(227,160,0,0.5); border-radius:10px; background:rgba(227,160,0,0.07); padding:7px 11px;">
-            <div class="sup-line" style="color:#E3A000; font-weight:600; margin:0 0 4px;">Auslöser der Anfrage</div>
-            <div class="cl" style="margin:0; font-size:12.5px;">🕳 Lücke in der Abdeckung</div>
-            <div class="cl" style="margin:0; font-size:12.5px;">⚡ Widerspruch der Fragmente</div>
-            <div class="cl" style="margin:0; font-size:12.5px;">🙋 HITL: falsch oder fehlt</div>
-          </div>
-
-          <!-- Außenwelt (the outside world it reaches out to) -->
-          <div style="position:absolute; left:79.5%; top:92px; width:205px; border:1px solid rgba(0,201,167,0.5); border-radius:10px; background:rgba(0,201,167,0.06); padding:9px 12px;">
-            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 6px;">Außenwelt</div>
-            <div class="cl" style="margin:0; font-size:13px;">Fachexperten — Interview</div>
-            <div class="cl" style="margin:0; font-size:13px;">Quellsysteme</div>
-            <div class="cl" style="margin:0; font-size:13px;">Dokumente</div>
+          <!-- The circle: Generieren → Review → Erweitern around the knowledge base -->
+          <div style="flex:1; display:flex; justify-content:center;">
+            <div style="position:relative; width:360px; height:300px;">
+              <svg viewBox="0 0 360 300" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+                <defs>
+                  <marker id="s8c" markerWidth="8.5" markerHeight="8.5" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00C9A7"/></marker>
+                </defs>
+                <!-- one circle (r=118, centre 180,150), drawn as three arcs = clockwise flow -->
+                <g fill="none" stroke="#00C9A7" stroke-width="2.6" marker-end="url(#s8c)">
+                  <path d="M230,43 A118,118 0 0 1 298,160"/>
+                  <path d="M248,247 A118,118 0 0 1 112,247"/>
+                  <path d="M62,160 A118,118 0 0 1 130,43"/>
+                </g>
+              </svg>
+              <!-- knowledge base (centre) -->
+              <div class="node teal" style="position:absolute; left:180px; top:150px; transform:translate(-50%,-50%); font-size:15px; padding:12px 16px;">Wissensbasis</div>
+              <!-- Generieren (top) -->
+              <div class="chip blue" style="position:absolute; left:180px; top:33px; transform:translate(-50%,-50%); font-size:14px;">Generieren</div>
+              <!-- Review (bottom-right) with human -->
+              <div class="chip blue" style="position:absolute; left:284px; top:210px; transform:translate(-50%,-50%); font-size:14px; text-align:center;">Review <span style="color:var(--epam-subtle); font-size:11px;">(HITL)</span><br><span style="font-size:12px;">🧑 Mensch prüft</span></div>
+              <!-- Erweitern (bottom-left) with triggers + human -->
+              <div style="position:absolute; left:76px; top:210px; transform:translate(-50%,-50%); width:158px; border:1.5px solid var(--epam-accent); background:rgba(0,201,167,0.10); border-radius:9px; padding:7px 10px; font-family:var(--r-heading-font);">
+                <div style="color:#fff; font-weight:700; font-size:14px;">Erweitern</div>
+                <div style="font-size:11px; color:#C9D1D9; margin-top:2px;">🧑 Interview · Quelle → Anfrage nach außen</div>
+                <div style="font-size:11px; color:#E3A000; margin-top:3px; line-height:1.3;">Auslöser: 🕳 Lücke · ⚡ Widerspruch · 🙋 HITL-Signal</div>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div class="body-line" style="margin-top:6px; font-size:19px;">Die Basis wartet nicht: erkennt sie eine Lücke, einen Widerspruch oder erhält ein HITL-Signal, stellt sie selbst eine Anfrage nach außen — und reichert sich mit der Antwort an.</div>
-        <aside class="notes">Zwei Phasen: (1) Priming/Bootstrapping — die Basis wird einmalig aus Code, Spezifikationen, Historie, Verhalten, Menschen aufgebaut. (2) Aktiver Abgleich im Betrieb — erkennt die Basis eine Abdeckungslücke, einen Widerspruch zwischen Fragmenten oder erhält sie ein HITL-Signal (falsch/fehlt), stellt sie proaktiv eine Anfrage an die Außenwelt: Interview mit Fachexperten, Quellsysteme, Dokumente. Die Antwort reichert die Basis an. Das ist die Antwort auf Halluzination: aktives Schließen von Wissenslücken statt Raten. ~1,5 min.</aside>
+        <div class="body-line" style="margin-top:8px; font-size:19px;">Priming baut die Basis einmal auf. Dann läuft der Kreis — Menschen prüfen (Review) und ergänzen (Erweitern); beim Erweitern fragt die Basis aktiv nach außen: bei Lücken, Widersprüchen oder einem HITL-Signal.</div>
+        <aside class="notes">Zwei Teile: (1) Priming/Bootstrapping — die Basis wird einmalig aus Code, Spezifikationen, Historie, Verhalten, Menschen aufgebaut, kommt von der Seite herein. (2) Der Kreislauf um die Wissensbasis: Generieren → Review → Erweitern. Menschen wirken an Review (HITL-Prüfung) und an Erweitern (Interview/Quelle) mit. Im Erweitern-Schritt fragt die Basis aktiv nach außen — ausgelöst durch eine Abdeckungslücke, einen Widerspruch der Fragmente oder ein HITL-Signal (falsch/fehlt). So schließt sie Wissenslücken aktiv statt zu raten — die Antwort auf Halluzination. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 09 / 18 ═══════════════════════ -->
