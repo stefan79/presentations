@@ -805,8 +805,48 @@
         </div>
       </section>
 
-      <!-- ═══════════════════════ 10 / 18 ═══════════════════════ -->
+      <!-- ═══════════════════════ 10 / 18 — End-to-End-Pipeline (öffnet Umsetzen) ═══════════════════════ -->
       <section data-marker="10 / 18">
+        <span class="qchip answer">„Sloppy."</span>
+        <h2 class="title" style="font-size:24px; max-width:84%;">Der End-to-End-Ablauf: <span class="ac">zwei Phasen, zwei menschliche Gates</span> — erst die Spec, dann der Code.</h2>
+
+        <!-- Phase 1 -->
+        <div style="border:1px solid var(--epam-border); border-radius:11px; padding:12px 14px; background:rgba(0,160,227,0.04); margin-top:16px;">
+          <div style="font-family:var(--r-heading-font); font-weight:700; font-size:15px; color:#fff; margin-bottom:9px;">Phase 1 · Spezifikation erstellen <span class="badge subtle">agentisch</span></div>
+          <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+            <span class="chip">Quellen: Wissensbasis + Bestand</span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip">Spec generieren</span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip">Zitate prüfen · Fach-Reviews (Architektur · Governance · PO · UX)</span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip" style="border-color:var(--epam-accent); background:rgba(0,201,167,0.12); color:#fff;">🧑 Gate: Spec-Freigabe <span class="sh">(HITL)</span></span>
+          </div>
+        </div>
+
+        <div class="sup-line" style="text-align:center; margin:6px 0; color:var(--epam-accent);">↓ freigegebene Spec</div>
+
+        <!-- Phase 2 -->
+        <div style="border:1px solid var(--epam-border); border-radius:11px; padding:12px 14px; background:rgba(0,201,167,0.04);">
+          <div style="font-family:var(--r-heading-font); font-weight:700; font-size:15px; color:#fff; margin-bottom:9px;">Phase 2 · Spezifikation umsetzen <span class="badge subtle">agentisch</span></div>
+          <div style="display:flex; align-items:center; gap:7px; flex-wrap:wrap;">
+            <span class="chip">Code &amp; Tests generieren</span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip">Vorprüfung: jede Einheit gegen ihr Fragment</span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip" style="border-color:var(--epam-accent); background:rgba(0,201,167,0.12); color:#fff;">🧑 Gate: Code-Freigabe <span class="sh">(HITL)</span></span>
+            <span class="arrow" style="font-size:16px;">→</span>
+            <span class="chip" style="border-color:var(--epam-accent);">fertiges Increment · Merge</span>
+          </div>
+        </div>
+
+        <div class="sup-line" style="margin-top:14px;">Alles dazwischen ist <b style="color:#E6E9ED;">agentisch</b>; die beiden <b style="color:#E6E9ED;">Gates gehören den Menschen</b> — nicht verhandelbar. In abgeschotteter Werkstatt <span class="sh">(Sandbox)</span>: freigegebene Modelle, kein Internet, keine Produktionsdaten.</div>
+        <div class="sup-line" style="margin-top:4px;">Gleich im Detail: <span class="xref">Zitate in die OpenSpec-Dateien</span> und die Zitat-Logik dahinter.</div>
+        <aside class="notes">Öffnet den Abschnitt mit dem Gesamtablauf, bewusst einfach für ein nicht-technisches Publikum: zwei Phasen — (1) Spezifikation erstellen, (2) Spezifikation umsetzen — mit je einem menschlichen Gate (HITL). Innerhalb jeder Phase läuft eine agentische Pipeline (generieren · Zitate/Reviews prüfen · entscheiden), hier zusammengefasst. Danach: Detail zu OpenSpec und zur Zitat-Logik. ~1,5 min.</aside>
+      </section>
+
+      <!-- ═══════════════════════ 11 / 18 — Was ist SDD / OpenSpec ═══════════════════════ -->
+      <section data-marker="11 / 18">
         <h2 class="title" style="font-size:23px; max-width:88%;">Spec-Driven Development: kuratiertes Wissen fließt als <span class="ac">Zitate in die OpenSpec-Dateien</span> — die vollständige Beschreibung der Arbeit.</h2>
         <div style="display:flex; gap:22px; margin-top:12px;">
           <!-- LEFT: KB → curate → citation package → OpenSpec files -->
@@ -852,8 +892,8 @@
         <aside class="notes">Diagramm von oben: Wissensbasis → Kuratieren (der Curation-Graph schlägt Zitate vor, prüft Abdeckung, findet Lücken → Kurator-Queue) → ein Wissenspaket aus kuratierten Zitaten → OpenSpec verteilt die Zitate in seine Dateien (proposal/Intent, spec/Requirements+Szenarien, design, tasks/Todos). Beispiel ist die proposal.md (Intent), weil sie hoch angesetzt und leicht verständlich ist. Zitatformat nach dem Traceability-Paper: kb://kontext#anker @revision sha256:… role=… — an die Git-Revision gepinnt, in CI auf Aktualität prüfbar. ~1,5 min.</aside>
       </section>
 
-      <!-- ═══════════════════════ 11 / 18 ═══════════════════════ -->
-      <section data-marker="11 / 18">
+      <!-- ═══════════════════════ 12 / 18 — Zitat-Logik / Besonderheit ═══════════════════════ -->
+      <section data-marker="12 / 18">
         <span class="qchip answer">„Fast richtig ist falsch."</span>
         <h2 class="title" style="font-size:23px; max-width:82%;">Das Besondere: wir <span class="ac">schleifen die Quellenverweise durch</span> — Wissensbasis → Spezifikation → Einheit.</h2>
 
@@ -877,24 +917,6 @@
         </div>
         <div class="sup-line" style="margin-top:12px;">Ein Mechanismus — der durchgeschliffene Quellenverweis — trägt fünf Garantien. <span class="xref">sieht nur seinen Ausschnitt</span></div>
         <aside class="notes">Das Alleinstellungsmerkmal: der Quellenverweis wird durchgeschliffen — Wissensbasis-Fragment → Spec-Anforderung → generierte Einheit (Code + Test). Fünf Nutzen: (1) Nachvollziehbarkeit Anforderung↔Code; (2) Grounding via Zitat-Statistik auf der Spec verhindert Halluzination; (3) Vollständigkeit — alle eingegebenen Quellen erscheinen in Spec und Code, nichts fällt weg; (4) permanenter Audit-Trail über alles Berücksichtigte; (5) Review-Routing — Quellenverweise leiten Review-Fragmente an die Wissens-Owner. ~1,5 min.</aside>
-      </section>
-
-      <!-- ═══════════════════════ 12 / 18 ═══════════════════════ -->
-      <section data-marker="12 / 18">
-        <span class="qchip answer">„Sloppy."</span>
-        <h2 class="title" style="font-size:23px; max-width:76%;">Pipeline 2, Implementieren: Aus der freigegebenen Spezifikation entstehen Code und Tests — <span class="ac">geprüft gegen das Fragment, das sie umsetzen</span>, dann erst gemergt.</h2>
-        <div style="display:flex; align-items:stretch; gap:8px; margin-top:22px;">
-          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin:0;">Freigegebene Spezifikation</h4></div>
-          <span class="arrow">→</span>
-          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Code und Tests generieren</h4><div class="cl" style="margin:0;">der Quellenverweis steht neben jeder Einheit im Code</div></div>
-          <span class="arrow">→</span>
-          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Vorprüfer <span class="sh">(Diff-Alignment-Agent)</span></h4><div class="cl" style="margin:0;">ein Agent vergleicht jede Einheit mit ihrem Fragment — Befund, kein Urteil</div></div>
-          <span class="hex" style="font-size:22px;">⬡</span>
-          <div class="card accent-teal" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Merge</h4><div class="cl" style="margin:0;">die neue Komponente wird im Estate Scanner registriert — die Karte wächst mit dem Ziel</div></div>
-        </div>
-        <div class="chip" style="display:inline-block; margin-top:14px; font-size:13px; border-color:var(--epam-accent);">⬡ Review-Umgebung: jeder Owner prüft seinen Ausschnitt <span style="opacity:0.85; color:var(--epam-blue);">→ sieht nur seinen Ausschnitt</span></div>
-        <div class="sup-line" style="margin-top:18px;"><span style="color:#fff; font-weight:600;">Abgeschottete Werkstatt</span> <span class="sh">(Sandbox)</span>: freigegebene Modelle, kein Internet, keine Produktionsdaten.</div>
-        <aside class="notes">Zweite Pipeline; der Quellenverweis wandert in den Code; neue Komponenten registrieren sich im Estate Scanner. Merge-Kandidat mit Pipeline 1 bei Zeitdruck. ~1 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 13 / 18 ═══════════════════════ -->
