@@ -11,7 +11,7 @@ else
   THEME_LINK := <link rel="stylesheet" href="../../node_modules/reveal.js/dist/theme/$(THEME).css">
 endif
 
-.PHONY: new serve build build-all pdf list clean help
+.PHONY: new serve serve-nc kill-serve build build-all pdf pdf-chrome shot list clean help
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*##' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
@@ -88,6 +88,26 @@ build-all: ## Build all presentations
 		echo "Building $$name..."; \
 		$(MAKE) build NAME=$$name --no-print-directory; \
 	done
+
+serve-nc: ## No-cache preview server on 127.0.0.1:$(PORT) (fixes stale-slide caching)
+	@pkill -f "scripts/serve.mjs" 2>/dev/null || true
+	@pkill -f "http.server $(PORT)" 2>/dev/null || true
+	@node scripts/serve.mjs $(PORT)
+
+kill-serve: ## Kill any preview server on PORT
+	@pkill -f "scripts/serve.mjs" 2>/dev/null; pkill -f "http.server $(PORT)" 2>/dev/null; lsof -ti:$(PORT) 2>/dev/null | xargs kill -9 2>/dev/null; echo "Killed servers on $(PORT)"
+
+shot: ## Screenshot slides for QA: make shot NAME=deck SLIDES="0 2:1 5" (self-serves)
+ifndef NAME
+	$(error NAME is required. Usage: make shot NAME=my-talk SLIDES="0 2:1")
+endif
+	@node scripts/shot.mjs $(NAME) $(SLIDES)
+
+pdf-chrome: ## Export deck to PDF via Chrome print-pdf — use when 'make pdf' hangs on fonts
+ifndef NAME
+	$(error NAME is required. Usage: make pdf-chrome NAME=my-talk)
+endif
+	@node scripts/pdf.mjs $(NAME)
 
 clean: ## Remove build output
 	rm -rf build/
