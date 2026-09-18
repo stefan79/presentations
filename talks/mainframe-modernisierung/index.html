@@ -674,32 +674,72 @@
         <span class="qchip answer">„Tokens werden zu teuer."</span>
         <h2 class="title" style="font-size:24px; max-width:84%;">Wir konstruieren den Plan <span class="ac">aus Fakten, nicht aus Annahmen</span> — Bestand und Wissensbasis im Dialog.</h2>
 
-        <!-- Zone A: the dialog -->
+        <!-- Zone A: the dialog, visualised (graph ⇄ hierarchy) -->
         <div style="display:flex; gap:14px; align-items:stretch; margin-top:12px;">
-          <div class="card accent-top" style="flex:1; padding:12px 16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="margin:0; font-size:16px;">Estate-Graph</h4><span class="badge subtle">Bestand · as-is</span></div>
-            <div style="font-size:19px; color:#fff; font-style:italic; margin:6px 0 4px;">„Ich weiß, was wir heute haben."</div>
-            <div class="cl" style="margin:0; font-size:12px;">Komponenten · Abhängigkeiten · Volumina — abgelesen, nicht geraten</div>
+          <div class="card accent-top" style="flex:1; padding:10px 14px; display:flex; align-items:center; gap:12px;">
+            <svg viewBox="0 0 170 100" style="width:170px; height:100px; flex:none;">
+              <g stroke="#5B6875" stroke-width="1.4">
+                <line x1="85" y1="55" x2="35" y2="28"/><line x1="85" y1="55" x2="140" y2="30"/>
+                <line x1="85" y1="55" x2="35" y2="80"/><line x1="85" y1="55" x2="140" y2="78"/>
+                <line x1="35" y1="28" x2="140" y2="30"/>
+              </g>
+              <g font-family="'Outfit',sans-serif" font-size="8" fill="#E6E9ED" text-anchor="middle">
+                <g><rect x="65" y="47" width="40" height="16" rx="4" fill="rgba(0,160,227,0.16)" stroke="#00A0E3"/><text x="85" y="58">COBOL</text></g>
+                <g><rect x="16" y="20" width="34" height="15" rx="4" fill="rgba(0,160,227,0.16)" stroke="#00A0E3"/><text x="33" y="30.5">CICS</text></g>
+                <g><rect x="120" y="22" width="32" height="15" rx="4" fill="rgba(0,160,227,0.16)" stroke="#00A0E3"/><text x="136" y="32.5">DB2</text></g>
+                <g><rect x="122" y="70" width="30" height="15" rx="4" fill="rgba(0,160,227,0.16)" stroke="#00A0E3"/><text x="137" y="80.5">MQ</text></g>
+                <g><rect x="18" y="72" width="30" height="15" rx="4" fill="rgba(0,160,227,0.16)" stroke="#00A0E3"/><text x="33" y="82.5">JCL</text></g>
+              </g>
+            </svg>
+            <div>
+              <div style="font-size:18px; color:#fff; font-style:italic;">„Ich weiß, was wir heute haben."</div>
+              <div class="sup-line" style="margin-top:4px;"><span class="odot" style="background:#00A0E3;"></span>Estate-Graph · Bestand (as-is)</div>
+            </div>
           </div>
           <div style="flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:40px;"><div style="font-size:26px; color:var(--epam-accent);">⇄</div><div style="font-size:11px; color:var(--epam-subtle);">Dialog</div></div>
-          <div class="card accent-teal" style="flex:1; padding:12px 16px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="margin:0; font-size:16px;">Wissensbasis</h4><span class="badge teal">Zielbild · to-be</span></div>
-            <div style="font-size:19px; color:#fff; font-style:italic; margin:6px 0 4px;">„Ich weiß, wie wir es bauen."</div>
-            <div class="cl" style="margin:0; font-size:12px;">Regelwerk · Zielbetriebsmodell · Strategie je Bereich</div>
+          <div class="card accent-teal" style="flex:1; padding:10px 14px; display:flex; align-items:center; gap:12px;">
+            <div style="text-align:right;">
+              <div style="font-size:18px; color:#fff; font-style:italic;">„Ich weiß, wie wir es bauen."</div>
+              <div class="sup-line" style="margin-top:4px;">Wissensbasis · Zielbild (to-be) <span class="odot" style="background:#00C9A7; margin-left:4px; margin-right:0;"></span></div>
+            </div>
+            <svg viewBox="0 0 170 100" style="width:170px; height:100px; flex:none;">
+              <rect x="6" y="10" width="158" height="82" rx="9" fill="rgba(139,148,158,0.06)" stroke="rgba(139,148,158,0.55)"/>
+              <rect x="26" y="30" width="122" height="56" rx="8" fill="rgba(0,160,227,0.06)" stroke="rgba(0,160,227,0.55)"/>
+              <rect x="46" y="48" width="82" height="32" rx="7" fill="rgba(0,201,167,0.08)" stroke="rgba(0,201,167,0.6)"/>
+              <g font-family="'Outfit',sans-serif" font-size="7.5" fill="#C9D1D9">
+                <text x="12" y="22">Unternehmen</text><text x="32" y="42">Programm</text><text x="52" y="66">Anwendung</text>
+              </g>
+              <circle cx="150" cy="17" r="3" fill="#A970FF"/><circle cx="140" cy="17" r="3" fill="#E35050"/><circle cx="130" cy="17" r="3" fill="#E3A000"/>
+            </svg>
           </div>
         </div>
         <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ gemeinsam entsteht der Plan — bepreist, mit ehrlichen Lücken</div>
 
-        <!-- Zone B: the enriched wave plan (detail deepens toward the imminent wave) -->
-        <table class="wave" style="margin-top:6px;">
-          <thead><tr><th>Welle</th><th>Bereich</th><th>Strategie</th><th>Grad</th><th>Aufwand</th><th>Preis</th><th>Fehlende Info</th></tr></thead>
-          <tbody>
-            <tr><td>1</td><td>Tarifierung</td><td>schrittweise ablösen</td><td>2</td><td>≈ 40 PT</td><td>≈ € 0,6 M</td><td style="color:var(--epam-accent);">✓ vollständig</td></tr>
-            <tr><td>2</td><td>Schaden &amp; Leistung</td><td>hinter Abstraktion umbauen</td><td>1</td><td>70–110 PT</td><td>€ 1,0–1,6 M</td><td style="color:#E3A000;">Testdaten fehlen</td></tr>
-            <tr><td>3</td><td>Partneranbindung</td><td>neu bauen</td><td>3</td><td>grobe Schätzung</td><td>grobe Schätzung</td><td style="color:#E3A000;">Umfang noch offen</td></tr>
-          </tbody>
-        </table>
-        <div class="sup-line" style="margin-top:3px;"><span class="tag tag-confirm">[CONFIRM: Werte illustrativ — sanitisierte Referenz oder „illustrativ" kennzeichnen?]</span> · Detailtiefe wächst zur anstehenden Welle hin.</div>
+        <!-- Zone B: three wave boxes — content · confidence · price -->
+        <div style="display:flex; gap:12px; margin-top:8px;">
+          <div class="card" style="flex:1; padding:11px 14px;">
+            <h4 style="margin:0 0 2px; font-size:16px;">Welle 1 · Tarifierung</h4>
+            <div class="cl" style="margin:0 0 9px; font-size:12px;">12 Use Cases · 8 Schnittstellen · 15 Tabellen</div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--epam-subtle);"><span>Konfidenz — wie viel wir wissen</span><span style="color:var(--epam-accent);">hoch · 90 %</span></div>
+            <div style="height:8px; border-radius:4px; background:rgba(139,148,158,0.2); overflow:hidden; margin:3px 0 9px;"><div style="width:90%; height:100%; background:var(--epam-accent);"></div></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:11px; color:var(--epam-subtle);">Preis · ✓ belegt</span><span style="font-family:var(--r-heading-font); font-weight:700; font-size:19px; color:#fff;">€ 0,6 M</span></div>
+          </div>
+          <div class="card" style="flex:1; padding:11px 14px;">
+            <h4 style="margin:0 0 2px; font-size:16px;">Welle 2 · Schaden &amp; Leistung</h4>
+            <div class="cl" style="margin:0 0 9px; font-size:12px;">34 Use Cases · 22 Schnittstellen · 40 Tabellen</div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--epam-subtle);"><span>Konfidenz — wie viel wir wissen</span><span style="color:#E3A000;">mittel · 55 %</span></div>
+            <div style="height:8px; border-radius:4px; background:rgba(139,148,158,0.2); overflow:hidden; margin:3px 0 9px;"><div style="width:55%; height:100%; background:#E3A000;"></div></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:11px; color:#E3A000;">Preis · Testdaten fehlen</span><span style="font-family:var(--r-heading-font); font-weight:700; font-size:19px; color:#fff;">€ 1,0–1,6 M</span></div>
+          </div>
+          <div class="card" style="flex:1; padding:11px 14px;">
+            <h4 style="margin:0 0 2px; font-size:16px;">Welle 3 · Partneranbindung</h4>
+            <div class="cl" style="margin:0 0 9px; font-size:12px;">~60 Use Cases · ~30 Schnittstellen · ~55 Tabellen</div>
+            <div style="display:flex; justify-content:space-between; font-size:11px; color:var(--epam-subtle);"><span>Konfidenz — wie viel wir wissen</span><span style="color:#E35050;">niedrig · 30 %</span></div>
+            <div style="height:8px; border-radius:4px; background:rgba(139,148,158,0.2); overflow:hidden; margin:3px 0 9px;"><div style="width:30%; height:100%; background:#E35050;"></div></div>
+            <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:11px; color:#E3A000;">Preis · Umfang offen</span><span style="font-family:var(--r-heading-font); font-weight:700; font-size:19px; color:#fff;">~ € 2 M</span></div>
+          </div>
+        </div>
+        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: Zahlen illustrativ — sanitisieren oder „illustrativ" kennzeichnen?]</span> · Konfidenz = wie viel Wissen wir schon haben; sie steigt zur anstehenden Welle.</div>
 
         <!-- Zone C: progressive elaboration + outcome -->
         <div class="sup-line" style="margin-top:8px;">Nicht alles vorab: <b style="color:#E6E9ED;">High-Level zuerst</b> für die ersten Schätzungen — <b style="color:#E6E9ED;">Details just-in-time</b>, wenn die Welle ansteht. <span class="sh">Preis je Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</span></div>
