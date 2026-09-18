@@ -807,50 +807,64 @@
 
       <!-- ═══════════════════════ 10 / 18 ═══════════════════════ -->
       <section data-marker="10 / 18">
-        <span class="qchip answer">„Fast richtig ist falsch."</span>
-        <h2 class="title" style="font-size:24px; max-width:76%;">Spec-Driven Development ist Industriestandard — wir fügen den Quellenverweis hinzu: <span class="ac">nichts wird ohne belegtes Wissen generiert</span>.</h2>
-        <div style="display:flex; gap:24px; margin-top:20px;">
-          <div style="flex:0.85;">
-            <div class="subline" style="font-weight:600; color:#fff; margin-bottom:12px;">Die Basis — Industriestandard</div>
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div class="chip">Spezifizieren</div>
-              <div style="text-align:center;"><span class="hex">⬡</span></div>
-              <div class="chip">Generieren</div>
-              <div class="chip">Menschliches Review <span class="hex" style="font-size:14px;">⬡</span></div>
-              <div class="chip">Validieren</div>
-              <div class="chip">Abnehmen <span class="hex" style="font-size:14px;">⬡</span></div>
+        <h2 class="title" style="font-size:24px; max-width:86%;">Spec-Driven Development: die Spezifikation ist <span class="ac">eine vollständige Beschreibung der Arbeit</span>.</h2>
+        <div style="display:flex; gap:22px; margin-top:14px;">
+          <div style="flex:1;">
+            <div class="body-line">Eine Spec beschreibt die Arbeit vollständig: <b style="color:#fff;">was zu bauen und wie zu testen</b> ist.</div>
+            <div class="sup-line" style="margin-top:8px;">Format: <b style="color:#fff;">OpenSpec</b> — Artefakte: Proposal · Requirements &amp; Szenarien · Tasks · Design. <span class="tag tag-confirm">[CONFIRM: OpenSpec-Artefakte]</span></div>
+            <div class="card accent-teal" style="margin-top:12px; padding:12px 14px;">
+              <div class="cl" style="margin:0; color:#E6E9ED; font-size:14px;">Die Wissensbasis hält das Wissen für alles. Die <b style="color:#fff;">Spec ist eine Kopie genau des Wissens</b>, das dieses Increment braucht — um es zu <b style="color:#fff;">bauen und zu testen</b>, gegen alle geltenden Anforderungen und Vorgaben.</div>
             </div>
-            <div class="sup-line" style="margin-top:10px;">Gates sind nicht verhandelbar. (⬡ = Gate)</div>
+            <div class="sup-line" style="margin-top:10px;">Die Spec wird <b style="color:#E6E9ED;">Teil der Lieferung und des Codes</b> — kein Dokument daneben.</div>
           </div>
-          <div style="flex:1.15;">
-            <div class="subline" style="font-weight:600; color:#fff; margin-bottom:12px;">Unsere Ergänzung: der Quellenverweis</div>
-            <div class="body-line">Jeder Satz einer Spezifikation zitiert ein Fragment der Wissensbasis.</div>
-            <div class="body-line">Fehlt der Verweis, gilt der Satz als erfunden — Fehler, nicht Warnung.</div>
-            <div class="body-line" style="border-left:3px solid var(--epam-blue); padding-left:12px;">Unterspezifiziert heißt Halluzinationsrisiko — erst die Wissensbasis fixen, dann generieren.</div>
+          <div style="flex:1;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:6px;">Spec (Markdown) — jeder Satz mit Quellenverweis</div>
+            <div style="background:#10141a; border:1px solid var(--epam-border); border-radius:10px; padding:11px 14px; font-family:var(--r-code-font); font-size:12px; line-height:1.5; color:#C9D1D9;">
+              <div style="color:var(--epam-subtle);"># change: rate-calc-01 · Beitragsrundung</div>
+              <div style="color:#fff; margin-top:5px;">## Requirement</div>
+              <div>Bei Tarifwechsel zur Monatsmitte wird der</div>
+              <div>Beitrag kaufmännisch gerundet.</div>
+              <div>Quellen: <span style="color:var(--epam-accent);">[[kb:rate-calc/rundung-§4]]</span> ·</div>
+              <div style="text-indent:3.6em;"><span style="color:var(--epam-accent);">[[kb:vertrag/tarifwechsel]]</span></div>
+              <div style="color:#fff; margin-top:5px;">## Szenario: Wechsel zur Monatsmitte</div>
+              <div>Gegeben Vertrag <span style="color:var(--epam-accent);">[[kb:obj/vertrag]]</span></div>
+              <div>Wenn Tarif zum 15. wechselt</div>
+              <div>Dann Beitrag gerundet <span style="color:var(--epam-accent);">[[kb:rate-calc/rundung-§4]]</span></div>
+              <div style="color:#fff; margin-top:5px;">## Tasks</div>
+              <div>- [ ] RATE-CALC ¶3200 neu bauen</div>
+              <div>- [ ] Tests aus <span style="color:var(--epam-accent);">[[kb:test/tarifwechsel]]</span></div>
+            </div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:16px;"><span style="color:#fff; font-weight:600;">Quellenverweis</span> <span class="sh">(Citation)</span>: der Verweis von einem Stück Arbeit auf das Wissen, das es begründet.</div>
-        <aside class="notes">SDD einmal erklärt; der Quellenverweis macht „fast richtig" vor der Generierung fangbar. Rechte Spalte nennt die eine Regel, die Copilot nicht hat. ~1,5 min.</aside>
+        <div class="body-line" style="margin-top:10px;">Alles, was gebaut und getestet wird, steht in der Spec — belegt durch die Wissensbasis. <span class="xref">schleifen die Quellenverweise durch</span></div>
+        <aside class="notes">Was ist SDD: die Spezifikation als vollständige Beschreibung der Arbeit (was bauen, wie testen), im OpenSpec-Format mit seinen Artefakten. Kernbild: die Wissensbasis hält alles Wissen; die Spec ist eine Kopie genau des Wissens, das dieses Increment braucht — mit Quellenverweisen. Die Spec wird Teil der Lieferung und des Codes. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 11 / 18 ═══════════════════════ -->
       <section data-marker="11 / 18">
-        <h2 class="title" style="font-size:23px;">Pipeline 1, Spezifizieren: Aus den Quellen entsteht eine Spezifikation, sie wird auf Vollständigkeit geprüft und <span class="ac">von Menschen freigegeben, bevor Code entsteht</span>.</h2>
-        <div style="display:flex; align-items:stretch; gap:8px; margin-top:24px;">
-          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Quellen</h4><div class="cl" style="margin:0;">Wissensbasis, Epic, Bestand</div></div>
-          <span class="arrow">→</span>
-          <div class="card" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Spezifikation generieren</h4><div class="cl" style="margin:0;">jede Anforderung mit Quellenverweis</div></div>
-          <span class="arrow">→</span>
-          <div class="card" style="flex:1.1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Vollständigkeit prüfen</h4><div class="cl" style="margin:0;">jede Anforderung belegt, jedes kuratierte Fragment genutzt, jeder Verweis auflösbar</div></div>
-          <span class="hex" style="font-size:22px;">⬡</span>
-          <div class="card accent-teal" style="flex:1; padding:14px;"><h4 style="font-size:17px; margin-bottom:4px;">Freigegebene Spezifikation</h4><div class="cl" style="margin:0;">ein Deliverable, Teil der Anwendung, zurück in die Wissensbasis</div></div>
+        <span class="qchip answer">„Fast richtig ist falsch."</span>
+        <h2 class="title" style="font-size:23px; max-width:82%;">Das Besondere: wir <span class="ac">schleifen die Quellenverweise durch</span> — Wissensbasis → Spezifikation → Einheit.</h2>
+
+        <!-- the citation chain: same citation carried through -->
+        <div style="display:flex; align-items:stretch; gap:0; margin-top:16px;">
+          <div class="node teal" style="flex:1; padding:12px; font-size:15px; text-align:center;">Wissensbasis<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Fragment <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
+          <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
+          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Spezifikation<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Anforderung zitiert <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
+          <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
+          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Einheit · Code + Test<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Quellenverweis <span style="color:var(--epam-accent); font-family:var(--r-code-font);">[[kb:rundung-§4]]</span></span></div>
         </div>
-        <div class="chip" style="display:inline-block; margin-top:14px; font-size:13px; border-color:var(--epam-accent);">⬡ Review-Umgebung: der Fach-Owner gibt frei — oder lehnt ab</div>
-        <div style="margin-top:18px; border-top:1px dashed rgba(139,148,158,0.3); padding-top:12px;">
-          <div class="sup-line" style="color:#E3A000;">↩ Ablehnung → Signal → Wissensbasis wird korrigiert</div>
-          <div class="sup-line">Wissenslücke gefunden? Sie geht an den Kurator, nicht an den Entwickler.</div>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ derselbe Quellenverweis — durchgeschliffen von der Quelle bis ins Increment</div>
+
+        <!-- five guarantees the looped citation buys -->
+        <div style="display:flex; gap:10px; margin-top:16px;">
+          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Nachvollziehbar</h4><div class="cl" style="margin:0; font-size:12.5px;">Anforderung ↔ Code lückenlos rückverfolgbar — in beide Richtungen.</div></div>
+          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Grounding geprüft</h4><div class="cl" style="margin:0; font-size:12.5px;">Zitat-Statistik der Spec: unbelegte Sätze = Halluzinationsrisiko → erst gefixt, dann generiert.</div></div>
+          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Vollständig</h4><div class="cl" style="margin:0; font-size:12.5px;">Jede gegebene Quelle taucht in Spec und Code auf — nichts fällt weg.</div></div>
+          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Audit-Trail</h4><div class="cl" style="margin:0; font-size:12.5px;">Permanent: alles, was beim Bauen berücksichtigt wurde, ist dokumentiert.</div></div>
+          <div class="card accent-teal" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Review-Routing</h4><div class="cl" style="margin:0; font-size:12.5px;">Der Quellenverweis leitet jedes Fragment an die Owner des Wissens.</div></div>
         </div>
-        <aside class="notes">Erste Beispiel-Pipeline, Station für Station; die geprüfte Spezifikation ist Deliverable und geht in die Wissensbasis; Ablehnungen werden Signale. ~1,5 min.</aside>
+        <div class="sup-line" style="margin-top:12px;">Ein Mechanismus — der durchgeschliffene Quellenverweis — trägt fünf Garantien. <span class="xref">sieht nur seinen Ausschnitt</span></div>
+        <aside class="notes">Das Alleinstellungsmerkmal: der Quellenverweis wird durchgeschliffen — Wissensbasis-Fragment → Spec-Anforderung → generierte Einheit (Code + Test). Fünf Nutzen: (1) Nachvollziehbarkeit Anforderung↔Code; (2) Grounding via Zitat-Statistik auf der Spec verhindert Halluzination; (3) Vollständigkeit — alle eingegebenen Quellen erscheinen in Spec und Code, nichts fällt weg; (4) permanenter Audit-Trail über alles Berücksichtigte; (5) Review-Routing — Quellenverweise leiten Review-Fragmente an die Wissens-Owner. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 12 / 18 ═══════════════════════ -->
