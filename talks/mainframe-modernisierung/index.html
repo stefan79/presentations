@@ -672,34 +672,39 @@
       <!-- ═══════════════════════ 09 / 18 ═══════════════════════ -->
       <section data-marker="09 / 18">
         <span class="qchip answer">„Tokens werden zu teuer."</span>
-        <h2 class="title" style="font-size:24px; max-width:76%;">Das Zielbetriebsmodell wandert in die Wissensbasis — im Dialog mit dem Estate Scanner <span class="ac">entstehen Budget, Zeitplan und Roadmap</span>.</h2>
-        <div style="display:flex; gap:20px; margin-top:14px;">
-          <div style="flex:1; position:relative; height:230px;">
-            <div class="node" style="position:absolute; left:50%; top:0; transform:translateX(-50%); width:200px; font-size:15px;">Zielbetriebsmodell <span class="sh">(Target Operating Model)</span></div>
-            <div class="chip blue" style="position:absolute; left:50%; top:74px; transform:translateX(-50%); width:230px; text-align:center; font-size:12px; padding:5px 8px;">Zielbild-Erarbeitung mit FINIUS im fachlichen Graph</div>
-            <div class="node teal" style="position:absolute; left:0; bottom:0; width:165px; font-size:14px;">Bestand<br><span style="font-size:11px; font-weight:400;">(Estate Scanner)</span></div>
-            <div class="node teal" style="position:absolute; right:0; bottom:0; width:165px; font-size:14px;">Wissensbasis</div>
-            <div class="sup-line" style="position:absolute; left:0; top:130px; width:190px; font-size:12px;">↖ Was bricht, wenn wir das ändern?</div>
-            <div class="sup-line" style="position:absolute; right:0; top:130px; width:190px; text-align:right; font-size:12px;">Entscheidungen werden Fragmente mit Owner ↗</div>
-            <div class="sup-line" style="position:absolute; left:50%; bottom:8px; transform:translateX(-50%); text-align:center; width:230px; font-size:12px;">↓ Welche Slices berührt diese Entscheidung?</div>
+        <h2 class="title" style="font-size:24px; max-width:84%;">Wir konstruieren den Plan <span class="ac">aus Fakten, nicht aus Annahmen</span> — Bestand und Wissensbasis im Dialog.</h2>
+
+        <!-- Zone A: the dialog -->
+        <div style="display:flex; gap:14px; align-items:stretch; margin-top:12px;">
+          <div class="card accent-top" style="flex:1; padding:12px 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="margin:0; font-size:16px;">Estate-Graph</h4><span class="badge subtle">Bestand · as-is</span></div>
+            <div style="font-size:19px; color:#fff; font-style:italic; margin:6px 0 4px;">„Ich weiß, was wir heute haben."</div>
+            <div class="cl" style="margin:0; font-size:12px;">Komponenten · Abhängigkeiten · Volumina — abgelesen, nicht geraten</div>
           </div>
-          <div style="flex:1;">
-            <table class="wave">
-              <thead><tr><th>Welle</th><th>Bereich</th><th>Strategie</th><th>Grad</th><th>Preis</th></tr></thead>
-              <tbody>
-                <tr><td colspan="5" style="color:#E35050;"><span class="tag tag-owner">[Stefan: drei illustrative oder sanitisierte Zeilen]</span></td></tr>
-                <tr><td colspan="5" style="height:26px;"></td></tr>
-                <tr><td colspan="5" style="height:26px;"></td></tr>
-              </tbody>
-            </table>
+          <div style="flex:none; display:flex; flex-direction:column; align-items:center; justify-content:center; min-width:40px;"><div style="font-size:26px; color:var(--epam-accent);">⇄</div><div style="font-size:11px; color:var(--epam-subtle);">Dialog</div></div>
+          <div class="card accent-teal" style="flex:1; padding:12px 16px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;"><h4 style="margin:0; font-size:16px;">Wissensbasis</h4><span class="badge teal">Zielbild · to-be</span></div>
+            <div style="font-size:19px; color:#fff; font-style:italic; margin:6px 0 4px;">„Ich weiß, wie wir es bauen."</div>
+            <div class="cl" style="margin:0; font-size:12px;">Regelwerk · Zielbetriebsmodell · Strategie je Bereich</div>
           </div>
         </div>
-        <div style="margin-top:12px;">
-          <div class="body-line">Der Preis einer Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</div>
-          <div class="sup-line">Epics und Migrationsplan liegen in der Wissensbasis — nicht in einem Projektplan daneben. &nbsp;<span class="tag tag-confirm">[CONFIRM: „Zielbetriebsmodell" oder durchgängig „Zielbild"?]</span></div>
-        </div>
-        <div class="outcome" style="margin-top:10px;"><b>Ergebnis des Abschnitts:</b> Regelwerk · Zielbetriebsmodell · bepreiste, sequenzierte Roadmap — alles in der Wissensbasis</div>
-        <aside class="notes">Der Plan: Dokumente rein, TOM definiert, Schleife mit dem Scanner, Wellen bepreist. Schleife endet, wenn jede Welle eine Zeile hat. ~2 min.</aside>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ gemeinsam entsteht der Plan — bepreist, mit ehrlichen Lücken</div>
+
+        <!-- Zone B: the enriched wave plan (detail deepens toward the imminent wave) -->
+        <table class="wave" style="margin-top:6px;">
+          <thead><tr><th>Welle</th><th>Bereich</th><th>Strategie</th><th>Grad</th><th>Aufwand</th><th>Preis</th><th>Fehlende Info</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>Tarifierung</td><td>schrittweise ablösen</td><td>2</td><td>≈ 40 PT</td><td>≈ € 0,6 M</td><td style="color:var(--epam-accent);">✓ vollständig</td></tr>
+            <tr><td>2</td><td>Schaden &amp; Leistung</td><td>hinter Abstraktion umbauen</td><td>1</td><td>70–110 PT</td><td>€ 1,0–1,6 M</td><td style="color:#E3A000;">Testdaten fehlen</td></tr>
+            <tr><td>3</td><td>Partneranbindung</td><td>neu bauen</td><td>3</td><td>grobe Schätzung</td><td>grobe Schätzung</td><td style="color:#E3A000;">Umfang noch offen</td></tr>
+          </tbody>
+        </table>
+        <div class="sup-line" style="margin-top:3px;"><span class="tag tag-confirm">[CONFIRM: Werte illustrativ — sanitisierte Referenz oder „illustrativ" kennzeichnen?]</span> · Detailtiefe wächst zur anstehenden Welle hin.</div>
+
+        <!-- Zone C: progressive elaboration + outcome -->
+        <div class="sup-line" style="margin-top:8px;">Nicht alles vorab: <b style="color:#E6E9ED;">High-Level zuerst</b> für die ersten Schätzungen — <b style="color:#E6E9ED;">Details just-in-time</b>, wenn die Welle ansteht. <span class="sh">Preis je Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</span></div>
+        <div class="outcome" style="margin-top:8px;"><b>Ergebnis des Abschnitts:</b> Regelwerk · Zielbetriebsmodell · bepreiste, sequenzierte Roadmap aus Fakten — die Wissensbasis ist bereit für die Umsetzung.</div>
+        <aside class="notes">Kernaussage: der Plan wird aus Fakten konstruiert, nicht geschätzt. Der Estate-Graph kennt das Heute (Bestand, Abhängigkeiten, Volumina), die Wissensbasis kennt das Wie (Regelwerk, Zielbetriebsmodell, Strategie) — im Dialog entsteht die bepreiste Roadmap, inklusive ehrlicher Lücken (fehlende Info je Welle). Progressive Elaboration: nicht alles vorab füllen — High-Level zuerst für erste Schätzungen, Details just-in-time je Migrationswelle. Ergebnis: eine handlungsbereite Wissensbasis für die Umsetzung. ~2 min.</aside>
       </section>
 
       <!-- ═══════════════════════ RECAP 2 (nach Abschnitt 2) ═══════════════════════ -->
