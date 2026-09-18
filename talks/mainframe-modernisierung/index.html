@@ -418,51 +418,71 @@
         <span class="qchip answer">„Wir haben weder Doku noch Tests."</span>
         <h2 class="title" style="font-size:24px; max-width:80%;">Nicht nur Code am Graphen: Der Estate Scanner liest die Technik, <span class="ac">FINIUS die Fachlichkeit</span> — zu einem vollständigen, konsistenten Graphen.</h2>
 
-        <div class="graph">
-          <svg viewBox="0 0 1000 330" preserveAspectRatio="none">
-            <!-- technical edges (interactions) -->
-            <g stroke="#5B6875" stroke-width="1.6" fill="none">
-              <line x1="80" y1="250" x2="290" y2="250"/>
-              <line x1="290" y1="250" x2="470" y2="250"/>
-              <line x1="470" y1="250" x2="650" y2="250"/>
-              <path d="M290,250 Q470,312 650,250"/>
-              <path d="M290,250 Q550,322 810,250"/>
-              <path d="M470,250 Q705,300 940,250"/>
-            </g>
-            <!-- FINIUS edges: business ↔ technical + business internal (citations) -->
-            <g stroke="rgba(0,201,167,0.72)" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
-              <line x1="230" y1="52" x2="290" y2="250"/>
-              <line x1="540" y1="52" x2="650" y2="250"/>
-              <path d="M540,52 Q690,150 810,250"/>
-              <path d="M820,52 Q560,120 290,250"/>
-              <line x1="230" y1="52" x2="540" y2="52"/>
-              <line x1="540" y1="52" x2="820" y2="52"/>
-            </g>
-          </svg>
+        <div style="display:flex; gap:16px; margin-top:8px; align-items:center;">
+          <!-- LEFT: technical-only graph (from code) -->
+          <div style="flex:1;">
+            <div class="sup-line" style="text-align:center; color:var(--epam-blue); font-weight:600; margin-bottom:4px;">Aus dem Code — Estate Scanner</div>
+            <div class="graph" style="height:300px; margin-top:0; border:1px solid rgba(0,160,227,0.35); border-radius:10px; background:rgba(0,160,227,0.03);">
+              <svg viewBox="0 0 500 300" preserveAspectRatio="none">
+                <g stroke="#5B6875" stroke-width="1.6" fill="none">
+                  <line x1="80" y1="100" x2="250" y2="120"/>
+                  <line x1="250" y1="120" x2="420" y2="100"/>
+                  <line x1="250" y1="120" x2="130" y2="245"/>
+                  <line x1="250" y1="120" x2="290" y2="252"/>
+                  <line x1="420" y1="100" x2="430" y2="238"/>
+                  <line x1="420" y1="100" x2="130" y2="245"/>
+                </g>
+              </svg>
+              <div class="gnode gtech" style="left:16%; top:100px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
+              <div class="gnode gtech" style="left:50%; top:120px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
+              <div class="gnode gtech" style="left:84%; top:100px;"><span class="ty">CICS</span><b>QUOT</b></div>
+              <div class="gnode gtech" style="left:26%; top:245px;"><span class="ty">DB2</span><b>VERTRAG</b></div>
+              <div class="gnode gtech" style="left:58%; top:252px;"><span class="ty">VSAM</span><b>KDNR</b></div>
+              <div class="gnode gtech" style="left:86%; top:238px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
+            </div>
+            <div class="sup-line" style="text-align:center; margin-top:4px;">nur Technik — Programme, Daten, Transaktionen und ihre Interaktionen</div>
+          </div>
 
-          <!-- band labels -->
-          <div class="gband" style="top:0; left:0; color:var(--epam-accent);">Fachlichkeit — mit FINIUS aus Spezifikationen</div>
-          <div class="gband" style="top:302px; left:0; color:var(--epam-blue);">Technik — mit dem Estate Scanner aus Code</div>
+          <div class="arrow" style="align-self:center; font-size:30px;">→</div>
 
-          <!-- business nodes (FINIUS) -->
-          <div class="gnode gbiz" style="left:23%; top:52px;"><span class="ty">Business Service</span><b>Beitrag berechnen</b></div>
-          <div class="gnode gbiz" style="left:54%; top:52px;"><span class="ty">Business Object</span><b>Vertrag</b></div>
-          <div class="gnode gbiz" style="left:82%; top:52px;"><span class="ty">Requirement</span><b>Rundung §4</b></div>
-
-          <!-- technical nodes (Estate Scanner) -->
-          <div class="gnode gtech" style="left:8%;  top:250px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
-          <div class="gnode gtech" style="left:29%; top:250px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
-          <div class="gnode gtech" style="left:47%; top:250px;"><span class="ty">CICS</span><b>QUOT</b></div>
-          <div class="gnode gtech" style="left:65%; top:250px;"><span class="ty">DB2</span><b>VERTRAG</b></div>
-          <div class="gnode gtech" style="left:81%; top:250px;"><span class="ty">VSAM</span><b>KDNR</b></div>
-          <div class="gnode gtech" style="left:94%; top:250px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
+          <!-- RIGHT: same graph enriched by FINIUS (business layer + citations) -->
+          <div style="flex:1;">
+            <div class="sup-line" style="text-align:center; color:var(--epam-accent); font-weight:600; margin-bottom:4px;">+ FINIUS — aus den Spezifikationen</div>
+            <div class="graph" style="height:300px; margin-top:0; border:1px solid rgba(0,201,167,0.45); border-radius:10px; background:rgba(0,201,167,0.03);">
+              <svg viewBox="0 0 500 300" preserveAspectRatio="none">
+                <g stroke="#5B6875" stroke-width="1.6" fill="none">
+                  <line x1="80" y1="152" x2="250" y2="170"/>
+                  <line x1="250" y1="170" x2="420" y2="152"/>
+                  <line x1="250" y1="170" x2="130" y2="268"/>
+                  <line x1="250" y1="170" x2="290" y2="273"/>
+                  <line x1="420" y1="152" x2="430" y2="260"/>
+                  <line x1="420" y1="152" x2="130" y2="268"/>
+                </g>
+                <g stroke="rgba(0,201,167,0.8)" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
+                  <line x1="100" y1="42" x2="250" y2="170"/>
+                  <line x1="280" y1="42" x2="290" y2="273"/>
+                  <line x1="280" y1="42" x2="420" y2="152"/>
+                  <line x1="430" y1="42" x2="250" y2="170"/>
+                  <line x1="100" y1="42" x2="280" y2="42"/>
+                  <line x1="280" y1="42" x2="430" y2="42"/>
+                </g>
+              </svg>
+              <div class="gnode gbiz" style="left:20%; top:42px;"><span class="ty">Business Service</span><b>Beitrag berechnen</b></div>
+              <div class="gnode gbiz" style="left:56%; top:42px;"><span class="ty">Business Object</span><b>Vertrag</b></div>
+              <div class="gnode gbiz" style="left:86%; top:42px;"><span class="ty">Requirement</span><b>Rundung §4</b></div>
+              <div class="gnode gtech" style="left:16%; top:152px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
+              <div class="gnode gtech" style="left:50%; top:170px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
+              <div class="gnode gtech" style="left:84%; top:152px;"><span class="ty">CICS</span><b>QUOT</b></div>
+              <div class="gnode gtech" style="left:26%; top:268px;"><span class="ty">DB2</span><b>VERTRAG</b></div>
+              <div class="gnode gtech" style="left:58%; top:273px;"><span class="ty">VSAM</span><b>KDNR</b></div>
+              <div class="gnode gtech" style="left:86%; top:260px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
+            </div>
+            <div class="sup-line" style="text-align:center; margin-top:4px;">Business Services, Objects, Requirements — ein konsistenter Graph, jede Kante ein Quellenverweis</div>
+          </div>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:8px;">
-          <div>
-            <div class="body-line">Business Services, Business Objects und Anforderungen — mit FINIUS aus den Spezifikationen, verbunden mit dem Code.</div>
-            <div class="body-line">Jeder Knoten, jede Kante trägt ihren <span class="ac">Quellenverweis</span> <span class="sh">(Citation)</span> — vollständig und widerspruchsfrei.</div>
-          </div>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px;">
+          <div class="body-line" style="max-width:70%;">Wir hängen nicht nur Code an den Graphen — jeder Knoten, jede Kante trägt ihren <span class="ac">Quellenverweis</span> <span class="sh">(Citation)</span>, vollständig und widerspruchsfrei.</div>
           <div><span class="xref">aus fünf Zeugen gespeist</span></div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[FINIUS: Wortmarke / Logo]</span> · <span class="tag tag-confirm">[CONFIRM: Knotenbeispiele (RATE-CALC, VERTRAG, Rundung §4) passend, oder Bankbeispiel?]</span></div>
