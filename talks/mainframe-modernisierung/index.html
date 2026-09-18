@@ -418,57 +418,32 @@
         <span class="qchip answer">„Wir haben weder Doku noch Tests."</span>
         <h2 class="title" style="font-size:24px; max-width:82%;">Der Estate Scanner liest die Technik, <span class="ac">FINIUS die Fachlichkeit</span> — Quellenverweise verbinden beide zu einem konsistenten Graphen.</h2>
 
-        <div class="graph" style="height:330px; margin-top:6px;">
-          <svg viewBox="0 0 1000 330" preserveAspectRatio="none">
-            <!-- panel backdrops -->
-            <rect x="12" y="22" width="462" height="296" rx="12" fill="rgba(0,160,227,0.04)" stroke="rgba(0,160,227,0.28)"/>
-            <rect x="545" y="22" width="443" height="296" rx="12" fill="rgba(0,201,167,0.04)" stroke="rgba(0,201,167,0.32)"/>
-            <!-- technical edges (left cluster) -->
-            <g stroke="#5B6875" stroke-width="1.6" fill="none">
-              <line x1="60" y1="75" x2="250" y2="80"/>
-              <line x1="60" y1="270" x2="250" y2="288"/>
-              <line x1="60" y1="270" x2="250" y2="80"/>
-              <line x1="150" y1="175" x2="265" y2="185"/>
-              <line x1="250" y1="80" x2="265" y2="185"/>
-              <line x1="265" y1="185" x2="430" y2="120"/>
-              <line x1="265" y1="185" x2="430" y2="255"/>
-              <line x1="250" y1="80" x2="250" y2="288"/>
-            </g>
-            <!-- business edges (right cluster) -->
-            <g stroke="rgba(0,201,167,0.75)" stroke-width="1.6" fill="none">
-              <line x1="690" y1="80" x2="900" y2="155"/>
-              <line x1="690" y1="80" x2="690" y2="250"/>
-              <line x1="900" y1="155" x2="900" y2="285"/>
-            </g>
-            <!-- cross-connections: technik ↔ fachlichkeit (over the panels) -->
-            <g stroke="rgba(0,201,167,0.9)" stroke-width="1.6" fill="none" stroke-dasharray="5 4">
-              <line x1="250" y1="80"  x2="690" y2="80"/>
-              <line x1="265" y1="185" x2="690" y2="80"/>
-              <line x1="265" y1="185" x2="900" y2="285"/>
-              <line x1="430" y1="120" x2="900" y2="155"/>
-              <line x1="430" y1="255" x2="690" y2="250"/>
-            </g>
-          </svg>
+        <div class="graph" id="g5" style="height:330px; margin-top:6px;">
+          <!-- panel backdrops -->
+          <div style="position:absolute; left:0.8%; top:20px; width:46%; height:292px; border:1px solid rgba(0,160,227,0.28); background:rgba(0,160,227,0.04); border-radius:12px; z-index:0;"></div>
+          <div style="position:absolute; right:0.8%; top:20px; width:44.5%; height:292px; border:1px solid rgba(0,201,167,0.32); background:rgba(0,201,167,0.04); border-radius:12px; z-index:0;"></div>
+          <!-- edges + labels drawn at runtime by drawGraph5(), attached to box borders -->
+          <svg id="g5svg" preserveAspectRatio="none" style="z-index:1;"></svg>
 
           <!-- panel labels -->
           <div class="gband" style="top:0; left:2%; color:var(--epam-blue);">Technik — Estate Scanner (aus Code)</div>
           <div class="gband" style="top:0; left:56%; color:var(--epam-accent);">Fachlichkeit — FINIUS (aus Spezifikationen)</div>
 
           <!-- technical nodes (left) — incl. terminal + java dependencies -->
-          <div class="gnode gtech" style="left:6%;  top:75px;"><span class="ty">Terminal 3270</span><b>Sachbearbeiter</b></div>
-          <div class="gnode gtech" style="left:6%;  top:270px;"><span class="ty">Java</span><b>Channel-API</b></div>
-          <div class="gnode gtech" style="left:15%; top:175px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
-          <div class="gnode gtech" style="left:25%; top:80px;"><span class="ty">CICS</span><b>QUOT</b></div>
-          <div class="gnode gtech" style="left:26.5%; top:185px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
-          <div class="gnode gtech" style="left:25%; top:288px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
-          <div class="gnode gtech" style="left:43%; top:120px;"><span class="ty">DB2</span><b>VERTRAG</b></div>
-          <div class="gnode gtech" style="left:43%; top:255px;"><span class="ty">VSAM</span><b>KDNR</b></div>
+          <div class="gnode gtech" data-g="terminal" style="left:6%;  top:75px;"><span class="ty">Terminal 3270</span><b>Sachbearbeiter</b></div>
+          <div class="gnode gtech" data-g="java" style="left:6%;  top:270px;"><span class="ty">Java</span><b>Channel-API</b></div>
+          <div class="gnode gtech" data-g="jcl" style="left:15%; top:175px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
+          <div class="gnode gtech" data-g="cics" style="left:25%; top:80px;"><span class="ty">CICS</span><b>QUOT</b></div>
+          <div class="gnode gtech" data-g="cobol" style="left:26.5%; top:185px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
+          <div class="gnode gtech" data-g="mq" style="left:25%; top:288px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
+          <div class="gnode gtech" data-g="db2" style="left:43%; top:120px;"><span class="ty">DB2</span><b>VERTRAG</b></div>
+          <div class="gnode gtech" data-g="vsam" style="left:43%; top:255px;"><span class="ty">VSAM</span><b>KDNR</b></div>
 
           <!-- business / requirement nodes (right) -->
-          <div class="gnode gbiz" style="left:69%; top:80px;"><span class="ty">Business Service</span><b>Beitrag berechnen</b></div>
-          <div class="gnode gbiz" style="left:90%; top:155px;"><span class="ty">Business Object</span><b>Vertrag</b></div>
-          <div class="gnode gbiz" style="left:69%; top:250px;"><span class="ty">Business Object</span><b>Kunde</b></div>
-          <div class="gnode gbiz" style="left:90%; top:285px;"><span class="ty">Requirement</span><b>Rundung §4</b></div>
+          <div class="gnode gbiz" data-g="bs" style="left:69%; top:80px;"><span class="ty">Business Service</span><b>Beitrag berechnen</b></div>
+          <div class="gnode gbiz" data-g="boV" style="left:90%; top:155px;"><span class="ty">Business Object</span><b>Vertrag</b></div>
+          <div class="gnode gbiz" data-g="boK" style="left:69%; top:250px;"><span class="ty">Business Object</span><b>Kunde</b></div>
+          <div class="gnode gbiz" data-g="rq" style="left:90%; top:285px;"><span class="ty">Requirement</span><b>Rundung §4</b></div>
         </div>
         <div class="sup-line" style="text-align:center; margin-top:6px;"><span style="color:#5B6875;">──</span> technische Abhängigkeit &nbsp;·&nbsp; <span style="color:var(--epam-accent);">╌ ╌</span> Quellenverweis — FINIUS verbindet Technik und Fachlichkeit</div>
 
@@ -1154,6 +1129,77 @@ verified_by</code></pre><div class="sup-line">Beispiel-Header aus dem Wissensbas
       center: false, hash: true, slideNumber: false, transition: 'slide',
       plugins: [RevealNotes, RevealHighlight]
     });
+
+    // Slide 05 knowledge graph — draw each edge from box-border to box-border
+    // (nearest edge, not centre) and label it. Redrawn on layout changes.
+    function drawGraph5() {
+      var c = document.getElementById('g5'), svg = document.getElementById('g5svg');
+      if (!c || !svg) return;
+      var W = c.clientWidth, H = c.clientHeight;
+      if (!W || !H) return;
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+      var NS = 'http://www.w3.org/2000/svg';
+      // node visual centre = (offsetLeft, offsetTop) because of translate(-50%,-50%)
+      function box(id) {
+        var el = c.querySelector('[data-g="' + id + '"]');
+        if (!el) return null;
+        return { cx: el.offsetLeft, cy: el.offsetTop, hw: el.offsetWidth / 2, hh: el.offsetHeight / 2 };
+      }
+      function border(r, px, py) { // point on r's border toward (px,py), +3px gap
+        var dx = px - r.cx, dy = py - r.cy;
+        if (!dx && !dy) return { x: r.cx, y: r.cy };
+        var t = Math.min(dx ? r.hw / Math.abs(dx) : Infinity, dy ? r.hh / Math.abs(dy) : Infinity);
+        var len = Math.hypot(dx, dy), g = (t * len + 3) / len;
+        return { x: r.cx + dx * g, y: r.cy + dy * g };
+      }
+      var C = { sub: '#5B6875', teal: '#00C9A7' };
+      var edges = [
+        // technical dependencies
+        { a: 'terminal', b: 'cics', k: 'tech', l: 'bedient' },
+        { a: 'java', b: 'cics', k: 'tech', l: 'ruft auf' },
+        { a: 'java', b: 'mq', k: 'tech', l: 'sendet' },
+        { a: 'jcl', b: 'cobol', k: 'tech', l: 'startet' },
+        { a: 'cics', b: 'cobol', k: 'tech', l: 'ruft' },
+        { a: 'cobol', b: 'db2', k: 'tech', l: 'liest/schreibt' },
+        { a: 'cobol', b: 'vsam', k: 'tech', l: 'liest/schreibt' },
+        { a: 'cics', b: 'mq', k: 'tech', l: 'put/get' },
+        // business relations
+        { a: 'bs', b: 'boV', k: 'biz', l: 'nutzt' },
+        { a: 'bs', b: 'boK', k: 'biz', l: 'nutzt' },
+        { a: 'boV', b: 'rq', k: 'biz', l: 'erfüllt' },
+        // citations (FINIUS connects technik ↔ fachlichkeit)
+        { a: 'cics', b: 'bs', k: 'cite', l: 'implementiert' },
+        { a: 'cobol', b: 'bs', k: 'cite', l: 'implementiert' },
+        { a: 'cobol', b: 'rq', k: 'cite', l: 'erfüllt Regel' },
+        { a: 'db2', b: 'boV', k: 'cite', l: 'entspricht' },
+        { a: 'vsam', b: 'boK', k: 'cite', l: 'entspricht' }
+      ];
+      while (svg.firstChild) svg.removeChild(svg.firstChild);
+      edges.forEach(function (e) {
+        var A = box(e.a), B = box(e.b);
+        if (!A || !B) return;
+        var p1 = border(A, B.cx, B.cy), p2 = border(B, A.cx, A.cy);
+        var stroke = e.k === 'tech' ? C.sub : C.teal;
+        var ln = document.createElementNS(NS, 'line');
+        ln.setAttribute('x1', p1.x); ln.setAttribute('y1', p1.y);
+        ln.setAttribute('x2', p2.x); ln.setAttribute('y2', p2.y);
+        ln.setAttribute('stroke', stroke); ln.setAttribute('stroke-width', '1.5');
+        ln.setAttribute('opacity', e.k === 'tech' ? '0.75' : '0.9');
+        if (e.k === 'cite') ln.setAttribute('stroke-dasharray', '5 4');
+        svg.appendChild(ln);
+        var tx = document.createElementNS(NS, 'text');
+        tx.setAttribute('x', (p1.x + p2.x) / 2); tx.setAttribute('y', (p1.y + p2.y) / 2 - 2);
+        tx.setAttribute('text-anchor', 'middle');
+        tx.setAttribute('font-size', '10'); tx.setAttribute('font-family', "'Outfit',sans-serif");
+        tx.setAttribute('fill', e.k === 'tech' ? '#8B949E' : C.teal);
+        tx.setAttribute('stroke', '#0D1117'); tx.setAttribute('stroke-width', '3'); tx.setAttribute('paint-order', 'stroke');
+        tx.textContent = e.l;
+        svg.appendChild(tx);
+      });
+    }
+    Reveal.on('ready', drawGraph5);
+    Reveal.on('slidechanged', function () { setTimeout(drawGraph5, 50); });
+    window.addEventListener('resize', function () { setTimeout(drawGraph5, 100); });
   </script>
 </body>
 </html>
