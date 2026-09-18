@@ -2,6 +2,7 @@ TEMPLATE ?= default
 THEME ?= black
 DATE := $(shell date +%Y-%m-%d)
 PORT ?= 8000
+SCALE ?= 1
 
 # Resolve theme: custom (templates/themes/) or built-in (node_modules)
 CUSTOM_THEME_EXISTS := $(wildcard templates/themes/$(THEME).css)
@@ -101,7 +102,7 @@ shot: ## Screenshot slides for QA: make shot NAME=deck SLIDES="0 2:1 5" (self-se
 ifndef NAME
 	$(error NAME is required. Usage: make shot NAME=my-talk SLIDES="0 2:1")
 endif
-	@node scripts/shot.mjs $(NAME) $(SLIDES)
+	@SCALE=$(SCALE) node scripts/shot.mjs $(NAME) $(SLIDES)
 
 pdf-chrome: ## Export deck to PDF via Chrome print-pdf — use when 'make pdf' hangs on fonts
 ifndef NAME
