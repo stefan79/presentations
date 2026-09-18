@@ -897,15 +897,47 @@
         <span class="qchip answer">„Fast richtig ist falsch."</span>
         <h2 class="title" style="font-size:23px; max-width:82%;">Das Besondere: wir <span class="ac">schleifen die Quellenverweise durch</span> — Wissensbasis → Spezifikation → Einheit.</h2>
 
-        <!-- the citation chain: same citation carried through -->
-        <div style="display:flex; align-items:stretch; gap:0; margin-top:16px;">
-          <div class="node teal" style="flex:1; padding:12px; font-size:15px; text-align:center;">Wissensbasis<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Fragment <span style="color:var(--epam-accent); font-family:var(--r-code-font);">kb://rate-calc/rundung#§4</span></span></div>
-          <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
-          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Spezifikation<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">zitiert <span style="color:var(--epam-accent); font-family:var(--r-code-font);">…#§4 role=grounds</span></span></div>
-          <span class="arrow" style="align-self:center; padding:0 10px;">→</span>
-          <div class="node" style="flex:1; padding:12px; font-size:15px; text-align:center;">Einheit · Code + Test<br><span style="font-size:11px; font-weight:400; color:#C9D1D9;">Zitat <span style="color:var(--epam-accent); font-family:var(--r-code-font);">…#§4 role=implements</span></span></div>
+        <!-- the citation, embedded in each of the three artefact types -->
+        <div style="display:flex; align-items:stretch; gap:6px; margin-top:14px;">
+          <div style="flex:1;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 3px; font-size:12px;">1 · Wissensbasis-Fragment <span class="sh">(OKF)</span></div>
+            <div style="background:#10141a; border:1px solid rgba(0,201,167,0.45); border-radius:8px; padding:8px 10px; font-family:var(--r-code-font); font-size:10.5px; line-height:1.5; color:#C9D1D9; min-height:118px;">
+              <div style="color:var(--epam-accent);">kb://rate-calc/rundung#§4</div>
+              <div>„kaufm. Rundung bei Tarifwechsel"</div>
+              <div style="color:#fff; margin-top:3px;">source_refs:</div>
+              <div>&nbsp;&nbsp;policy-v5.2 §4</div>
+              <div>&nbsp;&nbsp;RATE-CALC ¶3200</div>
+              <div style="color:#fff;">verified_by: Tarif-Team</div>
+            </div>
+            <div class="sup-line" style="font-size:11px; margin-top:2px;">zitiert seine <b style="color:#E6E9ED;">Herkunft</b></div>
+          </div>
+          <span class="arrow" style="align-self:center;">→</span>
+          <div style="flex:1;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 3px; font-size:12px;">2 · Spezifikation <span class="sh">(OpenSpec)</span></div>
+            <div style="background:#10141a; border:1px solid var(--epam-border); border-radius:8px; padding:8px 10px; font-family:var(--r-code-font); font-size:10.5px; line-height:1.5; color:#C9D1D9; min-height:118px;">
+              <div style="color:#fff;">## Requirement</div>
+              <div>Beitrag kaufmännisch runden.</div>
+              <div style="color:var(--epam-accent); margin-top:3px;">kb://rate-calc/rundung#§4</div>
+              <div style="color:var(--epam-accent);">&nbsp;&nbsp;@c1a9f3d sha256:9c1f…</div>
+              <div style="color:var(--epam-accent);">&nbsp;&nbsp;role=grounds</div>
+            </div>
+            <div class="sup-line" style="font-size:11px; margin-top:2px;">zitiert das Fragment · <b style="color:#E6E9ED;">role=grounds</b></div>
+          </div>
+          <span class="arrow" style="align-self:center;">→</span>
+          <div style="flex:1;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin:0 0 3px; font-size:12px;">3 · Einheit <span class="sh">(Code + Test)</span></div>
+            <div style="background:#10141a; border:1px solid var(--epam-border); border-radius:8px; padding:8px 10px; font-family:var(--r-code-font); font-size:10.5px; line-height:1.5; color:#C9D1D9; min-height:118px;">
+              <div style="color:var(--epam-accent);">// cites kb://rate-calc/rundung#§4</div>
+              <div style="color:var(--epam-accent);">//&nbsp;&nbsp;@c1a9f3d sha256:9c1f…</div>
+              <div style="color:var(--epam-accent);">//&nbsp;&nbsp;role=implements</div>
+              <div style="color:#fff;">BigDecimal beitrag(BigDecimal x){</div>
+              <div>&nbsp;&nbsp;return x.setScale(2, HALF_UP);</div>
+              <div style="color:#fff;">}</div>
+            </div>
+            <div class="sup-line" style="font-size:11px; margin-top:2px;">zitiert das Fragment · <b style="color:#E6E9ED;">role=implements</b></div>
+          </div>
         </div>
-        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ derselbe Quellenverweis — durchgeschliffen von der Quelle bis ins Increment</div>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ derselbe Quellenverweis, in jedem Artefakt eingebettet — durchgeschliffen von der Quelle bis ins Increment</div>
 
         <!-- five guarantees the looped citation buys -->
         <div style="display:flex; gap:10px; margin-top:16px;">
