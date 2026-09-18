@@ -621,36 +621,55 @@
       <!-- ═══════════════════════ 08 / 18 ═══════════════════════ -->
       <section data-marker="08 / 18">
         <span class="qchip answer">„Halluziniert."</span>
-        <h2 class="title" style="font-size:24px; max-width:78%;">Die Wissensbasis wird <span class="ac">aus fünf Zeugen gespeist</span> — ein Feedback-Loop aus Wächtern im Werkzeug hält sie aktuell.</h2>
-        <div style="display:flex; gap:22px; margin-top:14px;">
-          <!-- 5 seeding types -->
-          <div style="flex:1;">
-            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:8px;">Fünf Zeugen speisen die Basis</div>
-            <div style="display:flex; flex-direction:column; gap:7px;">
-              <div class="card" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Code</h4><div class="cl" style="margin:0; font-size:13px;">was läuft — die Regelvorschläge des Estate Scanners</div></div>
-              <div class="card" style="padding:9px 13px; border-color:rgba(0,160,227,0.35);"><h4 style="font-size:15px; margin:0 0 1px;">Spezifikationen &amp; Zielbild</h4><div class="cl" style="margin:0; font-size:13px;">die Absicht — mit FINIUS als fachlicher Graph</div></div>
-              <div class="card" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Ticket- &amp; Fehlerhistorie</h4><div class="cl" style="margin:0; font-size:13px;">die Randfälle und das Warum</div></div>
-              <div class="card" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Aufgezeichnetes Verhalten</h4><div class="cl" style="margin:0; font-size:13px;">was das System nachweislich tut</div></div>
-              <div class="card" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Menschen</h4><div class="cl" style="margin:0; font-size:13px;">was nirgends steht</div></div>
+        <h2 class="title" style="font-size:23px; max-width:82%;">Die Wissensbasis wird <span class="ac">aus fünf Zeugen gespeist</span> — dann hält ein Kreislauf aus Generieren, Prüfen (HITL) und Anreichern sie lebendig.</h2>
+        <div style="display:flex; gap:8px; margin-top:12px; align-items:center;">
+          <!-- LEFT: seeding (five witnesses) -->
+          <div style="flex:0.9;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:6px;">Seeding — fünf Zeugen</div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Code</h4><div class="cl" style="margin:0; font-size:12px;">Regelvorschläge des Estate Scanners</div></div>
+              <div class="card" style="padding:7px 12px; border-color:rgba(0,160,227,0.35);"><h4 style="font-size:14px; margin:0;">Spezifikationen &amp; Zielbild</h4><div class="cl" style="margin:0; font-size:12px;">Absicht — mit FINIUS als Graph</div></div>
+              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Ticket- &amp; Fehlerhistorie</h4><div class="cl" style="margin:0; font-size:12px;">Randfälle und das Warum</div></div>
+              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Aufgezeichnetes Verhalten</h4><div class="cl" style="margin:0; font-size:12px;">was das System nachweislich tut</div></div>
+              <div class="card" style="padding:7px 12px;"><h4 style="font-size:14px; margin:0;">Menschen</h4><div class="cl" style="margin:0; font-size:12px;">was nirgends steht</div></div>
             </div>
           </div>
-          <!-- feedback loop -->
-          <div style="flex:1;">
-            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:8px;">Feedback-Loop — Wächter im Werkzeug, nicht in der Disziplin</div>
-            <div style="display:flex; flex-direction:column; gap:6px;">
-              <div class="card accent-top" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Prüfung bei jeder Änderung</h4><div class="cl" style="margin:0; font-size:13px;">CI: Struktur, Vokabular, Links — bevor etwas hineinkommt.</div></div>
-              <div style="text-align:center; color:var(--epam-subtle); font-size:12px; line-height:1;">↓</div>
-              <div class="card accent-top" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Alarm bei Drift</h4><div class="cl" style="margin:0; font-size:13px;">ändert sich der Code unter einer Seite, wird sie markiert.</div></div>
-              <div style="text-align:center; color:var(--epam-subtle); font-size:12px; line-height:1;">↓</div>
-              <div class="card accent-top" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Widerspruchsprüfung</h4><div class="cl" style="margin:0; font-size:13px;">Seiten zum selben Thema werden gegeneinander gelesen.</div></div>
-              <div style="text-align:center; color:var(--epam-accent); font-size:12px; line-height:1;">↓ ⟲</div>
-              <div class="card accent-teal" style="padding:9px 13px;"><h4 style="font-size:15px; margin:0 0 1px;">Rückfluss aus Reviews</h4><div class="cl" style="margin:0; font-size:13px;">Ablehnungen landen an der verursachenden Seite <span style="opacity:0.85;">→ macht die Wissensbasis besser</span></div></div>
+          <!-- seeding arrow -->
+          <div style="flex:none; text-align:center; color:var(--epam-subtle);"><div style="font-size:26px; line-height:1;">→</div><div style="font-size:11px;">speist</div></div>
+
+          <!-- RIGHT: the circular loop around the knowledge base -->
+          <div style="flex:1.5;">
+            <div style="position:relative; width:400px; height:300px; margin:0 auto;">
+              <svg viewBox="0 0 400 300" preserveAspectRatio="none" style="position:absolute; inset:0; width:100%; height:100%;">
+                <defs>
+                  <marker id="aht" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#00C9A7"/></marker>
+                  <marker id="ahg" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#8B949E"/></marker>
+                </defs>
+                <!-- clockwise loop: Generieren → HITL → Anreichern → Generieren -->
+                <g fill="none" stroke="#00C9A7" stroke-width="2.2" marker-end="url(#aht)">
+                  <path d="M214,58 Q352,120 306,192"/>
+                  <path d="M298,230 Q200,304 104,230"/>
+                  <path d="M80,192 Q40,100 184,56"/>
+                </g>
+                <!-- bot ↔ knowledge base -->
+                <path d="M96,102 Q150,124 176,138" fill="none" stroke="#8B949E" stroke-width="1.5" stroke-dasharray="4 3" marker-end="url(#ahg)"/>
+              </svg>
+              <!-- knowledge base (centre) -->
+              <div class="node teal" style="position:absolute; left:200px; top:142px; transform:translate(-50%,-50%); font-size:15px; padding:12px 16px;">Wissensbasis</div>
+              <!-- loop stations -->
+              <div class="chip blue" style="position:absolute; left:200px; top:40px; transform:translate(-50%,-50%); font-size:13px;">Generieren</div>
+              <div class="chip blue" style="position:absolute; left:315px; top:214px; transform:translate(-50%,-50%); font-size:13px; text-align:center;">Menschliche Prüfung<br><span style="color:var(--epam-subtle); font-size:11px;">HITL</span></div>
+              <div class="chip blue" style="position:absolute; left:85px; top:214px; transform:translate(-50%,-50%); font-size:13px;">Anreichern</div>
+              <!-- bot -->
+              <div class="chip" style="position:absolute; left:70px; top:88px; transform:translate(-50%,-50%); font-size:12px; text-align:center; border-color:var(--epam-subtle);">🤖 Bot<br><span style="color:var(--epam-subtle); font-size:10px;">Widersprüche · Interview</span></div>
             </div>
           </div>
         </div>
-        <div class="chip blue" style="display:block; margin-top:12px; text-align:center;">Kuratoren-Queue: ein Owner und ein Status je Seite — ungeprüft → geprüft → bestätigt. Widersprüche werden eskaliert, nie glattgebügelt.</div>
-        <div class="sup-line" style="margin-top:6px; text-align:center;">Liegt in Git, veröffentlicht als Website — geprüft wie Code, gelesen wie ein Wiki.</div>
-        <aside class="notes">Antwort auf Halluzination: das Modell, gegen das generiert wird, ist aus fünf Zeugen gemerged — Code ist nur einer. Der Feedback-Loop (Wächter im Werkzeug) hält die Basis über ein mehrmonatiges Programm aktuell; der Rückfluss aus Reviews verbessert sie kontinuierlich. Draft — Detaillierung des Seeding und der Feedback-Schleife folgt. ~1,5 min.</aside>
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:8px;">
+          <div class="body-line" style="max-width:74%; font-size:19px;">Ein Bot prüft Widersprüche und fragt nach (Interview), um den Graphen zu verbessern; jede menschliche Prüfung reichert die Wissensbasis an — der Kreis schließt sich.</div>
+          <div class="sup-line" style="max-width:24%; text-align:right;">Seeding einmalig · der Kreislauf dauerhaft.</div>
+        </div>
+        <aside class="notes">Antwort auf Halluzination: das Modell ist aus fünf Zeugen gespeist — Code ist nur einer. Danach lebt die Wissensbasis in einem Kreislauf: Generieren → menschliche Prüfung (HITL) → Anreichern → zurück in die Basis. Ein Bot sitzt im Loop und prüft Widersprüche bzw. fragt per Interview nach, um den Graphen zu verbessern. Seeding-Boxen sind frei anordbar; der Kreislauf ist der Kern. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 09 / 18 ═══════════════════════ -->
