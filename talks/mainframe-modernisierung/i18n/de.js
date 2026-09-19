@@ -19,7 +19,7 @@ window.I18N.de = [
 /* 1 */ `<h2 class="title">Zwei berechtigte <span class="ac">Sorgen</span></h2>
         <div style="display:flex; gap:22px; margin-top:16px; align-items:stretch;">
           <div style="flex:1.35;">
-            <div class="subline" style="color:#fff; font-weight:600; margin-bottom:8px;">Mainframe-Modernisierung <span style="color:var(--epam-subtle); font-weight:400;">— kompliziert, oft nicht zu Ende gebracht</span></div>
+            <div class="subline" style="color:#fff; font-weight:600; margin-bottom:8px;">Mainframe-Modernisierung <span style="color:var(--epam-subtle); font-weight:400;">— kompliziert, oft nicht abgeschlossen</span></div>
             <div class="tile-row" style="gap:12px;">
               <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">74 %</div><div class="cap" style="font-size:12px;">haben ein Modernisierungsprojekt begonnen — und nicht abgeschlossen</div><div class="src" style="font-size:10px;">Advanced, Business Barometer 2020</div></div>
               <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">22 %</div><div class="cap" style="font-size:12px;">Erfolgsquote rein intern geplanter Projekte — 46 % planen so</div><div class="src" style="font-size:10px;">Advanced, 4th annual report 2024</div></div>
@@ -39,14 +39,14 @@ window.I18N.de = [
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:24px;">
           <div>
-            <div class="body-line">Die Zieltechnologie ist wählbar — die Fachlogik muss erst verstanden werden.</div>
-            <div class="body-line">Die Antwort ist nicht mehr AI — <span class="ac">sondern Grounding, Gates und Belege</span>.</div>
+            <div class="body-line">Die Zieltechnologie können wir wählen. Die Fachlogik müssen wir erst verstehen.</div>
+            <div class="body-line">Die Antwort ist nicht mehr AI. Es sind <span class="ac">Grounding, Gates und Belege</span>.</div>
           </div>
           <div class="sup-line" style="max-width:34%; text-align:right;">Unser Befund, keine Statistik: Wer die Analyse überspringt, findet die Regeln im Abnahmetest.</div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Kachel 22 % — beide Advanced-Zahlen (22 % Erfolg / 46 % interne Planung) behalten?]</span></div>
-        <aside class="notes">Situation + Complication auf einer Folie: Mainframe-Migrationen sind kompliziert, AI wird skeptisch gesehen — beide Sorgen berechtigt. Die Synthese unten ist die Scharnierzeile in den Vortrag. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Beide Sorgen ernst nehmen — sie definieren, was der Ansatz beweisen muss.</span></div>`,
+        <aside class="notes">Situation und Complication auf einer Folie: Mainframe-Migrationen sind kompliziert, AI wird skeptisch gesehen, beide Sorgen sind berechtigt. Die Synthese unten leitet in den Vortrag über. ~2 min.</aside>
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Beide Sorgen sind ernst zu nehmen. Sie legen fest, was der Ansatz beweisen muss.</span></div>`,
 
 /* 2 */ `<h2 class="title">Zehn Einwände, <span class="ac">vier Phasen</span></h2>
 
@@ -87,7 +87,7 @@ window.I18N.de = [
           Erst das Chaos: alle zehn Einwände liegen ungeordnet im Raum — berechtigt, aber ohne Struktur.
           Ein Klick — dieselben Kacheln wandern an ihren Platz — clustert sie auf die vier Phasen mit klassischem Pendant und Ergebnis. Die konkreten Antworten je Einwand kommen erst später, Abschnitt für Abschnitt.
         </aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Kein Einwand bleibt offen — jeder wird zu einer planbaren Phase mit klarem Ergebnis.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Jeder Einwand wird zu einer planbaren Phase mit klarem Ergebnis.</span></div>`,
 
 /* 3 */ `<div class="bg" style="background:
           linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
@@ -125,15 +125,15 @@ window.I18N.de = [
           </div>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:18px;">
-          <div class="body-line" style="max-width:64%;">Der Code sagt, <strong style="color:#fff;">was</strong> geschieht — nicht, <strong style="color:#fff;">warum</strong>. Anforderungen entstehen erst mit Kontext.</div>
-          <div class="sup-line" style="max-width:34%; text-align:right;">Code migrieren, wie er ist = Lift-and-Shift in Verkleidung — die Unfälle ziehen mit um.</div>
+          <div class="body-line" style="max-width:64%;">Der Code sagt, <strong style="color:#fff;">was</strong> geschieht, nicht <strong style="color:#fff;">warum</strong>. Anforderungen entstehen erst mit Kontext.</div>
+          <div class="sup-line" style="max-width:34%; text-align:right;">Code migrieren, wie er ist, heißt Lift-and-Shift in Verkleidung: Die alten Fehler ziehen mit um.</div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: COBOL-Beispiel illustrativ — Formulierung ok?]</span></div>
         <aside class="notes">Zuerst die These: niemals Code allein migrieren. Das COBOL-Snippet zeigt eine mehrdeutige Regel; die Karten zählen auf, was hinter einer Zeile stecken kann — aus dem Code nicht unterscheidbar. „Was hängt zusammen" beantwortet die nächste Folie. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Erst die Fachlogik rekonstruieren, dann bauen — sonst migriert man alte Fehler mit.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Erst die Fachlogik rekonstruieren, dann bauen. Sonst migriert man alte Fehler mit.</span></div>`,
 
 /* 5 */ `<span class="qchip answer">„Ein Mainframe ist zu groß dafür."</span>
-        <h2 class="title">Ablösung in <span class="ac">Wellen</span></h2>
+        <h2 class="title">Wir lösen den Mainframe in <span class="ac">Wellen</span> ab</h2>
         <div class="strangler">
           <!-- Stage 0 -->
           <div class="st">
@@ -199,16 +199,16 @@ window.I18N.de = [
 
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
           <div>
-            <div class="body-line">Jede Welle nimmt einen Bereich mit — Logik und die Daten, die dazugehören.</div>
+            <div class="body-line">Jede Welle nimmt einen Bereich mit: die Logik und die Daten, die dazugehören.</div>
             <div class="body-line">Beide Systeme laufen parallel, bis die letzte Welle drüben ist.</div>
           </div>
-          <div class="sup-line" style="max-width:34%; text-align:right;">Übergangskomponenten: Fassade/Router · CDC-Datennaht (⇄) · Adapter — sie erlauben die Koexistenz. <span class="sh">(Strangler-Muster)</span></div>
+          <div class="sup-line" style="max-width:34%; text-align:right;">Übergangskomponenten: Fassade/Router · CDC-Datennaht (⇄) · Adapter. Sie erlauben die Koexistenz. <span class="sh">(Strangler-Muster)</span></div>
         </div>
         <aside class="notes">Nach „Code allein migrieren wir nie": wie wir es stattdessen tun — die Übergangsarchitektur nach dem Strangler-Muster. Fassade/Router schaltet je Bereich auf Neu; die CDC-Naht hält beide Datenbestände aktuell; Adapter überbrücken. Overlap ist per Bereich, nicht bestandsweit. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Beide Systeme laufen parallel — der Umstieg wird reversibel statt zum Stichtagsrisiko.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Beide Systeme laufen parallel. Der Umstieg wird reversibel statt zum Stichtagsrisiko.</span></div>`,
 
 /* 6 */ `<span class="qchip answer">„Wir haben weder Doku noch Tests."</span>
-        <h2 class="title">Technik trifft <span class="ac">Fachlogik</span></h2>
+        <h2 class="title">Ein Graph aus Technik und <span class="ac">Fachlogik</span></h2>
 
         <div class="graph" id="g5" style="height:330px; margin-top:6px;">
           <!-- panel backdrops -->
@@ -240,14 +240,14 @@ window.I18N.de = [
         <div class="sup-line" style="text-align:center; margin-top:6px;"><span style="color:#5B6875;">──</span> technische Abhängigkeit &nbsp;·&nbsp; <span style="color:var(--epam-accent);">╌ ╌</span> Quellenverweis — FINIUS verbindet Technik und Fachlichkeit</div>
 
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px;">
-          <div class="body-line" style="max-width:70%;">Wir hängen nicht nur Code an den Graphen — jeder Knoten, jede Kante trägt ihren <span class="ac">Quellenverweis</span> <span class="sh">(Citation)</span>, vollständig und widerspruchsfrei.</div>
+          <div class="body-line" style="max-width:70%;">Im Graphen steht nicht nur Code. Jeder Knoten, jede Kante trägt ihren <span class="ac">Quellenverweis</span> <span class="sh">(Citation)</span>, vollständig und widerspruchsfrei.</div>
           <div><span class="xref">aus fünf Zeugen gespeist</span></div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[FINIUS: Wortmarke / Logo]</span> · <span class="tag tag-confirm">[CONFIRM: Knotenbeispiele (RATE-CALC, VERTRAG, Rundung §4) passend, oder Bankbeispiel?]</span></div>
         <aside class="notes">Der Graph ist nicht nur Code: der Estate Scanner liest die Technik (JCL, COBOL, CICS, DB2, VSAM, MQ) und ihre Interaktionen; FINIUS extrahiert Business Services, Business Objects und Anforderungen aus den Spezifikationen und verbindet sie — ein vollständiger, konsistenter Graph, in dem jede Kante ein Quellenverweis ist. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Erst wenn Technik und Regeln verknüpft sind, ist der Bestand wirklich verstanden.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Erst wenn Technik und Regeln verknüpft sind, ist der Bestand verstanden.</span></div>`,
 
-/* 7 */ `<h2 class="title">Vom Graph zur <span class="ac">Wellenfolge</span></h2>
+/* 7 */ `<h2 class="title">Der Graph gibt die <span class="ac">Wellenfolge</span> vor</h2>
         <div style="display:flex; gap:20px; margin-top:12px; align-items:flex-start;">
           <div style="flex:0 0 700px;">
             <img src="assets/migration-planner.png" alt="Migration Planner" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
@@ -273,10 +273,10 @@ window.I18N.de = [
           </div>
         </div>
         <aside class="notes">Vom Verstehen zum Schnitt: aus den technischen Abhängigkeiten die isolierbaren Cluster; Bewertung nach Business-Anforderungen; erster Cluster und Reihenfolge; erster Blick auf den Übergangsarchitektur-Bedarf für den Parallelbetrieb. Ergebnis des Abschnitts. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technische Isolierbarkeit und fachlicher Wert bestimmen die Reihenfolge — nicht das Bauchgefühl.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technische Isolierbarkeit und fachlicher Wert bestimmen die Reihenfolge, nicht das Bauchgefühl.</span></div>`,
 
-/* 8 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">Analysieren ist gelöst</span> — die Antworten stehen in der Wissensbasis.</h2>
-        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen — Schritt für Schritt.</div>
+/* 8 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">Analysieren ist gelöst</span>. Die Antworten stehen in der Wissensbasis.</h2>
+        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen Schritt für Schritt.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -325,7 +325,7 @@ window.I18N.de = [
           <div class="sup">Aus fünf Zeugen wird ein Regelwerk, aus dem Regelwerk ein Zielbild, aus dem Zielbild eine bepreiste Roadmap.</div>
         </div>`,
 
-/* 10 */ `<h2 class="title">Wissen sauber <span class="ac">schichten</span></h2>
+/* 10 */ `<h2 class="title">Wissen ohne Dopplung sauber <span class="ac">schichten</span></h2>
         <div class="sup-line" style="margin-top:2px;">Compliance, Quality, Security … können auf jeder Ebene definiert sein. Ein Skill zieht später die relevanten Fragmente von jeder übergeordneten Ebene.</div>
 
         <div style="display:flex; gap:20px; margin-top:12px; align-items:stretch;">
@@ -366,7 +366,7 @@ window.I18N.de = [
               <div style="color:var(--epam-accent); font-size:16px; line-height:1;">↑</div>
               <div class="chip blue" style="display:inline-block;">Skill / Aufgabe</div>
             </div>
-            <div class="body-line" style="font-size:17px; margin-top:12px;">Ein Skill komponiert seinen Kontext nach oben — nur die relevanten Fragmente jeder Ebene.</div>
+            <div class="body-line" style="font-size:17px; margin-top:12px;">Ein Skill setzt seinen Kontext nach oben zusammen und zieht nur die relevanten Fragmente jeder Ebene.</div>
             <div class="sup-line" style="margin-top:6px;">Jedes Fragment lebt auf genau einer Ebene → saubere Hierarchie, keine Dopplung.</div>
           </div>
         </div>
@@ -378,7 +378,7 @@ window.I18N.de = [
           <div style="text-align:right;"><span class="xref">sieht nur seinen Ausschnitt</span><br><span class="xref" style="margin-top:6px; display:inline-block;">aus fünf Zeugen gespeist</span></div>
         </div>
         <aside class="notes">Informationelle Komposition durch Scope-Verschachtelung: Programm liegt im Unternehmen, Anwendung im Programm. Aspekte (Compliance, Quality, Security …) können auf jeder Ebene definiert sein — Quality z. B. auf Enterprise, Programm und Anwendung. Jedes Fragment lebt auf genau einer Ebene → saubere Hierarchie, keine Dopplung. Ein Skill löst nach oben auf: er zieht die relevanten Fragmente von Anwendung, Programm und Unternehmen. Owner-Farbe = Lineage für den Review-Zyklus. Basis: Google OKF, versioniert (Git). ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Saubere Ebenen lassen Skills Wissen von jeder passenden Stufe ziehen — ohne Vermischung.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Saubere Ebenen lassen Skills Wissen von jeder passenden Stufe ziehen, ohne Vermischung.</span></div>`,
 
 /* 11 */ `<span class="qchip answer">„Halluziniert."</span>
         <h2 class="title">Generieren, prüfen, <span class="ac">erweitern</span></h2>
@@ -427,10 +427,10 @@ window.I18N.de = [
 
         <div class="body-line" style="margin-top:8px; font-size:19px;">Priming baut die Basis einmal auf. Dann läuft der Kreis — Menschen prüfen (Review) und ergänzen (Erweitern); beim Erweitern fragt die Basis aktiv nach außen: bei Lücken, Widersprüchen oder einem HITL-Signal.</div>
         <aside class="notes">Zwei Teile: (1) Priming/Bootstrapping — die Basis wird einmalig aus Code, Spezifikationen, Historie, Verhalten, Menschen aufgebaut, kommt von der Seite herein. (2) Der Kreislauf um die Wissensbasis: Generieren → Review → Erweitern. Menschen wirken an Review (HITL-Prüfung) und an Erweitern (Interview/Quelle) mit. Im Erweitern-Schritt fragt die Basis aktiv nach außen — ausgelöst durch eine Abdeckungslücke, einen Widerspruch der Fragmente oder ein HITL-Signal (falsch/fehlt). So schließt sie Wissenslücken aktiv statt zu raten — die Antwort auf Halluzination. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Jeder Durchlauf verbessert die Wissensbasis — der nächste wird schneller und billiger.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Jeder Durchlauf verbessert die Wissensbasis. Der nächste wird schneller und billiger.</span></div>`,
 
 /* 12 */ `<span class="qchip answer">„Tokens werden zu teuer."</span>
-        <h2 class="title">Planen aus <span class="ac">Fakten</span></h2>
+        <h2 class="title">Wir planen aus <span class="ac">Fakten</span>, nicht aus Schätzung</h2>
 
         <!-- Zone A: the dialog, visualised (graph ⇄ hierarchy) -->
         <div style="display:flex; gap:14px; align-items:stretch; margin-top:12px;">
@@ -471,7 +471,7 @@ window.I18N.de = [
             </svg>
           </div>
         </div>
-        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ gemeinsam entsteht der Plan — bepreist, mit ehrlichen Lücken</div>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ gemeinsam entsteht der Plan: bepreist, mit ehrlichen Lücken</div>
 
         <!-- Zone B: three wave boxes — content · confidence · price -->
         <div style="display:flex; gap:12px; margin-top:8px;">
@@ -500,12 +500,12 @@ window.I18N.de = [
         <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: Zahlen illustrativ — sanitisieren oder „illustrativ" kennzeichnen?]</span> · Konfidenz = wie viel Wissen wir schon haben; sie steigt zur anstehenden Welle.</div>
 
         <!-- Zone C: progressive elaboration + outcome -->
-        <div class="sup-line" style="margin-top:8px;">Nicht alles vorab: <b style="color:#E6E9ED;">High-Level zuerst</b> für die ersten Schätzungen — <b style="color:#E6E9ED;">Details just-in-time</b>, wenn die Welle ansteht. <span class="sh">Preis je Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</span></div>
+        <div class="sup-line" style="margin-top:8px;">Nicht alles vorab: <b style="color:#E6E9ED;">High-Level zuerst</b> für die ersten Schätzungen, <b style="color:#E6E9ED;">Details just-in-time</b>, wenn die Welle ansteht. <span class="sh">Preis je Welle: Umfang × Strategie × Automatisierungsgrad × Prüfkapazität.</span></div>
         <aside class="notes">Kernaussage: der Plan wird aus Fakten konstruiert, nicht geschätzt. Der Estate-Graph kennt das Heute (Bestand, Abhängigkeiten, Volumina), die Wissensbasis kennt das Wie (Regelwerk, Zielbetriebsmodell, Strategie) — im Dialog entsteht die bepreiste Roadmap, inklusive ehrlicher Lücken (fehlende Info je Welle). Progressive Elaboration: nicht alles vorab füllen — High-Level zuerst für erste Schätzungen, Details just-in-time je Migrationswelle. Ergebnis: eine handlungsbereite Wissensbasis für die Umsetzung. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Fehlendes Wissen wird sichtbar und gezielt ergänzt, bevor Aufwand und Preis feststehen.</span></div>`,
 
 /* 13 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">Analysieren und Planen sind gelöst</span>.</h2>
-        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen — Schritt für Schritt.</div>
+        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen Schritt für Schritt.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -589,10 +589,10 @@ window.I18N.de = [
           </div>
         </div>
 
-        <div class="sup-line" style="margin-top:14px;">Alles dazwischen ist <b style="color:#E6E9ED;">agentisch</b>; die beiden <b style="color:#E6E9ED;">Gates gehören den Menschen</b> — nicht verhandelbar. In abgeschotteter Werkstatt <span class="sh">(Sandbox)</span>: freigegebene Modelle, kein Internet, keine Produktionsdaten.</div>
+        <div class="sup-line" style="margin-top:14px;">Alles dazwischen ist <b style="color:#E6E9ED;">agentisch</b>. Die beiden <b style="color:#E6E9ED;">Gates gehören den Menschen</b>, nicht verhandelbar. In abgeschotteter Werkstatt <span class="sh">(Sandbox)</span>: freigegebene Modelle, kein Internet, keine Produktionsdaten.</div>
         <div class="sup-line" style="margin-top:4px;">Gleich im Detail: <span class="xref">Zitate in die OpenSpec-Dateien</span> und die Zitat-Logik dahinter.</div>
         <aside class="notes">Öffnet den Abschnitt mit dem Gesamtablauf, bewusst einfach für ein nicht-technisches Publikum: zwei Phasen — (1) Spezifikation erstellen, (2) Spezifikation umsetzen — mit je einem menschlichen Gate (HITL). Innerhalb jeder Phase läuft eine agentische Pipeline (generieren · Zitate/Reviews prüfen · entscheiden), hier zusammengefasst. Danach: Detail zu OpenSpec und zur Zitat-Logik. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Menschen entscheiden an genau zwei Punkten — davor die Spec, danach der Code.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Menschen entscheiden an genau zwei Punkten: davor die Spec, danach der Code.</span></div>`,
 
 /* 16 */ `<h2 class="title">Die Spezifikation als <span class="ac">Vertrag</span></h2>
         <div style="display:flex; gap:22px; margin-top:12px;">
@@ -635,9 +635,9 @@ window.I18N.de = [
             <div class="sup-line" style="margin-top:5px;">Zitat = Fragment <b style="color:#E6E9ED;">@Revision</b> + <b style="color:#E6E9ED;">sha256</b> + <b style="color:#E6E9ED;">role</b> — an die Git-Revision gepinnt, in CI auf Aktualität prüfbar.</div>
           </div>
         </div>
-        <div class="body-line" style="margin-top:8px;">Die Spec ist eine Kopie genau des Wissens, das dieses Increment braucht — und wird Teil der Lieferung. <span class="xref">schleifen die Quellenverweise durch</span></div>
+        <div class="body-line" style="margin-top:8px;">Die Spec ist eine Kopie genau des Wissens, das dieses Increment braucht, und wird Teil der Lieferung. <span class="xref">schleifen die Quellenverweise durch</span></div>
         <aside class="notes">Diagramm von oben: Wissensbasis → Kuratieren (der Curation-Graph schlägt Zitate vor, prüft Abdeckung, findet Lücken → Kurator-Queue) → ein Wissenspaket aus kuratierten Zitaten → OpenSpec verteilt die Zitate in seine Dateien (proposal/Intent, spec/Requirements+Szenarien, design, tasks/Todos). Beispiel ist die proposal.md (Intent), weil sie hoch angesetzt und leicht verständlich ist. Zitatformat nach dem Traceability-Paper: kb://kontext#anker @revision sha256:… role=… — an die Git-Revision gepinnt, in CI auf Aktualität prüfbar. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Die Spec trägt das gesamte relevante Wissen — und wird selbst Teil der Lieferung.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Die Spec trägt das gesamte relevante Wissen und wird selbst Teil der Lieferung.</span></div>`,
 
 /* 17 */ `<span class="qchip answer">„Fast richtig ist falsch."</span>
         <h2 class="title">Ein Zitat, <span class="ac">durchgeschliffen</span></h2>
@@ -686,7 +686,7 @@ window.I18N.de = [
 
         <!-- five guarantees the looped citation buys -->
         <div style="display:flex; gap:10px; margin-top:16px;">
-          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Nachvollziehbar</h4><div class="cl" style="margin:0; font-size:12.5px;">Anforderung ↔ Code lückenlos rückverfolgbar — in beide Richtungen.</div></div>
+          <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Nachvollziehbar</h4><div class="cl" style="margin:0; font-size:12.5px;">Anforderung ↔ Code in beide Richtungen lückenlos rückverfolgbar.</div></div>
           <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Grounding geprüft</h4><div class="cl" style="margin:0; font-size:12.5px;">Zitat-Statistik der Spec: unbelegte Sätze = Halluzinationsrisiko → erst gefixt, dann generiert.</div></div>
           <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Vollständig</h4><div class="cl" style="margin:0; font-size:12.5px;">Jede gegebene Quelle taucht in Spec und Code auf — nichts fällt weg.</div></div>
           <div class="card accent-top" style="flex:1; padding:11px 13px;"><h4 style="font-size:15px; margin:0 0 3px;">Audit-Trail</h4><div class="cl" style="margin:0; font-size:12.5px;">Permanent: alles, was beim Bauen berücksichtigt wurde, ist dokumentiert.</div></div>
@@ -727,12 +727,12 @@ window.I18N.de = [
               <div style="display:flex; justify-content:space-between; align-items:center;"><b style="color:#fff; font-size:15px;">⚪ 80 Änderungen · Routine</b><span style="font-size:11px; padding:2px 8px; border-radius:12px; background:rgba(139,148,158,0.18); color:var(--epam-subtle);">Owner: Tarif</span></div>
               <div class="cl" style="margin:5px 0 0; font-size:13px;">Spiegeln nur die Umbenennung eines Business Service — <b style="color:#E6E9ED;">im Block bestätigen</b>.</div>
             </div>
-            <div class="sup-line" style="margin-top:auto;">Aufmerksamkeit dort, wo sie zählt — Abdeckung steigt, Aufwand sinkt.</div>
+            <div class="sup-line" style="margin-top:auto;">Aufmerksamkeit dort, wo sie zählt. Abdeckung steigt, Aufwand sinkt.</div>
           </div>
         </div>
         <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit. <span style="color:#E35050; font-size:12px;">Gated: nur mit Screenshot/Mock.</span></div>
         <aside class="notes">Der Review-Prozess: jede generierte Einheit wird über ihr Zitat zum Fragment und damit zum Owner zurückverfolgt — der Herkunftsgraph bestimmt, wer prüft. Die AI clustert die Änderungen nach Bedeutung und beschreibt jede Gruppe: z. B. 2 kritische Änderungen (erste Umsetzung einer neuen Authentifizierungsregel, Owner Security) vs. 80 Routine-Änderungen (nur eine Umbenennung eines Business Service, im Block bestätigen). So werden Reviews präzise und effizient. Flow-Diagramm links, Screenshot der Review-Umgebung, Callouts rechts. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Änderungen gehen geclustert an ihre Owner — die Prüfung bleibt echt und leistbar.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Änderungen gehen geclustert an ihre Owner. Die Prüfung bleibt echt und leistbar.</span></div>`,
 
 /* 19 */ `<span class="qchip answer">„Tokens werden zu teuer."</span>
         <h2 class="title">Auf dem Weg zur <span class="ac">Dark Factory</span></h2>
@@ -758,7 +758,7 @@ window.I18N.de = [
               <div style="flex:1; height:9px; border-radius:5px; background:rgba(139,148,158,0.2); overflow:hidden;"><div style="width:41%; height:100%; background:#E35050;"></div></div>
               <span style="font-size:12px; color:#E35050; width:96px; text-align:right;">41 % → Mensch</span>
             </div>
-            <div class="sup-line" style="margin-top:7px; font-size:11px;">Erstumsetzung &amp; niedrige Konfidenz gehen <b style="color:#E6E9ED;">immer</b> zum Menschen — die Vorhersage priorisiert, entscheidet nicht.</div>
+            <div class="sup-line" style="margin-top:7px; font-size:11px;">Erstumsetzung &amp; niedrige Konfidenz gehen <b style="color:#E6E9ED;">immer</b> zum Menschen. Die Vorhersage priorisiert, entscheidet nicht.</div>
           </div>
         </div>
 
@@ -774,12 +774,12 @@ window.I18N.de = [
           <span style="color:var(--epam-accent); align-self:center;">↗</span>
           <div style="flex:1.3; margin-bottom:64px; border:1.5px solid var(--epam-accent); border-radius:8px; padding:7px 9px; background:rgba(0,201,167,0.14);"><div style="font-size:10px; color:var(--epam-accent);">L4 · Ziel</div><div style="font-size:12px; color:#fff; font-weight:700;">Dark Factory</div><div style="font-size:10px; color:#C9D1D9;">Routine automatisch, in Policy</div></div>
         </div>
-        <div class="sup-line" style="margin-top:8px;">Motor nach oben: das <b style="color:#E6E9ED;">Schwungrad</b> (Wissen wird besser) + die <b style="color:#E6E9ED;">kalibrierte Freigabe-Vorhersage</b> (Schwelle sicher anheben). Je höher der Reifegrad, desto weniger Prüf-Aufwand je Änderung — desto günstiger. <span class="tag tag-owner">[Stefan: eigene Zahl — Nacharbeit/Fehlerrate je Welle, falls vorhanden]</span></div>
+        <div class="sup-line" style="margin-top:8px;">Motor nach oben: das <b style="color:#E6E9ED;">Schwungrad</b> (Wissen wird besser) + die <b style="color:#E6E9ED;">kalibrierte Freigabe-Vorhersage</b> (Schwelle sicher anheben). Je höher der Reifegrad, desto weniger Prüf-Aufwand je Änderung und desto günstiger. <span class="tag tag-owner">[Stefan: eigene Zahl — Nacharbeit/Fehlerrate je Welle, falls vorhanden]</span></div>
         <aside class="notes">Repurpose: der Wissens-Loop wurde bereits gezeigt (Abschnitt-Anfang). Hier drei neue Punkte: (1) konkretes Beispiel — Umsetzung nach SAML, Review verlangt OAuth 2, die AI schlägt eine Wissensbasis-Aktualisierung vor (SAML→OAuth 2, Owner Security). (2) Freigabequote vorhersagen: aus Zitat-Signalen (Belegdichte, Quellen-Status, Aktualität, Faithfulness, Neuheit) einen kalibrierten p(Freigabe) je Cluster schätzen — Routine auto-bestätigen, Erstumsetzungen zum Menschen; Vorhersage priorisiert, entscheidet nicht; trainiert auf den vergangenen Urteilen des Gates. (3) Reifegrad-Wachstum L0→L4: das Schwungrad und die kalibrierte Vorhersage heben die Automatisierungs-Schwelle sicher an — Richtung Dark Factory (Routine automatisch in Policy, Mensch bei Ausnahmen). Höhere Reife = günstiger. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Ablehnungen und Vorhersagen kalibrieren das System — Autonomie wächst nur mit Belegen.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Ablehnungen und Vorhersagen kalibrieren das System. Autonomie wächst nur mit Belegen.</span></div>`,
 
 /* 20 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">Analysieren, Planen und Umsetzen sind gelöst</span>.</h2>
-        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen — Schritt für Schritt.</div>
+        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt die Phasen Schritt für Schritt.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -874,14 +874,14 @@ window.I18N.de = [
           </div>
         </div>
 
-        <div class="body-line" style="margin-top:12px; font-size:18px;">Weil jede Einheit ihr Zitat trägt: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">Span → Einheit → Zitat → Fragment → Owner</span> — ein Produktionsproblem findet sein Wissen und seinen Verantwortlichen zurück.</div>
+        <div class="body-line" style="margin-top:12px; font-size:18px;">Weil jede Einheit ihr Zitat trägt: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">Span → Einheit → Zitat → Fragment → Owner</span>. So findet ein Produktionsproblem sein Wissen und seinen Verantwortlichen zurück.</div>
         <div class="sup-line" style="margin-top:4px;">Router und Monitor entstehen in derselben Pipeline, mit Quellenverweis auf das Zielbetriebsmodell. Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt. <span class="tag tag-confirm">[CONFIRM: dash0 hat keinen Mainframe-Agent; z/OS emittiert OTel via z/OS Connect / Broadcom z/IRIS / Open Mainframe Project — dash0 nimmt jedes OTLP auf. Referenz so nennen?]</span></div>
         <aside class="notes">Die Übergangs-Architektur in einem Bild. Router (je Bereich): Befehle werden repliziert (dual-write), Lesen kommt vom führenden System, Rückfall auf Legacy in Policy mit menschlicher Bestätigung; Modi je Bereich Legacy-führt → Neu-führt → Neu-allein; Clients ändern sich nie. Rechts: der Estate Scanner erfasst auch die neu generierte Software (AST-Graph); dieser Struktur-Graph wird über den Laufzeit-Telemetrie-Graph gelegt (OpenTelemetry, visualisiert in dash0). Automatischer Healthcheck vergleicht Legacy und Neu; ein Problem löst Rückfall (Router) und einen Folge-Fix (zurück in die Pipeline, Agent0-Stil) aus. Weil Einheiten Zitate tragen, führt ein Span über Einheit → Zitat → Fragment → Owner zum richtigen Wissen und Menschen. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Jedes Laufzeitproblem führt zurück zu Einheit, Zitat und Owner — mit eingebautem Rückfall.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Jedes Laufzeitproblem führt zurück zu Einheit, Zitat und Owner, mit eingebautem Rückfall.</span></div>`,
 
 /* 23 */ `<span class="qchip answer">„Wer haftet?"</span>
         <h2 class="title">Belege statt <span class="ac">Beteuerungen</span></h2>
-        <div class="subline" style="margin:2px 0 0;">Jede Lieferung trägt eine Quittung, aus der ein Prüfer das ganze Lieferereignis rekonstruiert — ohne Chat-Verlauf, ohne Zuruf.</div>
+        <div class="subline" style="margin:2px 0 0;">Jede Lieferung trägt eine Quittung, aus der ein Prüfer das ganze Lieferereignis rekonstruiert, ohne Chat-Verlauf, ohne Zuruf.</div>
         <div style="display:flex; gap:22px; margin-top:14px; align-items:stretch;">
           <div style="flex:0 0 39%; display:flex; flex-direction:column; gap:9px;">
             <div class="sup-line" style="margin:0; color:#fff; font-weight:600; font-size:12.5px;">Fünf Fragen, die die Quittung beantwortet:</div>
@@ -917,7 +917,7 @@ window.I18N.de = [
         </div>
         <div class="sup-line" style="margin-top:11px;"><b style="color:#E6E9ED;">Eine Quittung, viele Regime.</b> Der Auftraggeber entscheidet Anwendbarkeit, Wesentlichkeit und Restrisiko — die Factory liefert die Evidenz: Model-Risk · Third-Party-Risiko · operative Resilienz <span class="sh">(DORA)</span> · Datenschutz <span class="sh">(GDPR)</span> · KI-Governance <span class="sh">(EU AI Act · ISO/IEC 42001)</span>. <span style="color:#8B949E;">Ehrliche Grenze: belegt ist, dass Code und Menschen übereinstimmen — nicht, dass beide recht haben.</span></div>
         <aside class="notes">Die Quittung fällt beim Bauen an, nicht nachträglich — sie ersetzt verstreute Evidenz aus Tickets, Chats und Repos durch eine strukturierte Kette. Fünf Fragen links, ein echtes Beispiel rechts. Kernbotschaft zur Haftung: dieselbe Evidenz trägt jedes Regime; wer welches Regime anwendbar erklärt und Restrisiko freigibt, bleibt beim Auftraggeber. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Dieselbe Belegkette bedient jedes Regime — die Verantwortung bleibt beim Auftraggeber.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Dieselbe Belegkette bedient jedes Regime. Die Verantwortung bleibt beim Auftraggeber.</span></div>`,
 
 /* 24 */ `<h2 class="title">Fünf Dimensionen, <span class="ac">fünf Ergebnisse</span></h2>
         <div class="subline" style="margin-top:8px; color:#fff; font-weight:600;">Was bleibt — und was es Ihnen bringt</div>
@@ -928,12 +928,12 @@ window.I18N.de = [
           <div class="tile"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Compliance-Belege</h4><div class="cap" style="font-size:12px;">Quittungen je Einheit — Quellen, Modelle, Freigaben, Governance-Coverage</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.22); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ <b>automatisierte</b> Compliance- &amp; Governance-Reviews</div></div>
           <div class="tile accent"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Harness &amp; Skills</h4><div class="cap" style="font-size:12px;">Harness, Skills, Agenten, Policies — die AI-SDLC-Fabrik selbst</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.35); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ nächster Case: <b>Brownfield-Entwicklung, COTS-Ablösung …</b></div></div>
         </div>
-        <div class="body-line" style="margin-top:16px;">Keine Laufzeit-Abhängigkeit von der Factory — ein anderer Lieferant kann gegen dieselbe Wissensbasis bauen. Die Fabrik selbst bleibt — bereit für den nächsten Anwendungsfall.</div>
+        <div class="body-line" style="margin-top:16px;">Keine Laufzeit-Abhängigkeit von der Factory: Ein anderer Lieferant kann gegen dieselbe Wissensbasis bauen. Die Fabrik selbst bleibt und ist bereit für den nächsten Anwendungsfall.</div>
         <aside class="notes">Der Endzustand — fünf Dimensionen, je ein Nutzen. Anwendung: Feature-Plus bei weniger Schuld. Wissensbasis: Startkapital für die nächste Migration. Engineering &amp; Betrieb: Observability, Estate Scanner und Specs verlinkt → DevOps-Automation. Compliance-Belege: Reviews laufen automatisiert gegen die Quittungen. Harness &amp; Skills: die Fabrik bleibt und lässt sich auf Brownfield, COTS-Ablösung u. a. AI-SDLC-Fälle richten. Lock-in-Konter in der Body-Zeile. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Kein Lock-in — die Fabrik selbst wird zum Startkapital für den nächsten Fall.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Kein Lock-in. Die Fabrik selbst wird zum Startkapital für den nächsten Fall.</span></div>`,
 
-/* 25 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">alle vier Phasen sind gelöst</span> — jeder Einwand hat seine Antwort in der Wissensbasis.</h2>
-        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt jetzt alle Phasen — der Kreis ist geschlossen.</div>
+/* 25 */ `<h2 class="title" style="font-size:25px;">Zwischenstand: <span class="ac">alle vier Phasen sind gelöst</span>. Jeder Einwand hat seine Antwort in der Wissensbasis.</h2>
+        <div class="sup-line" style="margin-top:2px;">Was wir gelernt haben, füllt jetzt alle Phasen. Der Kreis ist geschlossen.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -998,16 +998,16 @@ window.I18N.de = [
             </table>
           </div>
           <div style="flex:1;">
-            <div class="sup-line" style="margin:2px 0;"><span style="color:var(--epam-blue); font-weight:700;">1.</span> Modernisierung scheitert an unverstandener Fachlogik — erst Karte und Regelwerk, dann Code.</div>
-            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">2.</span> Nichts ohne Quellenverweis — und jedes Urteil am Gate verbessert die Wissensbasis.</div>
+            <div class="sup-line" style="margin:2px 0;"><span style="color:var(--epam-blue); font-weight:700;">1.</span> Modernisierung scheitert an unverstandener Fachlogik. Erst Karte und Regelwerk, dann Code.</div>
+            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">2.</span> Nichts ohne Quellenverweis. Jedes Urteil am Gate verbessert die Wissensbasis.</div>
             <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">3.</span> Menschen entscheiden an Gates. Belege zeigen wer, was, womit.</div>
-            <div class="sup-line" style="margin:8px 0; border-left:3px solid var(--epam-accent); padding-left:10px; color:#E6E9ED;"><span style="color:var(--epam-accent); font-weight:700;">4.</span> Wir komponieren und engineeren unsere Factory aus Bausteinen — und bauen sie in Phasen auf.</div>
+            <div class="sup-line" style="margin:8px 0; border-left:3px solid var(--epam-accent); padding-left:10px; color:#E6E9ED;"><span style="color:var(--epam-accent); font-weight:700;">4.</span> Wir bauen unsere Factory aus Bausteinen und richten sie in Phasen ein.</div>
           </div>
         </div>
         <div class="sup-line" style="margin-top:14px;">EPAM Estate Scanner, Wissensbasis, Harness und Review-Umgebung — mit FINIUS für das fachliche Regelwerk. &nbsp;<span class="tag tag-confirm">[CONFIRM: Takeaways 1–3 Formulierung; FINIUS in der Zeile nennen?]</span></div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM">
         <aside class="notes">Der Abschluss: Bausteine über vier Phasen; der Prüfstand als Antwort auf „Modellanbieter"; vier Takeaways. Die Folie, auf der EPAM genannt wird. ~1,5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Kein Monolith, kein Anbieter-Lock-in — Bausteine, phasenweise aufgebaut und jederzeit austauschbar.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Kein Monolith, kein Anbieter-Lock-in: Bausteine, phasenweise aufgebaut und jederzeit austauschbar.</span></div>`,
 
 /* 27 */ `<!-- Same dark scrim as the cover, for a deliberate bookend -->
         <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.8) 40%, rgba(13,17,23,0.45) 70%, rgba(13,17,23,0) 100%);"></div>
@@ -1024,7 +1024,7 @@ window.I18N.de = [
         <aside class="notes">Abschluss — Danke und Übergang in die Fragerunde. Bookend zum Cover (dasselbe System/360-Motiv). Der Anhang folgt als Backup für Detailfragen. ~0,5 min.</aside>`,
 
 /* 28 */ `<h2>Anhang</h2>
-        <p>Referenzfolien A–F — werden gelesen, nicht präsentiert. Auf Nachfrage eingeblendet.</p>`,
+        <p>Referenzfolien A–F: zum Nachlesen, nicht zum Vortrag. Auf Nachfrage eingeblendet.</p>`,
 
 /* 29 */ `<span class="appendix-tag">Anhang A · Prüfstand</span>
         <h2 class="title" style="font-size:24px;">Der Prüfstand hält die Bausteine ehrlich: <span class="ac">Quellenverweise werden getestet</span>, bevor ein Baustein läuft.</h2>
@@ -1033,7 +1033,7 @@ window.I18N.de = [
           <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Evaluation über Modelle und Kontextlasten</h4><div class="cl">Zitiert das Modell, zitiert es korrekt, erfindet es? Ergebnis: Modell je Rolle, Kontextgrenze, Token-Budget.</div></div>
           <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Regression auf echten Urteilen</h4><div class="cl">Jede Prompt- oder Modelländerung läuft gegen vergangene Fälle. Bricht die Verweis-Treue, wird nicht ausgeliefert.</div></div>
         </div>
-        <div class="sup-line" style="margin-top:20px;">Ein günstigeres Modell darf kuratieren, wenn es unter Last keine Quellen erfindet — das entscheidet der Prüfstand, nicht der Geschmack.</div>
+        <div class="sup-line" style="margin-top:20px;">Ein günstigeres Modell darf kuratieren, wenn es unter Last keine Quellen erfindet. Das entscheidet der Prüfstand, nicht der Geschmack.</div>
         <div class="chip" style="margin-top:14px; font-size:12px;">Skill Workbench (SWB)</div>
         <aside class="notes">Nutzen, wenn jemand fragt, wie die AI vom Erfinden von Quellen abgehalten wird oder was bei Modellwechsel passiert.</aside>`,
 
@@ -1049,7 +1049,7 @@ window.I18N.de = [
         <aside class="notes">Nutzen, wenn jemand fragt, was ein Beleg enthält. Keine Prompts, kein Chat — Verweise, Versionen, Hashes.</aside>`,
 
 /* 31 */ `<span class="appendix-tag">Anhang C · Wissensbasis</span>
-        <h2 class="title" style="font-size:24px;">Die Wissensbasis ist ein Git-Repository im <span class="ac">Google Open Knowledge Format (OKF)</span> — Struktur liegt im Werkzeug, nicht in der Disziplin.</h2>
+        <h2 class="title" style="font-size:24px;">Die Wissensbasis ist ein Git-Repository im <span class="ac">Google Open Knowledge Format (OKF)</span>. Die Struktur liegt im Werkzeug, nicht in der Disziplin.</h2>
         <div style="display:flex; gap:18px; margin-top:18px; align-items:flex-start;">
           <div style="flex:0.85;"><pre style="font-size:12px; width:100%;"><code>kb_id
 category
@@ -1063,7 +1063,7 @@ verified_by</code></pre><div class="sup-line">OKF-Header (Google Open Knowledge 
           <div style="flex:1.15;">
             <div class="cl" style="font-size:15px;">Skill-Layer: Beitragende beantworten Fragen, das Werkzeug schreibt den Header.</div>
             <div class="cl" style="font-size:15px;">CI auf jedem Pull Request: Schema, kontrollierte Vokabulare, Fragment-IDs, Links, Split-Regel.</div>
-            <div class="cl" style="font-size:15px;">Abruf: erst filtern (Layer, Concern), dann semantisch ranken — der Filter ist die Leitplanke.</div>
+            <div class="cl" style="font-size:15px;">Abruf: erst filtern (Layer, Concern), dann semantisch ranken. Der Filter ist die Leitplanke.</div>
             <div class="cl" style="font-size:15px;">Zwei Konsumenten: der Agenten-Pfad pinnt Ergebnisse, der interaktive Pfad nicht.</div>
           </div>
         </div>
@@ -1098,7 +1098,7 @@ verified_by</code></pre><div class="sup-line">OKF-Header (Google Open Knowledge 
           </tbody>
         </table>
         <div class="chip" style="display:block; margin-top:14px; font-size:12px;">Bank/Versicherer: Regulierungsperimeter, Interpretation, Materialität, Restrisiko, Release · Lieferteam: Softwarequalität, Betrieb der Werkstatt nach vereinbarten Kontrollen</div>
-        <div class="sup-line" style="margin-top:12px;">Keine Rechtsauskunft — die Anwendbarkeit bestimmt das Institut.</div>
+        <div class="sup-line" style="margin-top:12px;">Keine Rechtsauskunft. Die Anwendbarkeit bestimmt das Institut.</div>
         <aside class="notes">Nutzen, wenn Compliance/Risk fragt, welche Regulierung dies erfüllt. Zeilen ordnen Evidenz Erwartungen zu, nicht Zertifizierung.</aside>`,
 
 /* 34 */ `<span class="appendix-tag">Anhang F · Playbook</span>
@@ -1117,6 +1117,6 @@ verified_by</code></pre><div class="sup-line">OKF-Header (Google Open Knowledge 
           <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 2:</strong> AI generiert, Menschen prüfen</div>
           <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Grad 3:</strong> AI generiert und validiert, Menschen prüfen Ausnahmen</div>
         </div>
-        <div class="sup-line" style="margin-top:16px;">Reifegrad je Bereich, steigt mit Nachweis — nie pauschal.</div>
+        <div class="sup-line" style="margin-top:16px;">Reifegrad je Bereich, steigt mit Nachweis, nie pauschal.</div>
         <aside class="notes">Nutzen, wenn jemand die Gesamtmethode erfragt. Datenmigration/Cutover-Detail ist bewusst außerhalb des Vortragsumfangs.</aside>`
 ];
