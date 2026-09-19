@@ -18,6 +18,8 @@
     .reveal::after { display: none !important; }   /* kill global logo watermark */
 
     .reveal .slides section { padding: 46px 56px 40px; height: 720px; box-sizing: border-box; }
+    /* Body slides: center content vertically so the vertical space is used, not crammed to the top. */
+    .reveal .slides section[data-marker] { display: flex; flex-direction: column; justify-content: center; }
 
     /* ── Slide title band ─────────────────────────────── */
     .reveal .title {
