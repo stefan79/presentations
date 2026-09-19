@@ -1151,20 +1151,42 @@
       <!-- ═══════════════════════ 16 / 18 ═══════════════════════ -->
       <section data-marker="16 / 18">
         <span class="qchip answer">„Wer haftet?"</span>
-        <h2 class="title" style="font-size:24px; max-width:76%;">Der Harness garantiert die Nachvollziehbarkeit: <span class="ac">fünf Zusagen, die jeder Prüfer nachlesen kann</span> — von der Spezifikation bis zum Modell, das gebaut hat.</h2>
-        <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
-          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 1</span><span class="body-line" style="margin:0;">Jede Spezifikation vollständig auf Quellenverweise gestützt.</span></div>
-          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 2</span><span class="body-line" style="margin:0;">Wissensbasis versioniert — jeder Verweis zeigt auf einen festen Stand.</span></div>
-          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 3</span><span class="body-line" style="margin:0;">Jede generierte Einheit rückverfolgbar bis zur Wissensbasis.</span></div>
-          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 4</span><span class="body-line" style="margin:0;">Jede menschliche Entscheidung festgehalten — Person und Zeitpunkt.</span></div>
-          <div style="display:flex; align-items:center; gap:12px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:4px 9px; border-radius:6px; font-size:13px;">✓ 5</span><span class="body-line" style="margin:0;">Jeder Teil trägt sein Modell und seine Skill-Version.</span></div>
+        <h2 class="title" style="font-size:23px; max-width:88%;">Belege statt Beteuerungen: Jede Lieferung trägt eine <span class="ac">Quittung, aus der ein Prüfer das gesamte Lieferereignis rekonstruiert</span> — ohne Chat-Verlauf, ohne Zuruf. Die Factory automatisiert die Umsetzung, nicht die Verantwortung.</h2>
+        <div style="display:flex; gap:22px; margin-top:14px; align-items:stretch;">
+          <div style="flex:0 0 39%; display:flex; flex-direction:column; gap:9px;">
+            <div class="sup-line" style="margin:0; color:#fff; font-weight:600; font-size:12.5px;">Fünf Fragen, die die Quittung beantwortet:</div>
+            <div style="display:flex; align-items:baseline; gap:10px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:2px 8px; border-radius:6px; font-size:12px;">1</span><span class="body-line" style="margin:0; font-size:13px;">Was wurde beauftragt? <span style="color:#8B949E;">→ Spec · Work-Item · Konstitution</span></span></div>
+            <div style="display:flex; align-items:baseline; gap:10px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:2px 8px; border-radius:6px; font-size:12px;">2</span><span class="body-line" style="margin:0; font-size:13px;">Welche Quellen & Vorgaben? <span style="color:#8B949E;">→ freigegebene Quellen mit Hash</span></span></div>
+            <div style="display:flex; align-items:baseline; gap:10px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:2px 8px; border-radius:6px; font-size:12px;">3</span><span class="body-line" style="margin:0; font-size:13px;">Was hat gebaut? <span style="color:#8B949E;">→ Modelle · Skills · Agenten · Tools · Versionen</span></span></div>
+            <div style="display:flex; align-items:baseline; gap:10px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:2px 8px; border-radius:6px; font-size:12px;">4</span><span class="body-line" style="margin:0; font-size:13px;">Was wurde geprüft? <span style="color:#8B949E;">→ Tests, Scans, offene Findings mit Ablauf</span></span></div>
+            <div style="display:flex; align-items:baseline; gap:10px;"><span class="pill ok" style="background:rgba(0,201,167,0.16); color:var(--epam-accent); padding:2px 8px; border-radius:6px; font-size:12px;">5</span><span class="body-line" style="margin:0; font-size:13px;">Wer hat freigegeben? <span style="color:#8B949E;">→ namentliche Freigaben · Hashes · Attestierung</span></span></div>
+          </div>
+          <div style="flex:1; display:flex; flex-direction:column;">
+            <div class="sup-line" style="margin:0 0 3px; color:#fff; font-weight:600; font-size:12px;">GEN-RECEIPT-000184 <span class="sh">— menschen- & maschinenlesbar, manipulationssicher</span></div>
+            <div style="background:#10141a; border:1px solid var(--epam-border); border-radius:8px; padding:8px 11px; font-family:var(--r-code-font); font-size:10px; line-height:1.5; color:#C9D1D9;">
+              <div><span style="color:#8B949E;">receipt:</span> GEN-RECEIPT-000184 &nbsp; <span style="color:var(--epam-accent);">status: approved</span></div>
+              <div><span style="color:#8B949E;">spec:</span> SPEC-042-v7 · <span style="color:#8B949E;">pr:</span> PR-318 · <span style="color:#8B949E;">parent:</span> …177</div>
+              <div style="color:#79B8FF;">approved_basis:</div>
+              <div>&nbsp;&nbsp;konstitution: CONST-2026.08-03</div>
+              <div>&nbsp;&nbsp;quellen: fachrichtlinie-rundung v5.2 <span style="color:var(--epam-accent);">sha256:9c1f…</span></div>
+              <div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;schnittstelle-buchung&nbsp; v3.1 <span style="color:var(--epam-accent);">sha256:a4e0…</span></div>
+              <div style="color:#79B8FF;">factory_config:</div>
+              <div>&nbsp;&nbsp;modell: enterprise-gateway/model-a · skills: rule-extraction@4.3, java-gen@7.1</div>
+              <div>&nbsp;&nbsp;agenten: spec@3.4 · impl@6.2 · validate@5.8 · policy: generation@2.6</div>
+              <div style="color:#79B8FF;">verification:</div>
+              <div>&nbsp;&nbsp;build <span style="color:var(--epam-accent);">✓</span> unit <span style="color:var(--epam-accent);">✓</span> integration <span style="color:var(--epam-accent);">✓</span> edge-cases <span style="color:var(--epam-accent);">✓</span> sbom <span style="color:var(--epam-accent);">✓</span> licence <span style="color:var(--epam-accent);">✓</span></div>
+              <div>&nbsp;&nbsp;security: passed_with_findings · <span style="color:#E3A000;">offen VULN-118 (low)→security-owner</span></div>
+              <div style="color:#79B8FF;">approvals:</div>
+              <div>&nbsp;&nbsp;spec: rule-owner · technik: architect</div>
+              <div>&nbsp;&nbsp;compliance: compliance-sme · release-gate: release-owner</div>
+              <div style="color:#79B8FF;">integrity:</div>
+              <div>&nbsp;&nbsp;hashes: app · container · receipt · <span style="color:var(--epam-accent);">attestation: signiert</span></div>
+            </div>
+          </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
-          <div class="sup-line" style="max-width:58%;">Belege statt Beteuerungen — für DORA, EU AI Act und jede künftige Änderung. &nbsp;<span class="tag tag-confirm">[CONFIRM: Regime — DORA und EU AI Act, oder branchenspezifisch ergänzen?]</span></div>
-          <div class="sup-line" style="max-width:40%; text-align:right;">Ehrliche Grenze: Belegt ist, dass Code und Menschen übereinstimmen — nicht, dass beide recht haben.</div>
-        </div>
-        <div class="outcome" style="margin-top:10px;"><b>Ergebnis des Abschnitts:</b> Welle live · Rückfall eingebaut · vollständige Belegkette</div>
-        <aside class="notes">Der Track Record um den Harness; der regulatorische Haken und der Zukunfts-Haken. Die fünf Zeilen erzeugt der Harness, nicht nachträglich geschrieben. ~1,5 min.</aside>
+        <div class="sup-line" style="margin-top:11px;"><b style="color:#E6E9ED;">Eine Quittung, viele Regime.</b> Der Auftraggeber entscheidet Anwendbarkeit, Wesentlichkeit und Restrisiko — die Factory liefert die Evidenz: Model-Risk · Third-Party-Risiko · operative Resilienz <span class="sh">(DORA)</span> · Datenschutz <span class="sh">(GDPR)</span> · KI-Governance <span class="sh">(EU AI Act · ISO/IEC 42001)</span>. <span style="color:#8B949E;">Ehrliche Grenze: belegt ist, dass Code und Menschen übereinstimmen — nicht, dass beide recht haben.</span></div>
+        <div class="outcome" style="margin-top:9px;"><b>Ergebnis des Abschnitts:</b> Welle live · Rückfall eingebaut · vollständige Belegkette</div>
+        <aside class="notes">Die Quittung fällt beim Bauen an, nicht nachträglich — sie ersetzt verstreute Evidenz aus Tickets, Chats und Repos durch eine strukturierte Kette. Fünf Fragen links, ein echtes Beispiel rechts. Kernbotschaft zur Haftung: dieselbe Evidenz trägt jedes Regime; wer welches Regime anwendbar erklärt und Restrisiko freigibt, bleibt beim Auftraggeber. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 17 / 18 ═══════════════════════ -->
