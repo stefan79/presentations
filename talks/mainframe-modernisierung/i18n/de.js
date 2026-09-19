@@ -715,8 +715,8 @@ window.I18N.de = [
 
         <!-- screenshot + AI-clustered callouts -->
         <div style="display:flex; gap:16px; margin-top:12px; align-items:stretch;">
-          <div style="flex:1.1;">
-            <div class="shot" style="height:206px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Review-Umgebung <span class="sh">(IRE)</span></div><span class="tag tag-owner">[Stefan / Design: Screenshot der Review-Umgebung — geclusterte, beschriebene Änderungen; Owner-Ausschnitt; Befund des Vorprüfers]</span></div></div>
+          <div style="flex:0 0 640px;">
+            <img src="assets/review-environment.png" alt="Review-Umgebung" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
           </div>
           <div style="flex:0.95; display:flex; flex-direction:column; gap:9px;">
             <div style="border:1px solid #E35050; border-radius:10px; background:rgba(227,80,80,0.08); padding:10px 12px;">
@@ -730,7 +730,7 @@ window.I18N.de = [
             <div class="sup-line" style="margin-top:auto;">Aufmerksamkeit dort, wo sie zählt. Abdeckung steigt, Aufwand sinkt.</div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit. <span style="color:#E35050; font-size:12px;">Gated: nur mit Screenshot/Mock.</span></div>
+        <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit.</div>
         <aside class="notes">Der Review-Prozess: jede generierte Einheit wird über ihr Zitat zum Fragment und damit zum Owner zurückverfolgt — der Herkunftsgraph bestimmt, wer prüft. Die AI clustert die Änderungen nach Bedeutung und beschreibt jede Gruppe: z. B. 2 kritische Änderungen (erste Umsetzung einer neuen Authentifizierungsregel, Owner Security) vs. 80 Routine-Änderungen (nur eine Umbenennung eines Business Service, im Block bestätigen). So werden Reviews präzise und effizient. Flow-Diagramm links, Screenshot der Review-Umgebung, Callouts rechts. ~1,5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Änderungen gehen geclustert an ihre Owner. Die Prüfung bleibt echt und leistbar.</span></div>`,
 

@@ -715,8 +715,8 @@ window.I18N.en = [
 
         <!-- screenshot + AI-clustered callouts -->
         <div style="display:flex; gap:16px; margin-top:12px; align-items:stretch;">
-          <div style="flex:1.1;">
-            <div class="shot" style="height:206px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Review environment <span class="sh">(IRE)</span></div><span class="tag tag-owner">[Stefan / Design: Screenshot of the review environment — clustered, described changes; owner slice; pre-checker finding]</span></div></div>
+          <div style="flex:0 0 640px;">
+            <img src="assets/review-environment.png" alt="Review environment" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
           </div>
           <div style="flex:0.95; display:flex; flex-direction:column; gap:9px;">
             <div style="border:1px solid #E35050; border-radius:10px; background:rgba(227,80,80,0.08); padding:10px 12px;">
@@ -730,7 +730,7 @@ window.I18N.en = [
             <div class="sup-line" style="margin-top:auto;">Attention where it counts — coverage rises, effort falls.</div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review environment</span> <span class="sh">(IRE)</span> — the gate stays two-sided: your owners review too. <span style="color:#E35050; font-size:12px;">Gated: only with screenshot/mock.</span></div>
+        <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review environment</span> <span class="sh">(IRE)</span> — the gate stays two-sided: your owners review too.</div>
         <aside class="notes">The review process: each generated unit is traced via its citation to the fragment and thus to the owner — the provenance graph determines who reviews. The AI clusters the changes by meaning and describes each group: e.g. 2 critical changes (first implementation of a new authentication rule, owner Security) vs. 80 routine changes (only a rename of a Business Service, confirm in bulk). This makes reviews precise and efficient. Flow diagram left, screenshot of the review environment, callouts right. ~1.5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Changes go clustered to their owners — the review stays real and affordable.</span></div>`,
 
