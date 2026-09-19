@@ -37,3 +37,19 @@ markers (`0X / N`) and the three-part footer are injected by the deck's own
 - German slide text is verbatim per the deck spec; English only in code comments
   / placeholder tags (`[CONFIRM: …]` red, `[Stefan: …]` owed artifact, etc.).
 - Commit deck changes with a focused message; only stage the deck being edited.
+
+## i18n (mainframe-modernisierung)
+- **German is the lead language.** Per-`<section>` text is externalized to
+  `talks/<deck>/i18n/de.js` (lead) and `i18n/en.js`; index.html sections are
+  structure-only shells (`<!--i18n:N-->`) filled at load from the active language.
+  Both files are arrays indexed by `<section>` DOM order — keep the HTML structure
+  aligned across de/en, and keep entry count in sync with the section count.
+- **Switch language with the `L` key** (persists to `localStorage`; `?lang=en`
+  also works). English must fit the German layout/estate — translate terse, never
+  longer than the German.
+- The takeaway is inlined into each content section's HTML (a `.takeaway` block,
+  fixed bottom-centre); sections that carry it get a bare `data-tk` flag (drives the
+  reserved bottom padding). Marker + footer are still injected by the inline script.
+- `node scripts/i18n-extract.mjs <deck>` is the one-off extractor (blanks sections,
+  inlines takeaways, writes de.js + en.js). After it runs, edit text in the i18n
+  files, not in index.html.
