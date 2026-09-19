@@ -996,39 +996,47 @@
       <!-- ═══════════════════════ 14 / 18 ═══════════════════════ -->
       <section data-marker="14 / 18">
         <span class="qchip answer">„Tokens werden zu teuer."</span>
-        <h2 class="title" style="font-size:23px; max-width:76%;">Ein Schwungrad: Jede Ablehnung <span class="ac">macht die Wissensbasis besser</span> — und je mehr Anwendungen auf derselben Domäne, desto günstiger die Factory.</h2>
-        <div style="display:flex; gap:18px; margin-top:16px; align-items:center;">
-          <div style="flex:1;">
-            <div style="display:flex; flex-direction:column; gap:8px;">
-              <div class="chip blue" style="font-size:13px;">1 · Ablehnung mit Grund und Quellenverweis</div>
-              <div class="chip blue" style="font-size:13px;">2 · Die Wissensbasis fragt: Welches Fragment, was fehlt?</div>
-              <div class="chip blue" style="font-size:13px;">3 · Der Owner korrigiert — Stammeswissen wird explizit</div>
-              <div class="chip blue" style="font-size:13px;">4 · Die nächste Generierung startet auf besserem Wissen</div>
-            </div>
+        <h2 class="title" style="font-size:23px; max-width:86%;">Auf dem Weg zur <span class="ac">Dark Factory</span>: jede Ablehnung und jede Vorhersage schiebt die Reife nach oben.</h2>
+
+        <!-- A + B: worked example + approval prediction -->
+        <div style="display:flex; gap:14px; margin-top:12px; align-items:stretch;">
+          <div class="card" style="flex:1; padding:11px 14px;">
+            <div style="font-weight:700; color:#fff; font-size:14px; font-family:var(--r-heading-font);">Beispiel · ein Urteil verbessert das Wissen</div>
+            <div class="cl" style="margin:6px 0 0; font-size:13px;">Umgesetzt: Front-End-Auth wie beschrieben — <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:12px;">kb://auth/frontend#saml</span></div>
+            <div class="cl" style="margin:4px 0 0; font-size:13px; color:#E3A000;">Review: „Bitte OAuth 2 statt SAML." → abgelehnt</div>
+            <div class="cl" style="margin:4px 0 0; font-size:13px;">🤖 Vorschlag: Wissensbasis <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:12px;">§Auth</span> aktualisieren — <b style="color:#fff;">SAML → OAuth 2</b> · Owner: Security</div>
           </div>
-          <div style="flex:0.9;">
-            <div class="mock" style="padding:0;">
-              <div class="bar" style="border-bottom:none;">Rückfrage der Wissensbasis</div>
-              <div style="padding:12px 14px; font-size:13px; color:#C9D1D9; font-style:italic;">„Diese Ablehnung betrifft ‚Beitragsrundung bei Tarifwechsel'. Was fehlte: Regel unklar / Regel falsch / Ausnahme nicht beschrieben?"</div>
+          <div class="card" style="flex:1; padding:11px 14px;">
+            <div style="font-weight:700; color:#fff; font-size:14px; font-family:var(--r-heading-font);">Freigabequote vorhersagen — aus den Zitaten</div>
+            <div class="sup-line" style="margin:4px 0 7px; font-size:11px;">Signale: Belegdichte · Quellen-Status · Aktualität · Faithfulness · Neuheit — kalibriert an vergangenen Urteilen.</div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:5px;">
+              <span style="width:112px; font-size:12px; color:#C9D1D9;">Routine-Cluster</span>
+              <div style="flex:1; height:9px; border-radius:5px; background:rgba(139,148,158,0.2); overflow:hidden;"><div style="width:94%; height:100%; background:var(--epam-accent);"></div></div>
+              <span style="font-size:12px; color:var(--epam-accent); width:96px; text-align:right;">94 % → auto</span>
             </div>
-            <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner" style="font-size:11px;">[Stefan / Design: UI-Mock der Rückfrage]</span></div>
-          </div>
-          <div style="flex:0.8; text-align:center;">
-            <div class="sup-line" style="margin-bottom:6px;">Kosten je Anwendung, gleiche Domäne (schematisch)</div>
-            <div style="display:flex; align-items:flex-end; justify-content:center; gap:10px; height:120px;">
-              <div style="width:26px; height:110px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:5px 5px 0 0;"></div>
-              <div style="width:26px; height:78px; background:linear-gradient(180deg,var(--epam-blue),rgba(0,160,227,0.4)); border-radius:5px 5px 0 0;"></div>
-              <div style="width:26px; height:52px; background:linear-gradient(180deg,var(--epam-accent),rgba(0,201,167,0.4)); border-radius:5px 5px 0 0;"></div>
-              <div style="width:26px; height:34px; background:linear-gradient(180deg,var(--epam-accent),rgba(0,201,167,0.4)); border-radius:5px 5px 0 0;"></div>
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span style="width:112px; font-size:12px; color:#C9D1D9;">neue Auth-Regel</span>
+              <div style="flex:1; height:9px; border-radius:5px; background:rgba(139,148,158,0.2); overflow:hidden;"><div style="width:41%; height:100%; background:#E35050;"></div></div>
+              <span style="font-size:12px; color:#E35050; width:96px; text-align:right;">41 % → Mensch</span>
             </div>
-            <div class="sup-line">1. Anwendung · 2. · 3. · n</div>
+            <div class="sup-line" style="margin-top:7px; font-size:11px;">Erstumsetzung &amp; niedrige Konfidenz gehen <b style="color:#E6E9ED;">immer</b> zum Menschen — die Vorhersage priorisiert, entscheidet nicht.</div>
           </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
-          <div class="body-line" style="max-width:62%;">Wir sammeln, was nur in Köpfen war — und machen es für jede weitere Welle nutzbar.</div>
-          <div class="sup-line" style="max-width:34%; text-align:right;"><span class="tag tag-owner">[Stefan: eigene Zahl — Nacharbeitsstunden oder Fehlerrate je Welle, aus PoC/Angebot]</span></div>
+
+        <!-- C: maturity staircase toward the dark factory -->
+        <div style="display:flex; align-items:flex-end; gap:6px; margin-top:16px;">
+          <div style="flex:1; margin-bottom:0; border:1px solid var(--epam-border); border-radius:8px; padding:7px 9px; background:var(--epam-surface);"><div style="font-size:10px; color:var(--epam-subtle);">L0</div><div style="font-size:12px; color:#C9D1D9;">manuell</div></div>
+          <span style="color:var(--epam-subtle); align-self:center;">↗</span>
+          <div style="flex:1; margin-bottom:16px; border:1px solid var(--epam-border); border-radius:8px; padding:7px 9px; background:var(--epam-surface);"><div style="font-size:10px; color:var(--epam-subtle);">L1</div><div style="font-size:12px; color:#C9D1D9;">AI assistiert</div></div>
+          <span style="color:var(--epam-subtle); align-self:center;">↗</span>
+          <div style="flex:1.25; margin-bottom:32px; border:1.5px solid var(--epam-blue); border-radius:8px; padding:7px 9px; background:rgba(0,160,227,0.08);"><div style="font-size:10px; color:var(--epam-blue);">L2 · wir sind hier</div><div style="font-size:12px; color:#fff;">AI generiert · Mensch prüft alles</div></div>
+          <span style="color:var(--epam-accent); align-self:center;">↗</span>
+          <div style="flex:1.25; margin-bottom:48px; border:1.5px solid var(--epam-blue); border-radius:8px; padding:7px 9px; background:rgba(0,160,227,0.08);"><div style="font-size:10px; color:var(--epam-blue);">L3 · wir wachsen</div><div style="font-size:12px; color:#fff;">+ validiert · Mensch prüft Ausnahmen</div></div>
+          <span style="color:var(--epam-accent); align-self:center;">↗</span>
+          <div style="flex:1.3; margin-bottom:64px; border:1.5px solid var(--epam-accent); border-radius:8px; padding:7px 9px; background:rgba(0,201,167,0.14);"><div style="font-size:10px; color:var(--epam-accent);">L4 · Ziel</div><div style="font-size:12px; color:#fff; font-weight:700;">Dark Factory</div><div style="font-size:10px; color:#C9D1D9;">Routine automatisch, in Policy</div></div>
         </div>
-        <aside class="notes">Das eine Schwungrad; Stammeswissen wird explizit; die Ökonomie. Segment 3: der Fix landet im Wissen, nicht im Code. Kurve schematisch. ~1,5 min.</aside>
+        <div class="sup-line" style="margin-top:8px;">Motor nach oben: das <b style="color:#E6E9ED;">Schwungrad</b> (Wissen wird besser) + die <b style="color:#E6E9ED;">kalibrierte Freigabe-Vorhersage</b> (Schwelle sicher anheben). Je höher der Reifegrad, desto weniger Prüf-Aufwand je Änderung — desto günstiger. <span class="tag tag-owner">[Stefan: eigene Zahl — Nacharbeit/Fehlerrate je Welle, falls vorhanden]</span></div>
+        <aside class="notes">Repurpose: der Wissens-Loop wurde bereits gezeigt (Abschnitt-Anfang). Hier drei neue Punkte: (1) konkretes Beispiel — Umsetzung nach SAML, Review verlangt OAuth 2, die AI schlägt eine Wissensbasis-Aktualisierung vor (SAML→OAuth 2, Owner Security). (2) Freigabequote vorhersagen: aus Zitat-Signalen (Belegdichte, Quellen-Status, Aktualität, Faithfulness, Neuheit) einen kalibrierten p(Freigabe) je Cluster schätzen — Routine auto-bestätigen, Erstumsetzungen zum Menschen; Vorhersage priorisiert, entscheidet nicht; trainiert auf den vergangenen Urteilen des Gates. (3) Reifegrad-Wachstum L0→L4: das Schwungrad und die kalibrierte Vorhersage heben die Automatisierungs-Schwelle sicher an — Richtung Dark Factory (Routine automatisch in Policy, Mensch bei Ausnahmen). Höhere Reife = günstiger. ~2 min.</aside>
       </section>
 
       <!-- ═══════════════════════ RECAP 3 (nach Abschnitt 3) ═══════════════════════ -->
