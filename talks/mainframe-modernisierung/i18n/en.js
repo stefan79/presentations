@@ -248,11 +248,10 @@ window.I18N.en = [
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Only when technology and rules are linked is the estate truly understood.</span></div>`,
 
 /* 7 */ `<h2 class="title">From graph to <span class="ac">wave sequence</span></h2>
-        <div style="display:flex; gap:22px; margin-top:16px;">
-          <div style="flex:1.05;">
-            <div class="shot" style="height:250px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Migration Planner — clusters, order &amp; seam</div><span class="tag tag-owner">[Stefan: Migration Planner screenshot with 3–4 clusters/slices and one CDC seam]</span></div></div>
-            <div class="sup-line" style="margin-top:8px;">From the graph: what is connected, what can be isolated?</div>
-            <div class="sup-line" style="color:#C9D1D9;">Cluster 1: least entangled · seam (CDC) · per cluster: transactions, data objects, rules</div>
+        <div style="display:flex; gap:20px; margin-top:12px; align-items:flex-start;">
+          <div style="flex:0 0 700px;">
+            <img src="assets/migration-planner.png" alt="Migration Planner" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
+            <div class="sup-line" style="margin-top:7px; color:#C9D1D9;">Migration Planner — slices by command co-access, least entangled first · seam (CDC) per slice</div>
           </div>
           <div style="flex:1; display:flex; flex-direction:column; gap:11px;">
             <div style="display:flex; gap:10px; align-items:flex-start;">
@@ -273,7 +272,6 @@ window.I18N.en = [
             </div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:6px;"><span style="color:#E35050; font-size:12px;">Gated: only with screenshot.</span></div>
         <aside class="notes">From understanding to the cut: from the technical dependencies the isolable clusters; assessment by business requirements; first cluster and order; first look at the transition-architecture need for parallel run. Output of the section. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technical isolability and business value set the order — not gut feeling.</span></div>`,
 

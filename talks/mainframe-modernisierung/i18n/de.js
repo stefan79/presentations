@@ -248,11 +248,10 @@ window.I18N.de = [
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Erst wenn Technik und Regeln verknüpft sind, ist der Bestand wirklich verstanden.</span></div>`,
 
 /* 7 */ `<h2 class="title">Vom Graph zur <span class="ac">Wellenfolge</span></h2>
-        <div style="display:flex; gap:22px; margin-top:16px;">
-          <div style="flex:1.05;">
-            <div class="shot" style="height:250px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Migration Planner — Cluster, Reihenfolge &amp; Naht</div><span class="tag tag-owner">[Stefan: Migration-Planner-Screenshot mit 3–4 Clustern/Slices und einer CDC-Naht]</span></div></div>
-            <div class="sup-line" style="margin-top:8px;">Aus dem Graphen: was hängt zusammen, was lässt sich isolieren?</div>
-            <div class="sup-line" style="color:#C9D1D9;">Cluster 1: am wenigsten verflochten · Naht (CDC) · je Cluster: Transaktionen, Datenobjekte, Regeln</div>
+        <div style="display:flex; gap:20px; margin-top:12px; align-items:flex-start;">
+          <div style="flex:0 0 700px;">
+            <img src="assets/migration-planner.png" alt="Migration Planner" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
+            <div class="sup-line" style="margin-top:7px; color:#C9D1D9;">Migration Planner — Slices nach Command-Co-Access, am wenigsten verflochten zuerst · Naht (CDC) je Slice</div>
           </div>
           <div style="flex:1; display:flex; flex-direction:column; gap:11px;">
             <div style="display:flex; gap:10px; align-items:flex-start;">
@@ -273,7 +272,6 @@ window.I18N.de = [
             </div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:6px;"><span style="color:#E35050; font-size:12px;">Gated: nur mit Screenshot.</span></div>
         <aside class="notes">Vom Verstehen zum Schnitt: aus den technischen Abhängigkeiten die isolierbaren Cluster; Bewertung nach Business-Anforderungen; erster Cluster und Reihenfolge; erster Blick auf den Übergangsarchitektur-Bedarf für den Parallelbetrieb. Ergebnis des Abschnitts. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technische Isolierbarkeit und fachlicher Wert bestimmen die Reihenfolge — nicht das Bauchgefühl.</span></div>`,
 
