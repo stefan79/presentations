@@ -954,23 +954,41 @@
       <!-- ═══════════════════════ 13 / 18 ═══════════════════════ -->
       <section data-marker="13 / 18">
         <span class="qchip answer">„Niemand kann so viel Code prüfen."</span>
-        <h2 class="title" style="font-size:24px; max-width:76%;">Das Gate bleibt echt, ohne Review-Ermüdung: <span class="ac">Jeder Owner sieht nur seinen Ausschnitt</span> — vorgeprüft, mit Fundstelle.</h2>
-        <div class="mock" style="margin-top:18px;">
-          <div class="bar">Änderungsantrag <span class="sh">(Pull Request)</span>: 38 Einheiten &nbsp;·&nbsp; mein Ausschnitt: 6 &nbsp;·&nbsp; Owner: Tarif-Team</div>
-          <div class="rows">
-            <div class="row"><span style="flex:1.4;">Einheit</span><span style="flex:2; color:var(--epam-subtle);">Fragment, das sie umsetzt</span><span style="flex:2.4; color:var(--epam-subtle);">Befund des Vorprüfers</span><span style="flex:1.2; text-align:right;">Freigeben / Ablehnen</span></div>
-            <div class="row sel"><span style="flex:1.4;">RATE-CALC ¶3200</span><span style="flex:2;">Beitragsrundung bei Tarifwechsel</span><span style="flex:2.4; color:#E3A000; font-style:italic;">„Nutzt die Fristregel, liest den Wert aber nie — hier schauen."</span><span style="flex:1.2; text-align:right;"><span class="pill warn">prüfen</span></span></div>
-            <div class="row"><span style="flex:1.4;">POLICY-VALIDate</span><span style="flex:2;">Tarifwechsel Monatsmitte</span><span style="flex:2.4; color:var(--epam-accent);">Deckt Fragment vollständig</span><span style="flex:1.2; text-align:right;"><span class="pill ok">bereit</span></span></div>
-            <div class="row"><span style="flex:1.4;">…</span><span style="flex:2; color:var(--epam-subtle);">4 weitere Einheiten in meinem Ausschnitt</span><span style="flex:2.4;"></span><span style="flex:1.2;"></span></div>
+        <h2 class="title" style="font-size:23px; max-width:82%;">Das Gate bleibt echt, ohne Review-Ermüdung: <span class="ac">Jeder Owner sieht nur seinen Ausschnitt</span> — geclustert, beschrieben, zugewiesen.</h2>
+
+        <!-- flow: change → citation → fragment → owner → the right reviewer -->
+        <div style="display:flex; align-items:center; gap:6px; margin-top:12px; flex-wrap:wrap;">
+          <span class="chip" style="text-align:center;">Änderungen · PR<br><span class="sh">viele Einheiten</span></span>
+          <span class="arrow" style="font-size:16px;">→</span>
+          <span class="chip" style="text-align:center;">Zitat je Einheit<br><span style="color:var(--epam-accent); font-family:var(--r-code-font); font-size:11px;">kb://…</span></span>
+          <span class="arrow" style="font-size:16px;">→</span>
+          <span class="chip" style="text-align:center;">Fragment<br><span class="sh">Wissensbasis</span></span>
+          <span class="arrow" style="font-size:16px;">→</span>
+          <span class="chip" style="text-align:center; border-color:var(--epam-accent);">Owner<br><span class="sh">des Fragments</span></span>
+          <span class="arrow" style="font-size:16px;">→</span>
+          <span class="chip" style="text-align:center; border-color:var(--epam-accent); background:rgba(0,201,167,0.12); color:#fff;">🧑 Review<br><span class="sh">beim richtigen Menschen</span></span>
+        </div>
+        <div class="sup-line" style="margin-top:6px;">Der <b style="color:#E6E9ED;">Herkunftsgraph</b> verfolgt jede Einheit zurück — das Zitat bestimmt den Owner. Die AI <b style="color:#E6E9ED;">clustert nach Bedeutung</b> und beschreibt jede Gruppe.</div>
+
+        <!-- screenshot + AI-clustered callouts -->
+        <div style="display:flex; gap:16px; margin-top:12px; align-items:stretch;">
+          <div style="flex:1.1;">
+            <div class="shot" style="height:206px;"><div><div style="font-size:13px; color:#C9D1D9; margin-bottom:8px;">Review-Umgebung <span class="sh">(IRE)</span></div><span class="tag tag-owner">[Stefan / Design: Screenshot der Review-Umgebung — geclusterte, beschriebene Änderungen; Owner-Ausschnitt; Befund des Vorprüfers]</span></div></div>
           </div>
-          <div class="bar" style="background:rgba(227,160,0,0.08); border-top:1px solid var(--epam-border); border-bottom:none;">Ablehnungsgrund: Fragment falsch · Fragment unklar · Umsetzung falsch &nbsp;→&nbsp; Signal an die Wissensbasis</div>
+          <div style="flex:0.95; display:flex; flex-direction:column; gap:9px;">
+            <div style="border:1px solid #E35050; border-radius:10px; background:rgba(227,80,80,0.08); padding:10px 12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;"><b style="color:#fff; font-size:15px;">🔴 2 Änderungen · kritisch</b><span style="font-size:11px; padding:2px 8px; border-radius:12px; background:rgba(227,80,80,0.2); color:#E35050;">Owner: Security</span></div>
+              <div class="cl" style="margin:5px 0 0; font-size:13px;">Erste Umsetzung einer neuen Authentifizierungsregel — <b style="color:#E6E9ED;">genau prüfen</b>.</div>
+            </div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; background:var(--epam-surface); padding:10px 12px;">
+              <div style="display:flex; justify-content:space-between; align-items:center;"><b style="color:#fff; font-size:15px;">⚪ 80 Änderungen · Routine</b><span style="font-size:11px; padding:2px 8px; border-radius:12px; background:rgba(139,148,158,0.18); color:var(--epam-subtle);">Owner: Tarif</span></div>
+              <div class="cl" style="margin:5px 0 0; font-size:13px;">Spiegeln nur die Umbenennung eines Business Service — <b style="color:#E6E9ED;">im Block bestätigen</b>.</div>
+            </div>
+            <div class="sup-line" style="margin-top:auto;">Aufmerksamkeit dort, wo sie zählt — Abdeckung steigt, Aufwand sinkt.</div>
+          </div>
         </div>
-        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:14px;">
-          <div class="body-line">Abdeckung steigt, Aufwand sinkt — nichts wird überflogen.</div>
-          <div class="sup-line" style="max-width:36%; text-align:right;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit.</div>
-        </div>
-        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-owner">[Stefan / Design: UI-Mock der Review-Umgebung; Owner Tarif/Leistung/Datenschutz — passend für den Raum?]</span> · <span style="color:#E35050; font-size:12px;">Gated: nur mit Mock.</span></div>
-        <aside class="notes">Der Review-Prozess konkret; der UI-Mock ist die Folie. Sechs von 38 sind die des Owners, alle sechs vorgeprüft. Der Befund ist ein Zeiger, die Entscheidung ein Knopf. ~1,5 min.</aside>
+        <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review-Umgebung</span> <span class="sh">(IRE)</span> — das Gate bleibt beidseitig: Ihre Owner prüfen mit. <span style="color:#E35050; font-size:12px;">Gated: nur mit Screenshot/Mock.</span></div>
+        <aside class="notes">Der Review-Prozess: jede generierte Einheit wird über ihr Zitat zum Fragment und damit zum Owner zurückverfolgt — der Herkunftsgraph bestimmt, wer prüft. Die AI clustert die Änderungen nach Bedeutung und beschreibt jede Gruppe: z. B. 2 kritische Änderungen (erste Umsetzung einer neuen Authentifizierungsregel, Owner Security) vs. 80 Routine-Änderungen (nur eine Umbenennung eines Business Service, im Block bestätigen). So werden Reviews präzise und effizient. Flow-Diagramm links, Screenshot der Review-Umgebung, Callouts rechts. ~1,5 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 14 / 18 ═══════════════════════ -->
