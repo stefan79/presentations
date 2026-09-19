@@ -1089,11 +1089,10 @@
       </section>
 
       <!-- ═══════════════════════ BREAKER D ═══════════════════════ -->
-      <section class="breaker">
+      <section class="breaker" data-background-image="assets/breaker-ueberfuehren.png" data-background-size="cover" data-background-position="center">
         <div class="bg" style="background:
-          radial-gradient(ellipse 70% 90% at 84% 22%, rgba(0,201,167,0.20), transparent 60%),
-          linear-gradient(120deg, #0b0f14 0%, #0D1117 55%, #0e1a18 100%);"></div>
-        <div class="imgtag"><span class="tag tag-owner">[Stefan: Breaker-Bild 4 der Bildfamilie]</span></div>
+          linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
+          linear-gradient(to right, rgba(13,17,23,0.82) 0%, rgba(13,17,23,0.2) 45%, transparent 72%);"></div>
         <div class="wrap">
           <div class="sec">Abschnitt 4</div>
           <h1>Überführen — <span class="ac">live gehen, ohne den Atem anzuhalten</span></h1>
@@ -1104,25 +1103,48 @@
       <!-- ═══════════════════════ 15 / 18 ═══════════════════════ -->
       <section data-marker="15 / 18">
         <span class="qchip answer">„Der Cutover ist das Risiko."</span>
-        <h2 class="title" style="font-size:23px; max-width:76%;">Live gehen mit dem Strangler-Muster: Die AI generiert den Router, überwacht den neuen Verkehr — <span class="ac">und darf den Router zurückschalten</span>, innerhalb der Regeln, die Menschen setzen.</h2>
-        <div style="margin-top:16px; position:relative; border:1px solid var(--epam-border); border-radius:12px; padding:20px; min-height:210px;">
-          <div class="sup-line" style="text-align:center; color:#C9D1D9;">Monitor-Agent: vergleicht Ergebnisse, Fehlerraten, Antwortzeiten</div>
-          <div style="display:flex; align-items:center; justify-content:center; gap:16px; margin-top:16px;">
-            <div class="node" style="width:150px; font-size:15px;">Mainframe</div>
-            <div style="text-align:center;">
-              <div class="chip blue" style="font-size:12px;">Router: alt · neu · beide (Schattenlauf)</div>
-              <div class="sup-line" style="color:#E3A000; margin-top:6px; font-size:12px;">⟲ Rückfall auf alt — Auslöser: Monitor (Policy) · Bestätigung: Mensch</div>
+        <h2 class="title" style="font-size:22px; max-width:88%;">Live gehen mit dem Strangler-Muster: der <span class="ac">Router führt und schaltet zurück</span>, die Telemetrie wacht — jedes Problem findet Einheit, Zitat und Owner.</h2>
+
+        <div style="display:flex; gap:14px; margin-top:12px; align-items:stretch;">
+          <!-- LEFT: the router -->
+          <div style="flex:1;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:5px;">Router — je Bereich entscheidet er, wer führt</div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; padding:10px 12px;">
+              <div class="chip" style="display:block; text-align:center;">Clients <span class="sh">(unverändert)</span></div>
+              <div style="text-align:center; color:var(--epam-subtle); line-height:1;">↓</div>
+              <div class="chip blue" style="display:block; text-align:center;">Router</div>
+              <div style="font-size:11.5px; color:#C9D1D9; margin:7px 0; line-height:1.7;">
+                • <b style="color:#fff;">Befehle</b>: repliziert (dual-write) — beide bleiben aktuell<br>
+                • <b style="color:#fff;">Lesen</b>: nur vom <b style="color:#fff;">führenden</b> System<br>
+                • ⟲ <span style="color:#E3A000;">Rückfall</span> auf Legacy — Policy, Mensch bestätigt
+              </div>
+              <div style="display:flex; gap:10px; align-items:center; justify-content:center;">
+                <div class="node" style="font-size:12px; padding:8px 12px;">Legacy</div>
+                <span style="color:var(--epam-accent); font-size:12px;">⇄ CDC</span>
+                <div class="node teal" style="font-size:12px; padding:8px 12px;">Neu · Welle n</div>
+              </div>
+              <div class="sup-line" style="text-align:center; margin-top:6px; font-size:11px;">Modi je Bereich: Legacy führt → Neu führt → Neu allein</div>
             </div>
-            <div class="node teal" style="width:170px; font-size:14px;">Neue Komponente (Welle n)</div>
           </div>
-          <div class="chip" style="display:block; margin-top:16px; text-align:center; font-size:13px;">Policy: Schwellwerte, Zeitfenster, wer informiert wird, wer den finalen Schnitt freigibt</div>
+
+          <!-- RIGHT: AST view overlaid on the telemetry graph -->
+          <div style="flex:1.05;">
+            <div class="sup-line" style="color:#fff; font-weight:600; margin-bottom:5px;">Gesundheit — AST-Graph über die Telemetrie gelegt</div>
+            <div style="border:1px solid var(--epam-border); border-radius:10px; padding:10px 12px;">
+              <div class="chip" style="display:block; text-align:center; border-color:var(--epam-blue);">Estate Scanner erfasst <b>auch das Neue</b> → AST-Graph <span class="sh">(Struktur)</span></div>
+              <div style="text-align:center; color:var(--epam-accent); font-size:13px; line-height:1.2;">⇕ overlay</div>
+              <div class="chip" style="display:block; text-align:center; border-color:var(--epam-accent);">Telemetrie-Graph — <b>OpenTelemetry · dash0</b> <span class="sh">(Laufzeit)</span></div>
+              <div style="font-size:11.5px; color:#C9D1D9; margin:7px 0 0; line-height:1.7;">
+                <b style="color:#fff;">Healthcheck</b>: Ergebnisse · Fehlerraten · Latenz — Legacy vs. Neu<br>
+                Problem → <span style="color:#E3A000;">Rückfall</span> (an den Router) &nbsp;+&nbsp; <span style="color:var(--epam-accent);">Folge-Fix</span> (zurück in die Pipeline)
+              </div>
+            </div>
+          </div>
         </div>
-        <div style="margin-top:16px;">
-          <div class="body-line">Router und Monitor entstehen in derselben Pipeline — mit Quellenverweis auf das Zielbetriebsmodell.</div>
-          <div class="body-line">Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt.</div>
-        </div>
-        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: Rückfall-Semantik — Monitor löst automatisch innerhalb Schwellwerten aus, Mensch bestätigt den finalen Schnitt; ist der Bestätigungsschritt richtig?]</span></div>
-        <aside class="notes">Die Übergangs-Antwort: wie eine Welle live geht, was sie überwacht, wer sie zurückholen darf. Der Hebel ist durch eine Policy begrenzt, der finale Schnitt ist menschlich. ~1,5 min.</aside>
+
+        <div class="body-line" style="margin-top:12px; font-size:18px;">Weil jede Einheit ihr Zitat trägt: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">Span → Einheit → Zitat → Fragment → Owner</span> — ein Produktionsproblem findet sein Wissen und seinen Verantwortlichen zurück.</div>
+        <div class="sup-line" style="margin-top:4px;">Router und Monitor entstehen in derselben Pipeline, mit Quellenverweis auf das Zielbetriebsmodell. Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt. <span class="tag tag-confirm">[CONFIRM: dash0/OTel als Referenz nennen — oder generisch „Observability"?]</span></div>
+        <aside class="notes">Die Übergangs-Architektur in einem Bild. Router (je Bereich): Befehle werden repliziert (dual-write), Lesen kommt vom führenden System, Rückfall auf Legacy in Policy mit menschlicher Bestätigung; Modi je Bereich Legacy-führt → Neu-führt → Neu-allein; Clients ändern sich nie. Rechts: der Estate Scanner erfasst auch die neu generierte Software (AST-Graph); dieser Struktur-Graph wird über den Laufzeit-Telemetrie-Graph gelegt (OpenTelemetry, visualisiert in dash0). Automatischer Healthcheck vergleicht Legacy und Neu; ein Problem löst Rückfall (Router) und einen Folge-Fix (zurück in die Pipeline, Agent0-Stil) aus. Weil Einheiten Zitate tragen, führt ein Span über Einheit → Zitat → Fragment → Owner zum richtigen Wissen und Menschen. ~2 min.</aside>
       </section>
 
       <!-- ═══════════════════════ 16 / 18 ═══════════════════════ -->
