@@ -23,7 +23,8 @@ await page.setViewport({ width: 1280, height: 720, deviceScaleFactor: scale });
 
 for (const spec of (specs.length ? specs : ['0'])) {
   const [idx, frags] = spec.split(':');
-  await page.goto(`http://127.0.0.1:${port}/talks/${deck}/?t=${Date.now()}#/${idx}`, { waitUntil: 'domcontentloaded' });
+  const langQ = process.env.DECKLANG ? `&lang=${process.env.DECKLANG}` : '';
+  await page.goto(`http://127.0.0.1:${port}/talks/${deck}/?t=${Date.now()}${langQ}#/${idx}`, { waitUntil: 'domcontentloaded' });
   await new Promise((r) => setTimeout(r, 900));
   for (let i = 0; i < (Number(frags) || 0); i++) {
     await page.keyboard.press('ArrowRight');
