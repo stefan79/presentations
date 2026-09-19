@@ -1136,6 +1136,7 @@
               <div class="chip" style="display:block; text-align:center; border-color:var(--epam-accent);">Telemetrie-Graph — <b>OpenTelemetry · dash0</b> <span class="sh">(Laufzeit)</span></div>
               <div style="font-size:11.5px; color:#C9D1D9; margin:7px 0 0; line-height:1.7;">
                 <b style="color:#fff;">Healthcheck</b>: Ergebnisse · Fehlerraten · Latenz — Legacy vs. Neu<br>
+                <span class="sh" style="color:var(--epam-subtle);">auch der Mainframe emittiert OTel — z/OS Connect · Broadcom z/IRIS</span><br>
                 Problem → <span style="color:#E3A000;">Rückfall</span> (an den Router) &nbsp;+&nbsp; <span style="color:var(--epam-accent);">Folge-Fix</span> (zurück in die Pipeline)
               </div>
             </div>
@@ -1143,7 +1144,7 @@
         </div>
 
         <div class="body-line" style="margin-top:12px; font-size:18px;">Weil jede Einheit ihr Zitat trägt: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">Span → Einheit → Zitat → Fragment → Owner</span> — ein Produktionsproblem findet sein Wissen und seinen Verantwortlichen zurück.</div>
-        <div class="sup-line" style="margin-top:4px;">Router und Monitor entstehen in derselben Pipeline, mit Quellenverweis auf das Zielbetriebsmodell. Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt. <span class="tag tag-confirm">[CONFIRM: dash0/OTel als Referenz nennen — oder generisch „Observability"?]</span></div>
+        <div class="sup-line" style="margin-top:4px;">Router und Monitor entstehen in derselben Pipeline, mit Quellenverweis auf das Zielbetriebsmodell. Beide Systeme laufen, bis der Fach-Owner den Schnitt freigibt. <span class="tag tag-confirm">[CONFIRM: dash0 hat keinen Mainframe-Agent; z/OS emittiert OTel via z/OS Connect / Broadcom z/IRIS / Open Mainframe Project — dash0 nimmt jedes OTLP auf. Referenz so nennen?]</span></div>
         <aside class="notes">Die Übergangs-Architektur in einem Bild. Router (je Bereich): Befehle werden repliziert (dual-write), Lesen kommt vom führenden System, Rückfall auf Legacy in Policy mit menschlicher Bestätigung; Modi je Bereich Legacy-führt → Neu-führt → Neu-allein; Clients ändern sich nie. Rechts: der Estate Scanner erfasst auch die neu generierte Software (AST-Graph); dieser Struktur-Graph wird über den Laufzeit-Telemetrie-Graph gelegt (OpenTelemetry, visualisiert in dash0). Automatischer Healthcheck vergleicht Legacy und Neu; ein Problem löst Rückfall (Router) und einen Folge-Fix (zurück in die Pipeline, Agent0-Stil) aus. Weil Einheiten Zitate tragen, führt ein Span über Einheit → Zitat → Fragment → Owner zum richtigen Wissen und Menschen. ~2 min.</aside>
       </section>
 
