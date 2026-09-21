@@ -21,7 +21,7 @@ window.I18N.en = [
           <div style="flex:1.35;">
             <div class="subline" style="color:#fff; font-weight:600; margin-bottom:8px;">Mainframe modernisation <span style="color:var(--epam-subtle); font-weight:400;">— complicated, often left unfinished</span></div>
             <div class="tile-row" style="gap:12px;">
-              <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">74 %</div><div class="cap" style="font-size:12px;">started a modernisation project — and never finished it</div><div class="src" style="font-size:10px;">Advanced, Business Barometer 2020</div></div>
+              <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">74 %</div><div class="cap" style="font-size:12px;">started a modernisation project and never finished it</div><div class="src" style="font-size:10px;">Advanced, Business Barometer 2020</div></div>
               <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">22 %</div><div class="cap" style="font-size:12px;">success rate of purely in-house projects — 46 % plan that way</div><div class="src" style="font-size:10px;">Advanced, 4th annual report 2024</div></div>
               <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">80 %</div><div class="cap" style="font-size:12px;">changed their mainframe strategy last year — Big Bang gives way to phases</div><div class="src" style="font-size:10px;">Kyndryl, State of Mainframe 2025</div></div>
               <div class="tile" style="padding:12px 13px;"><div class="num" style="font-size:31px;">16 %</div><div class="cap" style="font-size:12px;">of those due to budget, skills or failed approaches</div><div class="src" style="font-size:10px;">Kyndryl 2025</div></div>
@@ -39,14 +39,14 @@ window.I18N.en = [
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:24px;">
           <div>
-            <div class="body-line">The target technology is a choice — the business logic must first be understood.</div>
-            <div class="body-line">The answer is no longer AI — <span class="ac">but grounding, gates and evidence</span>.</div>
+            <div class="body-line">The target technology is a choice. First you have to understand the business logic.</div>
+            <div class="body-line">The answer is no longer AI. It's <span class="ac">grounding, gates and evidence</span>.</div>
           </div>
           <div class="sup-line" style="max-width:34%; text-align:right;">Our finding, not a statistic: skip the analysis and you find the rules in acceptance testing.</div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Tile 22 % — keep both Advanced figures (22 % success / 46 % in-house planning)?]</span></div>
         <aside class="notes">Situation + Complication on one slide: mainframe migrations are complicated, AI is viewed with scepticism — both concerns legitimate. The synthesis at the bottom is the hinge line into the talk. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Take both concerns seriously — they define what the approach must prove.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Take both concerns seriously. They define what the approach has to prove.</span></div>`,
 
 /* 2 */ `<h2 class="title">Ten objections, <span class="ac">four phases</span></h2>
 
@@ -87,7 +87,7 @@ window.I18N.en = [
           First the chaos: all ten objections lie scattered — legitimate, but without structure.
           One click — the same tiles move into place — clusters them onto the four phases with their classic counterpart and output. The concrete answers per objection come later, section by section.
         </aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No objection is left open — each becomes a plannable phase with a clear output.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No objection is left open. Each becomes a plannable phase with a clear output.</span></div>`,
 
 /* 3 */ `<div class="bg" style="background:
           linear-gradient(to top, rgba(13,17,23,0.96) 0%, rgba(13,17,23,0.55) 30%, rgba(13,17,23,0.12) 58%, rgba(13,17,23,0) 78%),
@@ -95,7 +95,7 @@ window.I18N.en = [
         <div class="wrap">
           <div class="sec">Section 1</div>
           <h1>Analyse — <span class="ac">understand first, then cut</span></h1>
-          <div class="sup">What the code knows about the estate we extract in full — and trust it on one question only.</div>
+          <div class="sup">We extract everything the code knows about the estate, and trust it on one question only.</div>
         </div>`,
 
 /* 4 */ `<h2 class="title">Code is not a <span class="ac">specification</span></h2>
@@ -125,12 +125,12 @@ window.I18N.en = [
           </div>
         </div>
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:18px;">
-          <div class="body-line" style="max-width:64%;">The code says <strong style="color:#fff;">what</strong> happens — not <strong style="color:#fff;">why</strong>. Requirements emerge only with context.</div>
-          <div class="sup-line" style="max-width:34%; text-align:right;">Migrate code as-is = lift-and-shift in disguise — the accidents move along.</div>
+          <div class="body-line" style="max-width:64%;">The code says <strong style="color:#fff;">what</strong> happens, not <strong style="color:#fff;">why</strong>. The requirements only emerge with context.</div>
+          <div class="sup-line" style="max-width:34%; text-align:right;">Migrate code as-is and it's lift-and-shift in disguise: the accidents move along too.</div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: COBOL example illustrative — wording ok?]</span></div>
         <aside class="notes">First the thesis: never migrate code alone. The COBOL snippet shows an ambiguous rule; the cards list what may sit behind one line — indistinguishable from the code. „What is connected" is answered by the next slide. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Reconstruct the business logic first, then build — else you migrate old bugs along.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Reconstruct the business logic first, then build. Otherwise you migrate the old bugs too.</span></div>`,
 
 /* 5 */ `<span class="qchip answer">„A mainframe is too big for this."</span>
         <h2 class="title">Replacement in <span class="ac">waves</span></h2>
@@ -205,10 +205,10 @@ window.I18N.en = [
           <div class="sup-line" style="max-width:34%; text-align:right;">Transition components: facade/router · CDC data seam (⇄) · adapters — they allow coexistence. <span class="sh">(Strangler pattern)</span></div>
         </div>
         <aside class="notes">After „we never migrate code alone": how we do it instead — the transition architecture per the Strangler pattern. Facade/router switches each area to New; the CDC seam keeps both data sets current; adapters bridge. Overlap is per area, not estate-wide. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Both systems run in parallel — the switch becomes reversible, not a cutover-date risk.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Both systems run in parallel, so the switch stays reversible instead of a cutover-date bet.</span></div>`,
 
 /* 6 */ `<span class="qchip answer">„We have neither docs nor tests."</span>
-        <h2 class="title">Technology meets <span class="ac">business logic</span></h2>
+        <h2 class="title">Link the code to its <span class="ac">business logic</span></h2>
 
         <div class="graph" id="g5" style="height:330px; margin-top:6px;">
           <!-- panel backdrops -->
@@ -240,14 +240,14 @@ window.I18N.en = [
         <div class="sup-line" style="text-align:center; margin-top:6px;"><span style="color:#5B6875;">──</span> technical dependency &nbsp;·&nbsp; <span style="color:var(--epam-accent);">╌ ╌</span> source reference — FINIUS links technology and business</div>
 
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px;">
-          <div class="body-line" style="max-width:70%;">We do not just hang code on the graph — every node, every edge carries its <span class="ac">source reference</span> <span class="sh">(citation)</span>, complete and consistent.</div>
+          <div class="body-line" style="max-width:70%;">This is not just code on a graph. Every node and every edge carries its <span class="ac">source reference</span> <span class="sh">(citation)</span>, complete and consistent.</div>
           <div><span class="xref">fed from five witnesses</span></div>
         </div>
         <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[FINIUS: Wordmark / logo]</span> · <span class="tag tag-confirm">[CONFIRM: Node examples (RATE-CALC, CONTRACT, Rounding §4) fitting, or a banking example?]</span></div>
         <aside class="notes">The graph is not just code: the Estate Scanner reads the technology (JCL, COBOL, CICS, DB2, VSAM, MQ) and their interactions; FINIUS extracts Business Services, Business Objects and requirements from the specifications and links them — a complete, consistent graph in which every edge is a source reference. ~1.5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Only when technology and rules are linked is the estate truly understood.</span></div>`,
 
-/* 7 */ `<h2 class="title">From graph to <span class="ac">wave sequence</span></h2>
+/* 7 */ `<h2 class="title">The graph gives us the <span class="ac">wave order</span></h2>
         <div style="display:flex; gap:20px; margin-top:12px; align-items:flex-start;">
           <div style="flex:0 0 700px;">
             <img src="assets/migration-planner.png" alt="Migration Planner" style="width:100%; height:auto; border-radius:10px; border:1px solid var(--epam-border); display:block;">
@@ -273,10 +273,10 @@ window.I18N.en = [
           </div>
         </div>
         <aside class="notes">From understanding to the cut: from the technical dependencies the isolable clusters; assessment by business requirements; first cluster and order; first look at the transition-architecture need for parallel run. Output of the section. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technical isolability and business value set the order — not gut feeling.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Technical isolability and business value set the order, not gut feeling.</span></div>`,
 
-/* 8 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">Analyse is solved</span> — the answers sit in the knowledge base.</h2>
-        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases — step by step.</div>
+/* 8 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">Analyse is solved</span>, its answers now in the knowledge base.</h2>
+        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases, step by step.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -378,7 +378,7 @@ window.I18N.en = [
           <div style="text-align:right;"><span class="xref">sees only its slice</span><br><span class="xref" style="margin-top:6px; display:inline-block;">fed from five witnesses</span></div>
         </div>
         <aside class="notes">Informational composition through scope nesting: program sits in the enterprise, application in the program. Aspects (compliance, quality, security …) can be defined at any level — quality e.g. at enterprise, program and application. Each fragment lives at exactly one level → clean hierarchy, no duplication. A skill resolves upward: it pulls the relevant fragments from application, program and enterprise. Owner colour = lineage for the review cycle. Base: Google OKF, versioned (Git). ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Clean levels let skills pull knowledge from every fitting tier — without mixing.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Clean levels let a skill pull knowledge from every tier, with no mixing.</span></div>`,
 
 /* 11 */ `<span class="qchip answer">„It hallucinates."</span>
         <h2 class="title">Generate, review, <span class="ac">extend</span></h2>
@@ -427,7 +427,7 @@ window.I18N.en = [
 
         <div class="body-line" style="margin-top:8px; font-size:19px;">Priming builds the base once. Then the loop runs — people review and extend; when extending, the base actively asks outward: on gaps, contradictions or a HITL signal.</div>
         <aside class="notes">Two parts: (1) Priming/bootstrapping — the base is built once from code, specifications, history, behaviour, people, entering from the side. (2) The loop around the knowledge base: Generate → Review → Extend. People act at Review (HITL check) and at Extend (interview/source). In the Extend step the base actively asks outward — triggered by a coverage gap, a contradiction between fragments or a HITL signal (wrong/missing). So it closes knowledge gaps actively instead of guessing — the answer to hallucination. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Each pass improves the knowledge base — the next one gets faster and cheaper.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Each pass improves the knowledge base. The next one gets faster and cheaper.</span></div>`,
 
 /* 12 */ `<span class="qchip answer">„Tokens get too expensive."</span>
         <h2 class="title">Plan from <span class="ac">facts</span></h2>
@@ -471,7 +471,7 @@ window.I18N.en = [
             </svg>
           </div>
         </div>
-        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ together the plan emerges — priced, with honest gaps</div>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↓ together they produce the plan: priced, with honest gaps</div>
 
         <!-- Zone B: three wave boxes — content · confidence · price -->
         <div style="display:flex; gap:12px; margin-top:8px;">
@@ -505,7 +505,7 @@ window.I18N.en = [
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Missing knowledge is made visible and filled deliberately, before effort and price are set.</span></div>`,
 
 /* 13 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">Analyse and Plan are solved</span>.</h2>
-        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases — step by step.</div>
+        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases, step by step.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -553,11 +553,11 @@ window.I18N.en = [
         <div class="wrap">
           <div class="sec">Section 3</div>
           <h1>Build — <span class="ac">generate with source reference and gates</span></h1>
-          <div class="sup">Specify, implement, review — and every judgement at the gate makes the next wave better.</div>
+          <div class="sup">Specify, implement, review. Every judgement at the gate makes the next wave better.</div>
         </div>`,
 
 /* 15 */ `<span class="qchip answer">„Sloppy."</span>
-        <h2 class="title">Two phases, <span class="ac">two gates</span></h2>
+        <h2 class="title">People decide at exactly <span class="ac">two gates</span></h2>
 
         <!-- Phase 1 -->
         <div style="border:1px solid var(--epam-border); border-radius:11px; padding:12px 14px; background:rgba(0,160,227,0.04); margin-top:16px;">
@@ -592,7 +592,7 @@ window.I18N.en = [
         <div class="sup-line" style="margin-top:14px;">Everything in between is <b style="color:#E6E9ED;">agentic</b>; the two <b style="color:#E6E9ED;">gates belong to people</b> — non-negotiable. In a sealed-off workshop <span class="sh">(sandbox)</span>: approved models, no internet, no production data.</div>
         <div class="sup-line" style="margin-top:4px;">Next in detail: <span class="xref">citations into the OpenSpec files</span> and the citation logic behind them.</div>
         <aside class="notes">Opens the section with the overall flow, deliberately simple for a non-technical audience: two phases — (1) create specification, (2) implement specification — each with one human gate (HITL). Within each phase an agentic pipeline runs (generate · check citations/reviews · decide), summarised here. Then: detail on OpenSpec and the citation logic. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">People decide at exactly two points — the spec before, the code after.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">People sign off the spec before and the code after. Everything between is agentic.</span></div>`,
 
 /* 16 */ `<h2 class="title">The specification as a <span class="ac">contract</span></h2>
         <div style="display:flex; gap:22px; margin-top:12px;">
@@ -635,9 +635,9 @@ window.I18N.en = [
             <div class="sup-line" style="margin-top:5px;">Citation = fragment <b style="color:#E6E9ED;">@revision</b> + <b style="color:#E6E9ED;">sha256</b> + <b style="color:#E6E9ED;">role</b> — pinned to the Git revision, checkable for currency in CI.</div>
           </div>
         </div>
-        <div class="body-line" style="margin-top:8px;">The spec is a copy of exactly the knowledge this increment needs — and becomes part of the delivery. <span class="xref">carry the source references through</span></div>
+        <div class="body-line" style="margin-top:8px;">The spec copies exactly the knowledge this increment needs, and then ships with the delivery. <span class="xref">carry the source references through</span></div>
         <aside class="notes">Diagram top-down: knowledge base → curate (the curation graph proposes citations, checks coverage, finds gaps → curator queue) → a knowledge package of curated citations → OpenSpec distributes the citations into its files (proposal/intent, spec/requirements+scenarios, design, tasks/todos). Example is proposal.md (intent), because it is set high and easy to understand. Citation format per the traceability paper: kb://context#anchor @revision sha256:… role=… — pinned to the Git revision, checkable for currency in CI. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">The spec carries all relevant knowledge — and itself becomes part of the delivery.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">The spec carries the knowledge this increment needs and ships as part of the delivery.</span></div>`,
 
 /* 17 */ `<span class="qchip answer">„Almost right is wrong."</span>
         <h2 class="title">One citation, <span class="ac">carried through</span></h2>
@@ -682,7 +682,7 @@ window.I18N.en = [
             <div class="sup-line" style="font-size:11px; margin-top:2px;">cites the fragment · <b style="color:#E6E9ED;">role=implements</b></div>
           </div>
         </div>
-        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ the same source reference, embedded in every artefact — carried through from source to increment</div>
+        <div class="sup-line" style="text-align:center; margin-top:6px; color:var(--epam-accent);">↻ the same source reference sits in every artefact, carried through from source to increment</div>
 
         <!-- five guarantees the looped citation buys -->
         <div style="display:flex; gap:10px; margin-top:16px;">
@@ -727,12 +727,12 @@ window.I18N.en = [
               <div style="display:flex; justify-content:space-between; align-items:center;"><b style="color:#fff; font-size:15px;">⚪ 80 changes · routine</b><span style="font-size:11px; padding:2px 8px; border-radius:12px; background:rgba(139,148,158,0.18); color:var(--epam-subtle);">Owner: Rating</span></div>
               <div class="cl" style="margin:5px 0 0; font-size:13px;">Only mirror the rename of a Business Service — <b style="color:#E6E9ED;">confirm in bulk</b>.</div>
             </div>
-            <div class="sup-line" style="margin-top:auto;">Attention where it counts — coverage rises, effort falls.</div>
+            <div class="sup-line" style="margin-top:auto;">Attention lands where it counts: coverage rises, effort falls.</div>
           </div>
         </div>
         <div class="sup-line" style="margin-top:8px;"><span style="color:#fff; font-weight:600;">Review environment</span> <span class="sh">(IRE)</span> — the gate stays two-sided: your owners review too.</div>
         <aside class="notes">The review process: each generated unit is traced via its citation to the fragment and thus to the owner — the provenance graph determines who reviews. The AI clusters the changes by meaning and describes each group: e.g. 2 critical changes (first implementation of a new authentication rule, owner Security) vs. 80 routine changes (only a rename of a Business Service, confirm in bulk). This makes reviews precise and efficient. Flow diagram left, screenshot of the review environment, callouts right. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Changes go clustered to their owners — the review stays real and affordable.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Changes reach their owners in clusters, so review stays real and affordable.</span></div>`,
 
 /* 19 */ `<span class="qchip answer">„Tokens get too expensive."</span>
         <h2 class="title">On the way to the <span class="ac">Dark Factory</span></h2>
@@ -774,12 +774,12 @@ window.I18N.en = [
           <span style="color:var(--epam-accent); align-self:center;">↗</span>
           <div style="flex:1.3; margin-bottom:64px; border:1.5px solid var(--epam-accent); border-radius:8px; padding:7px 9px; background:rgba(0,201,167,0.14);"><div style="font-size:10px; color:var(--epam-accent);">L4 · target</div><div style="font-size:12px; color:#fff; font-weight:700;">Dark Factory</div><div style="font-size:10px; color:#C9D1D9;">routine automatic, in policy</div></div>
         </div>
-        <div class="sup-line" style="margin-top:8px;">Engine upward: the <b style="color:#E6E9ED;">flywheel</b> (knowledge improves) + the <b style="color:#E6E9ED;">calibrated approval prediction</b> (raise the threshold safely). The higher the maturity, the less review effort per change — the cheaper. <span class="tag tag-owner">[Stefan: own figure — rework/defect rate per wave, if available]</span></div>
+        <div class="sup-line" style="margin-top:8px;">Engine upward: the <b style="color:#E6E9ED;">flywheel</b> (knowledge improves) + the <b style="color:#E6E9ED;">calibrated approval prediction</b> (raise the threshold safely). The higher the maturity, the less review effort per change, and the lower the cost. <span class="tag tag-owner">[Stefan: own figure — rework/defect rate per wave, if available]</span></div>
         <aside class="notes">Repurpose: the knowledge loop was already shown (section start). Here three new points: (1) concrete example — implementation per SAML, review demands OAuth 2, the AI proposes a knowledge base update (SAML→OAuth 2, owner Security). (2) Predict approval rate: from citation signals (evidence density, source status, currency, faithfulness, novelty) estimate a calibrated p(approval) per cluster — auto-confirm routine, first implementations to a human; prediction prioritises, does not decide; trained on the gate's past judgements. (3) Maturity growth L0→L4: the flywheel and the calibrated prediction raise the automation threshold safely — toward the Dark Factory (routine automatic in policy, human on exceptions). Higher maturity = cheaper. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Rejections and predictions calibrate the system — autonomy grows only with evidence.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Rejections and predictions calibrate the system, so autonomy grows only with evidence.</span></div>`,
 
 /* 20 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">Analyse, Plan and Build are solved</span>.</h2>
-        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases — step by step.</div>
+        <div class="sup-line" style="margin-top:2px;">What we have learned fills the phases, step by step.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -830,7 +830,7 @@ window.I18N.en = [
         <div class="wrap">
           <div class="sec">Section 4</div>
           <h1>Cutover — <span class="ac">go live without holding your breath</span></h1>
-          <div class="sup">The router decides, monitoring watches, the fallback is built in — and every step is evidenced.</div>
+          <div class="sup">The router decides, monitoring watches, the fallback is built in. Every step is evidenced.</div>
         </div>`,
 
 /* 22 */ `<span class="qchip answer">„The cutover is the risk."</span>
@@ -874,10 +874,10 @@ window.I18N.en = [
           </div>
         </div>
 
-        <div class="body-line" style="margin-top:12px; font-size:18px;">Because every unit carries its citation: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">span → unit → citation → fragment → owner</span> — a production problem finds its way back to its knowledge and its owner.</div>
+        <div class="body-line" style="margin-top:12px; font-size:18px;">Because every unit carries its citation: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">span → unit → citation → fragment → owner</span>. A production problem finds its way back to its knowledge and its owner.</div>
         <div class="sup-line" style="margin-top:4px;">Router and monitor emerge in the same pipeline, with source references to the target operating model. Both systems run until the business owner approves the cut. <span class="tag tag-confirm">[CONFIRM: dash0 has no mainframe agent; z/OS emits OTel via z/OS Connect / Broadcom z/IRIS / Open Mainframe Project — dash0 ingests any OTLP. Name the reference this way?]</span></div>
         <aside class="notes">The transition architecture in one picture. Router (per area): commands are replicated (dual-write), reads come from the leading system, fallback to legacy in policy with human confirmation; modes per area legacy-leads → new-leads → new-alone; clients never change. Right: the Estate Scanner also captures the newly generated software (AST graph); this structure graph is overlaid on the runtime telemetry graph (OpenTelemetry, visualised in dash0). An automatic healthcheck compares legacy and new; a problem triggers fallback (router) and a follow-up fix (back into the pipeline, Agent0 style). Because units carry citations, a span leads via unit → citation → fragment → owner to the right knowledge and person. ~2 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Every runtime problem leads back to unit, citation and owner — with fallback built in.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Every runtime problem traces back to unit, citation and owner, with fallback built in.</span></div>`,
 
 /* 23 */ `<span class="qchip answer">„Who is liable?"</span>
         <h2 class="title">Evidence, not <span class="ac">assurances</span></h2>
@@ -915,12 +915,12 @@ window.I18N.en = [
             </div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:11px;"><b style="color:#E6E9ED;">One receipt, many regimes.</b> The client decides applicability, materiality and residual risk — the factory supplies the evidence: model risk · third-party risk · operational resilience <span class="sh">(DORA)</span> · data protection <span class="sh">(GDPR)</span> · AI governance <span class="sh">(EU AI Act · ISO/IEC 42001)</span>. <span style="color:#8B949E;">Honest limit: what is evidenced is that code and people agree — not that both are right.</span></div>
+        <div class="sup-line" style="margin-top:11px;"><b style="color:#E6E9ED;">One receipt, many regimes.</b> The client decides applicability, materiality and residual risk — the factory supplies the evidence: model risk · third-party risk · operational resilience <span class="sh">(DORA)</span> · data protection <span class="sh">(GDPR)</span> · AI governance <span class="sh">(EU AI Act · ISO/IEC 42001)</span>. <span style="color:#8B949E;">Honest limit: the evidence shows that code and people agree, not that both are right.</span></div>
         <aside class="notes">The receipt is produced while building, not afterwards — it replaces scattered evidence from tickets, chats and repos with a structured chain. Five questions left, a real example right. Core message on liability: the same evidence serves every regime; who declares which regime applicable and approves residual risk stays with the client. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">The same evidence chain serves every regime — accountability stays with the client.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">One evidence chain serves every regime. Accountability stays with the client.</span></div>`,
 
-/* 24 */ `<h2 class="title">Five dimensions, <span class="ac">five outcomes</span></h2>
-        <div class="subline" style="margin-top:8px; color:#fff; font-weight:600;">What remains — and what it gets you</div>
+/* 24 */ `<h2 class="title">What you keep, and what it <span class="ac">earns you</span></h2>
+        <div class="subline" style="margin-top:8px; color:#fff; font-weight:600;">Five things stay behind, each with a payoff</div>
         <div class="tile-row" style="margin-top:12px; gap:12px;">
           <div class="tile"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Application</h4><div class="cap" style="font-size:12px;">Code, rules, schemas, configuration</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.22); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ extended features at <b>lower technical debt</b></div></div>
           <div class="tile"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Knowledge base</h4><div class="cap" style="font-size:12px;">curated requirements, target operating model, history, approvals</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.22); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ <b>seed capital</b> for further migrations</div></div>
@@ -928,12 +928,12 @@ window.I18N.en = [
           <div class="tile"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Compliance evidence</h4><div class="cap" style="font-size:12px;">receipts per unit — sources, models, approvals, governance coverage</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.22); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ <b>automated</b> compliance &amp; governance reviews</div></div>
           <div class="tile accent"><h4 style="margin:0 0 6px; font-size:17px; color:#fff;">Harness &amp; skills</h4><div class="cap" style="font-size:12px;">harness, skills, agents, policies — the AI-SDLC factory itself</div><div style="margin-top:auto; padding-top:8px; border-top:1px solid rgba(0,201,167,0.35); color:var(--epam-accent); font-size:12.5px; line-height:1.3;">→ next case: <b>brownfield development, COTS replacement …</b></div></div>
         </div>
-        <div class="body-line" style="margin-top:16px;">No runtime dependency on the factory — another supplier can build against the same knowledge base. The factory itself remains — ready for the next use case.</div>
+        <div class="body-line" style="margin-top:16px;">No runtime dependency on the factory: another supplier can build against the same knowledge base. And the factory itself stays, ready for the next use case.</div>
         <aside class="notes">The end state — five dimensions, one benefit each. Application: more features at less debt. Knowledge base: seed capital for the next migration. Engineering &amp; operations: observability, Estate Scanner and specs linked → DevOps automation. Compliance evidence: reviews run automated against the receipts. Harness &amp; skills: the factory remains and can be pointed at brownfield, COTS replacement and other AI-SDLC cases. Lock-in counter in the body line. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No lock-in — the factory itself becomes seed capital for the next case.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">There is no lock-in. The factory itself becomes seed capital for the next case.</span></div>`,
 
-/* 25 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">all four phases are solved</span> — every objection has its answer in the knowledge base.</h2>
-        <div class="sup-line" style="margin-top:2px;">What we have learned now fills all phases — the circle is closed.</div>
+/* 25 */ `<h2 class="title" style="font-size:25px;">Interim status: <span class="ac">all four phases are solved</span>, every objection answered in the knowledge base.</h2>
+        <div class="sup-line" style="margin-top:2px;">What we have learned now fills all four phases. The circle is closed.</div>
         <div style="display:flex; gap:12px; margin-top:14px; height:400px;">
           <!-- Analysieren — SOLVED -->
           <div style="flex:1; display:flex; flex-direction:column;">
@@ -981,7 +981,7 @@ window.I18N.en = [
         <aside class="notes">Interim status after section 4: all four phases are answered, the answers sit in the knowledge base — transition to the close. The model-vendor objection is answered on the closing slide (test bench).</aside>`,
 
 /* 26 */ `<span class="qchip answer">„We are tied to the model vendor."</span>
-        <h2 class="title">The factory from <span class="ac">building blocks</span></h2>
+        <h2 class="title">We compose the factory from <span class="ac">building blocks</span></h2>
         <div style="display:flex; gap:24px; margin-top:16px;">
           <div style="flex:1.1;">
             <table class="matrix">
@@ -998,8 +998,8 @@ window.I18N.en = [
             </table>
           </div>
           <div style="flex:1;">
-            <div class="sup-line" style="margin:2px 0;"><span style="color:var(--epam-blue); font-weight:700;">1.</span> Modernisation fails on un-understood business logic — map and ruleset first, then code.</div>
-            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">2.</span> Nothing without a source reference — and every judgement at the gate improves the knowledge base.</div>
+            <div class="sup-line" style="margin:2px 0;"><span style="color:var(--epam-blue); font-weight:700;">1.</span> Modernisation fails on business logic no one understands. Map and ruleset first, then code.</div>
+            <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">2.</span> Nothing ships without a source reference, and every judgement at the gate improves the knowledge base.</div>
             <div class="sup-line" style="margin:8px 0;"><span style="color:var(--epam-blue); font-weight:700;">3.</span> People decide at gates. Evidence shows who, what, with what.</div>
             <div class="sup-line" style="margin:8px 0; border-left:3px solid var(--epam-accent); padding-left:10px; color:#E6E9ED;"><span style="color:var(--epam-accent); font-weight:700;">4.</span> We compose and engineer our factory from building blocks — and build it up in phases.</div>
           </div>
@@ -1007,7 +1007,7 @@ window.I18N.en = [
         <div class="sup-line" style="margin-top:14px;">EPAM Estate Scanner, knowledge base, harness and review environment — with FINIUS for the business ruleset. &nbsp;<span class="tag tag-confirm">[CONFIRM: Takeaways 1–3 wording; name FINIUS in the line?]</span></div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM">
         <aside class="notes">The close: building blocks across four phases; the test bench as the answer to „model vendor"; four takeaways. The slide where EPAM is named. ~1.5 min.</aside>
-          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No monolith, no vendor lock-in — building blocks, built up in phases and swappable anytime.</span></div>`,
+          <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No monolith, no vendor lock-in: building blocks, built up in phases and swappable anytime.</span></div>`,
 
 /* 27 */ `<!-- Same dark scrim as the cover, for a deliberate bookend -->
         <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(13,17,23,0.92) 0%, rgba(13,17,23,0.8) 40%, rgba(13,17,23,0.45) 70%, rgba(13,17,23,0) 100%);"></div>
@@ -1033,7 +1033,7 @@ window.I18N.en = [
           <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Evaluation across models and context loads</h4><div class="cl">Does the model cite, cite correctly, or invent? Output: model per role, context limit, token budget.</div></div>
           <div class="card accent-top" style="flex:1;"><h4 style="font-size:18px;">Regression on real judgements</h4><div class="cl">Every prompt or model change runs against past cases. If reference fidelity breaks, it does not ship.</div></div>
         </div>
-        <div class="sup-line" style="margin-top:20px;">A cheaper model may curate if it invents no sources under load — the test bench decides that, not taste.</div>
+        <div class="sup-line" style="margin-top:20px;">A cheaper model may curate if it invents no sources under load. The test bench decides that, not taste.</div>
         <div class="chip" style="margin-top:14px; font-size:12px;">Skill Workbench (SWB)</div>
         <aside class="notes">Use if someone asks how the AI is kept from inventing sources or what happens on a model swap.</aside>`,
 
@@ -1117,6 +1117,6 @@ verified_by</code></pre><div class="sup-line">OKF header (Google Open Knowledge 
           <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Level 2:</strong> AI generates, people review</div>
           <div class="cl" style="font-size:14px;"><strong style="color:#fff;">Level 3:</strong> AI generates and validates, people review exceptions</div>
         </div>
-        <div class="sup-line" style="margin-top:16px;">Maturity per area, rises with evidence — never blanket.</div>
+        <div class="sup-line" style="margin-top:16px;">Maturity is set per area and rises with evidence, never blanket.</div>
         <aside class="notes">Use if someone asks for the overall method. Data migration/cutover detail is deliberately outside the talk's scope.</aside>`
 ];
