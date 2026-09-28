@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wertpapierkonsolidierung für die Helaba — fachlich getrieben, zum Festpreis</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Deck: Wertpapierkonsolidierung für die Helaba · 16:9 (1280×720)
+       House style OVERRIDDEN to Helaba Corporate Identity (helabacicd.md):
+       white slides · Helaba navy titles · Sparkassen-red accent/„pain" phrase ·
+       cool-grey surfaces. The spec's partner colour code is preserved inside
+       diagrams (finius = green, EPAM = blue, Helaba = navy/neutral), because
+       „colour says who leads a step" carries the argument.
+       Single language: German, verbatim per spec.
+
+       Layout note: reveal forces `display:block` on the present slide, so the
+       body/marker chrome is pinned with a fixed-height .stage rather than
+       section-level flex. Overlays live in a dedicated bottom .strip.
+       ───────────────────────────────────────────────────────────── */
+
+    :root {
+      --navy:      #003B5C;
+      --navy-deep: #002B45;
+      --red:       #E30613;
+      --grey-cool: #E7EAEC;
+      --grey-line: #D3D8DC;
+      --grey-mid:  #6B7378;
+      --ink:       #1B2A33;
+      --fin:   #2E8B6B;  --fin-bg:  rgba(46,139,107,0.10);
+      --epam:  #0072BC;  --epam-bg: rgba(0,114,188,0.10);
+      --hel:   #003B5C;  --hel-bg:  rgba(0,59,92,0.06);
+      --grey-bg: rgba(107,115,120,0.10);
+      --r-main-font: "Aptos", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --r-heading-font: "Aptos", "Helvetica Neue", Helvetica, Arial, sans-serif;
+      --r-main-font-size: 24px;
+    }
+
+    .reveal-viewport { background: #fff !important; background-image: none !important; }
+    .reveal::after { display: none !important; }
+    .reveal { color: var(--ink); font-family: var(--r-main-font); }
+
+    .reveal .slides section {
+      padding: 58px 56px 112px; height: 720px; box-sizing: border-box;
+      background: #fff; text-align: left; color: var(--ink);
+    }
+
+    /* ── Chrome: marker + footer ───────────────────────── */
+    .reveal .marker { position: absolute; top: 22px; left: 56px; font-size: 14px; color: var(--grey-mid); letter-spacing: 0.08em; font-weight: 600; }
+    .reveal .deck-footer { position: absolute; bottom: 14px; left: 56px; right: 56px; display: flex; justify-content: space-between; font-size: 11px; color: var(--grey-mid); letter-spacing: 0.03em; }
+    .reveal .deck-footer .mid { color: var(--navy); font-weight: 600; }
+
+    /* ── Rollenleiste §2 ───────────────────────────────── */
+    .reveal .rl { position: absolute; top: 20px; right: 56px; font-size: 13px; font-weight: 600; }
+    .reveal .rl .sep { color: var(--grey-line); font-weight: 400; }
+    .reveal .rl .r-fin  { color: var(--fin); }
+    .reveal .rl .r-epam { color: var(--epam); }
+    .reveal .rl .r-hel  { color: var(--navy); }
+    .reveal .rl .dim { opacity: 0.38; }
+
+    /* ── Title ─────────────────────────────────────────── */
+    .reveal .title {
+      font-family: var(--r-heading-font); font-weight: 700; color: var(--navy);
+      font-size: 29px; line-height: 1.16; letter-spacing: -0.01em; margin: 2px 0 0; max-width: 96%;
+    }
+    .reveal .title::before { content: ""; display: block; width: 44px; height: 3px; background: var(--red); margin-bottom: 12px; border-radius: 1px; }
+    .reveal .title .ac { color: var(--red); }
+
+    /* ── Stage / body / strip ──────────────────────────── */
+    .reveal .stage { height: 438px; margin-top: 12px; display: flex; flex-direction: column; }
+    .reveal .body { flex: 1; min-height: 0; display: flex; flex-direction: column; justify-content: center; }
+    .reveal .strip { position: relative; height: 24px; flex: 0 0 auto; margin-top: 6px; }
+
+    /* ── Kernaussage band §1 ───────────────────────────── */
+    .reveal .kern { position: absolute; left: 56px; right: 56px; bottom: 34px; text-align: center; pointer-events: none; }
+    .reveal .kern .kl { display: block; font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); margin-bottom: 5px; }
+    .reveal .kern .kt { display: block; font-size: 18px; font-weight: 600; line-height: 1.28; color: var(--navy); max-width: 1010px; margin: 0 auto; }
+
+    /* ── Beispiel-Chip §3 · legend · tags ──────────────── */
+    .reveal .beispiel { position: absolute; right: 0; bottom: 0; max-width: 52%; text-align: right; font-size: 12.5px; color: var(--ink); line-height: 1.2; }
+    .reveal .beispiel .bl { display: inline-block; font-size: 9.5px; font-weight: 700; letter-spacing: 0.14em; color: var(--fin); background: var(--fin-bg); border: 1px solid rgba(46,139,107,0.4); border-radius: 4px; padding: 2px 6px; margin-right: 6px; vertical-align: middle; }
+    .reveal .legend { position: absolute; left: 0; bottom: 2px; font-size: 11px; color: var(--grey-mid); }
+    .reveal .legend .k-live::before  { content: ""; display: inline-block; width: 20px; border-top: 2px solid var(--grey-mid); vertical-align: middle; margin-right: 6px; }
+    .reveal .legend .k-proj::before  { content: ""; display: inline-block; width: 20px; border-top: 2px dashed var(--grey-mid); vertical-align: middle; margin: 0 6px 0 16px; }
+
+    .reveal .tagbar { position: absolute; left: 56px; right: 56px; bottom: 104px; text-align: center; font-size: 10px; line-height: 1.4; }
+    .reveal .tag-confirm, .reveal .tag-owner { color: var(--red); }
+    .reveal .tag-open { color: #C67200; }
+    .reveal .tagbar .sep { color: var(--grey-line); }
+
+    /* ── Panels ────────────────────────────────────────── */
+    .reveal .panel { display: flex; flex-direction: column; border: 1px solid var(--grey-line); border-radius: 12px; padding: 14px 16px 12px; background: #fff; }
+    .reveal .panel.soft { background: #FAFBFC; }
+    .reveal .phead { font-family: var(--r-heading-font); font-weight: 700; font-size: 18px; color: var(--navy); margin: 0 0 12px; }
+    .reveal .phead.grey { color: var(--grey-mid); }
+    .reveal .pcap { font-size: 12.5px; color: var(--grey-mid); margin-top: auto; padding-top: 10px; }
+
+    /* ── Station box ───────────────────────────────────── */
+    .reveal .st { position: relative; border: 1.5px solid var(--navy); border-radius: 9px; padding: 9px 12px; font-weight: 600; font-size: 14px; color: var(--navy); background: #fff; text-align: center; line-height: 1.2; }
+    .reveal .st.fin  { border-color: var(--fin);  color: var(--fin);  background: var(--fin-bg); }
+    .reveal .st.epam { border-color: var(--epam); color: var(--epam); background: var(--epam-bg); }
+    .reveal .st.hel  { border-color: var(--navy); color: var(--navy); background: var(--hel-bg); }
+    .reveal .st.grey { border-color: var(--grey-line); color: var(--grey-mid); background: var(--grey-bg); }
+    .reveal .st.dashed { border-style: dashed; }
+    .reveal .st.sm { font-size: 12.5px; padding: 7px 9px; }
+
+    /* ── Arrows ────────────────────────────────────────── */
+    .reveal .ar { color: var(--grey-mid); font-size: 18px; text-align: center; line-height: 1; margin: 3px 0; }
+    .reveal .flow { display: flex; flex-direction: column; }
+    .reveal .flow .st { margin: 2px 0; }
+
+    /* ── Chips ─────────────────────────────────────────── */
+    .reveal .chip { display: inline-block; border: 1px solid var(--grey-line); border-radius: 7px; padding: 6px 10px; font-size: 13px; color: var(--ink); background: #fff; }
+    .reveal .chip.red { border-color: rgba(227,6,19,0.4); color: var(--red); background: rgba(227,6,19,0.05); }
+    .reveal .chip.navy { border-color: var(--navy); color: var(--navy); }
+    .reveal .chip.keep { border-color: var(--grey-mid); color: var(--grey-mid); }
+    .reveal .chip.dashed { border-style: dashed; }
+    .reveal .col2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    .reveal .lead { font-size: 15px; font-weight: 700; color: var(--navy); }
+    .reveal .note { font-size: 12.5px; color: var(--grey-mid); line-height: 1.3; }
+    .reveal .ch  { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
+    .reveal .rule { font-size: 13px; font-weight: 700; color: var(--navy); }
+    .reveal .rule .ac { color: var(--red); }
+
+    /* ── Cover ─────────────────────────────────────────── */
+    .reveal section.cover { padding: 0; height: 720px; overflow: hidden; }
+    .reveal .cover-bg { position: absolute; inset: 0; background-image: url('assets/cover-frankfurt.png'); background-size: cover; background-position: center right; background-repeat: no-repeat; }
+    .reveal .cover-scrim { position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(0,43,69,0.95) 0%, rgba(0,43,69,0.90) 28%, rgba(0,43,69,0.60) 46%, rgba(0,43,69,0.12) 62%, rgba(0,43,69,0) 74%); }
+    .reveal .cover-content { position: absolute; left: 64px; top: 50%; transform: translateY(-50%); width: 58%; color: #fff; }
+    .reveal .cover-kicker { font-size: 15px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 12px; margin-bottom: 22px; opacity: 0.95; }
+    .reveal .cover-kicker .redline { width: 40px; height: 3px; background: var(--red); display: inline-block; border-radius: 1px; }
+    .reveal .cover h1 { font-family: var(--r-heading-font); font-size: 50px; line-height: 1.06; font-weight: 700; color: #fff; margin: 0 0 20px; letter-spacing: -0.02em; }
+    .reveal .cover h1::after { display: none; }
+    .reveal .cover-sub { font-size: 24px; font-weight: 400; color: #EAF0F4; line-height: 1.3; margin-bottom: 28px; }
+    .reveal .cover-sub .ac { color: #fff; font-weight: 700; border-bottom: 3px solid var(--red); padding-bottom: 1px; }
+    .reveal .cover-meta { font-size: 14px; color: #B9C6CF; letter-spacing: 0.02em; }
+    .reveal .cover-logos { position: absolute; left: 64px; bottom: 40px; display: flex; align-items: center; gap: 18px; }
+    .reveal .wm { font-family: var(--r-heading-font); font-weight: 700; color: #fff; font-size: 26px; }
+    .reveal .wm.fin::first-letter { color: var(--red); }
+    .reveal .wm-div { width: 1px; height: 26px; background: rgba(255,255,255,0.4); }
+    .reveal .cover-tags { position: absolute; right: 34px; bottom: 34px; text-align: left; font-size: 10px; line-height: 1.5; color: #FFCACE; max-width: 40%; background: rgba(0,43,69,0.5); padding: 8px 10px; border-radius: 6px; }
+    .reveal .logos-inline { display: flex; align-items: center; gap: 16px; }
+    .reveal .wm-dark .wm { color: var(--navy); font-size: 20px; }
+    .reveal .wm-dark .wm-div { background: var(--grey-line); }
+
+    /* ── Section divider (appendix) ────────────────────── */
+    .reveal section.divider { background: var(--navy-deep); padding: 0; }
+    .reveal .divider .wrap { position: absolute; left: 72px; top: 50%; transform: translateY(-50%); }
+    .reveal .divider .kick { font-size: 15px; letter-spacing: 0.16em; text-transform: uppercase; color: #7FA6BC; margin-bottom: 16px; }
+    .reveal .divider h1 { color: #fff; font-size: 52px; margin: 0; font-weight: 700; }
+    .reveal .divider h1::after { content: ""; display: block; width: 56px; height: 4px; background: var(--red); margin-top: 20px; border-radius: 1px; }
+    .reveal .divider .sub { color: #B9C6CF; font-size: 16px; margin-top: 24px; max-width: 760px; line-height: 1.6; }
+
+    /* ── Funnel (slide 02) ─────────────────────────────── */
+    .reveal .funnel { display: flex; align-items: stretch; gap: 10px; }
+    .reveal .fcol { display: flex; flex-direction: column; }
+    .reveal .fconv { align-self: center; color: var(--grey-mid); font-size: 22px; padding: 0 2px; }
+    .reveal .sysgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; flex: 1; }
+    .reveal .bigbox { flex: 1; display: flex; flex-direction: column; border: 1.5px dashed var(--fin); background: var(--fin-bg); border-radius: 11px; padding: 12px 14px; position: relative; }
+    .reveal .bigbox .tagtr { position: absolute; top: 10px; right: 12px; font-size: 10px; font-weight: 700; color: var(--fin); }
+
+    /* ── Chain (slide 04 / appendix) ───────────────────── */
+    .reveal .chain { display: flex; align-items: center; }
+    .reveal .chain .st { flex: 1; }
+    .reveal .cx { color: var(--grey-mid); font-size: 15px; padding: 0 5px; white-space: nowrap; }
+    .reveal .cx.brk { color: #C0392B; font-weight: 700; }
+    .reveal .cx.solid { color: var(--epam); }
+    .reveal .diamond { width: 12px; height: 12px; background: #fff; border: 2px solid var(--navy); transform: rotate(45deg); display: inline-block; }
+    .reveal .bracket { border-top: 1.5px solid var(--red); border-left: 1.5px solid var(--red); border-right: 1.5px solid var(--red); height: 7px; border-radius: 3px 3px 0 0; }
+
+    /* ── Waves / chevrons (slide 05 / appendix E) ──────── */
+    .reveal .waveband { display: flex; gap: 6px; }
+    .reveal .chev { flex: 1; background: var(--epam-bg); border: 1.5px dashed var(--epam); color: var(--epam); font-weight: 700; font-size: 14px; padding: 11px 8px; text-align: center; white-space: nowrap;
+      clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 50%, calc(100% - 13px) 100%, 0 100%, 13px 50%); }
+    .reveal .chev.host { background: var(--hel-bg); border-color: var(--navy); color: var(--navy); }
+    .reveal .lane { height: 3px; background: var(--grey-mid); border-radius: 2px; }
+
+    /* ── Receipt cards (appendix A/B) ──────────────────── */
+    .reveal .cards { display: flex; gap: 18px; align-items: stretch; height: 100%; }
+    .reveal .rcard { flex: 1; border: 1px solid var(--grey-line); border-radius: 12px; padding: 16px 18px; display: flex; flex-direction: column; background: #fff; }
+    .reveal .rcard.accent { border: 2px solid var(--red); }
+    .reveal .rcard.navy { border-color: var(--navy); }
+    .reveal .rcard.grey { background: #FAFBFC; }
+    .reveal .rcard h4 { font-family: var(--r-heading-font); font-size: 17px; color: var(--navy); margin: 0 0 12px; font-weight: 700; }
+    .reveal .rcard .li { font-size: 14px; color: var(--ink); line-height: 1.32; margin: 7px 0; padding-left: 16px; position: relative; }
+    .reveal .rcard .li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--red); }
+    .reveal .rcard .rsub { font-size: 11px; font-weight: 700; letter-spacing: 0.04em; color: var(--grey-mid); text-transform: uppercase; margin-top: 6px; }
+
+    /* ── Owner badges: partner colour code → who owns the box ── */
+    .reveal .ob { position: absolute; top: -8px; right: 8px; font-size: 8px; font-weight: 800; letter-spacing: 0.04em; padding: 1px 5px; border-radius: 8px; background: #fff; border: 1px solid; line-height: 1.5; z-index: 3; }
+    .reveal .ob.left { right: auto; left: 8px; }
+    .reveal .ob-fin  { color: var(--fin);  border-color: var(--fin); }
+    .reveal .ob-epam { color: var(--epam); border-color: var(--epam); }
+    .reveal .ob-hel  { color: var(--navy); border-color: var(--navy); }
+    .reveal img.ob-logo { position: absolute; top: -9px; right: 8px; height: 13px; width: auto; margin: 0; background: #fff; padding: 1px 4px; border: 1px solid var(--grey-line); border-radius: 4px; z-index: 3; }
+    .reveal img.ob-logo.left { right: auto; left: 8px; }
+
+    /* ── Cover: Helaba mark on a white chip (top-right) ── */
+    .reveal .cover-helaba { position: absolute; top: 34px; right: 40px; background: #fff; padding: 10px 15px; border-radius: 8px; box-shadow: 0 2px 14px rgba(0,0,0,0.28); }
+    .reveal .cover-helaba img { height: 26px; width: auto; margin: 0; display: block; }
+
+    /* ── Slide 04: classic (many integration points) vs pipeline ── */
+    .reveal .cmp-head { display: flex; align-items: baseline; gap: 10px; }
+    .reveal .cmp-head .h { font-weight: 700; font-size: 15px; }
+    .reveal .cmp-head .h.bad  { color: var(--grey-mid); }
+    .reveal .cmp-head .h.good { color: var(--navy); }
+    .reveal .cmp-head .d { font-size: 12px; color: var(--grey-mid); }
+    .reveal .metric { margin-left: auto; font-size: 11px; font-weight: 700; padding: 2px 10px; border-radius: 10px; }
+    .reveal .metric.bad  { color: #C0392B; background: rgba(227,6,19,0.07); border: 1px solid rgba(227,6,19,0.35); }
+    .reveal .metric.good { color: var(--fin); background: var(--fin-bg); border: 1px solid var(--fin); }
+    .reveal .ipt { display: flex; flex-direction: column; align-items: center; padding: 0 2px; }
+    .reveal .ipt .dot { width: 17px; height: 17px; border-radius: 50%; background: rgba(227,6,19,0.12); border: 1.5px solid #C0392B; color: #C0392B; display: flex; align-items: center; justify-content: center; font-size: 10px; }
+    .reveal .pipe { display: flex; align-items: stretch; border: 2px solid var(--epam); border-radius: 12px; background: linear-gradient(90deg, var(--fin-bg), var(--epam-bg)); }
+    .reveal .pipe .pseg { flex: 1; padding: 12px 6px; text-align: center; font-size: 12px; font-weight: 700; border-right: 1px solid rgba(27,42,51,0.10); position: relative; line-height: 1.2; }
+    .reveal .pipe .pseg:last-child { border-right: none; }
+    .reveal .pipe .pseg.fin  { color: var(--fin); }
+    .reveal .pipe .pseg.epam { color: var(--epam); }
+    .reveal .pipe .pseg.hel  { color: var(--navy); }
+    .reveal .thru { height: 20px; border-radius: 6px; background: linear-gradient(90deg, var(--fin), var(--epam)); color: #fff; font-size: 11px; font-weight: 700; display: flex; align-items: center; justify-content: center; letter-spacing: 0.01em; }
+    .reveal .cmprow { display: grid; grid-template-columns: 118px 1fr; align-items: center; gap: 10px; }
+    .reveal .cmprow .cl { font-size: 12px; color: var(--navy); font-weight: 700; }
+    .reveal .barwrap { display: flex; align-items: center; gap: 7px; font-size: 10.5px; margin: 3px 0; }
+    .reveal .bar2 { height: 9px; border-radius: 3px; }
+    .reveal .bar2.red   { background: #C0392B; }
+    .reveal .bar2.green { background: var(--fin); }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════════ COVER ═══════════════════════ -->
+      <section class="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-helaba"><img src="assets/helaba-logo.svg" alt="Helaba"></div>
+        <div class="cover-content">
+          <div class="cover-kicker"><span class="redline"></span>finius + EPAM</div>
+          <h1>Wertpapier&shy;konsolidierung<br>für die Helaba</h1>
+          <div class="cover-sub">Acht Systeme, drei Zielsysteme, ein Festpreis – <span class="ac">fachlich getrieben</span></div>
+          <div class="cover-meta">Gemeinsames Angebot von finius und EPAM · [Datum] · Vertraulich</div>
+        </div>
+        <div class="cover-logos">
+          <span class="wm fin">finius</span><span class="wm-div"></span><span class="wm epam">EPAM</span>
+        </div>
+        <div class="cover-tags">
+          [finius: Logo / Wortmarke + freigegebene Nutzung]<br>
+          [CONFIRM: „drei Zielsysteme" (WDP, WPE-neu, GCWM) vs. „ein Zielsystem" im 3-Seiter]<br>
+          [CONFIRM: falls Festpreis noch nicht freigegeben → „ein Plan"]
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ 01 / 05 ═══════════════════════ -->
+      <section data-marker="01 / 05">
+        <div class="rl"><span class="r-fin">finius führt die Fachlichkeit</span> <span class="sep">·</span> <span class="r-epam">EPAM führt die Technik</span> <span class="sep">·</span> <span class="r-hel">Helaba entscheidet und gibt frei</span></div>
+        <h2 class="title">Wir migrieren Ihre <span class="ac">Fachlichkeit – nicht Ihren Code</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div style="display:flex; gap:22px; align-items:stretch;">
+              <div class="panel soft" style="flex:1;">
+                <div class="phead grey">Codegetrieben</div>
+                <div class="flow">
+                  <div class="st grey">Neuer Code</div>
+                  <div class="ar">↑ &nbsp;<span style="font-size:11px; color:#C0392B;">Altlasten ziehen mit um</span></div>
+                  <div class="st grey">Anforderungen, aus dem Code herausgelesen</div>
+                  <div class="ar">↑</div>
+                  <div class="st grey">Historisch gewachsener Code</div>
+                </div>
+                <div class="pcap">Abnahme: „Es läuft."</div>
+              </div>
+              <div class="panel" style="flex:1;">
+                <div class="phead">Fachlich getrieben</div>
+                <div class="flow">
+                  <div class="st hel">Fachbereich<img class="ob-logo" src="assets/helaba-logo.svg" alt="Helaba"></div>
+                  <div class="ar">↓</div>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <div class="st fin" style="flex:1;">Servicemodell und Spezifikation<span class="ob ob-fin left">finius</span></div>
+                    <div style="text-align:center; color:var(--grey-mid); font-size:10px; line-height:1.1;">⇠<br>belegen<br>und prüfen</div>
+                    <div class="st grey sm dashed" style="width:32%;">Laufende Systeme</div>
+                  </div>
+                  <div class="ar">↓</div>
+                  <div class="st epam">Neuer Code und Tests<span class="ob ob-epam">EPAM</span></div>
+                </div>
+                <div class="pcap">Abnahme: je Geschäftsvorfall und Attribut</div>
+              </div>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="beispiel"><span class="bl">BEISPIEL</span>Warum erhält ein Kunde genau diesen Abrechnungsbetrag?</div>
+          </div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: „Fachlichkeit" – oder der Prozessname des Fachbereichs in der Kernaussage?]</span> <span class="sep">·</span> <span class="tag-confirm">[CONFIRM: „acht Systeme" und „rechnen" passen für alle acht, inkl. IFRS/IKS?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Wir migrieren Ihre Fachlichkeit – nicht Ihren Code. Die Anforderungen kommen aus dem Fachbereich und werden am Code überprüft.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ 02 / 05 ═══════════════════════ -->
+      <section data-marker="02 / 05">
+        <div class="rl"><span class="r-fin">finius führt die Fachlichkeit</span> <span class="sep">·</span> <span class="r-epam dim">EPAM führt die Technik</span> <span class="sep">·</span> <span class="r-hel">Helaba entscheidet und gibt frei</span></div>
+        <h2 class="title">Erst die <span class="ac">Fachlichkeit konsolidieren</span>, dann bauen.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="funnel">
+              <div class="fcol" style="width:25%;">
+                <div class="ch" style="text-align:center;">Heute: acht Systeme</div>
+                <div class="sysgrid">
+                  <div class="st grey sm">WSH</div><div class="st grey sm">WSH-IS</div>
+                  <div class="st grey sm">WSHZZM</div><div class="st grey sm">WPE-IFRS</div>
+                  <div class="st grey sm">VGH</div><div class="st grey sm">FINCON</div>
+                  <div class="st grey sm">IKS</div><div class="st grey sm">GCWM</div>
+                </div>
+              </div>
+              <div class="fconv">›</div>
+              <div class="fcol" style="flex:1;">
+                <div class="ch" style="text-align:center;">Ein Servicemodell</div>
+                <div class="bigbox">
+                  <div class="tagtr">finius · FIN-AI</div>
+                  <div class="lead" style="color:var(--fin); margin-bottom:10px;">Fachlichkeit konsolidiert</div>
+                  <div style="font-size:14px; line-height:1.7; color:var(--ink);">
+                    Dubletten zusammengeführt<br>
+                    Begründete Varianten erhalten<br>
+                    <b style="color:var(--fin);">Jede Entscheidung: Fachbereich</b>
+                  </div>
+                  <div class="rule" style="margin-top:auto; padding-top:10px;">Fachliche Wirkung bleibt – <span class="ac">oder die Änderung ist freigegeben</span>.</div>
+                </div>
+              </div>
+              <div class="fconv">›</div>
+              <div class="fcol" style="width:22%;">
+                <div class="ch" style="text-align:center;">Drei Zielsysteme</div>
+                <div class="flow" style="flex:1; justify-content:center; gap:10px;">
+                  <div class="st epam dashed">WDP</div>
+                  <div class="st epam dashed">WPE-neu</div>
+                  <div class="st grey" style="position:relative;">GCWM <span class="chip keep" style="position:absolute; right:-4px; bottom:-11px; font-size:10px; padding:1px 6px;">bleibt</span></div>
+                </div>
+              </div>
+            </div>
+            <div style="display:flex; gap:18px; align-items:stretch; margin-top:18px;">
+              <div style="width:34%; display:flex; flex-direction:column; justify-content:center;">
+                <div class="note" style="color:var(--epam); font-weight:700; font-size:13px;">↑ Abgleich mit laufenden Systemen</div>
+                <div class="chip dashed" style="align-self:flex-start; margin-top:8px; font-size:12px;">Estate Scanner</div>
+              </div>
+              <div style="flex:1;">
+                <div class="ch">Befunde vorab</div>
+                <div class="col2">
+                  <div class="chip red">Spezifiziert, nicht umgesetzt</div>
+                  <div class="chip red">Umgesetzt, nicht beschrieben</div>
+                  <div class="chip red">Mehr Daten als beschrieben</div>
+                  <div class="chip red">Zwei Dokumente, drei Varianten</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="legend"><span class="k-live">heute vorhanden</span><span class="k-proj">entsteht im Projekt</span></div>
+            <div class="beispiel"><span class="bl">BEISPIEL</span>Abrechnungsbetrag: mehrere Varianten, ein Service</div>
+          </div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: Namen/Schreibweise der acht Systeme? · GCWM bleibt Standardsoftware?]</span> <span class="sep">·</span> <span class="tag-open">[FACHBEREICH-SESSION: Mehrwährungsfähigkeit – was können die heutigen Systeme bereits?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Erst die Fachlichkeit konsolidieren, dann bauen. Widersprüche klären wir, bevor gebaut wird – nicht erst im Test.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ 03 / 05 ═══════════════════════ -->
+      <section data-marker="03 / 05">
+        <div class="rl"><span class="r-fin">finius führt die Fachlichkeit</span> <span class="sep">·</span> <span class="r-epam">EPAM führt die Technik</span> <span class="sep">·</span> <span class="r-hel dim">Helaba entscheidet und gibt frei</span></div>
+        <h2 class="title">Ein gemeinsames Modell macht die <span class="ac">Komplexität beherrschbar</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div style="display:flex; gap:14px; align-items:stretch;">
+              <div class="panel" style="flex:1; border-color:var(--fin);">
+                <div class="phead" style="color:var(--fin);">Fachliches Modell · finius</div>
+                <div class="flow">
+                  <div class="st fin sm">Service: Wertpapiergeschäft abrechnen</div>
+                  <div class="ar">↓</div>
+                  <div class="st fin sm">Geschäftsobjekt: Wertpapiergeschäft</div>
+                  <div class="ar">↓</div>
+                  <div class="st fin sm">Attribut: Abrechnungsbetrag</div>
+                  <div class="ar">↓</div>
+                  <div class="st fin sm">Regel: Rundung</div>
+                </div>
+              </div>
+              <div style="width:15%; display:flex; flex-direction:column; align-items:center; justify-content:center;">
+                <div style="font-size:24px; color:var(--red); letter-spacing:-3px;">⇢⇢⇢</div>
+                <div class="note" style="color:var(--red); text-align:center; font-size:11.5px; margin-top:8px;">ein Service –<br>mehrere Systeme</div>
+                <div style="font-size:11px; color:var(--grey-mid); margin-top:12px;">N : 1</div>
+              </div>
+              <div class="panel" style="flex:1; border-color:var(--epam);">
+                <div class="phead" style="color:var(--epam);">Technisches Modell · EPAM</div>
+                <div style="display:flex; gap:6px;">
+                  <div class="st epam sm" style="flex:1;">Einstieg A</div>
+                  <div class="st epam sm" style="flex:1;">Einstieg B</div>
+                  <div class="st epam sm" style="flex:1;">Einstieg C</div>
+                </div>
+                <div class="ar">↓</div>
+                <div class="st epam sm">Programme und Jobs</div>
+                <div class="ar">↓</div>
+                <div class="st epam sm" style="border-width:2.5px;">Tabellen und Spalten</div>
+                <div class="ar">↓</div>
+                <div class="st epam sm">Schnittstellen</div>
+              </div>
+            </div>
+            <div style="margin-top:16px;">
+              <div class="ch">Fünf Fragen je Migrationseinheit</div>
+              <div style="display:flex; gap:8px; align-items:center;">
+                <div class="chip" style="flex:1; text-align:center;">Was leistet es fachlich?</div>
+                <div class="chip" style="flex:1; text-align:center;">Wo ist es umgesetzt?</div>
+                <div class="chip" style="flex:1; text-align:center;">Was hängt daran?</div>
+                <div class="chip" style="flex:1; text-align:center;">Welche Zielvorgaben gelten?</div>
+                <div class="chip" style="flex:1; text-align:center;">Was ist umzustellen?</div>
+                <div class="cx">→</div>
+                <div style="display:flex; gap:4px;">
+                  <div class="chip navy dashed" style="font-size:11px;">Welle 1</div>
+                  <div class="chip navy dashed" style="font-size:11px;">Welle 2</div>
+                  <div class="chip navy dashed" style="font-size:11px;">Welle n</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="legend"><span class="k-live">heute vorhanden</span><span class="k-proj">entsteht im Projekt</span></div>
+            <div class="beispiel"><span class="bl">BEISPIEL</span>Datenweg des Abrechnungsbetrags: heute und im Ziel</div>
+          </div>
+        </div>
+        <div class="tagbar"><span class="tag-owner">[finius: fachlich korrekte Bezeichnungen der vier Beispielknoten]</span> <span class="sep">·</span> <span class="tag-confirm">[CONFIRM: Verknüpfung heute vorhanden oder im Projekt gebaut? (Paper: „vorgeschlagene Erweiterung")]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Ein gemeinsames Modell von finius und EPAM macht die Komplexität beherrschbar. Es bestimmt Zuschnitt und Reihenfolge der Wellen – nicht das Bauchgefühl.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ 04 / 05 ═══════════════════════ -->
+      <section data-marker="04 / 05">
+        <div class="rl"><span class="r-fin">finius führt die Fachlichkeit</span> <span class="sep">·</span> <span class="r-epam">EPAM führt die Technik</span> <span class="sep">·</span> <span class="r-hel">Helaba entscheidet und gibt frei</span></div>
+        <h2 class="title">Die Spezifikation führt, der Code folgt – der <span class="ac">Festpreis hält</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <!-- Klassisch: viele Änderungen, viele Integrationspunkte -->
+            <div class="cmp-head">
+              <span class="h bad">Klassisch</span>
+              <span class="d">viele Modell- und Prozessänderungen · viele Integrationspunkte</span>
+              <span class="metric bad">Durchsatz niedrig · Kosten je Feature hoch</span>
+            </div>
+            <div class="chain" style="margin-top:4px;">
+              <div class="st grey sm">Fachbereich</div>
+              <div class="ipt"><div class="dot">⇄</div></div>
+              <div class="st grey sm">Fachkonzept</div>
+              <div class="ipt"><div class="dot">⇄</div></div>
+              <div class="st grey sm">IT-Konzept</div>
+              <div class="ipt"><div class="dot">⇄</div></div>
+              <div class="st grey sm">Entwicklung</div>
+              <div class="ipt"><div class="dot">⇄</div></div>
+              <div class="st grey sm">Test</div>
+              <div class="ipt"><div class="dot">⇄</div></div>
+              <div class="st grey sm">Abnahme</div>
+            </div>
+            <div style="display:flex; justify-content:space-between; margin-top:4px;">
+              <div class="note" style="color:#C0392B; font-weight:600;">⇄ Fünf Integrationspunkte – jede Übergabe ein Medienbruch</div>
+              <div class="note" style="color:#C0392B;">↺ Änderung: alles noch einmal</div>
+            </div>
+
+            <!-- Durchgängig: eine Pipeline, hoher Durchsatz -->
+            <div class="cmp-head" style="margin-top:15px;">
+              <span class="h good">Durchgängig</span>
+              <span class="d">ein Modell · eine Pipeline · keine Übergabe</span>
+              <span class="metric good">Durchsatz hoch · Kosten je Feature niedrig</span>
+            </div>
+            <div class="pipe" style="margin-top:6px;">
+              <div class="pseg hel">Fachbereich<img class="ob-logo left" src="assets/helaba-logo.svg" alt="Helaba"></div>
+              <div class="pseg fin">Servicemodell<span class="ob ob-fin left">finius</span></div>
+              <div class="pseg fin">Spezifikation<span class="ob ob-fin left">finius</span><span class="diamond" style="position:absolute; top:-9px; right:8px;"></span></div>
+              <div class="pseg epam">Code und Tests erzeugt<span class="ob ob-epam left">EPAM</span></div>
+              <div class="pseg epam">Abgleich mit heutigem Verhalten<span class="ob ob-epam left">EPAM</span></div>
+              <div class="pseg hel">Abnahme<img class="ob-logo left" src="assets/helaba-logo.svg" alt="Helaba"><span class="diamond" style="position:absolute; top:-9px; right:8px;"></span></div>
+            </div>
+            <div class="thru" style="margin-top:6px;">durchgängige Pipeline · KI-gestützt über weite Strecken · hoher Durchsatz →</div>
+
+            <!-- Wirkung: Durchsatz hoch, Kosten je Feature niedrig -->
+            <div style="display:flex; gap:24px; align-items:flex-start; margin-top:14px;">
+              <div style="width:44%;">
+                <div class="cmprow">
+                  <span class="cl">Durchsatz je Feature</span>
+                  <div>
+                    <div class="barwrap"><div class="bar2 red" style="width:24%;"></div><span style="color:#C0392B;">Klassisch</span></div>
+                    <div class="barwrap"><div class="bar2 green" style="width:84%;"></div><span style="color:var(--fin);">Durchgängig</span></div>
+                  </div>
+                </div>
+                <div class="cmprow" style="margin-top:9px;">
+                  <span class="cl">Kosten je Feature</span>
+                  <div>
+                    <div class="barwrap"><div class="bar2 red" style="width:84%;"></div><span style="color:#C0392B;">Klassisch</span></div>
+                    <div class="barwrap"><div class="bar2 green" style="width:30%;"></div><span style="color:var(--fin);">Durchgängig</span></div>
+                  </div>
+                </div>
+              </div>
+              <div style="width:56%;">
+                <div class="ch">Festpreis-Rahmen <span class="note" style="font-weight:400;">· ◆ zwei Freigaben durch den Fachbereich</span></div>
+                <div class="col2">
+                  <div class="chip navy">Festpreis auf fachlichem Mengengerüst</div>
+                  <div class="chip navy">Änderungskontingent inklusive</div>
+                  <div class="chip navy">Strukturen früh entschieden</div>
+                  <div class="chip navy">Endtermin mit Host-Abschaltung</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="legend"><span class="k-live">heute vorhanden</span><span class="k-proj">entsteht im Projekt</span></div>
+            <div class="beispiel"><span class="bl">BEISPIEL</span>Rundungsregel des Abrechnungsbetrags ändern</div>
+          </div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: Änderungskontingent freigegeben (Einheit/Größe)? · Kostenaussage belastbar oder qualitativ? · Reifegrad Pipeline C#/MSSQL?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Die Spezifikation führt, der Code folgt – ohne Medienbrüche, über weite Strecken KI-gestützt. So sinken die Kosten, und der Festpreis hält auch bei Änderungen.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ 05 / 05 ═══════════════════════ -->
+      <section data-marker="05 / 05">
+        <div class="rl"><span class="r-fin">finius führt die Fachlichkeit</span> <span class="sep">·</span> <span class="r-epam">EPAM führt die Technik</span> <span class="sep">·</span> <span class="r-hel">Helaba entscheidet und gibt frei</span></div>
+        <h2 class="title">Ihre laufenden Projekte werden <span class="ac">Teil des Plans</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div>
+              <div style="display:flex; gap:30px; margin-bottom:8px;">
+                <div style="flex:1;">
+                  <div class="note" style="color:var(--grey-mid); font-weight:700;">[Projekt A] ◆</div>
+                  <div class="lane" style="margin-top:4px;"></div>
+                  <div class="note" style="color:var(--fin); margin-top:4px;">↓ vorher: als heutiges Verhalten erfasst</div>
+                </div>
+                <div style="flex:1;">
+                  <div class="note" style="color:var(--grey-mid); font-weight:700; text-align:right;">◆ [Projekt B]</div>
+                  <div class="lane" style="margin-top:4px;"></div>
+                  <div class="note" style="color:var(--epam); margin-top:4px; text-align:right;">nachher: nur im Zielsystem umgesetzt ↓</div>
+                </div>
+              </div>
+              <div class="waveband">
+                <div class="chev">Welle 1</div><div class="chev">Welle 2</div><div class="chev">Welle n</div><div class="chev host">Host aus</div>
+              </div>
+              <div class="note" style="text-align:right; margin-top:6px; color:var(--navy); font-weight:700;">Nie beides – kein pauschaler Freeze.</div>
+            </div>
+            <div style="display:flex; gap:18px; align-items:stretch; margin-top:18px;">
+              <div style="width:56%;">
+                <div class="ch">Einstieg</div>
+                <div class="chain">
+                  <div class="st fin sm" style="flex:1;">Servicemodell für einen Service<span class="ob ob-fin">finius</span></div><div class="cx solid">→</div>
+                  <div class="st epam sm" style="flex:1;">Umsetzung und Attributabgleich<span class="ob ob-epam">EPAM</span></div><div class="cx solid">→</div>
+                  <div class="st hel sm" style="flex:1;">Abnahme<img class="ob-logo" src="assets/helaba-logo.svg" alt="Helaba"></div>
+                </div>
+                <div class="note" style="margin-top:8px;">finius und EPAM verantworten die Lieferung gemeinsam.</div>
+              </div>
+              <div style="width:44%;">
+                <div class="ch">Entscheidungsbedarf</div>
+                <div class="col2">
+                  <div class="chip red">Pilotservice benennen</div>
+                  <div class="chip red">Verantwortliche im Fachbereich</div>
+                  <div class="chip red">Zugang zu Projektspezifikationen</div>
+                  <div class="chip red">Starttermin</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="strip">
+            <div class="logos-inline wm-dark" style="position:absolute; left:0; bottom:-2px;">
+              <span class="wm fin">finius</span><span class="wm-div"></span><span class="wm epam">EPAM</span>
+            </div>
+            <div class="legend" style="left:auto; right:0;"><span class="k-live">heute vorhanden</span><span class="k-proj">entsteht im Projekt</span></div>
+          </div>
+        </div>
+        <div class="tagbar"><span class="tag-owner">[Stefan: Namen, Meilensteine und Behandlung der zwei laufenden Projekte]</span> <span class="sep">·</span> <span class="tag-open">[FACHBEREICH-SESSION: Welcher Service wird Pilot? · Wer verantwortet die zwei Freigaben?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Ihre beiden laufenden Projekte werden Teil des Plans. Jede Änderung wird genau einmal gebaut – das belegt der erste Service.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX DIVIDER ═══════════════════════ -->
+      <section class="divider">
+        <div class="wrap">
+          <div class="kick">Anhang</div>
+          <h1>Für die Rückfragen</h1>
+          <div class="sub">A · Was der Festpreis abdeckt&nbsp;&nbsp;·&nbsp;&nbsp;B · Festpreis ohne vollständige Vorabkenntnis&nbsp;&nbsp;·&nbsp;&nbsp;C · Nachvollziehbarkeit&nbsp;&nbsp;·&nbsp;&nbsp;D · KI und Freigaben&nbsp;&nbsp;·&nbsp;&nbsp;E · Umschalten mit Rückfalloption&nbsp;&nbsp;·&nbsp;&nbsp;F · Verborgene Abhängigkeiten</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX A ═══════════════════════ -->
+      <section data-marker="A">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title"><span class="ac">Regeln dürfen sich ändern</span>, Strukturen müssen früh stehen.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="cards">
+              <div class="rcard navy">
+                <h4>Im Festpreis</h4>
+                <div class="li">Heutige fachliche Wirkung für das vereinbarte Mengengerüst</div>
+                <div class="li">Bekannte Änderungen: Mehrwährungsfähigkeit, [Projekt A], [Projekt B]</div>
+                <div class="li">Strukturen: Zielsysteme, Datenmodell, Schnittstellen</div>
+              </div>
+              <div class="rcard accent">
+                <h4 style="color:var(--red);">Im Änderungskontingent</h4>
+                <div class="li">Regeln: Berechnung, Rundung, Validierung, Varianten</div>
+                <div class="li">Bemessen in fachlichen Einheiten</div>
+                <div class="note" style="margin-top:auto; padding-top:12px; color:var(--red); font-weight:700;">↺ günstige Änderung, kein Nachtrag</div>
+              </div>
+              <div class="rcard grey">
+                <h4 style="color:var(--grey-mid);">Im Änderungsverfahren</h4>
+                <div class="li">Neue Strukturen nach Projektstart</div>
+                <div class="li">Umfang über dem Mengengerüst, zu vereinbarten Einheitspreisen</div>
+              </div>
+            </div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: alle drei Karten kaufmännisch freigegeben? Einheit/Größe des Änderungskontingents?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Regeln dürfen sich ändern, Strukturen müssen früh stehen.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX B ═══════════════════════ -->
+      <section data-marker="B">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title">Der <span class="ac">Festpreis steht vorab</span> – das Modell prüft seine Grundlage früh.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="cards">
+              <div class="rcard">
+                <h4>A · Festpreis sofort</h4>
+                <div class="rsub">Grundlage</div><div class="li">Mengengerüst und Annahmen</div>
+                <div class="rsub">Vorteil</div><div class="li">Schnellster Start</div>
+                <div class="rsub">Risiko</div><div class="li">Die Annahmen tragen es.</div>
+              </div>
+              <div class="rcard accent">
+                <h4 style="color:var(--red);">B · Festpreis mit Bestätigungsphase</h4>
+                <div class="rsub">Grundlage</div><div class="li">Obergrenze heute, bestätigt nach dem Pilotservice</div>
+                <div class="rsub">Vorteil</div><div class="li">Budgetsicherheit vorab, Fakten nach wenigen Wochen</div>
+                <div class="rsub">Risiko</div><div class="li">Bestätigungstermin muss eingeplant sein.</div>
+              </div>
+              <div class="rcard grey">
+                <h4 style="color:var(--grey-mid);">C · Festpreis je Welle</h4>
+                <div class="rsub">Grundlage</div><div class="li">Preis je Welle nach der Analyse</div>
+                <div class="rsub">Vorteil</div><div class="li">Größte Faktenbasis</div>
+                <div class="rsub">Risiko</div><div class="li">Keine Gesamtsumme vorab</div>
+              </div>
+            </div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: Empfehlung A oder B? (aus Risikosicht B) · darf Option C überhaupt gezeigt werden?]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Der Festpreis steht vorab. Das gemeinsame Modell überprüft seine Grundlage in den ersten Wochen.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX C ═══════════════════════ -->
+      <section data-marker="C">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title">Von der Anforderung bis zum Test bleibt <span class="ac">jede Entscheidung nachvollziehbar</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="chain">
+              <div class="st hel sm">Anforderung</div><div class="cx solid">→</div>
+              <div class="st fin sm">Service</div><div class="cx solid">→</div>
+              <div class="st grey sm">heutige Umsetzung</div><div class="cx solid">→</div>
+              <div class="st fin sm">Migrationseinheit</div><div class="cx solid">→</div>
+              <div class="st epam sm">Umsetzung im Zielsystem</div><div class="cx solid">→</div>
+              <div class="st hel sm">Test</div>
+            </div>
+            <div style="text-align:center; margin-top:20px;">
+              <span class="chip navy">Durchgehende Referenz: Anforderung &amp; Abnahmekriterium</span>
+            </div>
+            <div style="text-align:center; margin-top:22px;">
+              <span class="beispiel" style="position:static; max-width:100%;"><span class="bl">BEISPIEL</span>Abrechnungsbetrag von der Anforderung bis zum Test</span>
+            </div>
+            <div class="note" style="text-align:center; margin-top:8px;">Die Kette wird aus dem Modell abgeleitet, nicht von Hand gepflegt.</div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Von der Anforderung bis zum Test bleibt jede Entscheidung nachvollziehbar.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX D ═══════════════════════ -->
+      <section data-marker="D">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title">KI erzeugt den Code – die <span class="ac">Freigaben gehören Ihren Fachleuten</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="chain">
+              <div class="st hel sm">Spezifikation</div>
+              <div class="cx solid" style="color:var(--red);">◆ Freigabe 1 · Fachbereich</div>
+              <div class="st epam sm">KI-gestützt: Code und Tests erzeugt</div>
+              <div class="cx solid">→</div>
+              <div class="st epam sm">Abgleich mit heutigem Verhalten</div>
+              <div class="cx solid" style="color:var(--red);">◆ Freigabe 2 · Fachbereich</div>
+              <div class="st hel sm">Abnahme</div>
+            </div>
+            <div style="display:flex; gap:12px; justify-content:center; margin-top:24px;">
+              <div class="chip">Zwei Phasen, zwei Freigaben</div>
+              <div class="chip">Review nach Verantwortlichem und Fachfragment</div>
+              <div class="chip">Nicht Zeile für Zeile</div>
+            </div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Alles dazwischen ist KI-gestützt. Die beiden Freigaben gehören Ihren Fachleuten.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX E ═══════════════════════ -->
+      <section data-marker="E">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title">Wir schalten Welle für Welle um – mit <span class="ac">eingebauter Rückfalloption</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div class="waveband" style="max-width:78%; margin:0 auto;">
+              <div class="chev">Welle 1</div><div class="chev">Welle 2</div><div class="chev">Welle n</div><div class="chev host">Host aus</div>
+            </div>
+            <div style="display:flex; gap:12px; justify-content:center; margin-top:26px; flex-wrap:wrap;">
+              <div class="chip navy">Rückfalloption eingebaut</div>
+              <div class="chip navy">Jeder Schritt belegt</div>
+              <div class="chip navy">Host-Anteil sinkt je Welle</div>
+              <div class="chip navy">Ein Nachweis für DORA</div>
+            </div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Wir schalten Welle für Welle um. Die Rückfalloption ist eingebaut, jeder Schritt belegt.</span></div>
+      </section>
+
+      <!-- ═══════════════════════ APPENDIX F ═══════════════════════ -->
+      <section data-marker="F">
+        <div class="rl"><span class="r-fin">finius</span> <span class="sep">·</span> <span class="r-epam">EPAM</span> <span class="sep">·</span> <span class="r-hel">Helaba</span></div>
+        <h2 class="title">Technik und Fachlichkeit verknüpft – erst dann sind die <span class="ac">Systeme verstanden</span>.</h2>
+        <div class="stage">
+          <div class="body">
+            <div style="display:flex; gap:14px; align-items:stretch;">
+              <div class="panel" style="flex:1; border-color:var(--fin);">
+                <div class="phead" style="color:var(--fin);">Fachlichkeit · finius</div>
+                <div class="col2">
+                  <div class="st fin sm">Abrechnungsbetrag</div>
+                  <div class="st fin sm">Wertpapiergeschäft</div>
+                  <div class="st fin sm">Rundungsregel</div>
+                  <div class="st fin sm">Kunde</div>
+                </div>
+              </div>
+              <div style="width:14%; display:flex; align-items:center; justify-content:center; color:var(--red); font-size:24px;">⇠⇢</div>
+              <div class="panel" style="flex:1; border-color:var(--epam);">
+                <div class="phead" style="color:var(--epam);">Technik · Estate Scanner</div>
+                <div class="col2">
+                  <div class="st epam sm">Programm</div>
+                  <div class="st epam sm">Tabelle / Spalte</div>
+                  <div class="st epam sm">Job</div>
+                  <div class="st epam sm">Schnittstelle</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="strip"></div>
+        </div>
+        <div class="tagbar"><span class="tag-confirm">[CONFIRM: Sprachen des Estate Scanners – Natural explizit benennen, falls Teil des Bestands.]</span></div>
+        <div class="kern"><span class="kl">Kernaussage</span><span class="kt">Erst wenn Technik und Fachlichkeit verknüpft sind, sind die Systeme verstanden.</span></div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script>
+    // Inject the top-left section marker and the three-part footer on every
+    // marked body/appendix slide. Cover and divider carry no data-marker.
+    document.querySelectorAll('.reveal .slides section[data-marker]').forEach(function (s) {
+      var m = s.dataset.marker;
+      var marker = document.createElement('div');
+      marker.className = 'marker'; marker.textContent = m; s.appendChild(marker);
+      var f = document.createElement('div');
+      f.className = 'deck-footer';
+      f.innerHTML = '<span>finius + EPAM · Vertraulich</span>' +
+                    '<span class="mid">Wertpapierkonsolidierung Helaba</span>' +
+                    '<span>' + m + '</span>';
+      s.appendChild(f);
+    });
+
+    Reveal.initialize({
+      width: 1280, height: 720, margin: 0,
+      center: false, hash: true, slideNumber: false, transition: 'slide',
+      plugins: [RevealNotes]
+    });
+  </script>
+</body>
+</html>
