@@ -1,0 +1,701 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TP ICAP — Knowledge Management</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/plugin/highlight/monokai.css">
+  <style>
+    /* Give mermaid figures maximum room on their slides */
+    .reveal .mermaid svg { max-height: 78vh; width: auto; }
+    .reveal section.diagram { padding: 0; }
+    .reveal section.diagram > h2 { font-size: 1.1em; margin-bottom: 0.25em; }
+    .reveal .lede { color: var(--epam-subtle); font-size: 0.9em; max-width: 800px; margin: 0.4em auto; }
+    .reveal .kb-key { color: var(--epam-blue); font-weight: 600; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════════════ 1 — COVER ═══════════════════════════ -->
+      <section>
+        <p style="color: var(--epam-subtle); font-size: 0.55em; letter-spacing: 0.15em; text-transform: uppercase; margin: 0 0 0.6em;">TP ICAP &mdash; Knowledge Management</p>
+        <h1 style="font-size: 1.7em; margin-bottom: 0.15em;">The Knowledge Base as a Repository</h1>
+        <h3 style="color: var(--epam-blue); font-weight: 400; margin-top: 0.4em; letter-spacing: 0;">A practical architecture for the AI-assisted modernization playbook</h3>
+        <p style="margin: 2em 0 0; font-size: 0.6em; color: #fff;"><strong>Companion to the AI-Assisted Modernization Playbook v2</strong></p>
+        <p style="margin: 0.2em 0 0; color: var(--epam-subtle); font-size: 0.55em;">Knowledge base construction &amp; operation across Phases 1&ndash;5 &middot; harness assembly in Phase 4</p>
+
+        <aside class="notes">
+          The frame for the whole talk: the KB is not a wiki in the sense that provokes the client's objection. It is a structured, version-controlled, machine-validated corpus with a conversational authoring surface and a published reading surface.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 2 — THE OBJECTION ═══════════════════════════ -->
+      <section class="small">
+        <h2>The objection</h2>
+        <p style="font-size: 0.85em;">The playbook treats the knowledge base as a <strong>programme asset</strong> &mdash; populated in Phase&nbsp;1, validated in Phase&nbsp;2, consumed for design in Phase&nbsp;3, used as the agent harness in Phase&nbsp;4, archived as compliance evidence in Phase&nbsp;5. Everything downstream depends on it.</p>
+
+        <div class="callout warning fragment fade-up" style="font-size: 0.82em; margin-top: 0.6em;">
+          The doubt is not conceptual. Nobody disputes the KB matters. The question is whether a delivery team &mdash; <strong>particularly its junior members</strong> &mdash; can actually initiate one and keep it structured over a multi-month programme.
+        </div>
+
+        <p class="fragment fade-up" style="font-size: 0.8em; margin-top: 0.5em;">The reference case everyone has in mind: <em>the abandoned Confluence space</em> &mdash; enthusiastically populated in the first six weeks, contradictory by month four, ignored by month six.</p>
+
+        <p class="fragment fade-up" style="font-size: 0.8em;">That concern is usually correct about wikis <em>as normally operated</em>. This paper describes an architecture in which it is not.</p>
+
+        <aside class="notes">
+          Concede the objection openly. It is right about wikis. The entire deck is the answer to why this is not that wiki.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 3 — TWO CLARIFICATIONS ═══════════════════════════ -->
+      <section class="small">
+        <h2>Two clarifications up front</h2>
+        <div class="card-grid cols-2" style="margin-top: 0.5em; font-size: 0.72em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="margin-bottom: 0.4em;">Initiation &ne; structure</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Conflating them makes both look harder. <strong>Initiation</strong> is solved by Phase&nbsp;1 extraction pipelines &mdash; agents draft KB entries from code, schemas, artefacts; humans validate. If a junior faces an empty wiki, the pipeline failed. The genuine problem is the second: keeping the corpus <span class="kb-key">consistent, findable, trustworthy</span> as it grows and changes.</p>
+          </div>
+          <div class="card accent-teal fragment fade-up">
+            <h4 style="margin-bottom: 0.4em;">The graph is the right long-term answer &mdash; and the wrong start</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Graph extraction and traversal deliver real value at portfolio scale. They also impose a modelling burden when a programme can least absorb it. The architecture <strong>defers the graph without foreclosing it</strong> &mdash; the structure a graph needs is authored from day one, in a form a later graph build can parse.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          These two clarifications frame everything: we are not solving initiation (the pipeline does), and we are not building a graph yet (but we author graph-ready structure).
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 4 — THE SHAPE OF THE ANSWER ═══════════════════════════ -->
+      <section class="small">
+        <h2>The shape of the answer</h2>
+        <div class="callout fragment fade-up" style="text-align: center; font-size: 1.05em; margin-top: 0.4em;">
+          The knowledge base is a <strong>git repository of markdown files</strong> with structured <strong>YAML frontmatter</strong>.
+        </div>
+        <p style="font-size: 0.76em; margin-top: 0.4em;">Structure lives in the header; readability lives in the body; neither compromises the other. Around that core sit four mechanisms:</p>
+        <div class="card-grid cols-2" style="font-size: 0.66em; margin-top: 0.3em;">
+          <div class="card fragment fade-up"><h4 style="margin-bottom: 0.3em;">Skill / agent layer</h4><p style="margin:0; color: var(--epam-subtle);">Structural correctness produced by tooling, not demanded of contributors.</p></div>
+          <div class="card fragment fade-up"><h4 style="margin-bottom: 0.3em;">CI enforcement</h4><p style="margin:0; color: var(--epam-subtle);">On every PR &mdash; correctness guaranteed, not merely encouraged.</p></div>
+          <div class="card fragment fade-up"><h4 style="margin-bottom: 0.3em;">Ingestion pipeline</h4><p style="margin:0; color: var(--epam-subtle);">Builds a filterable index + embedding store on merge, exposed via MCP.</p></div>
+          <div class="card fragment fade-up"><h4 style="margin-bottom: 0.3em;">Published HTML</h4><p style="margin:0; color: var(--epam-subtle);">Stakeholders who never open git can read, review, and sign off.</p></div>
+        </div>
+        <aside class="notes">
+          One sentence carries most of the design. The four mechanisms are the rest of the talk.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 5 — FIGURE 1 ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>Figure 1 &mdash; The knowledge base in its lifecycle position</h2>
+        <pre class="mermaid">
+flowchart TB
+
+    subgraph WRITE["✎ AUTHORING SURFACE"]
+        direction LR
+        SK["<b>Skill / agent layer</b><br/><span style='font-size:11px'>asks the questions · proposes vocabulary<br/>generates frontmatter · opens the PR</span>"]
+        MAN["<b>Direct edit</b><br/><span style='font-size:11px'>IDE · paste · other agents<br/>the path that bypasses the skills</span>"]
+    end
+
+    subgraph GATE["⊖ ENFORCEMENT — required status checks"]
+        CI["<b>CI on every pull request</b><br/><span style='font-size:11px'>frontmatter schema · controlled vocabulary<br/>fragment IDs · link integrity · split rule</span>"]
+    end
+
+    subgraph CORE["◆ SOURCE OF TRUTH"]
+        REPO["<b>Git repository</b><br/><span style='font-size:11px'>markdown bodies · YAML frontmatter<br/>vocabularies · conventions · skills<br/>fragment-ID sidecar</span>"]
+    end
+
+    subgraph BUILD["⚙ INGESTION — on merge to main"]
+        direction LR
+        CHUNK["<b>Structural chunking</b><br/><span style='font-size:11px'>split on headings · heading path<br/>frontmatter copied to chunks</span>"]
+        STORE["<b>Index + vector store</b><br/><span style='font-size:11px'>frontmatter as columns<br/>embeddings · model version pinned</span>"]
+        SITE["<b>Published HTML</b><br/><span style='font-size:11px'>badge strip · link graph<br/>coverage view</span>"]
+    end
+
+    subgraph READ["▷ CONSUMPTION SURFACES"]
+        direction LR
+        MCP["<b>MCP server</b><br/><span style='font-size:11px'>filter-only → harness (pinned)<br/>filter+rank → interactive</span>"]
+        HUMAN["<b>Humans</b><br/><span style='font-size:11px'>BAs · SMEs · architects<br/>client stakeholders · gate reviews</span>"]
+    end
+
+    subgraph PHASES["▤ PLAYBOOK PHASES — what each does with the KB"]
+        direction LR
+        P1["<b>Phase 1</b><br/>Discovery<br/><span style='font-size:11px'>agents draft<br/>humans validate</span>"]
+        P2["<b>Phase 2</b><br/>Baseline<br/><span style='font-size:11px'>cross-validated<br/>vs. behaviour</span>"]
+        P3["<b>Phase 3</b><br/>Design<br/><span style='font-size:11px'>readiness gate<br/>bounded contexts</span>"]
+        P4["<b>Phase 4</b><br/>Execution<br/><span style='font-size:11px'>the agent<br/>harness</span>"]
+        P5["<b>Phase 5</b><br/>Cutover<br/><span style='font-size:11px'>evidence trail<br/>archived</span>"]
+    end
+
+    SK --> CI
+    MAN --> CI
+    CI -->|"merge"| REPO
+    CI -.->|"reject"| SK
+
+    REPO --> CHUNK
+    CHUNK --> STORE
+    REPO --> SITE
+
+    STORE --> MCP
+    SITE --> HUMAN
+
+    MCP --> P4
+    HUMAN --> P3
+
+    P1 -.->|"drafts"| SK
+    P2 -.->|"corrections"| SK
+    P4 -.->|"loop 3 · knowledge defects"| SK
+    P5 -.->|"reads"| REPO
+
+    CODE["<b>Codebase repo</b><br/><span style='font-size:11px'>staleness detectors:<br/>source_refs moved · cross-context divergence</span>"]
+    CODE -.->|"needs_review → curator queue"| SK
+
+    CUR(["<b>Curator</b> — owns schema, vocabularies, split rule, staleness triage · ~0.5 FTE on pilot"])
+    CUR -.- REPO
+
+    classDef write fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#1f2937
+    classDef gate fill:#fef2f2,stroke:#b91c1c,stroke-width:2px,color:#1f2937
+    classDef core fill:#fffbeb,stroke:#b45309,stroke-width:3px,color:#1f2937
+    classDef build fill:#eff6ff,stroke:#1d4ed8,stroke-width:2px,color:#1f2937
+    classDef read fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#1f2937
+    classDef phase fill:#f8fafc,stroke:#475569,stroke-width:1px,color:#1f2937
+    classDef sig fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#1f2937
+    classDef cur fill:#ffffff,stroke:#b45309,stroke-width:1px,color:#78350f
+
+    class SK,MAN write
+    class CI gate
+    class REPO core
+    class CHUNK,STORE,SITE build
+    class MCP,HUMAN read
+    class P1,P2,P3,P4,P5 phase
+    class CODE sig
+    class CUR cur
+        </pre>
+        <aside class="notes">
+          The repository is the single source of truth; everything else is a surface onto it. Two authoring paths converge on one enforcement gate. Ingestion runs on merge, not PR, so unreviewed content never reaches the store. Dotted lines are feedback, not flow &mdash; there is one way in regardless of what triggered the change.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 6 — FRONTMATTER ═══════════════════════════ -->
+      <section class="smaller">
+        <h2>Frontmatter: structure without ceremony</h2>
+        <div class="columns" style="align-items: flex-start;">
+          <div style="flex: 1.1;">
+            <pre><code class="language-yaml" data-trim data-noescape>kb_id: auth-frontend-session
+category: 2                    # business logic &amp; domain
+contexts: [identity, checkout]
+layers: [frontend]
+concerns: [authentication, session]
+source_refs:
+  - src/web/auth/SessionManager.ts:44-190
+validation: sme-validated
+last_reviewed: 2026-06-11
+related: [auth-api-token-validation]</code></pre>
+          </div>
+          <div style="flex: 0.9; font-size: 0.8em; text-align: left;">
+            <ul class="compact">
+              <li><code>category</code> &mdash; maps to the five KB content categories</li>
+              <li><code>contexts</code> &mdash; binds to Phase&nbsp;3 bounded contexts; drives harness assembly</li>
+              <li><code>layers</code> / <code>concerns</code> &mdash; the retrieval axes</li>
+              <li><code>source_refs</code> &mdash; traceability + staleness detector</li>
+              <li><code>validation</code> &mdash; pending / validated / sme-validated, queryable</li>
+            </ul>
+          </div>
+        </div>
+        <div class="callout fragment fade-up" style="font-size: 0.78em; margin-top: 0.3em;">
+          <strong>Controlled vocabularies are the load-bearing detail.</strong> <code>layers</code>, <code>concerns</code>, <code>contexts</code> draw from fixed, curator-owned lists in the repo. Anything outside them <strong>fails CI</strong>. The difference between a taxonomy and a tag cloud (<code>auth</code>, <code>authn</code>, <code>login</code>&hellip;).
+        </div>
+        <aside class="notes">
+          The body is prose; the header is machine-checked. The vocabulary file is small, the enforcement is one CI check, and together they prevent the silent partial-retrieval failure of uncontrolled tags.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 7 — SPLIT RULE + LATENT GRAPH ═══════════════════════════ -->
+      <section class="small">
+        <h2>The splitting rule &amp; the latent graph</h2>
+        <div class="card-grid cols-2" style="font-size: 0.72em; margin-top: 0.4em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="margin-bottom: 0.4em;">The splitting rule</h4>
+            <p style="margin: 0 0 0.5em; color: var(--epam-subtle);">Failure mode: one page "Authentication" covering frontend session, API tokens, and directory integration. Three <code>layers</code> tags &mdash; every auth retrieval returns all of it.</p>
+            <p style="margin: 0; color: var(--epam-subtle);"><strong>Rule:</strong> if a page needs more than one <code>layers</code> value and content differs per layer, <span class="kb-key">split it</span>. Three single-layer leaves under a parent overview that carries no <code>layers</code> tag. <em>The overview is for humans; the leaves are for agents.</em></p>
+          </div>
+          <div class="card accent-teal fragment fade-up">
+            <h4 style="margin-bottom: 0.4em;">Frontmatter as latent graph</h4>
+            <p style="margin: 0 0 0.5em; color: var(--epam-subtle);">The frontmatter <strong>is a graph in adjacency-list form.</strong> <code>contexts</code> = typed edge to a bounded-context node. <code>source_refs</code> = typed edge to a code artefact. <code>related</code> = untyped edge to another page.</p>
+            <p style="margin: 0; color: var(--epam-subtle);">Building the graph later is <span class="kb-key">a parse of headers that already exist</span>, not a re-authoring. What is deferred is multi-hop traversal &mdash; real value at portfolio scale, essentially none during a pilot.</p>
+          </div>
+        </div>
+        <aside class="notes">
+          This is the argument that defers the graph without abandoning it. Deferring multi-hop traversal costs nothing and removes a modelling burden from the phase least able to carry it.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 8 — RETRIEVAL: FILTER FIRST ═══════════════════════════ -->
+      <section class="small">
+        <h2>Retrieval: filter first, rank second</h2>
+        <p style="font-size: 0.8em;">How does a <em>frontend</em>-relevant description of authentication reach the test generator working on frontend code &mdash; rather than the twelve backend authentication pages?</p>
+        <div class="card-grid cols-2" style="font-size: 0.72em; margin-top: 0.3em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="margin-bottom: 0.3em;">① Lexical filter over frontmatter</h4>
+            <p style="margin: 0; color: var(--epam-subtle);"><code>layers ∋ 'frontend' AND concerns ∋ 'authentication'</code>. Deterministic, auditable, reproducible. A <span class="kb-key">guardrail</span> &mdash; a backend page <em>cannot</em> reach a frontend generator, whatever the semantic layer does.</p>
+          </div>
+          <div class="card accent-teal fragment fade-up">
+            <h4 style="margin-bottom: 0.3em;">② Vector ranking within the set</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Semantic similarity reorders an <em>already-correct</em> candidate set, closing vocabulary gaps &mdash; "login flow" finds a page titled "session establishment" without anyone anticipating the synonym.</p>
+          </div>
+        </div>
+        <div class="callout fragment fade-up" style="text-align: center; font-size: 0.85em; margin-top: 0.5em;">
+          Filter-then-rank takes the <strong>guarantee</strong> from the first and the <strong>recall</strong> from the second. A filter cannot be talked into a near-miss; a similarity threshold can.
+        </div>
+        <aside class="notes">
+          The ordering matters more than either component. Lexical alone is precise but hostage to tagging discipline. Vector alone recalls but returns something plausible rather than nothing.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 9 — RETRIEVAL IS CODE ═══════════════════════════ -->
+      <section class="small">
+        <h2>Retrieval is code, not judgement</h2>
+        <p style="font-size: 0.82em;">The distinction that matters is not lexical vs. semantic. It is <strong>whether the context set was resolved by an algorithm or chosen by a model.</strong></p>
+        <p style="font-size: 0.78em;">An agentic system is never deterministic &mdash; even at temperature zero. So any design depending on an agent making consistent retrieval decisions is unsound. The response is to <span class="kb-key">move retrieval out of the model entirely</span>: MCP tools with defined parameters. The agent calls <code>kb_context(context_id, layers, concerns)</code> and receives a set. It decides what to <em>do</em>, not what to <em>read</em>.</p>
+        <div class="card-grid cols-2" style="font-size: 0.72em; margin-top: 0.3em;">
+          <div class="card accent-top fragment fade-up"><h4 style="margin-bottom: 0.3em;">Reproducible</h4><p style="margin:0; color: var(--epam-subtle);">Same call, same corpus revision → same set. Holds for vectors too, if the embedding model is pinned and a model change triggers a full rebuild. Semantic retrieval isn't unrepeatable &mdash; <em>drifting</em> embeddings are.</p></div>
+          <div class="card accent-teal fragment fade-up"><h4 style="margin-bottom: 0.3em;">Recorded</h4><p style="margin:0; color: var(--epam-subtle);">The resolved set is stored as generation evidence. Rerunning replays the recorded set rather than re-executing the query &mdash; the evidence trail survives a corpus that has since moved on.</p></div>
+        </div>
+        <div class="callout fragment fade-up" style="font-size: 0.74em; margin-top: 0.4em;">
+          <strong>Two paths, two tolerances.</strong> <span class="kb-key">Harness path</span> &mdash; resolves once at context entry, pins, records; a missing page fails loudly. <span class="kb-key">Interactive path</span> &mdash; a BA exploring; filter-then-rank, no pinning, a false positive costs seconds. Same corpus, same tools; what differs is whether the result is pinned and recorded.
+        </div>
+        <aside class="notes">
+          This is the conceptual spine of the whole design and it recurs in the graph outlook: reach is fine, judgement in the retrieval path is not.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 10 — FIGURE 2 ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>Figure 2 &mdash; Filter first, rank second</h2>
+        <pre class="mermaid">
+flowchart LR
+
+    subgraph ASK["◷ THE QUERY"]
+        Q["<b>Frontend test generator</b><br/><span style='font-size:11px'>working on a component that<br/>touches the login screen</span>"]
+    end
+
+    subgraph F1["① LEXICAL FILTER — deterministic, auditable"]
+        FLT["<b>Frontmatter predicate</b><br/><span style='font-size:11px'>layers ∋ 'frontend'<br/>AND concerns ∋ 'authentication'</span>"]
+        OUT1["<b>Candidate set</b><br/><span style='font-size:11px'>3 pages — reproducible,<br/>a reviewer can run it by hand</span>"]
+    end
+
+    subgraph F2["② SEMANTIC RANK — recall, within the guardrail"]
+        VEC["<b>Vector similarity</b><br/><span style='font-size:11px'>closes vocabulary gaps<br/>'login flow' finds 'session establishment'</span>"]
+    end
+
+    subgraph PATHS["▷ TWO PATHS, TWO TOLERANCES"]
+        direction TB
+        HARN["<b>Harness path</b> — pinned and recorded<br/><span style='font-size:11px'>resolved once at context entry · set stored as evidence<br/>a missing page fails loudly</span>"]
+        INT["<b>Interactive path</b> — not pinned<br/><span style='font-size:11px'>BA exploring while authoring a spec<br/>human judges relevance · false positive costs seconds</span>"]
+    end
+
+    subgraph CORPUS["▤ THE CORPUS"]
+        direction TB
+        HIT["<b>auth-frontend-session</b><br/><span style='font-size:11px'>layers: [frontend]<br/>concerns: [authentication, session]</span>"]
+        MISS["<b>auth-api-token-validation</b><br/><span style='font-size:11px'>layers: [api]<br/>— structurally unreachable</span>"]
+        MISS2["<b>auth-directory-integration</b><br/><span style='font-size:11px'>layers: [backend]<br/>— structurally unreachable</span>"]
+        PARENT["<b>authentication</b> (overview)<br/><span style='font-size:11px'>no layers tag — for humans,<br/>never enters a harness</span>"]
+    end
+
+    Q --> FLT
+    FLT --> OUT1
+    OUT1 --> HARN
+    OUT1 --> VEC
+    VEC --> INT
+
+    HIT -.->|"passes"| FLT
+    MISS -.->|"excluded"| FLT
+    MISS2 -.->|"excluded"| FLT
+    PARENT -.->|"excluded"| FLT
+
+    classDef ask fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#1f2937
+    classDef filt fill:#eff6ff,stroke:#1d4ed8,stroke-width:3px,color:#1f2937
+    classDef rank fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#1f2937
+    classDef path fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#1f2937
+    classDef good fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#1f2937
+    classDef bad fill:#fef2f2,stroke:#b91c1c,stroke-width:1px,color:#6b7280
+    classDef neutral fill:#fffbeb,stroke:#b45309,stroke-width:1px,color:#1f2937
+
+    class Q ask
+    class FLT,OUT1 filt
+    class VEC rank
+    class HARN,INT path
+    class HIT good
+    class MISS,MISS2 bad
+    class PARENT neutral
+        </pre>
+        <aside class="notes">
+          The ordering is the design. The filter is a guardrail; backend and API pages are structurally unreachable from a frontend query. The parent overview is excluded by having no layers tag. Semantic ranking reorders rather than admits. The right-hand split is about pinning, not mechanism.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 11 — CHUNKING & FRAGMENT IDS ═══════════════════════════ -->
+      <section class="small">
+        <h2>Chunking &amp; fragment addressing</h2>
+        <div class="card-grid cols-2" style="font-size: 0.7em; margin-top: 0.4em;">
+          <div class="card accent-top fragment fade-up">
+            <h4 style="margin-bottom: 0.3em;">Structural chunking</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Someone wrote that <code>##</code> deliberately. Parse to AST, split on <code>##</code>, fall back to <code>###</code> over budget. Each chunk carries its heading path &mdash; <code>Authentication &gt; Token Refresh &gt; Failure Modes</code> &mdash; and inherits parent frontmatter, or filter-then-rank breaks at chunk level. <strong>Tables and code blocks are never split.</strong></p>
+          </div>
+          <div class="card accent-teal fragment fade-up">
+            <h4 style="margin-bottom: 0.3em;">Fragment IDs</h4>
+            <p style="margin: 0; color: var(--epam-subtle);">Stable addresses: <code>kb://auth-frontend-session#p-0f3a91</code>. IDs are <span class="kb-key">content-derived</span> (a hash of normalised text), never positional &mdash; positional IDs renumber on insertion and rot every link. A <code>file → fragment_id → char_range</code> sidecar lets a spec cite a paragraph and a reviewer resolve it.</p>
+          </div>
+        </div>
+        <div class="callout fragment fade-up" style="font-size: 0.72em; margin-top: 0.4em;">
+          <strong>Where encoders earn their place</strong> &mdash; overflow splitting (a section with no subheadings), section summaries, <span class="kb-key">vocabulary-drift detection</span> (embed vs. the <code>concerns</code> centroid, flag outliers), tag proposal. One constraint: <strong>encoder output is advisory, never load-bearing for the harness path.</strong>
+        </div>
+        <aside class="notes">
+          Paragraph is the right granularity floor. Structural chunking is deterministic and reviewable; encoder-derived splits and tags are suggestions a human ratifies before they affect what a generation agent sees.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 12 — AUTHORING: THE SKILL LAYER ═══════════════════════════ -->
+      <section class="small">
+        <h2>Authoring: the skill layer</h2>
+        <p style="font-size: 0.82em;">The direct answer to the objection &mdash; and it inverts the premise. Contributors do not, for the most part, author raw markdown with hand-written YAML. <strong>They invoke a skill.</strong></p>
+        <p style="font-size: 0.78em;">The skill asks the questions that determine placement and tagging, proposes vocabulary from the controlled lists, generates well-formed frontmatter, computes fragment IDs, places the file, and opens a PR. <span class="kb-key">A junior does not need to have internalised the taxonomy</span> &mdash; they answer questions about what they are documenting.</p>
+        <div class="callout warning fragment fade-up" style="font-size: 0.78em; margin-top: 0.4em;">
+          <strong>Skills are the happy path; CI is the guarantee.</strong> Someone will edit in an IDE, use a different agent, paste under deadline. If skills are the only enforcement, the architecture has reintroduced reliance on discipline with extra steps.
+        </div>
+        <p class="fragment fade-up" style="font-size: 0.72em; margin-top: 0.4em;">Every PR runs required checks: <span class="kb-key">frontmatter schema · controlled vocabulary · fragment-ID + sidecar consistency · link integrity · split-rule violations</span>. Skills make compliance easy; CI makes it true.</p>
+        <aside class="notes">
+          The repository defines its own rules &mdash; conventions, vocabularies, skills, and content in one versioned artefact. That is what makes the KB portable to the next project without a platform migration.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 13 — THE CURATOR ROLE ═══════════════════════════ -->
+      <section class="small">
+        <h2>The curator role</h2>
+        <p style="font-size: 0.82em;">What converts the architecture from a design into an operating system. A named role with hours attached:</p>
+        <div class="icon-grid fragment fade-up" style="font-size: 0.68em; margin-top: 0.3em;">
+          <div class="icon-item"><span class="icon">📐</span><span class="icon-label">Schema &amp; vocabulary ownership</span></div>
+          <div class="icon-item"><span class="icon">✂️</span><span class="icon-label">Split-rule enforcement</span></div>
+          <div class="icon-item"><span class="icon">🔁</span><span class="icon-label">Duplicate resolution</span></div>
+          <div class="icon-item"><span class="icon">📥</span><span class="icon-label">Feedback-protocol processing</span></div>
+          <div class="icon-item"><span class="icon">⏳</span><span class="icon-label">Staleness-queue triage</span></div>
+        </div>
+        <div class="stat fragment fade-up" style="margin-top: 0.4em;">
+          <div class="stat-value">~0.5 FTE</div>
+          <div class="stat-label">during a pilot &mdash; less on follow-on projects as vocabulary stabilises</div>
+        </div>
+        <div class="callout warning fragment fade-up" style="font-size: 0.78em; margin-top: 0.3em;">
+          Underestimating this role &mdash; and the CI work that supports it &mdash; is <strong>the most likely cause of failure</strong>. Both are more effort than the ingestion pipeline.
+        </div>
+        <aside class="notes">
+          Say this plainly to the client. The technology is the easy part. The curator and CI are where programmes that skip them regress to the abandoned-wiki failure mode.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 14 — TOOLCHAIN ═══════════════════════════ -->
+      <section class="smaller">
+        <h2>Toolchain &mdash; assembles on AWS, substitutions at every layer</h2>
+        <table style="width: 96%; font-size: 0.82em; margin-top: 0.3em;">
+          <thead><tr><th>Layer</th><th>Choice</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Revision control</strong></td><td>Git + markdown as source of truth</td><td>Blame, diffs, PR-based review, CI hooks. A page changes via PR or it does not change.</td></tr>
+            <tr><td><strong>Ingestion</strong></td><td>Build job on <em>merge to main</em></td><td>Validate, compute IDs, chunk, embed, write. On merge not PR &rarr; unreviewed content stays out of the store.</td></tr>
+            <tr><td><strong>Index + vectors</strong></td><td>PostgreSQL + vector extension</td><td>Frontmatter → real columns (GIN indexes on tag arrays). Filter-then-rank is one SQL statement, no sync drift.</td></tr>
+            <tr><td><strong>Publication</strong></td><td>Static site → object storage + CDN</td><td>Badge strip, link graph, coverage view. Reviewable by BAs, SMEs, stakeholders who never open git.</td></tr>
+            <tr><td><strong>Agent access</strong></td><td>Thin MCP server over the store</td><td>Every retrieval is an algorithmic tool. The graph tools later extend this same contract.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout fragment fade-up" style="font-size: 0.8em; margin-top: 0.3em;">
+          <strong>The stack:</strong> git + CI + PostgreSQL/vector + managed embeddings + static site generation. The only genuinely custom components are the <span class="kb-key">fragment-ID pass</span> and the <span class="kb-key">MCP wrapper</span>.
+        </div>
+        <aside class="notes">
+          On managed RAG services: they don't parse YAML frontmatter and they own the chunking model, which conflicts with content-derived fragment IDs. Workable compromise — let the managed service chunk for retrieval, keep the fragment-ID sidecar for traceability. But where fragment IDs must be in the retrieval path, owning the pipeline is simpler.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 15 — STALENESS: THE GAP ═══════════════════════════ -->
+      <section class="small">
+        <h2>Staleness: the gap the loop misses</h2>
+        <p style="font-size: 0.82em;">The improvement loop captures every review action as signal, classifies the root cause, and feeds the correction back. Applied to knowledge defects it fixes wrong entries &mdash; but it is <strong>corrective</strong>, and bounded by what the pipeline provokes.</p>
+        <div class="callout warning fragment fade-up" style="font-size: 0.8em;">
+          A bounded context migrated in <strong>iteration 3</strong> changes shared authentication behaviour. The pages describing it for a context scheduled in <strong>iteration 9</strong> are now wrong. <span class="kb-key">No review action touches them for six iterations.</span> If the analyst doesn't notice, the wrong rule reaches a generation agent inside a harness that looks complete.
+        </div>
+        <div class="columns fragment fade-up" style="font-size: 0.74em; margin-top: 0.4em;">
+          <div class="card accent-top"><h4 style="margin-bottom: 0.3em;">Source reference staleness</h4><p style="margin:0; color: var(--epam-subtle);">A CI job in the <em>codebase</em> repo checks whether <code>source_refs</code> ranges still resolve / content hash changed. On a hit: label <code>needs_review</code>, open a curator-queue entry. No judgement about correctness.</p></div>
+          <div class="card accent-teal"><h4 style="margin-bottom: 0.3em;">Cross-context divergence</h4><p style="margin:0; color: var(--epam-subtle);">When a spec modifies behaviour under a <code>concerns</code> tag shared by other contexts, flag those pages. A query over frontmatter that already exists.</p></div>
+        </div>
+        <p class="fragment fade-up" style="font-size: 0.76em; margin-top: 0.3em;">Both detectors are small CI jobs feeding the <span class="kb-key">same</span> improvement loop &mdash; a knowledge-defect input, not a parallel process.</p>
+        <aside class="notes">
+          Silent drift is precisely the failure the KB exists to prevent, and it is invisible to a purely reactive loop. The fix is cheap proactive detection feeding the existing resolution path.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 16 — FIGURE 3 ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>Figure 3 &mdash; Detection and correction</h2>
+        <pre class="mermaid">
+flowchart TB
+
+    subgraph REACT["↻ CORRECTION — the improvement loop (reactive)"]
+        direction LR
+        R1["<b>Review action</b><br/><span style='font-size:11px'>spec rejected · behavioural diff failed<br/>code corrected · clean accept</span>"]
+        R2["<b>Classify root cause</b><br/><span style='font-size:11px'>knowledge defect · skill defect<br/>spec or ADR defect · model limit</span>"]
+        R3["<b>Propose · evaluate · publish</b><br/><span style='font-size:11px'>KB entry or skill update<br/>eval case blocks regression</span>"]
+    end
+
+    subgraph PROACT["⚠ DETECTION — CI, proactive"]
+        direction LR
+        D1["<b>Source reference staleness</b><br/><span style='font-size:11px'>source_refs range moved or<br/>content hash changed</span>"]
+        D2["<b>Cross-context divergence</b><br/><span style='font-size:11px'>spec modifies behaviour under a<br/>concerns tag shared by other contexts</span>"]
+    end
+
+    subgraph REJECT["✕ REJECTED — no fix, so not an alert"]
+        D3["<b>Coverage decay</b><br/><span style='font-size:11px'>pending pages untouched for N iterations<br/>— restates existing state · needs SME time<br/>a CI job cannot manufacture</span>"]
+    end
+
+    subgraph REPORT["▤ REPORTED INSTEAD — judgement, not alert"]
+        direction LR
+        RP1["<b>Coverage view</b><br/><span style='font-size:11px'>pending counts<br/>by bounded context</span>"]
+        RP2["<b>Phase 3 KB readiness gate</b><br/><span style='font-size:11px'>do gaps block design?</span>"]
+        RP3["<b>Harness readiness check</b><br/><span style='font-size:11px'>do gaps block <i>this</i> context<br/>entering execution?</span>"]
+    end
+
+    GAP["<b>The gap the loop misses</b><br/><span style='font-size:11px'>context migrated in iteration 3 changes shared auth behaviour ·<br/>pages for the context scheduled in iteration 9 are now wrong ·<br/>no review action touches them until a BA authors against them</span>"]
+
+    QUEUE["<b>needs_review</b><br/><span style='font-size:11px'>curator queue</span>"]
+
+    GAP -.->|"invisible to review-triggered correction"| PROACT
+
+    R1 --> R2
+    R2 --> R3
+    R3 -.->|"next iteration"| R1
+
+    D1 --> QUEUE
+    D2 --> QUEUE
+    QUEUE -->|"knowledge-defect input"| R2
+
+    D3 -.->|"demoted"| RP1
+    RP1 --> RP2
+    RP1 --> RP3
+
+    classDef react fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#1f2937
+    classDef proact fill:#fffbeb,stroke:#b45309,stroke-width:2px,color:#1f2937
+    classDef rej fill:#f8fafc,stroke:#94a3b8,stroke-width:1px,stroke-dasharray:4 3,color:#6b7280
+    classDef rep fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#1f2937
+    classDef gap fill:#fef2f2,stroke:#b91c1c,stroke-width:2px,color:#1f2937
+    classDef q fill:#ffffff,stroke:#b45309,stroke-width:2px,color:#1f2937
+
+    class R1,R2,R3 react
+    class D1,D2 proact
+    class D3 rej
+    class RP1,RP2,RP3 rep
+    class GAP gap
+    class QUEUE q
+        </pre>
+        <aside class="notes">
+          The loop is complete for what it covers but only turns when something is reviewed. Detectors feed the same loop rather than running beside it. The dashed box is the deliberately-excluded detector. The principle: detection where there is a fix, reporting where there is a judgement.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 17 — REJECTED DETECTOR ═══════════════════════════ -->
+      <section class="small">
+        <h2>What was considered and rejected</h2>
+        <p style="font-size: 0.82em;">A third detector &mdash; flagging pages stuck in <code>pending</code> across N iterations &mdash; was <strong>deliberately excluded.</strong></p>
+        <div class="callout warning fragment fade-up" style="font-size: 0.8em;">
+          It fails the criterion that separates a useful detector from noise: <strong>it has no fix.</strong> A coverage-decay hit resolves to observing that a pending page is still pending &mdash; which is what <code>pending</code> already means. It restates existing state as an alert.
+        </div>
+        <p class="fragment fade-up" style="font-size: 0.78em;">Worse, resolution needs <span class="kb-key">SME time</span> &mdash; the scarcest resource, the one thing CI cannot manufacture. The queue fills with unactionable items and the curator learns to ignore it, degrading the queue that also carries the <em>actionable</em> staleness hits. A detector that trains people to dismiss its own channel is worse than none.</p>
+        <div class="callout fragment fade-up" style="text-align: center; font-size: 0.9em; margin-top: 0.3em;">
+          <strong>Detection where there is a fix; reporting where there is a judgement.</strong>
+        </div>
+        <aside class="notes">
+          The information is still valuable — pending counts by context are rendered on the coverage view and examined at the Phase 3 readiness gate and the harness readiness check, where a human weighs gaps against SME availability.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 18 — WHY THIS ANSWERS THE OBJECTION ═══════════════════════════ -->
+      <section class="smaller">
+        <h2>Why this answers the objection</h2>
+        <table style="width: 96%; font-size: 0.85em; margin-top: 0.3em;">
+          <thead><tr><th>The original concern</th><th>The architecture's answer</th></tr></thead>
+          <tbody>
+            <tr><td>Juniors struggle to <strong>initiate</strong> the KB</td><td>Phase&nbsp;1 extraction agents draft; humans validate. Nobody faces a blank wiki.</td></tr>
+            <tr><td>Juniors struggle to keep it <strong>structured</strong></td><td>Editing through skills that generate correct structure; CI rejects anything else. Structure is a property of tooling, not discipline.</td></tr>
+            <tr><td>Wikis become <strong>inconsistent</strong></td><td>Controlled vocabularies enforced mechanically; split rule; named curator; automatic drift detection.</td></tr>
+            <tr><td>Wikis become <strong>stale</strong></td><td>Source-reference and divergence detectors feed the improvement loop's existing resolution path.</td></tr>
+            <tr><td>Fragments not <strong>findable</strong> by agents</td><td>Frontmatter filtering → precise + deterministic; semantic ranking closes gaps; fragment IDs make citations resolvable.</td></tr>
+          </tbody>
+        </table>
+        <div class="callout fragment fade-up" style="font-size: 0.8em; margin-top: 0.3em;">
+          This is <strong>not a wiki</strong> in the sense that provokes the objection. It is a structured, version-controlled, machine-validated corpus with a conversational authoring surface and a published reading surface. Markdown keeps it approachable &mdash; but <span class="kb-key">tooling and enforcement keep it correct.</span>
+        </div>
+        <aside class="notes">
+          This is the summary slide to land before the outlook. The reframing is the sentence to carry into the client conversation.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 19 — OUTLOOK: THE GRAPH TRANSITION ═══════════════════════════ -->
+      <section class="section-divider">
+        <h2>Outlook: the graph transition</h2>
+        <p>The architecture deliberately stops short of a knowledge graph. The transition is <strong>a parse, not a migration</strong> &mdash; the frontmatter is already an adjacency list. Walk the repo, emit nodes and edges, re-run on every merge. The corpus does not change. The authoring experience does not change. A second index sits alongside the lexical and vector ones, answering a class of question they cannot.</p>
+      </section>
+
+      <!-- ═══════════════════════════ 20 — FIGURE 4 ═══════════════════════════ -->
+      <section class="diagram">
+        <h2>Figure 4 &mdash; The latent graph, made explicit</h2>
+        <pre class="mermaid">
+flowchart LR
+
+    subgraph TODAY["◆ TODAY — frontmatter as adjacency list"]
+        direction TB
+        FM["<b>auth-frontend-session.md</b><br/><span style='font-size:11px'>contexts: [identity, checkout]<br/>layers: [frontend]<br/>concerns: [authentication, session]<br/>source_refs: [SessionManager.ts:44-190]<br/>related: [auth-api-token-validation]</span>"]
+    end
+
+    subgraph PARSE["⚙ BUILD STEP — a parse, not a migration"]
+        P["<b>Walk repo · emit nodes and edges</b><br/><span style='font-size:11px'>pages · fragments · contexts · vocabulary terms<br/>code artefacts · specs · ADRs<br/>re-run on every merge</span>"]
+    end
+
+    subgraph GRAPH["◈ TOMORROW — traversable graph"]
+        direction TB
+        N1(["<b>Page</b><br/>auth-frontend-session"])
+        N2(["<b>Context</b><br/>identity"])
+        N3(["<b>Context</b><br/>checkout"])
+        N4(["<b>Concern</b><br/>authentication"])
+        N5(["<b>Code</b><br/>SessionManager.ts"])
+        N6(["<b>Fragment</b><br/>#p-0f3a91"])
+        N7(["<b>Spec</b><br/>SPEC-114"])
+        N8(["<b>ADR</b><br/>ADR-007"])
+
+        N1 -->|"belongs_to"| N2
+        N1 -->|"belongs_to"| N3
+        N1 -->|"tagged"| N4
+        N1 -->|"extracted_from"| N5
+        N1 -->|"contains"| N6
+        N7 -->|"cites"| N6
+        N7 -->|"scoped_to"| N2
+        N8 -->|"constrains"| N2
+    end
+
+    subgraph GAIN["▷ WHAT TRAVERSAL ADDS"]
+        direction TB
+        G1["<b>Transitive impact</b><br/><span style='font-size:11px'>which contexts inherit a<br/>regulated-data obligation n hops out</span>"]
+        G2["<b>Blast radius</b><br/><span style='font-size:11px'>divergence detection generalised<br/>from one hop to n</span>"]
+        G3["<b>Evidence chains</b><br/><span style='font-size:11px'>code → spec → rule → legacy source<br/>as a query, not a research exercise</span>"]
+        G4["<b>Coverage as connectivity</b><br/><span style='font-size:11px'>not 'how many pending' but 'which contexts<br/>have no validated path to a scenario'</span>"]
+        G5["<b>Tool-mediated context</b><br/><span style='font-size:11px'>kb_neighbourhood · kb_impact · kb_evidence_path<br/>algorithmic traversal · reproducible and recorded<br/>reach beyond the pre-assembled harness</span>"]
+    end
+
+    FM --> P
+    P --> GRAPH
+    GRAPH --> GAIN
+
+    SIG["<b>Readiness signals</b> — corpus beyond ~1k pages · vocabulary stable · second or third project in the domain"]
+    SIG -.- P
+
+    classDef today fill:#fffbeb,stroke:#b45309,stroke-width:3px,color:#1f2937
+    classDef parse fill:#eff6ff,stroke:#1d4ed8,stroke-width:2px,color:#1f2937
+    classDef node fill:#f3e8ff,stroke:#7c3aed,stroke-width:2px,color:#1f2937
+    classDef ctx fill:#ecfdf5,stroke:#047857,stroke-width:2px,color:#1f2937
+    classDef gain fill:#f8fafc,stroke:#475569,stroke-width:2px,color:#1f2937
+    classDef future fill:#fdf2f8,stroke:#be185d,stroke-width:2px,color:#1f2937
+    classDef sig fill:#ffffff,stroke:#94a3b8,stroke-width:1px,stroke-dasharray:4 3,color:#6b7280
+
+    class FM today
+    class P parse
+    class N1,N6,N7,N8 node
+    class N2,N3,N4,N5 ctx
+    class G1,G2,G3,G4 gain
+    class G5 future
+    class SIG sig
+        </pre>
+        <aside class="notes">
+          The left box is a page authored today under the section-3 discipline — no graph modelling. The middle runs on merge alongside ingestion. The right cluster is what those fields become once parsed. The final gain is styled differently because it changes what agents can do, and holds only because traversal is exposed as tools with algorithmic implementations.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 21 — WHAT THE GRAPH UNLOCKS ═══════════════════════════ -->
+      <section class="small">
+        <h2>What the graph unlocks &mdash; and beyond Level 3</h2>
+        <p style="font-size: 0.8em;">Filter-then-rank answers <em>set-membership</em> questions. It cannot answer <em>traversal</em> questions, because relationships between pages are only implicit in shared tag values. Traversal is what matters as a portfolio matures &mdash; transitive impact, blast radius, end-to-end evidence chains, coverage as connectivity, cross-project pattern reuse.</p>
+        <div class="callout fragment fade-up" style="font-size: 0.78em;">
+          The playbook tops out at <strong>Level 3</strong> &mdash; an orchestrated pipeline with human review at stage gates. The ceiling is not generation quality; it is that <span class="kb-key">a pre-assembled harness bounds what an agent can see</span> to what someone decided in advance.
+        </div>
+        <p class="fragment fade-up" style="font-size: 0.78em; margin-top: 0.3em;">A graph changes that constraint &mdash; but not by letting the agent wander. <strong>Traversal is code, not judgement.</strong> <code>kb_neighbourhood</code>, <code>kb_impact</code>, <code>kb_evidence_path</code> are graph queries with fixed rules. What the graph adds is not autonomy but <span class="kb-key">reach</span>: the resolvable set extends along real relationships, and an empty impact set becomes <em>a fact, not a silence.</em></p>
+        <aside class="notes">
+          An agent walking a graph by its own judgement reintroduces exactly the non-determinism section 4 rules out. An agent calling a traversal tool gets a reproducible, recordable set. The remaining work is contract design — edge types, depth limits, ranking, evidence recording — engineering with known shape.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 22 — WHEN TO MAKE THE MOVE ═══════════════════════════ -->
+      <section class="small">
+        <h2>When to make the move</h2>
+        <p style="font-size: 0.8em;">Three readiness signals &mdash; none appear during a pilot:</p>
+        <div class="timeline fragment fade-up" style="margin-top: 0.6em; font-size: 0.7em;">
+          <div>
+            <h4>Corpus scale</h4>
+            <p style="color: var(--epam-subtle); margin: 0;">Below ~1,000 pages, tag filtering answers nearly every question and a graph is overhead. Traversal earns its cost when multi-hop relationships no longer fit in a curator's head.</p>
+          </div>
+          <div>
+            <h4>Vocabulary stability</h4>
+            <p style="color: var(--epam-subtle); margin: 0;">The graph inherits the taxonomy. Building it while <code>concerns</code> still churns means rebuilding the schema alongside it. Wait until vocabulary changes are rare.</p>
+          </div>
+          <div>
+            <h4>2nd / 3rd project</h4>
+            <p style="color: var(--epam-subtle); margin: 0;">Cross-project queries are the ones that pay for the modelling work. A single project rarely justifies it.</p>
+          </div>
+        </div>
+        <div class="callout fragment fade-up" style="text-align: center; font-size: 0.85em; margin-top: 0.6em;">
+          Until those signals appear, the frontmatter carries the structure and the graph stays latent. <strong>Waiting costs nothing</strong> &mdash; every page authored under this discipline is a page the graph can consume unchanged.
+        </div>
+        <aside class="notes">
+          This is the closing argument of the deferral thesis: the deferral is free because the structure is authored from day one.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 23 — OPEN QUESTIONS ═══════════════════════════ -->
+      <section class="small">
+        <h2>Open questions &mdash; decisions for Phase 3</h2>
+        <div class="card-grid cols-2" style="font-size: 0.7em; margin-top: 0.4em;">
+          <div class="card accent-top fragment fade-up"><h4 style="margin-bottom: 0.3em;">Vocabulary governance at portfolio scale</h4><p style="margin:0; color: var(--epam-subtle);">Some terms are genuinely shared (<code>authentication</code>, <code>audit</code>), some project-specific. The split between a portfolio vocabulary and project extensions needs an owner and a change process.</p></div>
+          <div class="card accent-top fragment fade-up"><h4 style="margin-bottom: 0.3em;">Curator continuity</h4><p style="margin:0; color: var(--epam-subtle);">The role assumes a named individual with sustained context. Handover &mdash; between or mid-project &mdash; is a real risk the architecture does not itself address.</p></div>
+          <div class="card accent-teal fragment fade-up"><h4 style="margin-bottom: 0.3em;">Client authoring participation</h4><p style="margin:0; color: var(--epam-subtle);">Do client SMEs author through the skill layer, or is their input captured via interview and authored by delivery? Changes the access model, review workflow, enforcement posture &mdash; per-engagement, with contractual implications.</p></div>
+          <div class="card accent-teal fragment fade-up"><h4 style="margin-bottom: 0.3em;">Migrating existing documentation</h4><p style="margin:0; color: var(--epam-subtle);">Most clients arrive with an existing wiki. Bulk conversion &mdash; extract, tag, split, validate &mdash; is a project in itself; scope it rather than assume it trivial.</p></div>
+        </div>
+        <aside class="notes">
+          Four items that require decisions during Phase 3 process definition. Flag them as open rather than pretend they are solved.
+        </aside>
+      </section>
+
+      <!-- ═══════════════════════════ 24 — CLOSING ═══════════════════════════ -->
+      <section>
+        <h1 style="font-size: 1.5em;">Structure in the header.<br>Readability in the body.</h1>
+        <p style="color: var(--epam-blue); font-size: 0.7em; margin-top: 0.8em;">Skills make compliance easy. CI makes it true. A curator keeps it honest.</p>
+        <p style="color: var(--epam-subtle); font-size: 0.55em; margin-top: 1.6em;">Companion to the AI-Assisted Modernization Playbook v2 &middot; Phases 1&ndash;5 &middot; harness assembly in Phase 4</p>
+        <aside class="notes">
+          Close on the reframing: this is not the wiki the objection is about. It happens to be authored in markdown — but approachability is not what keeps it correct. Tooling and enforcement do that.
+        </aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/markdown/markdown.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/highlight/highlight.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/math/math.js"></script>
+  <script src="../../templates/plugins/qrcode.js"></script>
+  <script src="../../templates/plugins/mermaid-init.js"></script>
+  <script>
+    Reveal.initialize({
+      hash: true,
+      slideNumber: 'c/t',
+      plugins: [RevealNotes, RevealMarkdown, RevealHighlight, RevealMath.KaTeX, RevealQRCode, RevealMermaid]
+    });
+  </script>
+</body>
+</html>

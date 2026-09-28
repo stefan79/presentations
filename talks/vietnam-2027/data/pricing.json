@@ -1,0 +1,110 @@
+{
+  "trip": {
+    "destination": "Vietnam",
+    "start_date": "2027-07-03",
+    "end_date": "2027-07-24",
+    "travel_days_inclusive": 22,
+    "vietnam_nights": 19,
+    "base_travelers": { "adults": 2, "children": 3, "total": 5 },
+    "optional_traveler": { "type": "adult", "label": "Schwägerin", "total": 1 }
+  },
+  "route": [
+    { "location": "Hanoi", "arrival": "2027-07-04", "departure": "2027-07-06", "nights": 2 },
+    { "location": "Hoi An / An Bang", "arrival": "2027-07-06", "departure": "2027-07-15", "nights": 9 },
+    { "location": "Quy Nhon / Bai Xep", "arrival": "2027-07-15", "departure": "2027-07-22", "nights": 7 },
+    { "location": "Hanoi", "arrival": "2027-07-22", "departure": "2027-07-23", "nights": 1 }
+  ],
+  "international_flights": {
+    "airline": "Vietnam Airlines",
+    "outbound": {
+      "flight": "VN34",
+      "route": "MUC-HAN",
+      "departure": "2027-07-03T13:35",
+      "arrival": "2027-07-04T05:20",
+      "direct": true,
+      "duration": "10h45m"
+    },
+    "return": {
+      "flight": "VN35",
+      "route": "HAN-MUC",
+      "departure": "2027-07-23T23:40",
+      "arrival": "2027-07-24T06:20",
+      "direct": true,
+      "duration": "11h40m"
+    },
+    "quoted_travelers": 6,
+    "quoted_total_eur": 5277,
+    "quoted_per_person_eur": 880,
+    "status": "observed_price"
+  },
+  "accommodation": {
+    "hanoi_1": {
+      "nights": 2,
+      "property": "Solare De Monte Hotel & Spa",
+      "bedrooms": 3,
+      "total_eur": 250,
+      "price_per_night_eur": 125,
+      "price_scope": "party_of_6",
+      "status": "observed_price"
+    },
+    "hoi_an_an_bang": {
+      "nights": 9,
+      "preferred_type": "4-bedroom villa",
+      "property": "Happy Villa Hoi An",
+      "bedrooms": 4,
+      "total_eur": 2681,
+      "price_per_night_eur": 297.89,
+      "price_scope": "party_of_6",
+      "status": "observed_price"
+    },
+    "quy_nhon_bai_xep": {
+      "nights": 7,
+      "preferred_type": "villa at Casa Marina Resort",
+      "property": "Casa Marina Resort",
+      "rooms": 3,
+      "total_eur": 1272,
+      "price_per_night_eur": 181.71,
+      "price_scope": "party_of_6",
+      "status": "observed_price"
+    },
+    "hanoi_2": {
+      "nights": 1,
+      "property": "Paragon Noi Bai Hotel & Pool",
+      "rooms": 3,
+      "total_eur": 212,
+      "price_per_night_eur": 212,
+      "price_scope": "party_of_6",
+      "status": "observed_price"
+    }
+  },
+  "food_budget": {
+    "currency": "EUR",
+    "assumptions": {
+      "street_food_per_person_eur": "2-5",
+      "local_cafe_breakfast_per_person_eur": "2-6",
+      "local_restaurant_per_person_eur": "6-12",
+      "nicer_restaurant_per_person_eur": "12-20"
+    },
+    "family_of_5_per_day_eur": 85,
+    "family_of_5_trip_total_eur": 1615,
+    "optional_adult_per_day_eur": 20,
+    "optional_adult_trip_total_eur": 380
+  },
+  "activity_budget": {
+    "family_of_5": { "hanoi_eur": 100, "hoi_an_eur": 450, "quy_nhon_eur": 300, "miscellaneous_eur": 100, "total_eur": 950 },
+    "optional_adult": { "hanoi_eur": 40, "hoi_an_eur": 150, "quy_nhon_eur": 100, "miscellaneous_eur": 100, "total_eur": 390 }
+  },
+  "domestic_transport": {
+    "HAN_DAD": { "total_eur": 600, "price_scope": "party_of_6", "status": "estimated" },
+    "HoiAn_QuyNhon": { "total_eur": 200, "price_scope": "party_of_6", "status": "estimated" },
+    "UIH_HAN": { "total_eur": 600, "price_scope": "party_of_6", "status": "estimated" },
+    "local_transfers": { "total_eur": 400, "price_scope": "party_of_6", "status": "estimated" }
+  },
+  "budget_method": {
+    "family_share_of_shared_costs": 0.8333333333,
+    "optional_adult_share_of_shared_costs": 0.1666666667,
+    "shared_cost_rule": "5/6 family, 1/6 optional adult",
+    "contingency_rate": 0.1
+  },
+  "contingency": { "rate": 0.1, "status": "derived" }
+}
