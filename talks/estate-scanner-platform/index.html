@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estate Scanner — from door-opener to platform</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Deck: Estate Scanner — from door-opener to platform
+       House style: EPAM dark kit. Internal EPAM funding decision.
+       COLOUR ROLES (meaning only): accent = Estate Scanner / this ask;
+       teal = citation/knowledge thread; neutrals = everything else.
+       STATE by SHAPE (survives greyscale): built = solid fill + solid border;
+       in progress = faint fill + solid border; planned = no fill + dashed border.
+       CONNECTORS: solid = works today · dashed = planned · dotted = built in
+       Skill Workbench · long-dash return = feedback loop.
+       ───────────────────────────────────────────────────────────── */
+    :root{
+      --accent:#00A0E3; --accent-bg:rgba(0,160,227,0.14); --accent-tint:rgba(0,160,227,0.06);
+      --teal:#00C9A7; --teal-bg:rgba(0,201,167,0.12);
+      --bg:#0D1117; --surface:#161B22; --surface2:#1B222B;
+      --subtle:#8B949E; --ink:#C9D1D9; --line:rgba(139,148,158,0.35);
+      --light:rgba(255,255,255,0.05); --neutral:#7A8794;
+      --r-main-font-size:24px;
+    }
+    .reveal::after{ display:none !important; }
+    .reveal .slides section{ padding:40px 48px 40px; height:720px; box-sizing:border-box; text-align:left; color:var(--ink); }
+    .reveal .slides section[data-marker]{ display:flex; flex-direction:column; }
+    /* reveal print-pdf zeroes padding + forces block — restore our frame in the export */
+    html.print-pdf .reveal .slides section[data-marker]{ padding:40px 48px 40px !important; display:flex !important; flex-direction:column !important; }
+
+    /* chrome */
+    .reveal .marker{ position:absolute; top:16px; left:48px; font-family:var(--r-heading-font); font-size:14px; color:var(--subtle); letter-spacing:0.08em; font-weight:600; }
+    .reveal .deck-footer{ position:absolute; bottom:14px; left:48px; right:48px; display:flex; gap:12px; font-size:11px; color:rgba(139,148,158,0.8); letter-spacing:0.02em; font-family:var(--r-heading-font); }
+    .reveal .deck-footer .mid{ margin:0 auto; color:var(--subtle); }
+    .reveal .deck-footer .right{ color:var(--subtle); }
+
+    /* title */
+    .reveal .title{ font-family:var(--r-heading-font); font-weight:700; color:#fff; font-size:30px; line-height:1.14; letter-spacing:-0.02em; margin:2px 0 0; max-width:97%; }
+    .reveal .title .ac{ color:var(--accent); }
+    .reveal .sub{ font-size:14px; color:var(--subtle); margin-top:6px; line-height:1.3; }
+    .reveal .stage{ flex:1; position:relative; margin-top:12px; min-height:548px; display:flex; flex-direction:column; }
+
+    /* body text */
+    .reveal .b{ font-size:20px; color:var(--ink); line-height:1.3; margin:5px 0; }
+    .reveal .b.ac{ color:var(--accent); font-weight:600; }
+    .reveal .lbl{ font-size:12px; color:var(--subtle); letter-spacing:0.02em; }
+    .reveal .lbl.caps{ text-transform:uppercase; letter-spacing:0.1em; font-weight:700; }
+    .reveal .cap{ font-size:12.5px; color:var(--subtle); line-height:1.3; }
+    .reveal .chiplbl{ font-size:11px; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:2px 8px; }
+
+    /* shapes + state encoding */
+    .reveal .box{ border-radius:7px; padding:8px 11px; font-size:14px; color:var(--ink); font-family:var(--r-heading-font); line-height:1.2; }
+    .reveal .box .t{ font-weight:700; color:#fff; font-size:15px; display:block; }
+    .reveal .box .d{ font-size:12px; color:var(--subtle); font-weight:400; display:block; margin-top:2px; }
+    .reveal .built{ background:var(--surface); border:1.5px solid var(--neutral); }
+    .reveal .prog{ background:rgba(255,255,255,0.03); border:1.5px solid var(--neutral); }
+    .reveal .plan{ background:transparent; border:1.5px dashed var(--neutral); }
+    .reveal .accent{ background:var(--accent-bg); border:1.5px solid var(--accent); }
+    .reveal .accent .t, .reveal .accent .d{ color:#CDEAFB; }
+    .reveal .accent.fill{ background:var(--accent); }
+    .reveal .accent.fill .t, .reveal .accent.fill .d{ color:#fff; }
+    .reveal .teal{ border-color:var(--teal) !important; }
+    .reveal .cyl{ border-radius:44px/13px; }
+
+    /* pills */
+    .reveal .pill{ border-radius:999px; padding:5px 12px; font-size:13px; font-family:var(--r-heading-font); font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+    .reveal .pill.built{ background:var(--surface); border:1.5px solid var(--neutral); color:var(--ink); }
+    .reveal .pill.prog{ background:rgba(255,255,255,0.03); border:1.5px solid var(--neutral); color:var(--ink); }
+    .reveal .pill.plan{ background:transparent; border:1.5px dashed var(--neutral); color:var(--subtle); }
+
+    /* ports (continuity device) */
+    .reveal .port{ position:absolute; right:-2px; background:var(--accent); color:#fff; font-size:9px; font-weight:700; font-family:var(--r-heading-font); padding:1px 5px; border-radius:3px; }
+
+    /* numbered call-out circle */
+    .reveal .num{ display:inline-flex; align-items:center; justify-content:center; width:22px; height:22px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--r-heading-font); font-weight:800; font-size:13px; flex:none; }
+
+    /* hexagon gate */
+    .reveal .hex{ width:26px; height:26px; background:rgba(255,255,255,0.03); border:1.5px solid var(--neutral); clip-path:polygon(25% 5%,75% 5%,100% 50%,75% 95%,25% 95%,0 50%); }
+
+    /* legend */
+    .reveal .legend{ position:absolute; right:0; bottom:0; font-size:12px; color:var(--subtle); font-family:var(--r-heading-font); display:flex; gap:12px; align-items:center; flex-wrap:wrap; justify-content:flex-end; }
+    .reveal .legend .sw{ display:inline-block; width:13px; height:11px; vertical-align:middle; margin-right:4px; }
+    .reveal .legend .sw.b{ background:var(--surface); border:1.5px solid var(--neutral); }
+    .reveal .legend .sw.p{ background:rgba(255,255,255,0.03); border:1.5px solid var(--neutral); }
+    .reveal .legend .sw.pl{ background:transparent; border:1.5px dashed var(--neutral); }
+    .reveal .legend .ln{ display:inline-block; width:20px; border-top:2px solid var(--neutral); vertical-align:middle; margin-right:4px; }
+    .reveal .legend .ln.d{ border-top-style:dashed; }
+    .reveal .legend .ln.dot{ border-top:1px dotted var(--neutral); }
+    .reveal .legend .ln.tl{ border-top-color:var(--teal); border-top-style:dashed; }
+
+    /* tags */
+    .reveal .tag{ font-size:10.5px; line-height:1.35; }
+    .reveal .tag-c{ color:#E35050; }      /* CONFIRM */
+    .reveal .tag-o{ color:#E3A000; }      /* owner / open */
+    .reveal .tagbar{ position:absolute; left:0; right:0; bottom:-2px; font-size:10px; color:#E35050; }
+
+    /* arrows (flex) */
+    .reveal .arw{ display:flex; align-items:center; }
+    .reveal .arw .ln{ flex:1; height:0; border-top:2px solid var(--neutral); }
+    .reveal .arw .hd{ width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--neutral); }
+    .reveal .arw.ac .ln{ border-top-color:var(--accent); } .reveal .arw.ac .hd{ border-left-color:var(--accent); }
+    .reveal .arw.tl .ln{ border-top-color:var(--teal); } .reveal .arw.tl .hd{ border-left-color:var(--teal); }
+    .reveal .arw.d .ln{ border-top-style:dashed; }
+
+    /* cover */
+    .reveal section.cover{ padding:0; overflow:hidden; }
+    .reveal .cover-bg{ position:absolute; inset:0; background:#0D1117 url('assets/cover-scanner.png') center/cover no-repeat; }
+    .reveal .cover-scrim{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(13,17,23,0.9) 0%, rgba(13,17,23,0.7) 34%, rgba(13,17,23,0.35) 60%, rgba(13,17,23,0.15) 100%); }
+    .reveal .cover-wrap{ position:absolute; left:56px; bottom:64px; width:64%; }
+    .reveal .cover-rule{ width:64px; height:3px; background:var(--teal); margin-bottom:20px; }
+    .reveal .cover h1{ font-family:var(--r-heading-font); font-size:56px; font-weight:800; color:#fff; margin:0; letter-spacing:-0.02em; line-height:1.05; }
+    .reveal .cover h1::after{ display:none; }
+    .reveal .cover-subt{ font-size:25px; color:#E6E9ED; margin-top:14px; font-weight:400; }
+    .reveal .cover-subt .ac{ color:var(--accent); }
+    .reveal .cover-meta{ font-size:14px; color:#9FB0BC; margin-top:20px; letter-spacing:0.02em; }
+    .reveal .cover-el{ position:absolute; left:56px; bottom:24px; font-size:11px; color:var(--subtle); font-family:var(--r-heading-font); }
+
+    /* section-divider (appendix) */
+    .reveal section.divider{ background:#0A0D12; }
+    .reveal .divider .kick{ font-size:14px; letter-spacing:0.18em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .reveal .divider h1{ color:#fff; font-size:44px; margin:0; font-weight:700; }
+    .reveal .divider h1::after{ content:""; display:block; width:52px; height:3px; background:var(--teal); margin-top:18px; }
+    .reveal .divider .sub{ color:#9FB0BC; font-size:16px; margin-top:20px; max-width:760px; line-height:1.55; }
+
+    /* tables */
+    .reveal table.grid{ width:100%; border-collapse:collapse; font-size:13px; }
+    .reveal table.grid th{ font-family:var(--r-heading-font); font-size:12.5px; color:#fff; text-align:left; padding:6px 8px; background:var(--light); border-bottom:1px solid var(--line); font-weight:700; }
+    .reveal table.grid td{ padding:5px 8px; border-bottom:1px solid rgba(139,148,158,0.14); color:var(--ink); vertical-align:middle; }
+    .reveal table.grid tr:nth-child(even) td{ background:rgba(255,255,255,0.02); }
+    .reveal .dot{ display:inline-block; width:16px; height:16px; border-radius:50%; }
+    .reveal .dot.on{ background:var(--accent); }
+    .reveal .dot.ext{ border:1.6px dashed var(--accent); }
+    .reveal .schip{ font-size:11px; font-family:var(--r-heading-font); font-weight:600; padding:3px 8px; border-radius:5px; text-align:center; display:inline-block; }
+    .reveal .schip.hi{ background:var(--neutral); color:#0D1117; }
+    .reveal .schip.mid{ background:rgba(139,148,158,0.35); color:#fff; }
+    .reveal .schip.lo{ background:rgba(139,148,158,0.14); color:var(--ink); }
+
+    /* chevrons */
+    .reveal .chev{ background:var(--surface); border:1.5px solid var(--neutral); color:var(--ink); font-size:13px; padding:9px 8px 9px 16px; position:relative;
+      clip-path:polygon(0 0, calc(100% - 12px) 0, 100% 50%, calc(100% - 12px) 100%, 0 100%, 12px 50%); }
+    .reveal .chev .t{ font-weight:700; color:#fff; display:block; font-size:13.5px; }
+    .reveal .chev .d{ color:var(--subtle); font-size:11.5px; }
+
+    /* code panels */
+    .reveal pre.code{ font-family:var(--r-code-font); font-size:11px; line-height:1.45; white-space:pre; color:var(--ink); background:#0B0E13; border:1px solid var(--line); border-radius:6px; padding:9px 11px; overflow:hidden; margin:0; }
+    .reveal pre.code .k{ color:#79C0E8; } .reveal pre.code .s{ color:#7EE0C6; } .reveal pre.code .c{ color:#6B7684; }
+
+    /* rating bar (slide 08) */
+    .reveal .rate{ display:flex; align-items:center; gap:6px; font-size:12.5px; margin:5px 0; }
+    .reveal .rate .rl{ width:96px; color:var(--subtle); }
+    .reveal .rate .rv{ flex:1; color:var(--ink); }
+    .reveal .seg{ display:inline-flex; gap:2px; }
+    .reveal .seg i{ width:14px; height:8px; border-radius:2px; background:rgba(139,148,158,0.25); display:inline-block; }
+    .reveal .seg i.on{ background:var(--accent); }
+    .reveal .ribbon{ position:absolute; top:-12px; left:50%; transform:translateX(-50%); background:var(--accent); color:#fff; font-family:var(--r-heading-font); font-weight:700; font-size:12px; padding:3px 12px; border-radius:12px; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════ COVER ═══════════════════ -->
+      <section class="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-wrap">
+          <div class="cover-rule"></div>
+          <h1>Estate Scanner:<br>from door-opener to platform</h1>
+          <div class="cover-subt">Nine pursuits run on a prototype. <span class="ac">Time to productise it.</span></div>
+          <div class="cover-meta">Foundation Team &amp; practice leadership · [CONFIRM: date] · EPAM Internal</div>
+        </div>
+        <div class="cover-el">EPAM</div>
+      </section>
+
+      <!-- ═══════════════════ 01 / 09 ═══════════════════ -->
+      <section data-marker="01 / 09">
+        <h2 class="title">Of four playbook tools, the Estate Scanner <span class="ac">is ready to productise first</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:24px; flex:1; min-height:0;">
+            <!-- maturity matrix -->
+            <div style="width:60%; display:flex; flex-direction:column;">
+              <!-- method band -->
+              <div class="built" style="border-radius:7px; padding:8px 12px; display:flex; align-items:center; gap:10px; margin-bottom:8px;">
+                <span style="font-weight:700; color:#fff; font-size:14px;">Method · EMEA AI Application Modernization Playbook</span>
+                <span class="chiplbl" style="margin-left:auto;">v1 in use · being packaged as skills</span>
+              </div>
+              <!-- column headers -->
+              <div style="display:flex; font-size:11px; color:var(--subtle); font-weight:700; text-align:center; border-bottom:1px solid var(--line); padding-bottom:4px;">
+                <div style="width:34%; text-align:left;">Component</div>
+                <div style="flex:1;">Concept</div><div style="flex:1;">PoC</div><div style="flex:1;">Shown to customers</div><div style="flex:1;">Production-grade</div>
+              </div>
+              <div class="lbl caps" style="margin:7px 0 3px;">Tools</div>
+              <!-- rows: bar ends at reached stage (4 stage columns each 16.5% of the 66% track) -->
+              <!-- track starts after 34% label col; each stage = 16.5% -->
+              <div style="display:flex; align-items:center; height:30px;"><div style="width:34%; font-size:13px; color:var(--ink);">Knowledge Base</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:9px; width:50%; background:var(--neutral); border-radius:3px;"></div></div></div>
+              <div style="display:flex; align-items:center; height:32px; background:var(--accent-tint); border-radius:6px;"><div style="width:34%; font-size:13px; color:#fff; font-weight:700; padding-left:4px;">Estate Scanner</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:10px; width:75%; background:var(--accent); border-radius:3px;"></div><div style="position:absolute; left:75%; top:50%; transform:translateY(-50%); height:12px; width:25%; border:1.5px dashed var(--accent); border-radius:3px;"></div><span style="position:absolute; right:-2px; top:-2px; font-size:11px; color:var(--accent); font-weight:700;">this ask</span></div></div>
+              <div style="display:flex; align-items:center; height:30px;"><div style="width:34%; font-size:13px; color:var(--ink);">Skill Workbench</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:9px; width:50%; background:var(--neutral); border-radius:3px;"></div></div></div>
+              <div style="display:flex; align-items:center; height:30px;"><div style="width:34%; font-size:13px; color:var(--ink);">Integrated Review Editor</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:12px; width:25%; border:1.5px dashed var(--neutral); border-radius:3px;"></div><span style="position:absolute; left:27%; top:50%; transform:translateY(-50%); font-size:10.5px; color:var(--subtle);">specified in “From Citation to Certification”</span></div></div>
+              <div class="lbl caps" style="margin:7px 0 3px;">Runtime</div>
+              <div style="display:flex; align-items:center; height:30px;"><div style="width:34%; font-size:13px; color:var(--ink);">Pipeline of skills &amp; agents</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:10px; width:50%; border-radius:3px; background:repeating-linear-gradient(45deg,var(--neutral),var(--neutral) 3px,transparent 3px,transparent 6px); border:1px solid var(--neutral);"></div><span style="position:absolute; left:52%; top:50%; transform:translateY(-50%); font-size:10.5px; color:var(--subtle);">validated by flywheel PoC</span></div></div>
+              <div style="display:flex; align-items:center; height:30px;"><div style="width:34%; font-size:13px; color:var(--ink);">Harness (factory runtime)</div><div style="flex:1; position:relative;"><div style="position:absolute; left:0; top:50%; transform:translateY(-50%); height:12px; width:25%; border:1.5px dashed var(--neutral); border-radius:3px;"></div><span style="position:absolute; left:27%; top:50%; transform:translateY(-50%); font-size:10.5px; color:var(--subtle);">Kubernetes factory in design</span></div></div>
+            </div>
+            <!-- argument column -->
+            <div style="width:40%; display:flex; flex-direction:column; padding-left:20px; border-left:1px solid var(--line);">
+              <div class="b">The playbook needs four tools, a harness, a pipeline and a method.</div>
+              <div class="b">Three tools have a working PoC.</div>
+              <div class="b">One is in front of customers every week.</div>
+              <div class="b ac">Time to make it production-grade.</div>
+              <div style="height:1px; background:var(--line); margin:12px 0;"></div>
+              <div class="lbl caps" style="margin-bottom:6px;">In flight</div>
+              <div style="display:flex; align-items:center; gap:8px; margin:4px 0;"><span class="cap" style="flex:1; color:var(--ink);">Flywheel PoC validates the method end to end</span><span class="chiplbl">Nikolai</span></div>
+              <div style="display:flex; align-items:center; gap:8px; margin:4px 0;"><span class="cap" style="flex:1; color:var(--ink);">Playbook completed and packaged as skills</span><span class="chiplbl">Yauhenia</span></div>
+              <div style="display:flex; align-items:center; gap:8px; margin:4px 0;"><span class="cap" style="flex:1; color:var(--ink);">Knowledge Base next iteration</span><span class="chiplbl">Nikola</span></div>
+              <div class="cap" style="margin-top:8px;">Still open: Integrated Review Editor and factory harness.</div>
+            </div>
+          </div>
+          <div class="tagbar"><span class="tag tag-c">[CONFIRM: Nikola continues the KB? · KB also shown to customers (ASML / TP ICAP)? · harness stage? · Skill Workbench shown to customers?]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 02 / 09 ═══════════════════ -->
+      <section data-marker="02 / 09">
+        <h2 class="title">The tools form one system, and the Estate Scanner <span class="ac">is the next link to harden</span></h2>
+        <div class="sub">Adapted from Figure 2 of “From Citation to Certification”. The citation is the thread from knowledge to code to evidence.</div>
+        <div class="stage">
+          <div style="display:flex; gap:14px; flex:1; min-height:0; align-items:stretch;">
+            <!-- left: knowledge + scanner -->
+            <div style="width:20%; display:flex; flex-direction:column; justify-content:center; gap:16px;">
+              <div class="built teal cyl box"><span class="t" style="color:var(--teal);">Knowledge Base</span><span class="d">markdown + frontmatter · fragments with anchors · named owners</span></div>
+              <div class="tl arw d" style="height:12px;"><div class="ln"></div><div class="hd"></div></div>
+              <div class="accent box" style="position:relative; border-width:2.5px;"><span class="t">Estate Scanner</span><span class="d">graph of the current estate: code · data · queues</span><span class="chiplbl" style="position:absolute; right:8px; bottom:6px; font-size:9px;">in 9 pursuits</span><span class="port" style="top:10px;">MCP</span><span class="port" style="top:34px;">UI</span></div>
+              <div class="cap" style="color:#CDEAFB;">Today: Java code graph with MCP &amp; UI. The ask: extract it, add scanner plugins, run it on-site.</div>
+            </div>
+            <!-- center: harness + workbench -->
+            <div style="flex:1; display:flex; flex-direction:column; gap:12px;">
+              <div class="plan" style="border-radius:9px; padding:10px; flex:1;">
+                <div style="display:flex; align-items:center; gap:8px; margin-bottom:8px;"><span class="lbl" style="font-weight:700;">Harness · factory runtime</span><span class="chiplbl" style="margin-left:auto;">pipeline PoC via flywheel</span></div>
+                <div style="display:flex; align-items:center; gap:6px;">
+                  <div class="prog box" style="flex:1; text-align:center;"><span class="t" style="font-size:13px;">Curate</span><span class="d">candidate citation set</span></div>
+                  <div class="hex"></div>
+                  <div class="prog box" style="flex:1; text-align:center;"><span class="t" style="font-size:13px;">Specify</span><span class="d">OpenSpec, cited reqs</span></div>
+                  <div class="hex"></div>
+                  <div class="prog box" style="flex:1; text-align:center;"><span class="t" style="font-size:13px;">Generate</span><span class="d">code · tests · docs, cited</span></div>
+                  <div class="hex"></div>
+                  <div class="prog box" style="flex:1; text-align:center;"><span class="t" style="font-size:13px;">Accept</span><span class="d">merge &amp; deploy</span></div>
+                </div>
+                <div class="cap" style="text-align:center; margin-top:6px;">↑ dotted: built &amp; evaluated in the Skill Workbench</div>
+              </div>
+              <div class="built box"><span class="t">Skill Workbench</span><span class="d">build · integrate · evaluate skills and agents · mocked MCP · citation tests</span></div>
+              <div class="cap" style="color:#CDEAFB;">Skills &amp; agents build new scanner and stitcher modules.</div>
+            </div>
+            <!-- right: downstream governance -->
+            <div style="width:24%; display:flex; flex-direction:column; justify-content:center; gap:12px;">
+              <div class="plan box"><span class="t">Certification &amp; assurance</span><span class="d">EU AI Act · model risk · DORA · ISO/IEC 42001</span></div>
+              <div class="plan cyl box"><span class="t">Lineage graph</span><span class="d">AST + citations + PR history</span></div>
+              <div class="plan box"><span class="t">Integrated Review Editor</span><span class="d">per-owner review slices · diff alignment</span></div>
+              <div class="cap" style="color:var(--teal);">⟲ feedback: a declined change points to the fragment to fix</div>
+            </div>
+          </div>
+          <div class="legend" style="position:static; margin-top:8px; border-top:1px solid var(--line); padding-top:6px;"><span><span class="sw b"></span>built</span><span><span class="sw p"></span>in progress</span><span><span class="sw pl"></span>planned</span><span><span class="ln"></span>works today</span><span><span class="ln d"></span>planned</span><span><span class="ln dot"></span>Skill Workbench</span><span style="color:var(--teal);">teal = citation thread</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 03 / 09 ═══════════════════ -->
+      <section data-marker="03 / 09">
+        <h2 class="title">Nine pursuits already <span class="ac">open with the Estate Scanner</span></h2>
+        <div class="stage">
+          <table class="grid" style="table-layout:fixed;">
+            <colgroup><col style="width:13%"><col style="width:30%"><col style="width:15%"><col style="width:8.4%"><col style="width:8.4%"><col style="width:8.4%"><col style="width:8.4%"><col style="width:8.4%"></colgroup>
+            <thead><tr>
+              <th>Account</th><th>How the scanner is used</th><th>Stage</th>
+              <th style="text-align:center;">Code &amp; data lineage</th><th style="text-align:center;">Migration &amp; wave planning</th><th style="text-align:center;">Portfolio &amp; estate view</th><th style="text-align:center;">Messaging (MQ)</th><th style="text-align:center;">Security telemetry</th>
+            </tr></thead>
+            <tbody>
+              <tr><td style="font-weight:700;">Deutsche Bank</td><td>MQ Series analysis before replacement, SaaS estate discovery</td><td><span class="schip hi">Accelerator announced</span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td style="text-align:center;"><span class="dot ext"></span></td><td style="text-align:center;"><span class="dot ext"></span></td><td></td></tr>
+              <tr><td style="font-weight:700;">Macquarie Bank</td><td>Workload and data lineage into the Databricks catalogue</td><td><span class="schip lo">Door opener</span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">ING DiBa</td><td>Portfolio management on the estate graph</td><td><span class="schip mid">Meeting scheduled</span></td><td></td><td></td><td style="text-align:center;"><span class="dot ext"></span></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">Zalando</td><td>SecOps with OTel and tracing: CSPM, SIEM, triage</td><td><span class="schip mid">Workshop</span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td><td style="text-align:center;"><span class="dot ext"></span></td></tr>
+              <tr><td style="font-weight:700;">Helaba</td><td>Demo integrated with FINIUS</td><td><span class="schip hi">Demo in €10M pursuit</span></td><td style="text-align:center;"><span class="dot on"></span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">Aberdeen</td><td>Cloud migration, chose the scanner over AI SDLC pitch</td><td><span class="schip lo">Demo requested</span></td><td style="text-align:center;"><span class="dot on"></span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">DBG</td><td>Part of the AI SDLC demo case</td><td><span class="schip mid">Meeting next week</span></td><td style="text-align:center;"><span class="dot on"></span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">Benchmark</td><td>C# port for migration wave planning</td><td><span class="schip hi">SoW in planning</span></td><td style="text-align:center;"><span class="dot on"></span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td></tr>
+              <tr><td style="font-weight:700;">Viessmann</td><td>Legacy stack rebuild</td><td><span class="schip lo">Demo planned</span></td><td style="text-align:center;"><span class="dot on"></span></td><td style="text-align:center;"><span class="dot on"></span></td><td></td><td></td><td></td></tr>
+            </tbody>
+          </table>
+          <div style="display:flex; align-items:center; margin-top:4px;">
+            <span class="cap" style="margin-left:auto;"><span class="dot on" style="width:12px;height:12px;vertical-align:middle;"></span> today's scanner &nbsp;&nbsp; <span class="dot ext" style="width:12px;height:12px;vertical-align:middle;"></span> needs an extension module</span>
+          </div>
+          <div style="background:var(--light); border-radius:6px; padding:7px 12px; margin-top:8px; font-size:13px; color:var(--ink);"><span style="color:var(--accent);">◗ Signal:</span> mentioned to MUFG, Nasdaq and BoA this month. All three are looking at semantic data layers.</div>
+          <div class="b" style="font-size:17px; margin-top:8px;">Today's scanner opens the door. <span style="color:var(--accent); font-weight:600;">Extension modules</span> close the deal.</div>
+          <div class="tagbar" style="bottom:-14px;"><span class="tag tag-c">[CONFIRM: show Helaba €10M here? · all nine names cleared? · “Benchmark” the account name? · capability dots rows 5–9]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 04 / 09 ═══════════════════ -->
+      <section data-marker="04 / 09">
+        <h2 class="title">Today's scanner already <span class="ac">traces a real system end to end</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:14px;">
+            <!-- hero -->
+            <div style="width:58%;">
+              <div style="border:1px solid var(--line); border-radius:8px; overflow:hidden; background:#0B0E13;"><img src="assets/ui-datatrace.png" alt="Data Trace" style="width:100%; height:250px; object-fit:cover; object-position:top left; margin:0; max-width:100%; display:block;"></div>
+              <div class="cap" style="margin-top:5px;">Data Trace: every table and column an operation touches, traced from code.</div>
+            </div>
+            <!-- 2x2 thumbnails -->
+            <div style="flex:1; display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px;">
+              <div style="position:relative; border:1px solid var(--line); border-radius:6px; overflow:hidden;"><img src="assets/ui-calltrace.png" style="width:100%; height:120px; object-fit:cover; object-position:top left; margin:0; display:block;"><div style="position:absolute; bottom:0; left:0; right:0; background:rgba(11,14,19,0.82); color:#fff; font-size:10.5px; padding:3px 6px;">Call Trace: how calls flow from an entry point</div></div>
+              <div style="position:relative; border:1px solid var(--line); border-radius:6px; overflow:hidden;"><img src="assets/ui-requirements.png" style="width:100%; height:120px; object-fit:cover; object-position:top left; margin:0; display:block;"><div style="position:absolute; bottom:0; left:0; right:0; background:rgba(11,14,19,0.82); color:#fff; font-size:10.5px; padding:3px 6px;">Requirements: business rules recovered for review, linked to code</div></div>
+              <div style="position:relative; border:1px solid var(--line); border-radius:6px; overflow:hidden;"><img src="assets/ui-commandlayer.png" style="width:100%; height:120px; object-fit:cover; object-position:top left; margin:0; display:block;"><div style="position:absolute; bottom:0; left:0; right:0; background:rgba(11,14,19,0.82); color:#fff; font-size:10.5px; padding:3px 6px;">Command Layer: every command with its data footprint</div></div>
+              <div style="position:relative; border:1px solid var(--line); border-radius:6px; overflow:hidden;"><img src="assets/ui-migrationplanner.png" style="width:100%; height:120px; object-fit:cover; object-position:top left; margin:0; display:block;"><div style="position:absolute; bottom:0; left:0; right:0; background:rgba(11,14,19,0.82); color:#fff; font-size:10.5px; padding:3px 6px;">Migration Planner: strangler-fig slices, least entangled first</div></div>
+            </div>
+          </div>
+          <!-- how it works today -->
+          <div style="margin-top:14px;">
+            <div class="lbl caps" style="margin-bottom:6px;">How it works today</div>
+            <div style="display:flex; align-items:center; gap:6px;">
+              <div class="chev" style="flex:1;"><span class="t">Sources</span><span class="d">Java code · DB schemas · specs</span></div>
+              <div class="chev" style="flex:1;"><span class="t">Parse</span><span class="d">AST and call graph</span></div>
+              <div class="chev" style="flex:1;"><span class="t">Extract</span><span class="d">local models, LLM tier optional</span></div>
+              <div class="chev" style="flex:1;"><span class="t">Store</span><span class="d">graph + vectors</span></div>
+              <div class="chev" style="flex:1; position:relative;"><span class="t">Serve</span><span class="d">MCP · GraphQL · UI · chat</span></div>
+              <div class="accent fill box" style="flex:none; width:150px; text-align:center; padding:8px;"><span class="t" style="font-size:12.5px;">Proven on Apache Fineract</span><span class="d" style="color:#EAF6FD;">~2,374 Java files</span></div>
+            </div>
+          </div>
+          <div class="tagbar" style="bottom:-16px;"><span class="tag tag-o">[Stefan: hero + 4 thumbnails from Tracing-UI deck]</span> <span class="tag tag-c">· [CONFIRM: crop out the localhost browser bar?]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 05 / 09 ═══════════════════ -->
+      <section data-marker="05 / 09">
+        <h2 class="title">The rebuild turns a Java tool into <span class="ac">a platform any scanner can feed</span></h2>
+        <div class="stage">
+          <!-- upper: plugins → ontology/flow → surfaces -->
+          <div style="display:flex; gap:12px; align-items:stretch;">
+            <!-- plugins -->
+            <div style="width:20%;">
+              <div class="lbl caps" style="margin-bottom:5px;">Scanner plugins</div>
+              <div style="display:flex; flex-direction:column; gap:4px;">
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill built" style="flex:1;">Java code</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill built" style="flex:1;">DB schemas (files)</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill built" style="flex:1;">Specs &amp; docs</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill prog" style="flex:1;">C# code</span><span class="lbl">Benchmark</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill plan" style="flex:1;">MQ usage</span><span class="lbl">wk 1–2</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill plan" style="flex:1;">MQ config</span><span class="lbl">wk 3–4</span></div>
+                <div style="display:flex; align-items:center; gap:6px;"><span class="pill plan" style="flex:1; font-size:11px;">K8s · cloud · OpenAPI · OTel</span><span class="lbl">later</span></div>
+              </div>
+              <div class="cap" style="margin-top:6px;">Each plugin emits assertions, snapshot ID and provenance.</div>
+            </div>
+            <div class="arw ac" style="width:34px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <!-- center: ontology + flow -->
+            <div style="flex:1; display:flex; flex-direction:column; gap:10px;">
+              <div class="plan" style="border-radius:8px; padding:8px 10px; background:var(--accent-tint);">
+                <div style="display:flex; align-items:baseline; gap:8px;"><span style="font-weight:700; color:#fff; font-size:14px;">Ontology with identity</span><span class="lbl" style="margin-left:auto;">Pipelines extend base types only.</span></div>
+                <div style="display:flex; gap:6px; align-items:stretch; margin-top:6px;">
+                  <div style="flex:1; text-align:center;"><div class="box built" style="font-size:11.5px; padding:5px;">System</div><div class="lbl" style="margin-top:2px;">key: name</div></div>
+                  <div style="flex:1; text-align:center;"><div class="box built" style="font-size:11.5px; padding:5px;">Container</div><div class="lbl" style="margin-top:2px;">repo + service</div></div>
+                  <div style="flex:1; text-align:center;"><div class="box built" style="font-size:11.5px; padding:5px;">Component</div><div class="lbl" style="margin-top:2px;">repo + commit</div></div>
+                  <div style="flex:1.3; text-align:center;"><div class="box built" style="font-size:11.5px; padding:5px;">Interface (API, queue)</div><div class="lbl" style="margin-top:2px;">method + path</div></div>
+                  <div style="flex:1; text-align:center;"><div class="box built" style="font-size:11.5px; padding:5px;">Deployment</div><div class="lbl" style="margin-top:2px;">image digest</div></div>
+                </div>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px; flex:1;">
+                <div class="built box" style="flex:1;"><span class="t" style="font-size:13px;">Ingest &amp; validate</span><span class="d">observations per scanner <span class="pill plan" style="font-size:9px; padding:2px 6px;">+ snapshot history</span></span></div>
+                <div class="arw" style="width:26px;"><div class="ln"></div><div class="hd"></div></div>
+                <div class="plan box" style="flex:1.3;"><span class="t" style="font-size:13px;">Stitcher · batch after ingest</span><span class="d">simple rules: match on keys · escape hatch: query + resolver</span><span class="d" style="margin-top:3px;">links carry rule, evidence, confidence</span></div>
+                <div class="arw" style="width:26px;"><div class="ln"></div><div class="hd"></div></div>
+                <div class="built cyl box" style="flex:1;"><span class="t" style="font-size:13px;">Graph + vectors</span><span class="d">observations · entities · same-as links</span></div>
+              </div>
+            </div>
+            <div class="arw" style="width:30px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <!-- surfaces -->
+            <div style="width:17%;">
+              <div class="lbl caps" style="margin-bottom:5px;">Surfaces</div>
+              <div style="display:flex; flex-direction:column; gap:6px;">
+                <div class="built box" style="padding:6px 9px;"><span class="t" style="font-size:12.5px;">MCP backend</span><span class="d">agents &amp; pipeline query</span></div>
+                <div class="built box" style="padding:6px 9px;"><span class="t" style="font-size:12.5px;">UI</span><span class="d">exploration &amp; architecture</span></div>
+                <div class="plan box" style="padding:6px 9px;"><span class="t" style="font-size:12.5px;">Exports</span><span class="d">lineage → Databricks</span></div>
+              </div>
+            </div>
+          </div>
+          <!-- lower: stitching inset + call-out stack -->
+          <div style="display:flex; gap:14px; margin-top:12px;">
+            <div style="width:56%; background:var(--light); border-radius:8px; padding:8px 10px;">
+              <div class="lbl" style="font-weight:700; color:#fff; margin-bottom:4px;">Example: one API, seen three ways, stitched into one entity</div>
+              <div style="display:flex; align-items:center; gap:10px;">
+                <div style="display:flex; flex-direction:column; gap:4px;">
+                  <div class="built box" style="font-size:11px; padding:5px 8px; border-left:3px solid var(--accent);">Server definition · Java scanner</div>
+                  <div class="built box" style="font-size:11px; padding:5px 8px; border-left:3px solid var(--teal);">Client endpoint · C# scanner</div>
+                  <div class="built box" style="font-size:11px; padding:5px 8px; border-left:3px solid #E3A000;">Gateway route · cloud scanner</div>
+                </div>
+                <div class="cap" style="width:70px; text-align:center;">same as · method + path →</div>
+                <div class="accent fill box" style="text-align:center; padding:10px 8px;"><span class="t" style="font-size:12px;">Payments API</span><span class="d" style="color:#EAF6FD;">entity</span></div>
+                <div style="display:flex; flex-direction:column; gap:4px; margin-left:6px;">
+                  <div class="built box" style="font-size:11px; padding:5px 8px;">AWS instance <span class="cap">· runs on</span></div>
+                  <div class="built box" style="font-size:11px; padding:5px 8px;">VPC <span class="cap">· belongs to</span></div>
+                </div>
+              </div>
+              <div class="cap" style="margin-top:5px;">Observations are never merged. The stitcher adds the entity.</div>
+            </div>
+            <div style="flex:1;">
+              <div style="display:flex; align-items:flex-start; gap:8px; margin:3px 0;"><span class="num">1</span><span class="b" style="font-size:14px; margin:0;">New sources arrive as plugins, not core changes.</span></div>
+              <div style="display:flex; align-items:flex-start; gap:8px; margin:3px 0;"><span class="num">2</span><span class="b" style="font-size:14px; margin:0;">Every type declares its own identity keys.</span></div>
+              <div style="display:flex; align-items:flex-start; gap:8px; margin:3px 0;"><span class="num">3</span><span class="b" style="font-size:14px; margin:0;">A batch stitcher links what scanners see as one.</span></div>
+              <div style="display:flex; align-items:flex-start; gap:8px; margin:3px 0;"><span class="num">4</span><span class="b" style="font-size:14px; margin:0;">MCP and UI serve the same graph.</span></div>
+            </div>
+          </div>
+          <div class="legend" style="bottom:-16px;"><span><span class="sw b"></span>built</span><span><span class="sw p"></span>in progress</span><span><span class="sw pl"></span>planned</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 06 / 09 ═══════════════════ -->
+      <section data-marker="06 / 09">
+        <h2 class="title">Skills build new modules fast, and the package <span class="ac">runs inside the customer's estate</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0;">
+            <!-- BUILD -->
+            <div style="width:44%; display:flex; flex-direction:column;">
+              <div class="lbl caps" style="margin-bottom:6px;">Build · in the Skill Workbench</div>
+              <div class="built" style="border-radius:8px; padding:10px; flex:1;">
+                <div class="cap" style="margin-bottom:8px;">◆ Builder agents run the skills. Engineers approve at the gate.</div>
+                <div style="display:flex; flex-direction:column; gap:8px;">
+                  <div class="plan box" style="display:flex; align-items:center; gap:8px;"><div style="flex:1;"><span class="t" style="font-size:13px;">Scanner-authoring skill</span><span class="d">source type + samples → scanner plugin + manifest</span></div><div class="hex"></div></div>
+                  <div class="plan box" style="display:flex; align-items:center; gap:8px;"><div style="flex:1;"><span class="t" style="font-size:13px;">Stitch-rule skill</span><span class="d">two scanner types → simple rule or escape hatch</span></div><div class="hex"></div></div>
+                  <div class="plan box" style="display:flex; align-items:center; gap:8px;"><div style="flex:1;"><span class="t" style="font-size:13px;">Deployment-config skill</span><span class="d">target env → K8s settings + offline profile</span></div><div class="hex"></div></div>
+                </div>
+                <div class="cap" style="margin-top:8px;">Gate = contract test · replay on known pairs · install test.</div>
+              </div>
+            </div>
+            <!-- arrow -->
+            <div class="arw ac" style="width:30px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <!-- RUN -->
+            <div style="flex:1; display:flex; flex-direction:column;">
+              <div class="lbl caps" style="margin-bottom:6px;">Run · one Kubernetes package, two homes</div>
+              <div style="display:flex; justify-content:center; margin-bottom:8px;"><span class="pill plan" style="border-color:var(--accent); color:#CDEAFB;">One Kubernetes package + scanner catalogue</span></div>
+              <div style="display:flex; gap:12px; flex:1;">
+                <!-- customer estate -->
+                <div style="flex:1; border:3px solid var(--neutral); border-radius:8px; padding:8px; position:relative;">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;"><span class="lbl" style="font-weight:700; color:#fff;">Customer estate · on-site (default)</span><span class="chiplbl" style="margin-left:auto; border-color:var(--accent); color:#CDEAFB;">data stays inside</span></div>
+                  <div style="border:1px solid var(--line); border-radius:6px; padding:6px;"><div class="lbl" style="margin-bottom:4px;">Kubernetes</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:4px;">
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">scanners</div>
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">ingest + stitcher</div>
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">graph</div>
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">MCP</div>
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">UI</div>
+                      <div class="plan box" style="font-size:10.5px; text-align:center; padding:4px;">local models</div>
+                    </div>
+                  </div>
+                  <div class="cap" style="margin-top:6px;">⏻ LLM tier: off by default → in-tenant endpoint (optional)</div>
+                  <div style="margin-top:4px; color:#E35050; font-size:11px;">⊘ no outbound data path</div>
+                </div>
+                <!-- EPAM Next -->
+                <div style="width:42%; border:1.5px solid var(--line); border-radius:8px; padding:8px;">
+                  <div style="display:flex; align-items:center; gap:6px; margin-bottom:6px;"><span class="lbl" style="font-weight:700; color:#fff;">EPAM Next (GCP)</span><span class="chiplbl" style="margin-left:auto; font-size:9px;">all tiers on · no client data</span></div>
+                  <div class="lbl" style="margin-bottom:4px;">sales demo library</div>
+                  <div style="display:flex; flex-direction:column; gap:5px;">
+                    <div class="built box" style="font-size:11px; padding:5px 8px;">Fineract · migration workbench</div>
+                    <div class="plan box" style="font-size:11px; padding:5px 8px;">MQ estate · messaging analysis</div>
+                    <div class="plan box" style="font-size:11px; padding:5px 8px;">+ one case per pursuit type</div>
+                  </div>
+                  <div class="cap" style="margin-top:6px;">Account teams demo without the core team.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="background:var(--accent-tint); border-radius:6px; padding:8px 12px; margin-top:10px; font-size:16px; color:#fff; text-align:center;">Teams self-serve: deploy · add scanners and stitchers · query via MCP · explore in the UI</div>
+          <div class="tagbar" style="bottom:-16px;"><span class="tag tag-c">[CONFIRM: 2nd demo case = MQ estate? · LLM off by default acceptable? · “EPAM Next (GCP)” the right label?]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 07 / 09 ═══════════════════ -->
+      <section data-marker="07 / 09">
+        <h2 class="title">The Estate Scanner <span class="ac">belongs in Foundation Team</span>, not in spare time</h2>
+        <div class="stage">
+          <div style="display:flex; flex:1; min-height:0; gap:0; align-items:stretch;">
+            <div style="width:20%; display:flex; flex-direction:column;">
+              <div style="height:36px;"></div>
+              <div style="flex:1; display:flex; flex-direction:column; justify-content:space-around; font-family:var(--r-heading-font); font-weight:700; font-size:16px; color:#fff;">
+                <div>Ownership</div><div>Code base</div><div>Demos</div><div>Pursuit support</div>
+              </div>
+            </div>
+            <div style="width:36%; background:var(--light); border-radius:8px 0 0 8px; padding:0 16px;">
+              <div style="height:36px; display:flex; align-items:center; font-family:var(--r-heading-font); font-weight:700; font-size:18px; color:var(--subtle);">Today</div>
+              <div style="display:flex; flex-direction:column; justify-content:space-around; height:calc(100% - 36px); font-size:16px; color:var(--ink);">
+                <div>Extra-mile work by Stefan and Sven</div>
+                <div>Embedded in the larger playbook PoC</div>
+                <div>Runs from a developer machine</div>
+                <div>Every pursuit needs the core team</div>
+              </div>
+            </div>
+            <div style="width:44px; display:flex; align-items:center; justify-content:center; color:var(--accent); font-size:34px;">➜</div>
+            <div style="flex:1; background:var(--accent-tint); border-radius:0 8px 8px 0; padding:0 16px;">
+              <div style="height:36px; display:flex; align-items:center; font-family:var(--r-heading-font); font-weight:700; font-size:18px; color:var(--accent);">In Foundation Team</div>
+              <div style="display:flex; flex-direction:column; justify-content:space-around; height:calc(100% - 36px); font-size:16px; color:#fff;">
+                <div>Owned backlog and a named product owner</div>
+                <div>Standalone repository with versioned releases</div>
+                <div>Always-on demo library on EPAM Next</div>
+                <div>Account teams self-serve, core team extends</div>
+              </div>
+            </div>
+          </div>
+          <div class="b ac" style="margin-top:12px; font-size:20px;">Nine pursuits should not depend on two people's spare time.</div>
+          <div class="tagbar" style="bottom:-16px;"><span class="tag tag-c">[CONFIRM: name Stefan &amp; Sven? · named product owner?]</span> <span class="tag tag-o">· [FOUNDATION-TEAM-SESSION: fit with mandate, backlog, funding]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 08 / 09 ═══════════════════ -->
+      <section data-marker="08 / 09">
+        <h2 class="title">Two nearshore engineers <span class="ac">close the gap without overbuilding</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
+            <!-- A -->
+            <div style="flex:1; border:1px solid var(--line); border-radius:10px; padding:14px 14px 10px; display:flex; flex-direction:column;">
+              <div style="font-family:var(--r-heading-font); font-weight:700; font-size:20px; color:#fff;">A · Minimal</div>
+              <span class="chiplbl" style="align-self:flex-start; margin:8px 0;">No dedicated team</span>
+              <div class="cap" style="min-height:64px;">Patch gaps pursuit by pursuit. Build the MQ scanner because Deutsche Bank needs it.</div>
+              <div style="height:1px; background:var(--line); margin:6px 0;"></div>
+              <div class="rate"><span class="rl">Strategic fit</span><span class="rv">Low</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div class="rate"><span class="rl">Business value</span><span class="rv">Low</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div class="rate"><span class="rl">Risk</span><span class="rv">High</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div class="rate"><span class="rl">Complexity</span><span class="rv">Low</span><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div class="rate"><span class="rl">Time to value</span><span class="rv">Immediate, shallow</span><span class="seg"><i class="on"></i><i class="on"></i><i></i></span></div>
+              <div style="margin-top:auto; padding-top:8px; font-size:12px; color:#E35050;">[Stefan: cost incl. tokens]</div>
+            </div>
+            <!-- B recommended -->
+            <div style="flex:1; border:3px solid var(--accent); border-radius:10px; padding:14px 14px 10px; display:flex; flex-direction:column; position:relative; background:var(--accent-tint);">
+              <div class="ribbon">Recommended</div>
+              <div style="font-family:var(--r-heading-font); font-weight:700; font-size:20px; color:#fff;">B · Balanced</div>
+              <span class="chiplbl" style="align-self:flex-start; margin:8px 0; border-color:var(--accent); color:#CDEAFB;">2 nearshore engineers + tokens</span>
+              <div class="cap" style="min-height:64px; color:var(--ink);">Extract and rebuild. Skills for new modules. On-site package. EPAM Next demo library.</div>
+              <div style="height:1px; background:var(--line); margin:6px 0;"></div>
+              <div class="rate"><span class="rl">Strategic fit</span><span class="rv">High</span><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div class="rate"><span class="rl">Business value</span><span class="rv">High</span><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div class="rate"><span class="rl">Risk</span><span class="rv">Medium</span><span class="seg"><i class="on"></i><i class="on"></i><i></i></span></div>
+              <div class="rate"><span class="rl">Complexity</span><span class="rv">Medium</span><span class="seg"><i class="on"></i><i class="on"></i><i></i></span></div>
+              <div class="rate"><span class="rl">Time to value</span><span class="rv">6 wks → on-site</span><span class="seg"><i class="on"></i><i class="on"></i><i class="on"></i></span></div>
+              <div style="margin-top:auto; padding-top:8px; font-size:12px; color:#E35050;">[Stefan: cost incl. tokens]</div>
+            </div>
+            <!-- C -->
+            <div style="flex:1; border:1px solid var(--line); border-radius:10px; padding:14px 14px 10px; display:flex; flex-direction:column;">
+              <div style="font-family:var(--r-heading-font); font-weight:700; font-size:20px; color:#fff;">C · Transformational</div>
+              <span class="chiplbl" style="align-self:flex-start; margin:8px 0;">4–6 engineers</span>
+              <div class="cap" style="min-height:64px;">B plus the full scanner roadmap in parallel, multi-cloud packaging and a GA date.</div>
+              <div style="height:1px; background:var(--line); margin:6px 0;"></div>
+              <div class="rate"><span class="rl">Strategic fit</span><span class="rv">High, ahead of demand</span><span class="seg"><i class="on"></i><i class="on"></i><i></i></span></div>
+              <div class="rate"><span class="rl">Business value</span><span class="rv">Highest, back-loaded</span><span class="seg"><i class="on"></i><i class="on"></i><i></i></span></div>
+              <div class="rate"><span class="rl">Risk</span><span class="rv">Medium-high</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div class="rate"><span class="rl">Complexity</span><span class="rv">High</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div class="rate"><span class="rl">Time to value</span><span class="rv">6+ months</span><span class="seg"><i class="on"></i><i></i><i></i></span></div>
+              <div style="margin-top:auto; padding-top:8px; font-size:12px; color:#E35050;">[Stefan: cost incl. tokens]</div>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; margin-top:8px;"><span class="b" style="font-size:16px; margin:0;">B matches today's demand: nine pursuits, one prototype, no dedicated team.</span><span class="cap" style="margin-left:auto;">bars = how favourable</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ 09 / 09 ═══════════════════ -->
+      <section data-marker="09 / 09">
+        <h2 class="title">Two engineers <span class="ac">ship an on-site package in six weeks</span></h2>
+        <div class="stage">
+          <!-- week headers -->
+          <div style="display:flex; margin-bottom:6px;"><div style="width:16%;"></div>
+            <div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W1</div><div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W2</div><div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W3</div><div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W4</div><div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W5</div><div style="flex:1; text-align:center; font-size:12px; color:var(--subtle); font-weight:700;">W6</div>
+          </div>
+          <!-- lane A -->
+          <div style="display:flex; align-items:center; margin-bottom:6px;"><div style="width:16%; font-size:12.5px; color:var(--ink);">Engineer A<br><span class="cap">platform &amp; packaging</span></div>
+            <div style="flex:2; padding:0 3px;"><div class="built box" style="font-size:11px; padding:16px 7px; text-align:center;">Extract scanner · offline-first K8s scaffold</div></div>
+            <div style="flex:2; padding:0 3px;"><div class="built box" style="font-size:11px; padding:16px 7px; text-align:center;">Harden package · deploy target as config</div></div>
+            <div style="flex:2; padding:0 3px;"><div class="built box" style="font-size:11px; padding:16px 7px; text-align:center;">EPAM Next demo library · MCP + UI</div></div>
+          </div>
+          <!-- lane B -->
+          <div style="display:flex; align-items:center; margin-bottom:8px;"><div style="width:16%; font-size:12.5px; color:var(--ink);">Engineer B<br><span class="cap">scanners &amp; skills</span></div>
+            <div style="flex:2; padding:0 3px;"><div class="accent box" style="font-size:11px; padding:16px 7px; text-align:center;">MQ usage scanner on new plugin contract</div></div>
+            <div style="flex:2; padding:0 3px;"><div class="accent box" style="font-size:11px; padding:16px 7px; text-align:center;">Scanner-authoring skill · builds MQ config scanner</div></div>
+            <div style="flex:2; padding:0 3px;"><div class="accent box" style="font-size:11px; padding:16px 7px; text-align:center;">Pilot-readiness buffer</div></div>
+          </div>
+          <!-- milestones -->
+          <div style="display:flex; align-items:flex-start; margin-top:22px;"><div style="width:16%;" class="lbl caps">Milestones</div>
+            <div style="flex:2;"></div>
+            <div style="flex:2; text-align:center; color:var(--accent);">◆<div class="cap">Standalone scanner runs · first new scanner live</div></div>
+            <div style="flex:2;"></div>
+            <div style="flex:2; text-align:center; color:var(--accent);">◆<div class="cap">On-site package installs · scanner #2 built by skill</div></div>
+            <div style="flex:2;"></div>
+            <div style="flex:2; text-align:center; color:var(--accent);">◆<div class="cap">Demo library live · package pilot-ready</div></div>
+          </div>
+          <!-- decisions + pilot -->
+          <div style="display:flex; align-items:center; margin-top:8px; font-size:11px;"><div style="width:16%;" class="lbl">Decisions <span class="cap">(no eng. time)</span></div>
+            <div style="flex:2;"></div><div style="flex:1; text-align:center; color:var(--subtle); font-size:11px;">◇ Foundation Team placement</div><div style="flex:3;"></div>
+            <div style="flex:2; text-align:right; color:var(--accent); font-size:11px;">┊ Deutsche Bank pilot readiness [CONFIRM]</div>
+          </div>
+          <div style="flex:1; min-height:12px;"></div>
+          <!-- decision band -->
+          <div style="background:var(--accent); border-radius:8px; padding:12px 16px; display:flex; align-items:center; gap:14px;">
+            <span style="font-family:var(--r-heading-font); font-weight:700; font-size:16px; color:#fff;">Decision today:</span>
+            <span style="border:1.5px solid rgba(255,255,255,0.7); color:#fff; border-radius:6px; padding:4px 12px; font-size:14px; font-weight:600;">Option B</span>
+            <span style="border:1.5px solid rgba(255,255,255,0.7); color:#fff; border-radius:6px; padding:4px 12px; font-size:14px; font-weight:600;">Foundation Team placement</span>
+            <span style="border:1.5px solid rgba(255,255,255,0.7); color:#fff; border-radius:6px; padding:4px 12px; font-size:14px; font-weight:600;">Start date [CONFIRM]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ APPENDIX DIVIDER ═══════════════════ -->
+      <section class="divider">
+        <div style="position:absolute; left:56px; top:50%; transform:translateY(-50%);">
+          <div class="kick">Appendix</div>
+          <h1>For the deep questions</h1>
+          <div class="sub">A · Stitching on declared keys&nbsp;&nbsp;·&nbsp;&nbsp;B · Scanner catalogue&nbsp;&nbsp;·&nbsp;&nbsp;C · Six weeks &amp; the contract freeze&nbsp;&nbsp;·&nbsp;&nbsp;D · Nothing leaves the estate</div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ APPENDIX A ═══════════════════ -->
+      <section data-marker="A">
+        <h2 class="title">Stitching <span class="ac">works on keys the ontology declares</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:14px;">
+            <div style="flex:1;">
+              <div class="lbl" style="font-weight:700; margin-bottom:4px;">1 · Scanner output</div>
+              <div class="cap" style="margin-bottom:4px;">A scanner emits assertions with provenance.</div>
+<pre class="code"><span class="c">{</span>"s":"java:svc-payments/PaymentsController#create",
+ "p":"is_a","o":"Interface",
+ "props":{"method":"POST","path":"/payments"},
+ "scanner":"java-code",
+ "snapshot":"snap-2026-10-01-a1","native_id":"…"<span class="c">}</span></pre>
+            </div>
+            <div style="flex:1;">
+              <div class="lbl" style="font-weight:700; margin-bottom:4px;">2 · Ontology type</div>
+              <div class="cap" style="margin-bottom:4px;">Each type declares its identity keys.</div>
+<pre class="code"><span class="k">Interface:</span>
+  extends: Component
+  identity:
+    strong: [[service_key, method, path_template]]
+    weak:   [name]
+<span class="k">Deployment:</span>
+  extends: Component
+  identity:
+    strong: [image_digest]</pre>
+            </div>
+            <div style="flex:1;">
+              <div class="lbl" style="font-weight:700; margin-bottom:4px;">3 · Stitch rules</div>
+              <div class="cap" style="margin-bottom:4px;">Simple rules first, escape hatch when needed.</div>
+<pre class="code"><span class="c">- id: pod-to-build</span>
+  from: {type: Deployment, key: image_digest}
+  to:   {type: Build, key: image_digest}
+  action: attach
+<span class="c">- id: gateway-route</span>
+  from: {type: Route, perspective: gateway}
+  to:   {type: RestApi, on: [method, path]}
+  action: relate
+<span class="c">- id: fuzzy-names</span>
+  candidates: "&lt;graph query&gt;"
+  resolver: cli://resolvers/name-match</pre>
+            </div>
+          </div>
+          <div class="b" style="font-size:17px; margin-top:14px;">Every link records rule, version, evidence and confidence. Re-running is safe.</div>
+          <div class="tagbar"><span class="tag tag-o">[Sven: confirm the examples match the agreed contract]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ APPENDIX B ═══════════════════ -->
+      <section data-marker="B">
+        <h2 class="title">The scanner catalogue <span class="ac">grows one plugin at a time</span></h2>
+        <div class="stage">
+          <table class="grid">
+            <thead><tr><th style="width:20%;">Scanner</th><th style="width:34%;">Reads</th><th style="width:13%;">State</th><th style="width:11%;">When</th><th style="width:22%;">First pursuit</th></tr></thead>
+            <tbody>
+              <tr><td><span class="pill built" style="font-size:11px; padding:3px 9px;">Java code</span></td><td>Source, AST, call graph, data flow</td><td>built</td><td>—</td><td>Fineract demo, all pursuits</td></tr>
+              <tr><td><span class="pill built" style="font-size:11px; padding:3px 9px;">DB schemas</span></td><td>Flyway / Liquibase SQL files</td><td>built</td><td>—</td><td>Fineract</td></tr>
+              <tr><td><span class="pill built" style="font-size:11px; padding:3px 9px;">Specs &amp; docs</span></td><td>Markdown, PDF, HTML, OpenAPI, XMI</td><td>built</td><td>—</td><td>Fineract</td></tr>
+              <tr><td><span class="pill prog" style="font-size:11px; padding:3px 9px;">C# code</span></td><td>Source, AST</td><td>in progress</td><td>Benchmark team</td><td>Benchmark</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">MQ usage</span></td><td>MQ / JMS calls in code</td><td>planned</td><td>W1–2</td><td>Deutsche Bank</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">MQ config</span></td><td>Queue manager &amp; channel definitions</td><td>planned</td><td>W3–4</td><td>Deutsche Bank</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">Kubernetes</span></td><td>Manifests, running workloads</td><td>planned</td><td>Later</td><td>Deutsche Bank, Viessmann</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">Cloud (AWS first)</span></td><td>Instances, gateways, VPCs</td><td>planned</td><td>Later</td><td>[CONFIRM]</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">OpenAPI / gateway</span></td><td>API definitions and routes</td><td>planned</td><td>Later</td><td>[CONFIRM]</td></tr>
+              <tr><td><span class="pill plan" style="font-size:11px; padding:3px 9px;">OTel</span></td><td>Traces and telemetry</td><td>planned</td><td>Later</td><td>Zalando</td></tr>
+              <tr><td style="color:var(--subtle);">COBOL / PL1</td><td>Mainframe code</td><td colspan="2" style="color:var(--subtle);">Not planned. MFLens covers it.</td><td>Helaba [CONFIRM]</td></tr>
+            </tbody>
+          </table>
+          <div class="tagbar"><span class="tag tag-c">[CONFIRM: first pursuit per later scanner · COBOL/PL1 stays with MFLens?]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ APPENDIX C ═══════════════════ -->
+      <section data-marker="C">
+        <h2 class="title">Six weeks hold <span class="ac">if the plugin contract holds</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:24px; flex:1; min-height:0;">
+            <div style="width:54%; display:flex; flex-direction:column; justify-content:center;">
+              <div class="b">The two tracks run in parallel until week 4.</div>
+              <div class="b">That works only if the contract from weeks 1–2 stays stable.</div>
+              <div class="b">The likeliest slip: the ontology needs another pass after the first scanner.</div>
+              <div class="b" style="color:#fff;">Mitigation: freeze the contract at end of W2, change only by versioned amendment.</div>
+              <div class="b">If it slips, the W5–6 buffer absorbs it. The demo library moves by two weeks.</div>
+            </div>
+            <div style="flex:1; background:var(--light); border-radius:8px; padding:14px; display:flex; flex-direction:column; justify-content:center; opacity:0.9;">
+              <div class="lbl caps" style="margin-bottom:8px;">Six-week plan</div>
+              <div style="display:flex; gap:4px; margin-bottom:6px;"><div style="flex:1;" class="built box" style="font-size:10px; padding:6px; text-align:center;">A · W1–2</div><div class="built box" style="flex:1; font-size:10px; padding:6px; text-align:center;">A · W3–4</div><div class="built box" style="flex:1; font-size:10px; padding:6px; text-align:center;">A · W5–6</div></div>
+              <div style="display:flex; gap:4px;"><div class="accent box" style="flex:1; font-size:10px; padding:6px; text-align:center;">B · W1–2</div><div class="accent box" style="flex:1; font-size:10px; padding:6px; text-align:center;">B · W3–4</div><div class="accent box" style="flex:1; font-size:10px; padding:6px; text-align:center;">B · W5–6</div></div>
+              <div style="text-align:center; color:var(--accent); margin-top:10px; font-size:12px;">◉ end W2 — <b>contract freeze</b></div>
+              <div class="cap" style="text-align:center; margin-top:8px;">— — → if it slips, demo library shifts +2 weeks</div>
+            </div>
+          </div>
+          <div class="tagbar"><span class="tag tag-c">[CONFIRM: contract freeze at end of W2 is acceptable?]</span></div>
+        </div>
+      </section>
+
+      <!-- ═══════════════════ APPENDIX D ═══════════════════ -->
+      <section data-marker="D">
+        <h2 class="title">Nothing <span class="ac">leaves the customer's estate by default</span></h2>
+        <div class="stage" style="justify-content:center;">
+          <div style="display:flex; gap:16px;">
+            <div style="flex:1; border:1.5px solid var(--neutral); border-radius:8px; padding:12px 14px;">
+              <div style="font-family:var(--r-heading-font); font-weight:700; font-size:16px; color:#fff; margin-bottom:8px;">Runs locally, always</div>
+              <div class="b" style="font-size:15px;">Parsing, AST and call graph</div>
+              <div class="b" style="font-size:15px;">Local encoders and embeddings</div>
+              <div class="b" style="font-size:15px;">Graph and vector stores</div>
+              <div class="b" style="font-size:15px;">MCP and UI</div>
+              <div class="b" style="font-size:15px;">Model files pre-seeded at install</div>
+            </div>
+            <div style="flex:1; border:1.5px dashed var(--neutral); border-radius:8px; padding:12px 14px;">
+              <div style="font-family:var(--r-heading-font); font-weight:700; font-size:16px; color:var(--subtle); margin-bottom:8px;">Off by default, opt-in only</div>
+              <div class="b" style="font-size:15px;">LLM extraction tier</div>
+              <div class="b" style="font-size:15px;">Requirement naming by LLM</div>
+              <div class="b" style="font-size:15px;">Graph-grounded chat</div>
+              <div class="b" style="font-size:15px;">Any LLM call — only to an in-tenant endpoint</div>
+            </div>
+          </div>
+          <div style="display:flex; gap:10px; margin-top:14px; flex-wrap:wrap;">
+            <span class="pill built" style="color:var(--teal); border-color:var(--teal);">✓ No internet egress required</span>
+            <span class="pill built" style="color:var(--teal); border-color:var(--teal);">✓ Read-only access to repositories</span>
+            <span class="pill built" style="color:var(--teal); border-color:var(--teal);">✓ Scope limited to named systems</span>
+            <span class="pill built" style="color:var(--teal); border-color:var(--teal);">✓ Scripts &amp; data handling documented for CISO review</span>
+          </div>
+          <div class="tagbar"><span class="tag tag-c">[CONFIRM: all four chips true for the first package]</span> <span class="tag tag-o">· [Stefan: one-page data-handling statement for CISO]</span></div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script>
+    document.querySelectorAll('.reveal .slides section[data-marker]').forEach(function (s) {
+      var m = s.dataset.marker;
+      var marker = document.createElement('div');
+      marker.className = 'marker'; marker.textContent = m; s.appendChild(marker);
+      var f = document.createElement('div');
+      f.className = 'deck-footer';
+      f.innerHTML = '<span>EPAM Internal · Confidential — contains client names</span>' +
+                    '<span class="mid">Estate Scanner: from door-opener to platform</span>' +
+                    '<span class="right">' + m + '</span>';
+      s.appendChild(f);
+    });
+    Reveal.initialize({ width: 1280, height: 720, margin: 0, center: false, hash: true, slideNumber: false, transition: 'slide', plugins: [RevealNotes] });
+  </script>
+</body>
+</html>
