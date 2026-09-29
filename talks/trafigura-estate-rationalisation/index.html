@@ -1,0 +1,615 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trafigura estate rationalisation</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Deck: Trafigura estate rationalisation
+       House style: EPAM dark kit (navy variant). EPAM Internal · Confidential.
+       COLOUR ROLES: accent (blue) = the ask / key phrase; teal = built /
+       works today / positive; amber = risk labels only (slide 10).
+       STATE by SHAPE: built = solid border · to build = dashed border.
+       ───────────────────────────────────────────────────────────── */
+    :root{
+      --accent:#2AA3E6; --accent-bg:rgba(42,163,230,0.14); --accent-tint:rgba(42,163,230,0.06);
+      --teal:#2FD1B0; --teal-bg:rgba(47,209,176,0.12);
+      --amber:#F2B84B; --amber-bg:rgba(242,184,75,0.12);
+      --bg:#0F1722; --surface:#172231; --surface2:#1B2838;
+      --subtle:#8B9AA8; --ink:#B7C4D0; --head:#EEF2F5; --line:#2A3A4C;
+      --light:rgba(255,255,255,0.05); --neutral:#6F7E8C;
+      --r-main-font-size:24px;
+    }
+    .reveal{ background:var(--bg); }
+    .reveal::after{ display:none !important; }
+    .reveal .slides section{ padding:44px 48px 40px; height:720px; box-sizing:border-box; text-align:left; color:var(--ink); background:var(--bg); }
+    .reveal .slides section[data-marker]{ display:flex; flex-direction:column; }
+    html.print-pdf .reveal .slides section[data-marker]{ padding:44px 48px 40px !important; display:flex !important; flex-direction:column !important; }
+
+    /* chrome */
+    .reveal .marker{ position:absolute; top:16px; left:48px; font-family:var(--r-heading-font); font-size:14px; color:var(--subtle); letter-spacing:0.08em; font-weight:600; }
+    .reveal .deck-footer{ position:absolute; bottom:14px; left:48px; right:48px; display:flex; gap:12px; font-size:11px; color:var(--subtle); letter-spacing:0.02em; font-family:var(--r-heading-font); }
+    .reveal .deck-footer .right{ margin-left:auto; color:var(--subtle); }
+
+    /* eyebrow + title */
+    .reveal .eyebrow{ font-family:var(--r-heading-font); font-size:13px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:6px; }
+    .reveal .title{ font-family:var(--r-heading-font); font-weight:800; color:var(--head); font-size:32px; line-height:1.12; letter-spacing:-0.02em; margin:0; max-width:98%; }
+    .reveal .title .ac{ color:var(--accent); }
+    .reveal .sub{ font-size:15px; color:var(--subtle); margin-top:8px; line-height:1.35; }
+    .reveal .stage{ flex:1; position:relative; margin-top:16px; min-height:548px; display:flex; flex-direction:column; }
+
+    /* body text */
+    .reveal .b{ font-size:16px; color:var(--ink); line-height:1.35; margin:5px 0; }
+    .reveal .b.ac{ color:var(--accent); font-weight:600; }
+    .reveal .lbl{ font-size:12px; color:var(--subtle); letter-spacing:0.02em; }
+    .reveal .lbl.caps{ text-transform:uppercase; letter-spacing:0.1em; font-weight:700; }
+    .reveal .cap{ font-size:12.5px; color:var(--subtle); line-height:1.35; }
+
+    /* cards + shapes */
+    .reveal .card{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px 18px; display:flex; flex-direction:column; }
+    .reveal .card h3{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:19px; margin:0 0 8px; }
+    .reveal .box{ border-radius:8px; padding:9px 12px; font-size:14px; color:var(--ink); font-family:var(--r-heading-font); line-height:1.2; }
+    .reveal .box .t{ font-weight:700; color:var(--head); font-size:15px; display:block; }
+    .reveal .box .d{ font-size:12px; color:var(--subtle); font-weight:400; display:block; margin-top:2px; }
+    .reveal .built{ background:var(--surface); border:1.5px solid var(--neutral); }
+    .reveal .plan{ background:transparent; border:1.5px dashed var(--neutral); }
+    .reveal .accent{ background:var(--accent-bg); border:1.5px solid var(--accent); }
+    .reveal .teal{ border-color:var(--teal) !important; }
+    .reveal .cyl{ border-radius:44px/13px; }
+
+    /* bullet list */
+    .reveal ul.blist{ list-style:none; margin:0; padding:0; }
+    .reveal ul.blist > li::marker{ content:""; }
+    .reveal ol.qlist > li::marker{ content:""; }
+    .reveal ul.blist li{ position:relative; padding-left:16px; font-size:14px; color:var(--ink); line-height:1.32; margin:6px 0; }
+    .reveal ul.blist li::before{ content:""; position:absolute; left:0; top:8px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+    .reveal ul.blist.teal li::before{ background:var(--teal); }
+
+    /* pills */
+    .reveal .pill{ border-radius:999px; padding:6px 13px; font-size:13px; font-family:var(--r-heading-font); font-weight:600; display:inline-flex; align-items:center; gap:6px; }
+    .reveal .pill.built{ background:var(--surface); border:1.5px solid var(--neutral); color:var(--ink); }
+    .reveal .pill.teal{ background:var(--teal-bg); border:1.5px solid var(--teal); color:#BFF0E4; }
+    .reveal .pill.accent{ background:var(--accent-bg); border:1.5px solid var(--accent); color:#CDEAFB; }
+
+    /* numbered call-out circle */
+    .reveal .num{ display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; background:var(--accent); color:#fff; font-family:var(--r-heading-font); font-weight:800; font-size:16px; flex:none; }
+    .reveal .num.big{ width:40px; height:40px; font-size:20px; }
+
+    /* arrows */
+    .reveal .arw{ display:flex; align-items:center; }
+    .reveal .arw .ln{ flex:1; height:0; border-top:2px solid var(--neutral); }
+    .reveal .arw .hd{ width:0;height:0;border-top:5px solid transparent;border-bottom:5px solid transparent;border-left:8px solid var(--neutral); }
+    .reveal .arw.ac .ln{ border-top-color:var(--accent); } .reveal .arw.ac .hd{ border-left-color:var(--accent); }
+
+    /* cover */
+    .reveal section.cover{ padding:0; overflow:hidden; }
+    .reveal .cover-bg{ position:absolute; inset:0; background:#0F1722 url('assets/cover-trafigura.png') center/cover no-repeat; }
+    .reveal .cover-scrim{ position:absolute; inset:0; background:linear-gradient(90deg, rgba(15,23,34,0.94) 0%, rgba(15,23,34,0.82) 38%, rgba(15,23,34,0.45) 66%, rgba(15,23,34,0.2) 100%); }
+    .reveal .cover-wrap{ position:absolute; left:56px; bottom:60px; width:70%; }
+    .reveal .cover-eyebrow{ font-family:var(--r-heading-font); font-size:14px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .reveal .cover-rule{ width:64px; height:3px; background:var(--teal); margin-bottom:20px; }
+    .reveal .cover h1{ font-family:var(--r-heading-font); font-size:58px; font-weight:800; color:#fff; margin:0; letter-spacing:-0.02em; line-height:1.04; }
+    .reveal .cover h1::after{ display:none; }
+    .reveal .cover-subt{ font-size:22px; color:#E6E9ED; margin-top:16px; font-weight:400; line-height:1.4; max-width:92%; }
+    .reveal .cover-subt .ac{ color:var(--accent); }
+    .reveal .cover-meta{ font-size:14px; color:#9FB0BC; margin-top:20px; letter-spacing:0.02em; }
+    .reveal .cover-el{ position:absolute; left:56px; bottom:24px; font-size:11px; color:var(--subtle); font-family:var(--r-heading-font); }
+
+    /* statement / band */
+    .reveal .band{ background:var(--accent-tint); border:1px solid var(--line); border-radius:8px; padding:12px 16px; font-size:16px; color:var(--head); line-height:1.4; }
+    .reveal .band .ac{ color:var(--accent); font-weight:600; }
+
+    /* timeline */
+    .reveal .tl-track{ display:flex; align-items:flex-start; position:relative; margin:6px 0 4px; }
+    .reveal .tl-line{ position:absolute; left:6%; right:6%; top:9px; height:2px; background:var(--line); }
+    .reveal .tl-node{ flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative; }
+    .reveal .tl-dot{ width:16px; height:16px; border-radius:50%; background:var(--surface); border:2px solid var(--neutral); z-index:1; }
+    .reveal .tl-dot.today{ background:var(--teal); border-color:var(--teal); box-shadow:0 0 0 5px var(--teal-bg); }
+    .reveal .tl-date{ font-family:var(--r-heading-font); font-weight:700; font-size:14px; color:var(--head); margin-top:8px; }
+    .reveal .tl-lbl{ font-size:12px; color:var(--subtle); margin-top:3px; line-height:1.3; max-width:150px; }
+    .reveal .tl-node.today .tl-date{ color:var(--teal); }
+
+    /* grid table (build plan) */
+    .reveal table.grid{ width:100%; border-collapse:separate; border-spacing:6px; font-size:13px; }
+    .reveal table.grid th{ font-family:var(--r-heading-font); font-size:13px; color:var(--head); text-align:center; padding:6px 8px; font-weight:700; }
+    .reveal table.grid td{ vertical-align:top; }
+    .reveal .rowlbl{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:13.5px; }
+    .reveal .rowlbl .d{ display:block; font-weight:400; color:var(--subtle); font-size:11.5px; margin-top:2px; }
+    .reveal .gcell{ border-radius:8px; padding:9px 11px; font-size:12.5px; line-height:1.3; height:100%; box-sizing:border-box; }
+    .reveal .gcell.a{ background:var(--surface); border:1.5px solid var(--neutral); color:var(--ink); }
+    .reveal .gcell.b{ background:var(--accent-bg); border:1.5px solid var(--accent); color:#CDEAFB; }
+    .reveal .gcell.m{ background:transparent; border:1px dashed var(--line); color:var(--ink); text-align:center; }
+    .reveal .gcell.m .dia{ color:var(--teal); font-size:13px; }
+
+    /* risk cards */
+    .reveal .risk{ background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:10px 13px; margin-bottom:9px; }
+    .reveal .risk .rl{ display:inline-block; font-family:var(--r-heading-font); font-weight:700; font-size:10.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--amber); background:var(--amber-bg); border:1px solid var(--amber); border-radius:5px; padding:1px 7px; margin-bottom:5px; }
+    .reveal .risk .rt{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:14px; line-height:1.28; }
+    .reveal .risk .rm{ font-size:12.5px; color:var(--subtle); line-height:1.3; margin-top:3px; }
+
+    /* numbered question list */
+    .reveal ol.qlist{ list-style:none; margin:0; padding:0; counter-reset:q; }
+    .reveal ol.qlist li{ position:relative; padding-left:30px; font-size:14px; color:var(--ink); line-height:1.34; margin:11px 0; counter-increment:q; }
+    .reveal ol.qlist li::before{ content:counter(q); position:absolute; left:0; top:0; width:21px; height:21px; border-radius:50%; background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent); font-family:var(--r-heading-font); font-weight:700; font-size:12px; display:flex; align-items:center; justify-content:center; }
+
+    /* decisions slide */
+    .reveal section.decide{ background:linear-gradient(135deg,#101B2B 0%,#0F1722 60%,#0C141F 100%); }
+    .reveal .dcard{ flex:1; background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:18px 20px; display:flex; flex-direction:column; }
+    .reveal .dcard h3{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:20px; margin:12px 0 8px; }
+    .reveal .dcard p{ font-size:15px; color:var(--ink); line-height:1.4; margin:0; }
+    .reveal .closing{ font-family:var(--r-heading-font); font-weight:800; color:var(--head); font-size:30px; line-height:1.15; letter-spacing:-0.01em; }
+    .reveal .closing .ac{ color:var(--accent); }
+
+    /* legend */
+    .reveal .legend{ font-size:12px; color:var(--subtle); font-family:var(--r-heading-font); display:flex; gap:16px; align-items:center; }
+    .reveal .legend .sw{ display:inline-block; width:14px; height:11px; vertical-align:middle; margin-right:5px; }
+    .reveal .legend .sw.b{ background:var(--surface); border:1.5px solid var(--teal); }
+    .reveal .legend .sw.pl{ background:transparent; border:1.5px dashed var(--accent); }
+
+    /* mini node-link graph */
+    .reveal .graph svg{ width:100%; height:100%; display:block; }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- ═══════════════════ 01 COVER ═══════════════════ -->
+      <section class="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-wrap">
+          <div class="cover-eyebrow">EPAM Internal · Pursuit Support</div>
+          <div class="cover-rule"></div>
+          <h1>Trafigura estate<br>rationalisation</h1>
+          <div class="cover-subt">How we win the assessment with the AI Application Modernization Playbook and the <span class="ac">Estate Scanner</span> — and how we deliver it</div>
+          <div class="cover-meta">Pursuit team · 29 September 2026 · Proposal due 9 October 2026</div>
+        </div>
+        <div class="cover-el">EPAM</div>
+        <aside class="notes">Trafigura has invited EPAM to bid for an AI-driven assessment of its software estate. This deck sets out how we win it with our own method and tooling, what it takes to get the tooling ready, and the three decisions we need today. The live demo follows the deck.</aside>
+      </section>
+
+      <!-- ═══════════════════ 02 EXECUTIVE SUMMARY ═══════════════════ -->
+      <section data-marker="02 / 11">
+        <div class="eyebrow">Executive summary</div>
+        <h2 class="title">Win the assessment, <span class="ac">earn the implementation</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
+            <div class="card" style="flex:1;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span class="num">1</span><h3 style="margin:0;">The opportunity</h3></div>
+              <ul class="blist">
+                <li>Trafigura wants an AI-driven, automated assessment of its application estate, ending in a rationalisation roadmap.</li>
+                <li>The assessment is small; the implementation that follows is large and can be awarded without a new tender.</li>
+                <li>VIP tag requested; RTB presentation by Mathijs and Denes on 29 September.</li>
+              </ul>
+            </div>
+            <div class="card" style="flex:1;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span class="num">2</span><h3 style="margin:0;">Our answer</h3></div>
+              <ul class="blist">
+                <li>The AI Application Modernization Playbook as the assessment framework, agreed with Karoly.</li>
+                <li>The Estate Scanner as the evidence engine, running on-site inside Trafigura's network.</li>
+                <li>Live demo on our own machines during discovery and in the proposal presentation.</li>
+              </ul>
+            </div>
+            <div class="card accent" style="flex:1; background:var(--accent-bg);">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span class="num">3</span><h3 style="margin:0;">What we need</h3></div>
+              <ul class="blist">
+                <li>12 FTE-weeks: two engineers for six weeks.</li>
+                <li>They package the scanner for on-site use and integrate Trafigura's data sources.</li>
+                <li>A start date this week and a named proposal lead.</li>
+              </ul>
+            </div>
+          </div>
+          <div class="band" style="margin-top:16px; text-align:center;">The scanner is a <span class="ac">working prototype today</span>. Six weeks turn it into the accelerator that differentiates our proposal and opens the implementation.</div>
+        </div>
+        <aside class="notes">Three things to take away. The real value is the multi-year implementation tail. Trafigura scores AI and automated tooling twice, so a credible on-site accelerator is how we stand out. And the scanner already exists; the ask is two engineers for six weeks to make it Trafigura-ready.</aside>
+      </section>
+
+      <!-- ═══════════════════ 03 WHAT TRAFIGURA ASKS ═══════════════════ -->
+      <section data-marker="03 / 11">
+        <div class="eyebrow">The RFP</div>
+        <h2 class="title">Trafigura asks for <span class="ac">three automated steps</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:10px; align-items:stretch; flex:1; min-height:0;">
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">1 · Automated and on-site</div>
+              <h3>Assessment</h3>
+              <ul class="blist">
+                <li>Onsite analytical tool reviews Trafigura server content</li>
+                <li>Comparison against the Trafigura "AppCat" application listing</li>
+                <li>AI-based analysis of findings</li>
+                <li>Human in the loop for validation and anomalies</li>
+              </ul>
+            </div>
+            <div class="arw ac" style="width:24px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">2 · Data points per application</div>
+              <h3>Analysis</h3>
+              <ul class="blist">
+                <li>Application name, variables and metadata</li>
+                <li>User count</li>
+                <li>Technology and underlying stack</li>
+                <li>Version and type: on-prem, SaaS, AWS</li>
+                <li>Functional summary</li>
+              </ul>
+            </div>
+            <div class="arw ac" style="width:24px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">3 · Rationalisation delivery</div>
+              <h3>Options</h3>
+              <ul class="blist">
+                <li>Proposed treatment per application and technology</li>
+                <li>Proposed solution, timeline and approach</li>
+                <li>Support-model improvements across on-prem, SaaS and AWS</li>
+                <li>Commercials: costs by area, rates per person, phased over time</li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <span class="pill built">Tooling runs on Trafigura's network</span>
+            <span class="pill built">No data offsite — only as a stated last resort</span>
+            <span class="pill built">Security approval for any tooling</span>
+            <span class="pill built">Trafigura owns data and findings; we keep the tooling</span>
+            <span class="pill built">Commodity-trading knowledge and labour where sensible</span>
+          </div>
+          <div class="band" style="margin-top:12px;">Preferred treatment order: <span class="ac">remove, then consolidate, then replace</span> — replacements preferably AI-built in-house. AI, accelerators and automated tooling appear <span class="ac">twice</span> among the eight scoring criteria.</div>
+        </div>
+        <aside class="notes">The RFP is about inventory, usage and cost as much as code. Much of the estate is purchased or SaaS software, so the evidence has to come from AppCat, servers, logs and licences, not only from source code. The on-site constraint is hard: anything that moves data to supplier networks is a problem for them.</aside>
+      </section>
+
+      <!-- ═══════════════════ 04 TIMELINE ═══════════════════ -->
+      <section data-marker="04 / 11">
+        <div class="eyebrow">Timeline</div>
+        <h2 class="title">Ten days to proposal: <span class="ac">we demo, not install</span></h2>
+        <div class="stage">
+          <div class="tl-track">
+            <div class="tl-line"></div>
+            <div class="tl-node"><div class="tl-dot"></div><div class="tl-date">28 Sep</div><div class="tl-lbl">RFP released</div></div>
+            <div class="tl-node today"><div class="tl-dot today"></div><div class="tl-date">29 Sep · Today</div><div class="tl-lbl">Confirm participation · RTB</div></div>
+            <div class="tl-node"><div class="tl-dot"></div><div class="tl-date">2 Oct</div><div class="tl-lbl">Discovery calls close</div></div>
+            <div class="tl-node"><div class="tl-dot"></div><div class="tl-date">9 Oct</div><div class="tl-lbl">Proposal due</div></div>
+            <div class="tl-node"><div class="tl-dot"></div><div class="tl-date">13 Oct</div><div class="tl-lbl">Selection</div></div>
+          </div>
+          <div style="display:flex; gap:16px; flex:1; min-height:0; margin-top:20px; align-items:stretch;">
+            <div class="card" style="flex:1;">
+              <h3>Before selection: demo on our machines</h3>
+              <ul class="blist">
+                <li>No tooling can be installed at Trafigura before the proposal.</li>
+                <li>The Estate Scanner runs on our machines, so we demo it in the discovery call and the proposal presentation.</li>
+                <li>The proposal commits to on-site installation after selection, under Trafigura's security approval.</li>
+              </ul>
+            </div>
+            <div class="card teal" style="flex:1; border-color:var(--teal);">
+              <h3>After selection: build and install in parallel</h3>
+              <ul class="blist teal">
+                <li>The build starts this week and completes about six weeks later, in mid-November.</li>
+                <li>The first engagement weeks go to access, security approval and the AppCat and CMDB import — work that needs no installed package.</li>
+                <li>The full package installs as soon as approval is granted.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Denes rightly flagged that we cannot install anything before 2 October. We don't need to: the demo runs on our side. The build and the engagement start overlap by design, because the first weeks at any client go to access and approvals.</aside>
+      </section>
+
+      <!-- ═══════════════════ 05 FOUR TREATMENTS ═══════════════════ -->
+      <section data-marker="05 / 11">
+        <div class="eyebrow">Approach</div>
+        <h2 class="title">Four treatments, <span class="ac">one evidence base</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:14px; flex:1; min-height:0; align-items:stretch;">
+            <div class="card teal" style="flex:1; border-color:var(--teal); position:relative;">
+              <span class="pill teal" style="position:absolute; top:-13px; left:16px; font-size:11px; padding:3px 10px;">Trafigura's preference</span>
+              <h3 style="margin-top:6px;">Retire</h3>
+              <div class="b">Remove dormant and unused applications, including those still renewed every year.</div>
+              <div class="cap" style="margin-top:auto; padding-top:8px;"><b style="color:var(--teal);">Evidence:</b> no users or activity across the log retention window, licence still paid.</div>
+            </div>
+            <div class="card" style="flex:1;">
+              <h3>Consolidate</h3>
+              <div class="b">Merge overlapping use cases into fewer applications.</div>
+              <div class="cap" style="margin-top:auto; padding-top:8px;"><b style="color:var(--accent);">Evidence:</b> shared functions, overlapping user bases, parallel data stores.</div>
+            </div>
+            <div class="card" style="flex:1;">
+              <h3>Replace</h3>
+              <div class="b">Build an AI-built internal version at a lower price point and with more control.</div>
+              <div class="cap" style="margin-top:auto; padding-top:8px;"><b style="color:var(--accent);">Evidence:</b> small user base, simple functional footprint, business rules recovered from code and documentation. Leads into the Playbook's COTS replacement path.</div>
+            </div>
+            <div class="card" style="flex:1;">
+              <h3>Retain</h3>
+              <div class="b">Keep and optimise applications that earn their place.</div>
+              <div class="cap" style="margin-top:auto; padding-top:8px;"><b style="color:var(--accent);">Evidence:</b> active use, cost in line with value, no viable alternative.</div>
+            </div>
+          </div>
+          <div class="band" style="margin-top:14px;">Savings arrive <span class="ac">per retirement unit</span>. A licence, server or contract ends only when its last user or dependency leaves — so contract renewal dates drive the wave plan.</div>
+        </div>
+        <aside class="notes">This mirrors Trafigura's own preference order. Every application ends with one treatment and the evidence behind it, with a confidence rating. The replace path is where the implementation tail starts and where the Playbook takes over.</aside>
+      </section>
+
+      <!-- ═══════════════════ 06 HOW THE SCANNER ANSWERS IT ═══════════════════ -->
+      <section data-marker="06 / 11">
+        <div class="eyebrow">The engine</div>
+        <h2 class="title">From Trafigura's data <span class="ac">to a treatment per application</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:10px; flex:1; min-height:0; align-items:stretch;">
+            <!-- sources -->
+            <div class="card" style="width:26%; padding:14px 16px;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">Sources</div>
+              <ul class="blist">
+                <li>AppCat and CMDB exports</li>
+                <li>Server content and discovery</li>
+                <li>SSO and access logs</li>
+                <li>Web and application logs</li>
+                <li>Licence and contract records</li>
+                <li>AWS inventory</li>
+                <li>Source code, where it exists</li>
+              </ul>
+            </div>
+            <div class="arw ac" style="width:22px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <!-- estate graph -->
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">Estate graph</div>
+              <div class="graph" style="height:82px; margin:2px 0 8px;">
+                <svg viewBox="0 0 360 82" preserveAspectRatio="xMidYMid meet">
+                  <line x1="40" y1="41" x2="120" y2="20" stroke="#2AA3E6" stroke-width="1.4"/>
+                  <line x1="40" y1="41" x2="120" y2="62" stroke="#2AA3E6" stroke-width="1.4"/>
+                  <line x1="120" y1="20" x2="210" y2="41" stroke="#2AA3E6" stroke-width="1.4"/>
+                  <line x1="120" y1="62" x2="210" y2="41" stroke="#2AA3E6" stroke-width="1.4"/>
+                  <line x1="210" y1="41" x2="300" y2="22" stroke="#2FD1B0" stroke-width="1.4"/>
+                  <line x1="210" y1="41" x2="300" y2="60" stroke="#2FD1B0" stroke-width="1.4" stroke-dasharray="4 3"/>
+                  <circle cx="40" cy="41" r="7" fill="#172231" stroke="#2AA3E6" stroke-width="1.6"/>
+                  <circle cx="120" cy="20" r="6" fill="#172231" stroke="#2AA3E6" stroke-width="1.6"/>
+                  <circle cx="120" cy="62" r="6" fill="#172231" stroke="#2AA3E6" stroke-width="1.6"/>
+                  <circle cx="210" cy="41" r="8" fill="#2AA3E6"/>
+                  <circle cx="300" cy="22" r="6" fill="#172231" stroke="#2FD1B0" stroke-width="1.6"/>
+                  <circle cx="300" cy="60" r="6" fill="#172231" stroke="#2FD1B0" stroke-width="1.6"/>
+                  <text x="40" y="62" fill="#8B9AA8" font-size="8" text-anchor="middle" font-family="DM Sans">app</text>
+                  <text x="210" y="22" fill="#EEF2F5" font-size="8" text-anchor="middle" font-family="DM Sans">host</text>
+                  <text x="300" y="76" fill="#8B9AA8" font-size="8" text-anchor="middle" font-family="DM Sans">users</text>
+                </svg>
+              </div>
+              <ul class="blist">
+                <li>Application → deployment → host → licence → users</li>
+                <li>Each source is a scanner plugin; new sources never change the core</li>
+                <li>Entities are stitched on declared identity keys; every link records rule, evidence and confidence</li>
+                <li>Low-confidence links go to a human reviewer — the RFP's human in the loop</li>
+              </ul>
+            </div>
+            <div class="arw ac" style="width:22px; align-self:center;"><div class="ln"></div><div class="hd"></div></div>
+            <!-- output -->
+            <div class="card accent" style="width:28%; padding:14px 16px; background:var(--accent-bg);">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:6px;">Output per application</div>
+              <ul class="blist">
+                <li>The RFP's data points: name, users, stack, version, type, functional summary</li>
+                <li>Usage and dormancy evidence</li>
+                <li>Dependencies on other applications, hosts and contracts</li>
+                <li>Treatment with confidence rating</li>
+                <li>Queryable through the UI and through MCP for AI agents</li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:14px;">
+            <span class="pill teal">Runs on-site in Kubernetes</span>
+            <span class="pill teal">No outbound data path</span>
+            <span class="pill teal">Read-only access</span>
+            <span class="pill teal">LLM off by default, or in-tenant only</span>
+          </div>
+        </div>
+        <aside class="notes">The scanner is a platform any source can feed. Usage data from logs and SSO answers the dormancy and user-count questions; licence data answers cost. Everything stays inside Trafigura's network, which is exactly what their tooling principle demands. The graph and findings stay with Trafigura; the tool stays with us.</aside>
+      </section>
+
+      <!-- ═══════════════════ 07 STATUS ═══════════════════ -->
+      <section data-marker="07 / 11">
+        <div class="eyebrow">Status</div>
+        <h2 class="title">What exists today <span class="ac">and what we build</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
+            <div class="card teal" style="flex:1; border:2px solid var(--teal);">
+              <h3 style="color:var(--teal);">Built and demonstrable</h3>
+              <ul class="blist teal">
+                <li>Code scanner: source, AST, call graph and data flow</li>
+                <li>Database schema scanner</li>
+                <li>Specs and documentation scanner</li>
+                <li>Estate graph with vector search</li>
+                <li>Exploration UI: data trace, call trace, recovered business rules, migration planner</li>
+                <li>MCP interface for AI agents</li>
+                <li>Plugin and stitching design with declared identity keys</li>
+              </ul>
+            </div>
+            <div class="card" style="flex:1; border:2px dashed var(--accent); background:transparent;">
+              <h3 style="color:var(--accent);">Built for Trafigura in six weeks</h3>
+              <ul class="blist">
+                <li>AppCat and CMDB importer</li>
+                <li>Server discovery scanner</li>
+                <li>SSO and access-log usage scanner</li>
+                <li>Licence and contract import</li>
+                <li>AWS inventory scanner</li>
+                <li>Offline on-site Kubernetes package with security documentation</li>
+              </ul>
+            </div>
+          </div>
+          <div style="display:flex; align-items:center; gap:16px; margin-top:14px;">
+            <div class="band" style="flex:1; margin:0;"><b style="color:var(--teal);">Proven end to end</b> on Apache Fineract, about 2,374 Java files — demonstrable on our machines at any time.</div>
+            <div class="legend"><span><span class="sw b"></span>built</span><span><span class="sw pl"></span>to build</span></div>
+          </div>
+        </div>
+        <aside class="notes">The core is real and runs today. What is missing is exactly what Trafigura's estate needs: inventory, usage and cost sources, plus a package their security team can approve. New scanners are generated by our scanner-authoring skill from a source type and sample data, then pass a contract test, which is why six weeks is enough.</aside>
+      </section>
+
+      <!-- ═══════════════════ 08 BUILD PLAN ═══════════════════ -->
+      <section data-marker="08 / 11">
+        <div class="eyebrow">Build plan</div>
+        <h2 class="title">Two engineers, six weeks, <span class="ac">12 FTE-weeks</span></h2>
+        <div class="stage">
+          <table class="grid" style="flex:1;">
+            <colgroup><col style="width:20%"><col style="width:26.6%"><col style="width:26.6%"><col style="width:26.6%"></colgroup>
+            <thead>
+              <tr><th></th><th>W1–2</th><th>W3–4</th><th>W5–6</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div class="rowlbl">Engineer A<span class="d">platform &amp; packaging</span></div></td>
+                <td><div class="gcell a">Extract the scanner into a standalone repository · offline-first Kubernetes package</div></td>
+                <td><div class="gcell a">Harden the package · deployment target as configuration · security and data-handling documentation</div></td>
+                <td><div class="gcell a">Trafigura-shaped sample estate for demos · install rehearsal and readiness</div></td>
+              </tr>
+              <tr>
+                <td><div class="rowlbl">Engineer B<span class="d">sources &amp; skills</span></div></td>
+                <td><div class="gcell b">AppCat and CMDB importer · server discovery scanner</div></td>
+                <td><div class="gcell b">SSO and access-log usage scanner, built with the scanner-authoring skill</div></td>
+                <td><div class="gcell b">Licence and contract import · AWS inventory scanner</div></td>
+              </tr>
+              <tr>
+                <td><div class="rowlbl">Milestone</div></td>
+                <td><div class="gcell m"><span class="dia">◆</span> Standalone package runs · AppCat data in the graph</div></td>
+                <td><div class="gcell m"><span class="dia">◆</span> Usage scanner live · package installs offline</div></td>
+                <td><div class="gcell m"><span class="dia">◆</span> Full source set on the sample estate · install-ready</div></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="band" style="margin-top:8px;"><span class="ac">Plugin contract frozen at the end of week 2</span> · token budget about €200 per engineer per day · if the contract slips, weeks 5–6 absorb it</div>
+        </div>
+        <aside class="notes">Two nearshore engineers, one on the platform and one on sources. The contract freeze at the end of week 2 lets both tracks run in parallel. By week 6 we have a package that installs offline and the complete source set Trafigura's assessment needs.</aside>
+      </section>
+
+      <!-- ═══════════════════ 09 DELIVERY MODEL ═══════════════════ -->
+      <section data-marker="09 / 11">
+        <div class="eyebrow">Delivery</div>
+        <h2 class="title">How the assessment <span class="ac">runs at Trafigura</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:14px; flex:1; min-height:0; align-items:stretch;">
+            <!-- 1 -->
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><span class="num">1</span><h3 style="margin:0; font-size:16px;">What we need from Trafigura</h3></div>
+              <ul class="blist">
+                <li>A Kubernetes environment, or a sandbox, inside their network</li>
+                <li>AppCat and CMDB exports</li>
+                <li>Read access to servers and repositories</li>
+                <li>SSO and access logs, with their retention period</li>
+                <li>Licence and contract records, including renewal dates</li>
+                <li>Named technical, security and finance contacts</li>
+              </ul>
+            </div>
+            <!-- 2 -->
+            <div class="card" style="flex:1; padding:14px 16px;">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><span class="num">2</span><h3 style="margin:0; font-size:16px;">How it runs</h3></div>
+              <div class="box accent" style="margin-bottom:8px;"><span class="t" style="color:#CDEAFB;">Install and scan · about 4 weeks</span><span class="d" style="color:#9FB8CC;">security approval, package install, import AppCat and CMDB, run the scanners across a first bounded scope</span></div>
+              <div class="box accent" style="margin-bottom:8px;"><span class="t" style="color:#CDEAFB;">Analysis and options · about 4 weeks</span><span class="d" style="color:#9FB8CC;">validate findings with Trafigura's owners, assign treatments, build the wave plan and business case</span></div>
+              <div class="cap" style="margin-top:2px;"><b style="color:var(--head);">Scope:</b> start with one bounded part of the estate, then extend across the rest.</div>
+              <div class="cap" style="margin-top:6px;"><b style="color:var(--head);">Team:</b> engagement lead, commodity-trading SME, solution architect, two scanner engineers.</div>
+              <div class="cap" style="margin-top:6px;">Largely remote, with presence in London and Geneva when needed.</div>
+            </div>
+            <!-- 3 -->
+            <div class="card teal" style="flex:1; padding:14px 16px; border-color:var(--teal);">
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:8px;"><span class="num" style="background:var(--teal); color:#0F1722;">3</span><h3 style="margin:0; font-size:16px; color:var(--teal);">What Trafigura gets</h3></div>
+              <ul class="blist teal">
+                <li>A confidence-rated inventory of every application in scope</li>
+                <li>The RFP's data points per application</li>
+                <li>A treatment per application, with its evidence</li>
+                <li>A wave plan by retirement unit, aligned to renewal dates</li>
+                <li>A business case with costs by area and phased over time</li>
+                <li>The graph and all findings, owned by Trafigura</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">This follows the same bounded-engagement model we use elsewhere: agree a first scope, scan it, analyse it, then extend. Findings stay available after the analysis phase, which is itself a scoring criterion.</aside>
+      </section>
+
+      <!-- ═══════════════════ 10 RISKS & QUESTIONS ═══════════════════ -->
+      <section data-marker="10 / 11">
+        <div class="eyebrow">Risks</div>
+        <h2 class="title">Risks we state <span class="ac">and questions we ask</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
+            <!-- risks -->
+            <div style="flex:1; display:flex; flex-direction:column;">
+              <div class="risk">
+                <span class="rl">Risk</span>
+                <div class="rt">Log formats are unknown until we see samples.</div>
+                <div class="rm">Mitigation: the scanner-authoring skill turns a sample into a plugin within days; we request samples in the discovery call.</div>
+              </div>
+              <div class="risk">
+                <span class="rl">Risk</span>
+                <div class="rt">Dormancy depends on log retention.</div>
+                <div class="rm">Mitigation: combine usage logs with licence use and SSO history, and flag applications used only at quarter-end or year-end.</div>
+              </div>
+              <div class="risk">
+                <span class="rl">Risk</span>
+                <div class="rt">Purchased and SaaS software has no source code.</div>
+                <div class="rm">Mitigation: evidence comes from SSO, access logs, licences and contracts; code analysis applies only where source exists.</div>
+              </div>
+              <div class="risk" style="margin-bottom:0;">
+                <span class="rl">Risk</span>
+                <div class="rt">Security approval takes time.</div>
+                <div class="rm">Mitigation: read-only, no-egress package with a data-handling statement ready at submission; AppCat import starts before approval.</div>
+              </div>
+            </div>
+            <!-- questions -->
+            <div class="card" style="width:44%;">
+              <h3>Questions for the discovery call</h3>
+              <ol class="qlist">
+                <li>How complete and current is the AppCat listing?</li>
+                <li>Which log sources exist, and how long are they retained?</li>
+                <li>Where do licence and contract data live, including renewal dates?</li>
+                <li>What share of the estate is built in-house versus purchased or SaaS?</li>
+                <li>What does security approval for supplier tooling involve, and how long does it take?</li>
+                <li>Is a Kubernetes environment available on-site, or should we bring a sandbox?</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">These risks are known and manageable. The discovery call is our chance to close most of them, so we go in with these six questions.</aside>
+      </section>
+
+      <!-- ═══════════════════ 11 DECISIONS ═══════════════════ -->
+      <section class="decide" data-marker="11 / 11">
+        <div class="eyebrow">Decisions</div>
+        <h2 class="title">Three decisions <span class="ac">for today</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
+            <div class="dcard">
+              <span class="num big">1</span>
+              <h3>Staffing</h3>
+              <p>Two nearshore engineers for six weeks — 12 FTE-weeks — to package the Estate Scanner and integrate Trafigura's sources.</p>
+            </div>
+            <div class="dcard">
+              <span class="num big">2</span>
+              <h3>Start date</h3>
+              <p>Start this week, so the package is install-ready when the engagement begins in mid-October.</p>
+            </div>
+            <div class="dcard">
+              <span class="num big">3</span>
+              <h3>Proposal lead</h3>
+              <p>A named owner for the 9 October submission. Stefan owns the scanner and solution part.</p>
+            </div>
+          </div>
+          <div class="cap" style="margin-top:14px;"><b style="color:var(--head);">Also to align:</b> bandwidth from Vitalijs · positioning next to MigVisor</div>
+          <div class="closing" style="margin-top:14px;">Demo on our machines today. <span class="ac">On Trafigura's network six weeks after we start.</span></div>
+        </div>
+        <aside class="notes">Close on the three decisions, then switch to the live demo: data trace, call trace, recovered business rules and the migration planner on Fineract, and how an AppCat entry and access logs would appear in the same graph.</aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script>
+    document.querySelectorAll('.reveal .slides section[data-marker]').forEach(function (s) {
+      var m = s.dataset.marker;
+      var marker = document.createElement('div');
+      marker.className = 'marker'; marker.textContent = m; s.appendChild(marker);
+      var f = document.createElement('div');
+      f.className = 'deck-footer';
+      f.innerHTML = '<span>EPAM Internal · Confidential — Trafigura estate rationalisation</span>' +
+                    '<span class="right">' + m + '</span>';
+      s.appendChild(f);
+    });
+    Reveal.initialize({ width: 1280, height: 720, margin: 0, center: false, hash: true, slideNumber: false, transition: 'slide', plugins: [RevealNotes] });
+  </script>
+</body>
+</html>
