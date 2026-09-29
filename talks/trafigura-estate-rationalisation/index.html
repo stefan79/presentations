@@ -152,6 +152,11 @@
 
     /* mini node-link graph */
     .reveal .graph svg{ width:100%; height:100%; display:block; }
+
+    /* screenshot thumbnails with caption overlay */
+    .reveal .shot{ position:relative; border:1px solid var(--line); border-radius:6px; overflow:hidden; min-height:0; }
+    .reveal .shot img{ width:100%; height:100%; object-fit:cover; object-position:top left; margin:0; display:block; }
+    .reveal .shot span{ position:absolute; bottom:0; left:0; right:0; background:rgba(11,16,24,0.84); color:#EEF2F5; font-size:10.5px; line-height:1.25; padding:3px 7px; }
   </style>
 </head>
 <body>
@@ -196,17 +201,17 @@
               </ul>
             </div>
             <div class="card accent" style="flex:1; background:var(--accent-bg);">
-              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span class="num">3</span><h3 style="margin:0;">What we need</h3></div>
+              <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;"><span class="num">3</span><h3 style="margin:0;">What we decide today</h3></div>
               <ul class="blist">
-                <li>12 FTE-weeks: two engineers for six weeks.</li>
-                <li>They package the scanner for on-site use and integrate Trafigura's data sources.</li>
-                <li>A start date this week and a named proposal lead.</li>
+                <li>Go to bid with the Playbook as the method and the Estate Scanner as the on-site accelerator.</li>
+                <li>No upfront investment: the scanner is packaged and the sources integrated within the engagement itself.</li>
+                <li>A named proposal lead for the 9 October submission.</li>
               </ul>
             </div>
           </div>
-          <div class="band" style="margin-top:16px; text-align:center;">The scanner is a <span class="ac">working prototype today</span>. Six weeks turn it into the accelerator that differentiates our proposal and opens the implementation.</div>
+          <div class="band" style="margin-top:16px; text-align:center;">The scanner is a <span class="ac">working prototype today</span> — we demo it now at no upfront cost. It is packaged within the engagement and leaves Trafigura <span class="ac">primed for Playbook-style modernization</span>, with EPAM's accelerator already in hand.</div>
         </div>
-        <aside class="notes">Three things to take away. The real value is the multi-year implementation tail. Trafigura scores AI and automated tooling twice, so a credible on-site accelerator is how we stand out. And the scanner already exists; the ask is two engineers for six weeks to make it Trafigura-ready.</aside>
+        <aside class="notes">Three things to take away. The real value is the multi-year implementation tail. Trafigura scores AI and automated tooling twice, so a credible on-site accelerator is how we stand out. And there is no upfront ask: the scanner already exists and is demonstrable today; the packaging and source integration are delivered within the engagement, not funded up front. When the assessment ends, Trafigura is primed for a Playbook-style modernization and EPAM already holds the accelerator.</aside>
       </section>
 
       <!-- ═══════════════════ 03 WHAT TRAFIGURA ASKS ═══════════════════ -->
@@ -286,14 +291,14 @@
             <div class="card teal" style="flex:1; border-color:var(--teal);">
               <h3>After selection: build and install in parallel</h3>
               <ul class="blist teal">
-                <li>The build starts this week and completes about six weeks later, in mid-November.</li>
-                <li>The first engagement weeks go to access, security approval and the AppCat and CMDB import — work that needs no installed package.</li>
-                <li>The full package installs as soon as approval is granted.</li>
+                <li>The engagement's first six weeks package the scanner and integrate Trafigura's sources — funded by the engagement, no upfront investment.</li>
+                <li>They run in parallel with access, security approval and the AppCat and CMDB import — work that needs no installed package.</li>
+                <li>The full package installs as soon as approval is granted, by about late November.</li>
               </ul>
             </div>
           </div>
         </div>
-        <aside class="notes">Denes rightly flagged that we cannot install anything before 2 October. We don't need to: the demo runs on our side. The build and the engagement start overlap by design, because the first weeks at any client go to access and approvals.</aside>
+        <aside class="notes">Denes rightly flagged that we cannot install anything before 2 October. We don't need to: the demo runs on our side on the existing prototype. There is no upfront build to fund — the packaging and source integration are the first six weeks of the engagement itself, running in parallel with access and approvals, which are where the first weeks at any client go anyway.</aside>
       </section>
 
       <!-- ═══════════════════ 05 FOUR TREATMENTS ═══════════════════ -->
@@ -407,20 +412,21 @@
         <h2 class="title">What exists today <span class="ac">and what we build</span></h2>
         <div class="stage">
           <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
-            <div class="card teal" style="flex:1; border:2px solid var(--teal);">
-              <h3 style="color:var(--teal);">Built and demonstrable</h3>
-              <ul class="blist teal">
-                <li>Code scanner: source, AST, call graph and data flow</li>
-                <li>Database schema scanner</li>
-                <li>Specs and documentation scanner</li>
-                <li>Estate graph with vector search</li>
-                <li>Exploration UI: data trace, call trace, recovered business rules, migration planner</li>
-                <li>MCP interface for AI agents</li>
-                <li>Plugin and stitching design with declared identity keys</li>
-              </ul>
+            <!-- built: with screenshots -->
+            <div class="card teal" style="width:60%; border:2px solid var(--teal); padding:14px 16px;">
+              <h3 style="color:var(--teal); margin-bottom:8px;">Built and demonstrable today</h3>
+              <div style="display:grid; grid-template-columns:1fr 1fr; grid-template-rows:1fr 1fr; gap:8px; flex:1; min-height:0;">
+                <div class="shot"><img src="assets/ui-datatrace.png" alt="Data Trace"><span>Data Trace — tables and columns an operation touches</span></div>
+                <div class="shot"><img src="assets/ui-calltrace.png" alt="Call Trace"><span>Call Trace — how calls flow from an entry point</span></div>
+                <div class="shot"><img src="assets/ui-requirements.png" alt="Requirements"><span>Requirements — business rules recovered from code</span></div>
+                <div class="shot"><img src="assets/ui-migrationplanner.png" alt="Migration Planner"><span>Migration Planner — least-entangled slices first</span></div>
+              </div>
+              <div class="cap" style="margin-top:9px; color:#BFF0E4;">Plus: code, schema and specs scanners · estate graph with vector search · MCP interface for AI agents · plugin &amp; stitching design with declared identity keys.</div>
             </div>
-            <div class="card" style="flex:1; border:2px dashed var(--accent); background:transparent;">
-              <h3 style="color:var(--accent);">Built for Trafigura in six weeks</h3>
+            <!-- added within the engagement -->
+            <div class="card" style="width:40%; border:2px dashed var(--accent); background:transparent;">
+              <h3 style="color:var(--accent); margin-bottom:2px;">Added for Trafigura</h3>
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:8px;">within the engagement · first six weeks of delivery</div>
               <ul class="blist">
                 <li>AppCat and CMDB importer</li>
                 <li>Server discovery scanner</li>
@@ -429,20 +435,22 @@
                 <li>AWS inventory scanner</li>
                 <li>Offline on-site Kubernetes package with security documentation</li>
               </ul>
+              <div class="cap" style="margin-top:auto; padding-top:8px;">No upfront investment — funded by the engagement.</div>
             </div>
           </div>
-          <div style="display:flex; align-items:center; gap:16px; margin-top:14px;">
+          <div style="display:flex; align-items:center; gap:16px; margin-top:12px;">
             <div class="band" style="flex:1; margin:0;"><b style="color:var(--teal);">Proven end to end</b> on Apache Fineract, about 2,374 Java files — demonstrable on our machines at any time.</div>
-            <div class="legend"><span><span class="sw b"></span>built</span><span><span class="sw pl"></span>to build</span></div>
+            <div class="legend"><span><span class="sw b"></span>built today</span><span><span class="sw pl"></span>added in the engagement</span></div>
           </div>
         </div>
-        <aside class="notes">The core is real and runs today. What is missing is exactly what Trafigura's estate needs: inventory, usage and cost sources, plus a package their security team can approve. New scanners are generated by our scanner-authoring skill from a source type and sample data, then pass a contract test, which is why six weeks is enough.</aside>
+        <aside class="notes">The core is real and runs today — these four views are live on Apache Fineract and demonstrable at any time. What is missing is exactly what Trafigura's estate needs: inventory, usage and cost sources, plus a package their security team can approve. Those are added within the engagement, not funded up front. New scanners are generated by our scanner-authoring skill from a source type and sample data, then pass a contract test, which is why the first six weeks are enough.</aside>
       </section>
 
       <!-- ═══════════════════ 08 BUILD PLAN ═══════════════════ -->
       <section data-marker="08 / 11">
         <div class="eyebrow">Build plan</div>
-        <h2 class="title">Two engineers, six weeks, <span class="ac">12 FTE-weeks</span></h2>
+        <h2 class="title">The engagement's first six weeks <span class="ac">build the Trafigura fit</span></h2>
+        <div class="sub">Two engineers, delivered within the engagement — not an upfront investment. Both tracks run in parallel from a frozen plugin contract.</div>
         <div class="stage">
           <table class="grid" style="flex:1;">
             <colgroup><col style="width:20%"><col style="width:26.6%"><col style="width:26.6%"><col style="width:26.6%"></colgroup>
@@ -472,7 +480,7 @@
           </table>
           <div class="band" style="margin-top:8px;"><span class="ac">Plugin contract frozen at the end of week 2</span> · token budget about €200 per engineer per day · if the contract slips, weeks 5–6 absorb it</div>
         </div>
-        <aside class="notes">Two nearshore engineers, one on the platform and one on sources. The contract freeze at the end of week 2 lets both tracks run in parallel. By week 6 we have a package that installs offline and the complete source set Trafigura's assessment needs.</aside>
+        <aside class="notes">Two nearshore engineers, one on the platform and one on sources — this is the first six weeks of the engagement, not a separate upfront build. The contract freeze at the end of week 2 lets both tracks run in parallel. By week 6 we have a package that installs offline and the complete source set Trafigura's assessment needs.</aside>
       </section>
 
       <!-- ═══════════════════ 09 DELIVERY MODEL ═══════════════════ -->
@@ -515,8 +523,9 @@
               </ul>
             </div>
           </div>
+          <div class="band" style="margin-top:14px; border-color:var(--teal); background:var(--teal-bg);"><b style="color:var(--teal);">Then the tail →</b> every Replace candidate leaves the assessment with its business rules and evidence recovered, so Trafigura is <span style="color:var(--teal); font-weight:600;">primed for a Playbook-style modernization</span> — and EPAM already holds the accelerator: the Estate Scanner feeds the AI Application Modernization Playbook straight into build.</div>
         </div>
-        <aside class="notes">This follows the same bounded-engagement model we use elsewhere: agree a first scope, scan it, analyse it, then extend. Findings stay available after the analysis phase, which is itself a scoring criterion.</aside>
+        <aside class="notes">This follows the same bounded-engagement model we use elsewhere: agree a first scope, scan it, analyse it, then extend. Findings stay available after the analysis phase, which is itself a scoring criterion. The strategic point is the tail: once the assessment is done, Trafigura is primed for a modernization run the Playbook way, and EPAM is the only bidder that already has the accelerator that produced the evidence — the Estate Scanner feeds the Playbook straight into build. That is the large, non-tendered implementation we are really playing for.</aside>
       </section>
 
       <!-- ═══════════════════ 10 RISKS & QUESTIONS ═══════════════════ -->
@@ -573,24 +582,24 @@
           <div style="display:flex; gap:16px; flex:1; min-height:0; align-items:stretch;">
             <div class="dcard">
               <span class="num big">1</span>
-              <h3>Staffing</h3>
-              <p>Two nearshore engineers for six weeks — 12 FTE-weeks — to package the Estate Scanner and integrate Trafigura's sources.</p>
+              <h3>Go to bid</h3>
+              <p>Approve the approach: the Playbook as the method and the Estate Scanner as the on-site accelerator, packaged within the engagement — no upfront investment.</p>
             </div>
             <div class="dcard">
               <span class="num big">2</span>
-              <h3>Start date</h3>
-              <p>Start this week, so the package is install-ready when the engagement begins in mid-October.</p>
-            </div>
-            <div class="dcard">
-              <span class="num big">3</span>
               <h3>Proposal lead</h3>
               <p>A named owner for the 9 October submission. Stefan owns the scanner and solution part.</p>
             </div>
+            <div class="dcard">
+              <span class="num big">3</span>
+              <h3>Discovery team</h3>
+              <p>People on the 2 October discovery calls to shape scope, sources and the business case.</p>
+            </div>
           </div>
           <div class="cap" style="margin-top:14px;"><b style="color:var(--head);">Also to align:</b> bandwidth from Vitalijs · positioning next to MigVisor</div>
-          <div class="closing" style="margin-top:14px;">Demo on our machines today. <span class="ac">On Trafigura's network six weeks after we start.</span></div>
+          <div class="closing" style="margin-top:14px;">Demo on our machines today. <span class="ac">Delivered within the engagement — and Trafigura primed for Playbook modernization.</span></div>
         </div>
-        <aside class="notes">Close on the three decisions, then switch to the live demo: data trace, call trace, recovered business rules and the migration planner on Fineract, and how an AppCat entry and access logs would appear in the same graph.</aside>
+        <aside class="notes">Close on the three decisions — bid, lead, discovery team — with the key point that there is no upfront investment: the build is part of the engagement. Then switch to the live demo: data trace, call trace, recovered business rules and the migration planner on Fineract, and how an AppCat entry and access logs would appear in the same graph. End on the tail: the assessment leaves Trafigura primed for a Playbook-style modernization, with EPAM's accelerator already in hand.</aside>
       </section>
 
     </div>
