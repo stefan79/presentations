@@ -147,88 +147,88 @@
 
     /* ═════════════ REGION-DECKKRAFT-MATRIX ═════════════ */
     .r1,.r2,.r3,.r4,.r5{ opacity:0; transition:opacity .5s ease-out }
-    #master[data-step="2"] .r1{opacity:1} #master[data-step="3"] .r1{opacity:.2}
-    #master[data-step="4"] .r1{opacity:.6} #master[data-step="5"] .r1{opacity:.2}
-    #master[data-step="6"] .r1{opacity:.6} #master[data-step="7"] .r1{opacity:.2}
-    #master[data-step="8"] .r1{opacity:.6} #master[data-step="9"] .r1{opacity:.2}
-    #master[data-step="10"] .r1{opacity:.6} #master[data-step="11"] .r1{opacity:1}
-    #master[data-step="4"] .r2{opacity:1} #master[data-step="5"] .r2{opacity:.2}
-    #master[data-step="6"] .r2{opacity:.6} #master[data-step="7"] .r2{opacity:.2}
-    #master[data-step="8"] .r2{opacity:.6} #master[data-step="9"] .r2{opacity:.2}
-    #master[data-step="10"] .r2{opacity:.6} #master[data-step="11"] .r2{opacity:1}
-    #master[data-step="6"] .r3{opacity:1} #master[data-step="7"] .r3{opacity:.2}
-    #master[data-step="8"] .r3{opacity:.6} #master[data-step="9"] .r3{opacity:.2}
-    #master[data-step="10"] .r3{opacity:.6} #master[data-step="11"] .r3{opacity:1}
-    #master[data-step="8"] .r4{opacity:1} #master[data-step="9"] .r4{opacity:.2}
-    #master[data-step="10"] .r4{opacity:.6} #master[data-step="11"] .r4{opacity:1}
-    #master[data-step="10"] .r5{opacity:1} #master[data-step="11"] .r5{opacity:1}
+    #master:has(.f2.current-fragment) .r1{opacity:1} #master:has(.f3.current-fragment) .r1{opacity:.2}
+    #master:has(.f4.current-fragment) .r1{opacity:.6} #master:has(.f5.current-fragment) .r1{opacity:.2}
+    #master:has(.f6.current-fragment) .r1{opacity:.6} #master:has(.f7.current-fragment) .r1{opacity:.2}
+    #master:has(.f8.current-fragment) .r1{opacity:.6} #master:has(.f9.current-fragment) .r1{opacity:.2}
+    #master:has(.f10.current-fragment) .r1{opacity:.6} #master:has(.f11.current-fragment) .r1{opacity:1}
+    #master:has(.f4.current-fragment) .r2{opacity:1} #master:has(.f5.current-fragment) .r2{opacity:.2}
+    #master:has(.f6.current-fragment) .r2{opacity:.6} #master:has(.f7.current-fragment) .r2{opacity:.2}
+    #master:has(.f8.current-fragment) .r2{opacity:.6} #master:has(.f9.current-fragment) .r2{opacity:.2}
+    #master:has(.f10.current-fragment) .r2{opacity:.6} #master:has(.f11.current-fragment) .r2{opacity:1}
+    #master:has(.f6.current-fragment) .r3{opacity:1} #master:has(.f7.current-fragment) .r3{opacity:.2}
+    #master:has(.f8.current-fragment) .r3{opacity:.6} #master:has(.f9.current-fragment) .r3{opacity:.2}
+    #master:has(.f10.current-fragment) .r3{opacity:.6} #master:has(.f11.current-fragment) .r3{opacity:1}
+    #master:has(.f8.current-fragment) .r4{opacity:1} #master:has(.f9.current-fragment) .r4{opacity:.2}
+    #master:has(.f10.current-fragment) .r4{opacity:.6} #master:has(.f11.current-fragment) .r4{opacity:1}
+    #master:has(.f10.current-fragment) .r5{opacity:1} #master:has(.f11.current-fragment) .r5{opacity:1}
 
     /* draw-in der Verbindungen je Region-Einstiegsschritt */
-    #master.s2 .r1 .draw{ stroke-dashoffset:0 }
-    #master.s4 .r2 .draw{ stroke-dashoffset:0 } #master.s4 .r2 .filldot{ opacity:1 }
-    #master.s6 .r3 .draw{ stroke-dashoffset:0 } #master.s6 .band{ transform:scaleX(1) }
-    #master.s6 .band .chip{ opacity:1 }
-    #master.s6 .band .chip:nth-child(2){ transition-delay:.15s } #master.s6 .band .chip:nth-child(3){ transition-delay:.3s }
-    #master.s6 .band .chip:nth-child(4){ transition-delay:.45s } #master.s6 .band .chip:nth-child(5){ transition-delay:.6s }
-    #master.s8 .r4 .draw{ stroke-dashoffset:0 }
-    #master.s10 .r5 .draw{ stroke-dashoffset:0 } #master.s10 .r5 .filldot{ opacity:1 }
+    #master:has(.f2.visible) .r1 .draw{ stroke-dashoffset:0 }
+    #master:has(.f4.visible) .r2 .draw{ stroke-dashoffset:0 } #master:has(.f4.visible) .r2 .filldot{ opacity:1 }
+    #master:has(.f6.visible) .r3 .draw{ stroke-dashoffset:0 } #master:has(.f6.visible) .band{ transform:scaleX(1) }
+    #master:has(.f6.visible) .band .chip{ opacity:1 }
+    #master:has(.f6.visible) .band .chip:nth-child(2){ transition-delay:.15s } #master:has(.f6.visible) .band .chip:nth-child(3){ transition-delay:.3s }
+    #master:has(.f6.visible) .band .chip:nth-child(4){ transition-delay:.45s } #master:has(.f6.visible) .band .chip:nth-child(5){ transition-delay:.6s }
+    #master:has(.f8.visible) .r4 .draw{ stroke-dashoffset:0 }
+    #master:has(.f10.visible) .r5 .draw{ stroke-dashoffset:0 } #master:has(.f10.visible) .r5 .filldot{ opacity:1 }
 
     /* Diamant ◆ ab Schritt 8 zu Baustein 8 (dasselbe Zentrum) */
     .box8{ transform:scale(.12); transform-origin:center center }
-    #master.s8 .box8{ transform:scale(1) }
-    #master.s8 .diamond8{ opacity:0 }
+    #master:has(.f8.visible) .box8{ transform:scale(1) }
+    #master:has(.f8.visible) .diamond8{ opacity:0 }
 
     /* Untertitel-Wechsel Baustein 2 ab Schritt 10 */
-    .bs-alt{ display:none } #master.s10 .bs-now{ display:none } #master.s10 .bs-alt{ display:block }
+    .bs-alt{ display:none } #master:has(.f10.visible) .bs-now{ display:none } #master:has(.f10.visible) .bs-alt{ display:block }
 
     /* Befund nur Schritt 4 */
-    #master[data-step="4"] .befund{ opacity:1 }
+    #master:has(.f4.current-fragment) .befund{ opacity:1 }
 
     /* Legende dritter Eintrag ab Schritt 6 */
-    #master.s6 .opt-item{ opacity:1 }
+    #master:has(.f6.visible) .opt-item{ opacity:1 }
 
     /* Overlays: Auftritt am HOW-Ort (ungerade), Schrumpfen (gerade) */
-    #master[data-step="1"] .ov1{ opacity:1 } #master[data-step="2"] .ov1{ opacity:0; transform:scale(.5) }
-    #master[data-step="3"] .ov2{ opacity:1 } #master[data-step="4"] .ov2{ opacity:0; transform:scale(.5) }
-    #master[data-step="5"] .ov3{ opacity:1 } #master[data-step="6"] .ov3{ opacity:0; transform:scale(.5) }
-    #master[data-step="7"] .ov4{ opacity:1 } #master[data-step="8"] .ov4{ opacity:0; transform:scale(.5) }
-    #master[data-step="9"] .ov5{ opacity:1 } #master[data-step="10"] .ov5{ opacity:0; transform:scale(.5) }
+    #master:has(.f1.current-fragment) .ov1{ opacity:1 } #master:has(.f2.current-fragment) .ov1{ opacity:0; transform:scale(.5) }
+    #master:has(.f3.current-fragment) .ov2{ opacity:1 } #master:has(.f4.current-fragment) .ov2{ opacity:0; transform:scale(.5) }
+    #master:has(.f5.current-fragment) .ov3{ opacity:1 } #master:has(.f6.current-fragment) .ov3{ opacity:0; transform:scale(.5) }
+    #master:has(.f7.current-fragment) .ov4{ opacity:1 } #master:has(.f8.current-fragment) .ov4{ opacity:0; transform:scale(.5) }
+    #master:has(.f9.current-fragment) .ov5{ opacity:1 } #master:has(.f10.current-fragment) .ov5{ opacity:0; transform:scale(.5) }
     .ov1{ transform-origin:50% 100% } .ov2{ transform-origin:100% 100% }
     .ov3{ transform-origin:50% 100% } .ov4{ transform-origin:100% 100% } .ov5{ transform-origin:100% 100% }
     /* Overlay-Verbindungslinie aktive WHY → Overlay */
     .ovlink{ stroke:var(--g3); stroke-width:1; fill:none; opacity:0; transition:opacity .4s }
-    #master[data-step="1"] .ovlink1,#master[data-step="3"] .ovlink2,#master[data-step="5"] .ovlink3,
-    #master[data-step="7"] .ovlink4,#master[data-step="9"] .ovlink5{ opacity:1 }
+    #master:has(.f1.current-fragment) .ovlink1,#master:has(.f3.current-fragment) .ovlink2,#master:has(.f5.current-fragment) .ovlink3,
+    #master:has(.f7.current-fragment) .ovlink4,#master:has(.f9.current-fragment) .ovlink5{ opacity:1 }
 
     /* ── WHY-Karten: aktiv je Schritt, übrige 40 % ── */
-    #master[data-step="1"] .why,#master[data-step="2"] .why,#master[data-step="3"] .why,#master[data-step="4"] .why,
-    #master[data-step="5"] .why,#master[data-step="6"] .why,#master[data-step="7"] .why,#master[data-step="8"] .why,
-    #master[data-step="9"] .why,#master[data-step="10"] .why{ opacity:.4 }
-    #master[data-step="1"] .why1,#master[data-step="2"] .why1,#master[data-step="3"] .why2,#master[data-step="4"] .why2,
-    #master[data-step="5"] .why3,#master[data-step="6"] .why3,#master[data-step="7"] .why4,#master[data-step="8"] .why4,
-    #master[data-step="9"] .why5,#master[data-step="10"] .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
+    #master:has(.f1.current-fragment) .why,#master:has(.f2.current-fragment) .why,#master:has(.f3.current-fragment) .why,#master:has(.f4.current-fragment) .why,
+    #master:has(.f5.current-fragment) .why,#master:has(.f6.current-fragment) .why,#master:has(.f7.current-fragment) .why,#master:has(.f8.current-fragment) .why,
+    #master:has(.f9.current-fragment) .why,#master:has(.f10.current-fragment) .why{ opacity:.4 }
+    #master:has(.f1.current-fragment) .why1,#master:has(.f2.current-fragment) .why1,#master:has(.f3.current-fragment) .why2,#master:has(.f4.current-fragment) .why2,
+    #master:has(.f5.current-fragment) .why3,#master:has(.f6.current-fragment) .why3,#master:has(.f7.current-fragment) .why4,#master:has(.f8.current-fragment) .why4,
+    #master:has(.f9.current-fragment) .why5,#master:has(.f10.current-fragment) .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
 
     /* ── Kernaussage nur Schritt 11 ── */
-    #master[data-step="11"] .kern{ opacity:1 }
+    #master:has(.f11.current-fragment) .kern{ opacity:1 }
 
     /* Brücken je Schritt */
-    #master[data-step="2"] .bridge2,#master[data-step="4"] .bridge4,#master[data-step="6"] .bridge6,
-    #master[data-step="8"] .bridge8,#master[data-step="10"] .bridge10{ opacity:1 }
+    #master:has(.f2.current-fragment) .bridge2,#master:has(.f4.current-fragment) .bridge4,#master:has(.f6.current-fragment) .bridge6,
+    #master:has(.f8.current-fragment) .bridge8,#master:has(.f10.current-fragment) .bridge10{ opacity:1 }
 
     /* Fragment-Träger unsichtbar */
     #master .steps{ position:absolute; width:0; height:0; overflow:hidden }
     #master .steps .fragment{ visibility:hidden }
 
     /* ═════════════ LINSEN (nur Schritt 11) ═════════════ */
-    #master.lensing[data-step="11"] .kern{ opacity:0 }
-    #master.lens1 .r2,#master.lens1 .r3,#master.lens1 .r4,#master.lens1 .r5{ opacity:.25 }
-    #master.lens2 .r1,#master.lens2 .r3,#master.lens2 .r4,#master.lens2 .r5{ opacity:.25 }
-    #master.lens3 .r1,#master.lens3 .r2,#master.lens3 .r4,#master.lens3 .r5{ opacity:.25 }
-    #master.lens4 .r1,#master.lens4 .r2,#master.lens4 .r3,#master.lens4 .r5{ opacity:.25 }
-    #master.lens5 .r1,#master.lens5 .r2,#master.lens5 .r3,#master.lens5 .r4{ opacity:.25 }
-    #master.lens1 .why,#master.lens2 .why,#master.lens3 .why,#master.lens4 .why,#master.lens5 .why{ opacity:.25 }
-    #master.lens1 .why1,#master.lens2 .why2,#master.lens3 .why3,#master.lens4 .why4,#master.lens5 .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
-    #master.lens1 .bridge2,#master.lens2 .bridge4,#master.lens3 .bridge6,#master.lens4 .bridge8,#master.lens5 .bridge10{ opacity:1 }
+    #master.lensing .kern{ opacity:0 !important }
+    #master.lens1 .r2,#master.lens1 .r3,#master.lens1 .r4,#master.lens1 .r5{ opacity:.25 !important }
+    #master.lens2 .r1,#master.lens2 .r3,#master.lens2 .r4,#master.lens2 .r5{ opacity:.25 !important }
+    #master.lens3 .r1,#master.lens3 .r2,#master.lens3 .r4,#master.lens3 .r5{ opacity:.25 !important }
+    #master.lens4 .r1,#master.lens4 .r2,#master.lens4 .r3,#master.lens4 .r5{ opacity:.25 !important }
+    #master.lens5 .r1,#master.lens5 .r2,#master.lens5 .r3,#master.lens5 .r4{ opacity:.25 !important }
+    #master.lens1 .why,#master.lens2 .why,#master.lens3 .why,#master.lens4 .why,#master.lens5 .why{ opacity:.25 !important }
+    #master.lens1 .why1,#master.lens2 .why2,#master.lens3 .why3,#master.lens4 .why4,#master.lens5 .why5{ opacity:1 !important; background:var(--g1); border-left-color:var(--red) }
+    #master.lens1 .bridge2,#master.lens2 .bridge4,#master.lens3 .bridge6,#master.lens4 .bridge8,#master.lens5 .bridge10{ opacity:1 !important }
     #master .why{ cursor:pointer }
 
     /* ── Bewegung reduzieren ── */
@@ -456,12 +456,12 @@
 
         <!-- ══════════ Fragment-Träger (Schrittsteuerung) ══════════ -->
         <div class="steps">
-          <span class="fragment" data-step="1"></span><span class="fragment" data-step="2"></span>
-          <span class="fragment" data-step="3"></span><span class="fragment" data-step="4"></span>
-          <span class="fragment" data-step="5"></span><span class="fragment" data-step="6"></span>
-          <span class="fragment" data-step="7"></span><span class="fragment" data-step="8"></span>
-          <span class="fragment" data-step="9"></span><span class="fragment" data-step="10"></span>
-          <span class="fragment" data-step="11"></span>
+          <span class="fragment f1" data-step="1"></span><span class="fragment f2" data-step="2"></span>
+          <span class="fragment f3" data-step="3"></span><span class="fragment f4" data-step="4"></span>
+          <span class="fragment f5" data-step="5"></span><span class="fragment f6" data-step="6"></span>
+          <span class="fragment f7" data-step="7"></span><span class="fragment f8" data-step="8"></span>
+          <span class="fragment f9" data-step="9"></span><span class="fragment f10" data-step="10"></span>
+          <span class="fragment f11" data-step="11"></span>
         </div>
 
         <aside class="notes" data-markdown>
