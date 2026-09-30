@@ -43,8 +43,9 @@
     .why{ position:absolute; left:64px; width:400px; height:120px; box-sizing:border-box;
       border:1px solid var(--line); border-left:4px solid transparent; border-radius:12px;
       background:#fff; padding:16px 20px; transition:opacity .4s ease-out, background .4s, border-color .4s; }
-    .why .adj{ font-size:30px; font-weight:700; color:var(--navy); line-height:1; }
-    .why .claim{ font-size:17px; line-height:1.24; color:var(--g4); margin-top:8px; }
+    .why .adj{ display:flex; align-items:center; gap:11px; font-size:30px; font-weight:700; color:var(--navy); line-height:1; }
+    .why .whyic{ width:30px; height:30px; color:var(--hel); flex:none }
+    .why .claim{ font-size:17px; line-height:1.24; color:var(--g4); margin-top:9px; }
     .why1{ top:190px } .why2{ top:330px } .why3{ top:470px } .why4{ top:610px } .why5{ top:750px }
 
     /* ── Bausteine ── */
@@ -52,7 +53,7 @@
       display:flex; flex-direction:column; border:1.5px solid var(--g3); border-radius:10px;
       background:#fff; padding:9px 12px; transition:opacity .5s ease-out, transform .5s ease-out; }
     .blk.tall{ min-height:400px }
-    .blk .badge{ align-self:flex-end; font-size:16px; font-weight:700; padding:1px 8px; border-radius:6px; color:#fff; margin-bottom:2px; }
+    .blk .badge{ align-self:flex-end; font-size:16px; font-weight:700; padding:2px 9px; border-radius:6px; color:#fff; margin-bottom:7px; }
     .blk .bt{ font-size:18px; font-weight:700; line-height:1.14; color:var(--navy); }
     .blk .bs{ font-size:16px; line-height:1.24; color:var(--g4); margin-top:6px; }
     .blk.fin{ border-color:var(--fin); background:var(--fin-bg) } .blk.fin .bt{ color:var(--fin) } .blk.fin .badge{ background:var(--fin) }
@@ -80,8 +81,9 @@
       opacity:0; transition:opacity .4s ease-out; }
 
     /* ── HOW-Tags ── */
-    .howtag{ position:absolute; font-size:19px; font-weight:700; color:var(--navy); padding-bottom:4px;
-      border-bottom:3px solid var(--red); white-space:nowrap; }
+    .howtag{ position:absolute; display:inline-flex; align-items:center; gap:9px; font-size:19px; font-weight:700;
+      color:var(--navy); padding-bottom:4px; border-bottom:3px solid var(--red); white-space:nowrap; }
+    .howtag .howic{ width:24px; height:24px; color:var(--hel); flex:none }
 
     /* ── Overlays ── */
     .ov{ position:absolute; box-sizing:border-box; background:#fff; border:1px solid var(--line);
@@ -111,6 +113,24 @@
     .footer{ position:absolute; left:64px; right:64px; top:1050px; display:flex; justify-content:space-between; font-size:16px; color:var(--g4) }
     .footer .mid{ color:var(--navy); font-weight:600 }
 
+    /* ── Cover ── */
+    .reveal section.cover{ padding:0; overflow:hidden; color:#fff; }
+    .cover-fill{ position:absolute; inset:0; background:
+      radial-gradient(circle at 74% 32%, rgba(0,114,188,0.42), transparent 46%),
+      radial-gradient(circle at 90% 68%, rgba(46,139,107,0.28), transparent 42%),
+      linear-gradient(125deg, #05243A 0%, #0A3A5A 58%, #06283D 100%); }
+    .cover-bg{ position:absolute; inset:0; background:center/cover no-repeat; background-image:url('assets/cover-bg.png'); }
+    .cover-scrim{ position:absolute; inset:0; background:
+      linear-gradient(90deg, rgba(5,3,1,0.90) 0%, rgba(5,3,1,0.50) 34%, rgba(5,3,1,0) 62%),
+      linear-gradient(0deg, rgba(5,3,1,0.92) 0%, rgba(5,3,1,0.34) 24%, rgba(5,3,1,0) 48%); }
+    .cover-wrap{ position:absolute; left:100px; bottom:150px; width:70%; }
+    .cover-kick{ font-size:23px; font-weight:700; letter-spacing:0.22em; color:#E7C68C; }
+    .cover-rule{ width:82px; height:4px; background:var(--red); margin:22px 0 28px; border-radius:1px; }
+    .cover-title{ font-size:76px; font-weight:700; line-height:1.04; letter-spacing:-0.015em; text-shadow:0 2px 18px rgba(0,0,0,0.5); }
+    .cover-sub{ font-size:29px; font-weight:400; color:#EADFD1; margin-top:26px; line-height:1.32; max-width:94%; text-shadow:0 1px 10px rgba(0,0,0,0.5); }
+    .cover-meta{ position:absolute; left:100px; bottom:78px; font-size:20px; color:#C9BAA6; letter-spacing:0.02em; }
+    .cover-org{ position:absolute; right:96px; top:80px; font-size:22px; font-weight:700; letter-spacing:0.04em; color:#EADFD1; text-shadow:0 1px 10px rgba(0,0,0,0.6); }
+
     /* ── SVG connector base ── */
     .diagram .conn{ fill:none; stroke:var(--g4); stroke-width:2.5; }
     .diagram .draw{ stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .6s ease-out; }
@@ -121,7 +141,7 @@
     .diagram .edgelbl{ font-family:var(--font); font-size:16px; fill:var(--g4) }
     .diagram .tracelbl{ font-family:var(--font); font-size:16px; fill:var(--red); font-weight:600 }
     .diagram .framelbl{ font-family:var(--font); font-size:18px; fill:var(--hel); font-weight:700 }
-    .diamond{ fill:var(--hel-bg); stroke:var(--hel); stroke-width:2.5 }
+    .diamond{ fill:#E7EDF1; stroke:var(--hel); stroke-width:2.5 }
     .frame{ fill:none; stroke:var(--hel); stroke-width:2; stroke-dasharray:10 8 }
     .leadln{ stroke:var(--g3); stroke-width:0.75; fill:none; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .5s ease-out }
 
@@ -188,14 +208,6 @@
     #master[data-step="5"] .why3,#master[data-step="6"] .why3,#master[data-step="7"] .why4,#master[data-step="8"] .why4,
     #master[data-step="9"] .why5,#master[data-step="10"] .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
 
-    /* ── Führungslinien nur Schritt 11 ── */
-    .leaders{ opacity:0 } #master[data-step="11"] .leaders{ opacity:1 }
-    #master.s11 .leaders .leadln{ stroke-dashoffset:0 }
-    #master.s11 .leaders .leadln:nth-child(2){ transition-delay:.15s }
-    #master.s11 .leaders .leadln:nth-child(3){ transition-delay:.3s }
-    #master.s11 .leaders .leadln:nth-child(4){ transition-delay:.45s }
-    #master.s11 .leaders .leadln:nth-child(5){ transition-delay:.6s }
-
     /* ── Kernaussage nur Schritt 11 ── */
     #master[data-step="11"] .kern{ opacity:1 }
 
@@ -237,6 +249,23 @@
 <body>
   <div class="reveal">
     <div class="slides">
+
+      <!-- ══════════ COVER ══════════ -->
+      <section class="cover">
+        <div class="cover-fill"></div>
+        <div class="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-org">finius + EPAM</div>
+        <div class="cover-wrap">
+          <div class="cover-kick">LÖSUNGSANSATZ</div>
+          <div class="cover-rule"></div>
+          <div class="cover-title">Wertpapierkonsolidierung<br>für die Helaba</div>
+          <div class="cover-sub">Von der Anforderung zur abgenommenen Fachfunktion — Fachkonzeption und Umsetzung als ein Projekt.</div>
+        </div>
+        <div class="cover-meta">finius + EPAM · Vertraulich</div>
+        <aside class="notes">Fachkonzeption und Umsetzung als ein gemeinsames Projekt an das Konsortium finius + EPAM.</aside>
+      </section>
+
       <section id="master" data-step="0">
 
         <!-- Kopf -->
@@ -248,11 +277,28 @@
           <defs>
             <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6670"/></marker>
             <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker>
+            <!-- WHY↔HOW-Icons (gleiches Icon verbindet WHY-Karte und HOW-Tag) -->
+            <symbol id="ic-planbar" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4.5" width="18" height="16.5" rx="2.5"/><line x1="3" y1="9.5" x2="21" y2="9.5"/><line x1="8" y1="2.5" x2="8" y2="6"/><line x1="16" y1="2.5" x2="16" y2="6"/><path d="M8.5 14.5l2.5 2.5 4.5-5"/>
+            </symbol>
+            <symbol id="ic-richtig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="9"/><path d="M7.5 12.2l3 3 6-6.4"/>
+            </symbol>
+            <symbol id="ic-sicher" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 3l7.5 3v5.2c0 4.6-3.2 7.9-7.5 9.3-4.3-1.4-7.5-4.7-7.5-9.3V6z"/><path d="M8.8 12.2l2.2 2.2 4.2-4.4"/>
+            </symbol>
+            <symbol id="ic-unabh" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 9.5l9-5.5 9 5.5"/><line x1="5.5" y1="10.5" x2="5.5" y2="18"/><line x1="10" y1="10.5" x2="10" y2="18"/><line x1="14" y1="10.5" x2="14" y2="18"/><line x1="18.5" y1="10.5" x2="18.5" y2="18"/><line x1="3.5" y1="20.5" x2="20.5" y2="20.5"/>
+            </symbol>
+            <symbol id="ic-zukunft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 12a8 8 0 1 1-2.4-5.7"/><polyline points="20.5 4 20.5 8.4 16.1 8.4"/><path d="M12 8.5v4l2.8 1.8"/>
+            </symbol>
           </defs>
 
           <!-- REGION 1 (Schritt 2): Rückgrat 7→8→10, offene Anschlüsse an 7, Diamant -->
           <g class="r1">
-            <line class="conn draw" pathLength="1" x1="1430" y1="500" x2="1712" y2="500" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="1430" y1="500" x2="1548" y2="500"/>
+            <line class="conn draw" pathLength="1" x1="1592" y1="500" x2="1712" y2="500" marker-end="url(#ah)"/>
             <circle class="hollow" cx="1260" cy="350" r="9"/>
             <circle class="hollow" cx="1260" cy="500" r="9"/>
             <circle class="hollow" cx="1260" cy="650" r="9"/>
@@ -269,8 +315,7 @@
             <circle class="filldot" cx="1260" cy="350" r="9"/>
             <circle class="filldot" cx="1260" cy="500" r="9"/>
             <!-- Kante 1 ⇄ 2 (gegenseitige Prüfung) -->
-            <line class="conn draw" pathLength="1" x1="1215" y1="362" x2="1215" y2="488" marker-start="url(#ah)" marker-end="url(#ah)"/>
-            <text class="edgelbl" x="1236" y="425" transform="rotate(90 1236 425)" text-anchor="middle">gegenseitige Prüfung</text>
+            <line class="conn draw" pathLength="1" x1="1212" y1="362" x2="1212" y2="488" marker-start="url(#ah)" marker-end="url(#ah)"/>
           </g>
 
           <!-- REGION 3 (Schritt 6): 10 → Band -->
@@ -289,11 +334,11 @@
             <line class="conn draw" pathLength="1" x1="1190" y1="650" x2="1252" y2="650" marker-end="url(#ah)"/>
             <circle class="filldot" cx="1260" cy="650" r="9"/>
             <!-- Spur: Anforderung ↔ Methode (fein gestrichelt, rot) -->
-            <line class="conn red dash draw" pathLength="1" x1="1245" y1="360" x2="1245" y2="490"/>
-            <circle class="reddot" cx="1245" cy="360" r="6"/>
-            <circle class="reddot" cx="1245" cy="490" r="6"/>
-            <text class="tracelbl" x="1020" y="291">Anforderung ↔ Methode</text>
-            <line class="conn red dash" x1="1210" y1="296" x2="1245" y2="354" stroke-width="1.2"/>
+            <line class="conn red dash draw" pathLength="1" x1="1234" y1="360" x2="1234" y2="490"/>
+            <circle class="reddot" cx="1234" cy="360" r="6"/>
+            <circle class="reddot" cx="1234" cy="490" r="6"/>
+            <text class="tracelbl" x="1086" y="238">Anforderung ↔ Methode</text>
+            <line class="conn red dash" x1="1182" y1="246" x2="1234" y2="354" stroke-width="1.2"/>
             <!-- Rahmen 12 -->
             <rect class="frame draw" pathLength="1" x="650" y="260" width="1040" height="480" rx="14"/>
             <text class="framelbl" x="1678" y="726" text-anchor="end">Übergabe an die Helaba</text>
@@ -306,23 +351,15 @@
           <line class="ovlink ovlink4" x1="464" y1="670" x2="1020" y2="355"/>
           <line class="ovlink ovlink5" x1="464" y1="810" x2="620" y2="570"/>
 
-          <!-- Führungslinien Schritt 11: WHY → HOW-Tag -->
-          <g class="leaders">
-            <line class="leadln" pathLength="1" x1="464" y1="250" x2="1256" y2="272"/>
-            <line class="leadln" pathLength="1" x1="464" y1="390" x2="686" y2="272"/>
-            <line class="leadln" pathLength="1" x1="464" y1="530" x2="1096" y2="742"/>
-            <line class="leadln" pathLength="1" x1="464" y1="670" x2="1116" y2="202"/>
-            <line class="leadln" pathLength="1" x1="464" y1="810" x2="686" y2="722"/>
-          </g>
         </svg>
 
         <!-- ══════════ WHY-Leiste ══════════ -->
         <div class="layer">
-          <div class="why why1"><div class="adj">Planbar</div><div class="claim">Festpreis und Termin halten – auch wenn Anforderungen sich als ungenau oder widersprüchlich erweisen.</div></div>
-          <div class="why why2"><div class="adj">Richtig</div><div class="claim">Die Helaba rechnet morgen wie heute – oder die Abweichung ist freigegeben.</div></div>
-          <div class="why why3"><div class="adj">Sicher</div><div class="claim">Umstellung Welle für Welle – mit eingebauter Rückfalloption.</div></div>
-          <div class="why why4"><div class="adj">Unabhängig</div><div class="claim">Fachwissen gehört der Bank – nicht einzelnen Köpfen.</div></div>
-          <div class="why why5"><div class="adj">Zukunftsfest</div><div class="claim">Keine technischen Schulden von morgen.</div></div>
+          <div class="why why1"><div class="adj"><svg class="whyic"><use href="#ic-planbar"/></svg>Planbar</div><div class="claim">Festpreis und Termin halten – auch wenn Anforderungen sich als ungenau oder widersprüchlich erweisen.</div></div>
+          <div class="why why2"><div class="adj"><svg class="whyic"><use href="#ic-richtig"/></svg>Richtig</div><div class="claim">Die Helaba rechnet morgen wie heute – oder die Abweichung ist freigegeben.</div></div>
+          <div class="why why3"><div class="adj"><svg class="whyic"><use href="#ic-sicher"/></svg>Sicher</div><div class="claim">Umstellung Welle für Welle – mit eingebauter Rückfalloption.</div></div>
+          <div class="why why4"><div class="adj"><svg class="whyic"><use href="#ic-unabh"/></svg>Unabhängig</div><div class="claim">Fachwissen gehört der Bank – nicht einzelnen Köpfen.</div></div>
+          <div class="why why5"><div class="adj"><svg class="whyic"><use href="#ic-zukunft"/></svg>Zukunftsfest</div><div class="claim">Keine technischen Schulden von morgen.</div></div>
         </div>
 
         <!-- ══════════ Bausteine ══════════ -->
@@ -342,11 +379,6 @@
           <div class="blk hel r5" style="left:690px;top:600px;width:210px;height:100px"><span class="badge">Helaba + EPAM</span><div class="bt">Zielbild festlegen</div><div class="bs">Zielsysteme · Plattformvorgaben</div></div>
           <div class="blk hel r5" style="left:960px;top:600px;width:230px;height:100px"><span class="badge">Helaba</span><div class="bt">Zielbild</div><div class="bs">TOM · Zielarchitektur</div></div>
 
-          <!-- Anschluss-Beschriftungen an der Softwarefabrik -->
-          <div class="r1" style="position:absolute;left:1150px;top:338px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Spezifikation</div>
-          <div class="r1" style="position:absolute;left:1150px;top:488px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Bestand</div>
-          <div class="r1" style="position:absolute;left:1150px;top:638px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Zielbild</div>
-
           <!-- Band 11 -->
           <div class="band r3">
             <span class="badge">EPAM</span>
@@ -363,11 +395,11 @@
 
         <!-- ══════════ HOW-Tags ══════════ -->
         <div class="layer">
-          <div class="howtag r1" style="left:1260px;top:250px">Eine Strecke, keine Übergaben</div>
-          <div class="howtag r2" style="left:690px;top:250px">Fachlichkeit und Code prüfen sich gegenseitig</div>
-          <div class="howtag r3" style="left:1096px;top:722px">Welle für Welle überführen</div>
-          <div class="howtag r4" style="left:1116px;top:180px">Jede Freigabe wird Wissen der Bank</div>
-          <div class="howtag r5" style="left:690px;top:700px">Jede Zeile kennt ihren fachlichen Grund</div>
+          <div class="howtag r1" style="left:1260px;top:268px"><svg class="howic"><use href="#ic-planbar"/></svg>Eine Strecke, keine Übergaben</div>
+          <div class="howtag r2" style="left:690px;top:268px"><svg class="howic"><use href="#ic-richtig"/></svg>Fachlichkeit und Code prüfen sich gegenseitig</div>
+          <div class="howtag r3" style="left:1096px;top:722px"><svg class="howic"><use href="#ic-sicher"/></svg>Welle für Welle überführen</div>
+          <div class="howtag r4" style="left:1116px;top:166px"><svg class="howic"><use href="#ic-unabh"/></svg>Jede Freigabe wird Wissen der Bank</div>
+          <div class="howtag r5" style="left:690px;top:700px"><svg class="howic"><use href="#ic-zukunft"/></svg>Jede Zeile kennt ihren fachlichen Grund</div>
         </div>
 
         <!-- ══════════ Overlays ══════════ -->
