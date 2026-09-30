@@ -1,0 +1,493 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Masterfolie Helaba — Von der Anforderung zur abgenommenen Fachfunktion</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Masterfolie Helaba · EINE Folie · 12 Zustände (Schritt 0–11)
+       1920 × 1080. Farben aus dem Helaba-Deck (finius + EPAM).
+       Prinzip: jedes Element liegt an seiner Endposition und wird nur
+       sichtbar. Zustände über #master[data-step] und Klassen s1…s11.
+       Linien: durchgezogen = heute · gestrichelt = im Projekt ·
+       gepunktet = Umfang nach Vereinbarung.
+       ───────────────────────────────────────────────────────────── */
+    :root{
+      --navy:#003B5C; --navy-deep:#002B45; --red:#E30613;
+      --fin:#2E8B6B; --fin-bg:rgba(46,139,107,0.10);
+      --epam:#0072BC; --epam-bg:rgba(0,114,188,0.10);
+      --hel:#003B5C; --hel-bg:rgba(0,59,92,0.06);
+      --g1:#F4F5F6; --g2:#E1E4E7; --g3:#9AA3AB; --g4:#5B6670;
+      --ink:#1B2A33; --line:#D3D8DC;
+      --font:"Helvetica Neue",Inter,Helvetica,Arial,sans-serif;
+    }
+    .reveal-viewport{ background:#fff !important; }
+    .reveal{ font-family:var(--font); color:var(--ink); }
+    .reveal .slides{ text-align:left; }
+    .reveal .slides section{ padding:0; height:1080px; width:1920px; box-sizing:border-box; background:#fff; }
+    .reveal .slides section#master{ overflow:hidden; }
+
+    /* ── stage layer + coordinate space (1 unit = 1px) ── */
+    #master .layer{ position:absolute; inset:0; }
+    #master svg.diagram{ position:absolute; inset:0; width:1920px; height:1080px; }
+
+    /* ── head ── */
+    .kicker{ position:absolute; left:64px; top:48px; font-size:18px; font-weight:700; letter-spacing:0.22em; color:var(--g4); }
+    .kicker::before{ content:""; display:inline-block; width:34px; height:3px; background:var(--red); vertical-align:middle; margin-right:12px; border-radius:1px; }
+    .slidetitle{ position:absolute; left:64px; top:82px; font-size:42px; font-weight:700; color:var(--navy); letter-spacing:-0.01em; }
+
+    /* ── WHY-Leiste ── */
+    .why{ position:absolute; left:64px; width:400px; height:120px; box-sizing:border-box;
+      border:1px solid var(--line); border-left:4px solid transparent; border-radius:12px;
+      background:#fff; padding:16px 20px; transition:opacity .4s ease-out, background .4s, border-color .4s; }
+    .why .adj{ font-size:30px; font-weight:700; color:var(--navy); line-height:1; }
+    .why .claim{ font-size:17px; line-height:1.24; color:var(--g4); margin-top:8px; }
+    .why1{ top:190px } .why2{ top:330px } .why3{ top:470px } .why4{ top:610px } .why5{ top:750px }
+
+    /* ── Bausteine ── */
+    .blk{ position:absolute; box-sizing:border-box; height:auto !important; min-height:100px;
+      display:flex; flex-direction:column; border:1.5px solid var(--g3); border-radius:10px;
+      background:#fff; padding:9px 12px; transition:opacity .5s ease-out, transform .5s ease-out; }
+    .blk.tall{ min-height:400px }
+    .blk .badge{ align-self:flex-end; font-size:16px; font-weight:700; padding:1px 8px; border-radius:6px; color:#fff; margin-bottom:2px; }
+    .blk .bt{ font-size:18px; font-weight:700; line-height:1.14; color:var(--navy); }
+    .blk .bs{ font-size:16px; line-height:1.24; color:var(--g4); margin-top:6px; }
+    .blk.fin{ border-color:var(--fin); background:var(--fin-bg) } .blk.fin .bt{ color:var(--fin) } .blk.fin .badge{ background:var(--fin) }
+    .blk.epam{ border-color:var(--epam); background:var(--epam-bg) } .blk.epam .bt{ color:var(--epam) } .blk.epam .badge{ background:var(--epam) }
+    .blk.hel{ border-color:var(--hel); background:var(--hel-bg) } .blk.hel .bt{ color:var(--hel) } .blk.hel .badge{ background:var(--hel) }
+    .blk.neutral{ border-color:var(--g3); background:var(--g1) } .blk.neutral .bt{ color:var(--g4) }
+    .blk.tall .bs{ margin-top:10px }
+
+    /* ── Band 11 ── */
+    .band{ position:absolute; left:1100px; top:770px; width:756px; height:80px; box-sizing:border-box;
+      border:1.5px dashed var(--epam); border-radius:10px; background:var(--epam-bg);
+      display:flex; align-items:center; gap:16px; padding:0 18px;
+      transform:scaleX(0); transform-origin:left center; transition:transform .6s ease-out; }
+    .band .bandhead .bt{ font-size:20px; font-weight:700; color:var(--epam) }
+    .band .bandhead .bs{ font-size:16px; color:var(--g4); margin-top:2px }
+    .band .badge{ position:absolute; top:8px; right:10px; font-size:16px; font-weight:700; padding:1px 8px; border-radius:6px; color:#fff; background:var(--epam) }
+    .band .chips{ display:flex; gap:10px; margin-left:auto; margin-right:70px }
+    .band .chip{ font-size:16px; font-weight:600; color:var(--epam); border:1px solid var(--epam);
+      border-radius:7px; padding:4px 12px; background:#fff; opacity:0; transition:opacity .4s ease-out }
+    .band .chip.hostaus{ color:var(--red); border-color:var(--red) }
+
+    /* ── Befund-Kärtchen (nur Schritt 4) ── */
+    .befund{ position:absolute; box-sizing:border-box; border:1.5px solid var(--red); border-radius:8px;
+      background:rgba(227,6,19,0.05); color:var(--red); font-size:16px; font-weight:600; padding:8px 12px;
+      opacity:0; transition:opacity .4s ease-out; }
+
+    /* ── HOW-Tags ── */
+    .howtag{ position:absolute; font-size:19px; font-weight:700; color:var(--navy); padding-bottom:4px;
+      border-bottom:3px solid var(--red); white-space:nowrap; }
+
+    /* ── Overlays ── */
+    .ov{ position:absolute; box-sizing:border-box; background:#fff; border:1px solid var(--line);
+      border-radius:12px; padding:22px 26px; box-shadow:0 12px 40px rgba(0,43,69,0.14);
+      opacity:0; transform:scale(1); transition:opacity .5s ease-out, transform .5s ease-out; }
+    .ov .ovl{ font-size:18px; font-weight:700; letter-spacing:0.16em; color:var(--red) }
+    .ov .ovc{ font-size:30px; font-weight:700; color:var(--navy); line-height:1.14; margin-top:10px }
+    .ov .ovd{ font-size:22px; line-height:1.36; color:var(--ink); margin-top:12px }
+
+    /* ── Bühnenleiste (Brücken + Kernaussage) ── */
+    .bridge{ position:absolute; left:64px; right:64px; top:906px; text-align:center; font-size:25px;
+      font-weight:600; color:var(--navy); opacity:0; transition:opacity .4s ease-out; }
+    .kern{ position:absolute; left:64px; right:64px; top:892px; text-align:center; opacity:0; transition:opacity .5s ease-out; }
+    .kern .kl{ display:block; font-size:18px; font-weight:700; letter-spacing:0.3em; color:var(--red); margin-bottom:8px }
+    .kern .kt{ display:block; font-size:31px; font-weight:700; color:var(--navy); line-height:1.2 }
+    .kern .ks{ display:block; font-size:22px; font-weight:600; color:var(--g4); margin-top:8px; letter-spacing:0.04em }
+
+    /* ── Rollenzeile · Legende · Fußzeile ── */
+    .roles{ position:absolute; left:64px; top:1006px; font-size:18px; font-weight:600 }
+    .roles .r-fin{ color:var(--fin) } .roles .r-epam{ color:var(--epam) } .roles .r-hel{ color:var(--hel) }
+    .roles .sep{ color:var(--line); font-weight:400; margin:0 6px }
+    .legend{ position:absolute; right:64px; top:1006px; font-size:17px; color:var(--g4); text-align:right }
+    .legend span{ margin-left:22px; white-space:nowrap }
+    .legend .ln{ display:inline-block; width:26px; vertical-align:middle; margin-right:7px; border-top:2px solid var(--g4) }
+    .legend .ln.proj{ border-top-style:dashed } .legend .ln.opt{ border-top-style:dotted }
+    .legend .opt-item{ opacity:0; transition:opacity .4s ease-out }
+    .footer{ position:absolute; left:64px; right:64px; top:1050px; display:flex; justify-content:space-between; font-size:16px; color:var(--g4) }
+    .footer .mid{ color:var(--navy); font-weight:600 }
+
+    /* ── SVG connector base ── */
+    .diagram .conn{ fill:none; stroke:var(--g4); stroke-width:2.5; }
+    .diagram .draw{ stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .6s ease-out; }
+    .diagram .hollow{ fill:#fff; stroke:var(--g4); stroke-width:2.5; }
+    .diagram .filldot{ fill:var(--g4); opacity:0; transition:opacity .4s ease-out }
+    .diagram .dash{ stroke-dasharray:8 6 !important; }
+    .diagram .red{ stroke:var(--red) } .diagram .reddot{ fill:var(--red) }
+    .diagram .edgelbl{ font-family:var(--font); font-size:16px; fill:var(--g4) }
+    .diagram .tracelbl{ font-family:var(--font); font-size:16px; fill:var(--red); font-weight:600 }
+    .diagram .framelbl{ font-family:var(--font); font-size:18px; fill:var(--hel); font-weight:700 }
+    .diamond{ fill:var(--hel-bg); stroke:var(--hel); stroke-width:2.5 }
+    .frame{ fill:none; stroke:var(--hel); stroke-width:2; stroke-dasharray:10 8 }
+    .leadln{ stroke:var(--g3); stroke-width:0.75; fill:none; stroke-dasharray:1; stroke-dashoffset:1; transition:stroke-dashoffset .5s ease-out }
+
+    /* ═════════════ REGION-DECKKRAFT-MATRIX ═════════════ */
+    .r1,.r2,.r3,.r4,.r5{ opacity:0; transition:opacity .5s ease-out }
+    #master[data-step="2"] .r1{opacity:1} #master[data-step="3"] .r1{opacity:.2}
+    #master[data-step="4"] .r1{opacity:.6} #master[data-step="5"] .r1{opacity:.2}
+    #master[data-step="6"] .r1{opacity:.6} #master[data-step="7"] .r1{opacity:.2}
+    #master[data-step="8"] .r1{opacity:.6} #master[data-step="9"] .r1{opacity:.2}
+    #master[data-step="10"] .r1{opacity:.6} #master[data-step="11"] .r1{opacity:1}
+    #master[data-step="4"] .r2{opacity:1} #master[data-step="5"] .r2{opacity:.2}
+    #master[data-step="6"] .r2{opacity:.6} #master[data-step="7"] .r2{opacity:.2}
+    #master[data-step="8"] .r2{opacity:.6} #master[data-step="9"] .r2{opacity:.2}
+    #master[data-step="10"] .r2{opacity:.6} #master[data-step="11"] .r2{opacity:1}
+    #master[data-step="6"] .r3{opacity:1} #master[data-step="7"] .r3{opacity:.2}
+    #master[data-step="8"] .r3{opacity:.6} #master[data-step="9"] .r3{opacity:.2}
+    #master[data-step="10"] .r3{opacity:.6} #master[data-step="11"] .r3{opacity:1}
+    #master[data-step="8"] .r4{opacity:1} #master[data-step="9"] .r4{opacity:.2}
+    #master[data-step="10"] .r4{opacity:.6} #master[data-step="11"] .r4{opacity:1}
+    #master[data-step="10"] .r5{opacity:1} #master[data-step="11"] .r5{opacity:1}
+
+    /* draw-in der Verbindungen je Region-Einstiegsschritt */
+    #master.s2 .r1 .draw{ stroke-dashoffset:0 }
+    #master.s4 .r2 .draw{ stroke-dashoffset:0 } #master.s4 .r2 .filldot{ opacity:1 }
+    #master.s6 .r3 .draw{ stroke-dashoffset:0 } #master.s6 .band{ transform:scaleX(1) }
+    #master.s6 .band .chip{ opacity:1 }
+    #master.s6 .band .chip:nth-child(2){ transition-delay:.15s } #master.s6 .band .chip:nth-child(3){ transition-delay:.3s }
+    #master.s6 .band .chip:nth-child(4){ transition-delay:.45s } #master.s6 .band .chip:nth-child(5){ transition-delay:.6s }
+    #master.s8 .r4 .draw{ stroke-dashoffset:0 }
+    #master.s10 .r5 .draw{ stroke-dashoffset:0 } #master.s10 .r5 .filldot{ opacity:1 }
+
+    /* Diamant ◆ ab Schritt 8 zu Baustein 8 (dasselbe Zentrum) */
+    .box8{ transform:scale(.12); transform-origin:center center }
+    #master.s8 .box8{ transform:scale(1) }
+    #master.s8 .diamond8{ opacity:0 }
+
+    /* Untertitel-Wechsel Baustein 2 ab Schritt 10 */
+    .bs-alt{ display:none } #master.s10 .bs-now{ display:none } #master.s10 .bs-alt{ display:block }
+
+    /* Befund nur Schritt 4 */
+    #master[data-step="4"] .befund{ opacity:1 }
+
+    /* Legende dritter Eintrag ab Schritt 6 */
+    #master.s6 .opt-item{ opacity:1 }
+
+    /* Overlays: Auftritt am HOW-Ort (ungerade), Schrumpfen (gerade) */
+    #master[data-step="1"] .ov1{ opacity:1 } #master[data-step="2"] .ov1{ opacity:0; transform:scale(.5) }
+    #master[data-step="3"] .ov2{ opacity:1 } #master[data-step="4"] .ov2{ opacity:0; transform:scale(.5) }
+    #master[data-step="5"] .ov3{ opacity:1 } #master[data-step="6"] .ov3{ opacity:0; transform:scale(.5) }
+    #master[data-step="7"] .ov4{ opacity:1 } #master[data-step="8"] .ov4{ opacity:0; transform:scale(.5) }
+    #master[data-step="9"] .ov5{ opacity:1 } #master[data-step="10"] .ov5{ opacity:0; transform:scale(.5) }
+    .ov1{ transform-origin:50% 100% } .ov2{ transform-origin:100% 100% }
+    .ov3{ transform-origin:50% 100% } .ov4{ transform-origin:100% 100% } .ov5{ transform-origin:100% 100% }
+    /* Overlay-Verbindungslinie aktive WHY → Overlay */
+    .ovlink{ stroke:var(--g3); stroke-width:1; fill:none; opacity:0; transition:opacity .4s }
+    #master[data-step="1"] .ovlink1,#master[data-step="3"] .ovlink2,#master[data-step="5"] .ovlink3,
+    #master[data-step="7"] .ovlink4,#master[data-step="9"] .ovlink5{ opacity:1 }
+
+    /* ── WHY-Karten: aktiv je Schritt, übrige 40 % ── */
+    #master[data-step="1"] .why,#master[data-step="2"] .why,#master[data-step="3"] .why,#master[data-step="4"] .why,
+    #master[data-step="5"] .why,#master[data-step="6"] .why,#master[data-step="7"] .why,#master[data-step="8"] .why,
+    #master[data-step="9"] .why,#master[data-step="10"] .why{ opacity:.4 }
+    #master[data-step="1"] .why1,#master[data-step="2"] .why1,#master[data-step="3"] .why2,#master[data-step="4"] .why2,
+    #master[data-step="5"] .why3,#master[data-step="6"] .why3,#master[data-step="7"] .why4,#master[data-step="8"] .why4,
+    #master[data-step="9"] .why5,#master[data-step="10"] .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
+
+    /* ── Führungslinien nur Schritt 11 ── */
+    .leaders{ opacity:0 } #master[data-step="11"] .leaders{ opacity:1 }
+    #master.s11 .leaders .leadln{ stroke-dashoffset:0 }
+    #master.s11 .leaders .leadln:nth-child(2){ transition-delay:.15s }
+    #master.s11 .leaders .leadln:nth-child(3){ transition-delay:.3s }
+    #master.s11 .leaders .leadln:nth-child(4){ transition-delay:.45s }
+    #master.s11 .leaders .leadln:nth-child(5){ transition-delay:.6s }
+
+    /* ── Kernaussage nur Schritt 11 ── */
+    #master[data-step="11"] .kern{ opacity:1 }
+
+    /* Brücken je Schritt */
+    #master[data-step="2"] .bridge2,#master[data-step="4"] .bridge4,#master[data-step="6"] .bridge6,
+    #master[data-step="8"] .bridge8,#master[data-step="10"] .bridge10{ opacity:1 }
+
+    /* Fragment-Träger unsichtbar */
+    #master .steps{ position:absolute; width:0; height:0; overflow:hidden }
+    #master .steps .fragment{ visibility:hidden }
+
+    /* ═════════════ LINSEN (nur Schritt 11) ═════════════ */
+    #master.lensing[data-step="11"] .kern{ opacity:0 }
+    #master.lens1 .r2,#master.lens1 .r3,#master.lens1 .r4,#master.lens1 .r5{ opacity:.25 }
+    #master.lens2 .r1,#master.lens2 .r3,#master.lens2 .r4,#master.lens2 .r5{ opacity:.25 }
+    #master.lens3 .r1,#master.lens3 .r2,#master.lens3 .r4,#master.lens3 .r5{ opacity:.25 }
+    #master.lens4 .r1,#master.lens4 .r2,#master.lens4 .r3,#master.lens4 .r5{ opacity:.25 }
+    #master.lens5 .r1,#master.lens5 .r2,#master.lens5 .r3,#master.lens5 .r4{ opacity:.25 }
+    #master.lens1 .why,#master.lens2 .why,#master.lens3 .why,#master.lens4 .why,#master.lens5 .why{ opacity:.25 }
+    #master.lens1 .why1,#master.lens2 .why2,#master.lens3 .why3,#master.lens4 .why4,#master.lens5 .why5{ opacity:1; background:var(--g1); border-left-color:var(--red) }
+    #master.lens1 .bridge2,#master.lens2 .bridge4,#master.lens3 .bridge6,#master.lens4 .bridge8,#master.lens5 .bridge10{ opacity:1 }
+    #master .why{ cursor:pointer }
+
+    /* ── Bewegung reduzieren ── */
+    @media (prefers-reduced-motion: reduce){
+      .why,.blk,.band,.band .chip,.ov,.bridge,.kern,.r1,.r2,.r3,.r4,.r5,.leadln,.filldot,.draw,.ovlink,.opt-item{ transition:none !important }
+      .draw{ stroke-dashoffset:0 } .leadln{ stroke-dashoffset:0 }
+      .band{ transform:scaleX(1) } .box8{ transform:scale(1) }
+    }
+    /* gestaffelter Auftritt der WHY-Karten bei Schritt 0 */
+    @media (prefers-reduced-motion: no-preference){
+      .why{ animation:fadein .5s ease-out both }
+      .why1{ animation-delay:0s } .why2{ animation-delay:.1s } .why3{ animation-delay:.2s }
+      .why4{ animation-delay:.3s } .why5{ animation-delay:.4s }
+      @keyframes fadein{ from{ opacity:0; transform:translateY(10px) } to{ opacity:1; transform:none } }
+    }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+      <section id="master" data-step="0">
+
+        <!-- Kopf -->
+        <div class="kicker">LÖSUNGSANSATZ</div>
+        <div class="slidetitle">Von der Anforderung zur abgenommenen Fachfunktion</div>
+
+        <!-- ══════════ SVG: Verbindungen, Rahmen, Band-Pfeile ══════════ -->
+        <svg class="diagram" viewBox="0 0 1920 1080" aria-hidden="true">
+          <defs>
+            <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5B6670"/></marker>
+            <marker id="ahr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#E30613"/></marker>
+          </defs>
+
+          <!-- REGION 1 (Schritt 2): Rückgrat 7→8→10, offene Anschlüsse an 7, Diamant -->
+          <g class="r1">
+            <line class="conn draw" pathLength="1" x1="1430" y1="500" x2="1712" y2="500" marker-end="url(#ah)"/>
+            <circle class="hollow" cx="1260" cy="350" r="9"/>
+            <circle class="hollow" cx="1260" cy="500" r="9"/>
+            <circle class="hollow" cx="1260" cy="650" r="9"/>
+            <rect class="diamond diamond8" x="1546" y="476" width="48" height="48" transform="rotate(45 1570 500)"/>
+          </g>
+
+          <!-- REGION 2 (Schritt 4): 9→4, 4→1, 5→2, 1→7, 2→7, Kante 1⇄2 -->
+          <g class="r2">
+            <line class="conn draw" pathLength="1" x1="630" y1="350" x2="682" y2="350" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="900" y1="350" x2="952" y2="350" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="900" y1="500" x2="952" y2="500" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="1190" y1="350" x2="1252" y2="350" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="1190" y1="500" x2="1252" y2="500" marker-end="url(#ah)"/>
+            <circle class="filldot" cx="1260" cy="350" r="9"/>
+            <circle class="filldot" cx="1260" cy="500" r="9"/>
+            <!-- Kante 1 ⇄ 2 (gegenseitige Prüfung) -->
+            <line class="conn draw" pathLength="1" x1="1215" y1="362" x2="1215" y2="488" marker-start="url(#ah)" marker-end="url(#ah)"/>
+            <text class="edgelbl" x="1236" y="425" transform="rotate(90 1236 425)" text-anchor="middle">gegenseitige Prüfung</text>
+          </g>
+
+          <!-- REGION 3 (Schritt 6): 10 → Band -->
+          <g class="r3">
+            <line class="conn draw" pathLength="1" x1="1788" y1="550" x2="1788" y2="762" marker-end="url(#ah)"/>
+          </g>
+
+          <!-- REGION 4 (Schritt 8): Schleife 8 → 1 -->
+          <g class="r4">
+            <path class="conn draw" pathLength="1" d="M1570,300 C1570,205 1300,205 1075,300" marker-end="url(#ah)"/>
+          </g>
+
+          <!-- REGION 5 (Schritt 10): 6→3, 3→7, Spur 1↔2, Rahmen 12 -->
+          <g class="r5">
+            <line class="conn draw" pathLength="1" x1="900" y1="650" x2="952" y2="650" marker-end="url(#ah)"/>
+            <line class="conn draw" pathLength="1" x1="1190" y1="650" x2="1252" y2="650" marker-end="url(#ah)"/>
+            <circle class="filldot" cx="1260" cy="650" r="9"/>
+            <!-- Spur: Anforderung ↔ Methode (fein gestrichelt, rot) -->
+            <line class="conn red dash draw" pathLength="1" x1="1245" y1="360" x2="1245" y2="490"/>
+            <circle class="reddot" cx="1245" cy="360" r="6"/>
+            <circle class="reddot" cx="1245" cy="490" r="6"/>
+            <text class="tracelbl" x="1020" y="291">Anforderung ↔ Methode</text>
+            <line class="conn red dash" x1="1210" y1="296" x2="1245" y2="354" stroke-width="1.2"/>
+            <!-- Rahmen 12 -->
+            <rect class="frame draw" pathLength="1" x="650" y="260" width="1040" height="480" rx="14"/>
+            <text class="framelbl" x="1678" y="726" text-anchor="end">Übergabe an die Helaba</text>
+          </g>
+
+          <!-- Overlay-Verbindungslinien (aktive WHY → Overlay) -->
+          <line class="ovlink ovlink1" x1="464" y1="250" x2="1180" y2="480"/>
+          <line class="ovlink ovlink2" x1="464" y1="390" x2="620" y2="430"/>
+          <line class="ovlink ovlink3" x1="464" y1="530" x2="1140" y2="645"/>
+          <line class="ovlink ovlink4" x1="464" y1="670" x2="1020" y2="355"/>
+          <line class="ovlink ovlink5" x1="464" y1="810" x2="620" y2="570"/>
+
+          <!-- Führungslinien Schritt 11: WHY → HOW-Tag -->
+          <g class="leaders">
+            <line class="leadln" pathLength="1" x1="464" y1="250" x2="1256" y2="272"/>
+            <line class="leadln" pathLength="1" x1="464" y1="390" x2="686" y2="272"/>
+            <line class="leadln" pathLength="1" x1="464" y1="530" x2="1096" y2="742"/>
+            <line class="leadln" pathLength="1" x1="464" y1="670" x2="1116" y2="202"/>
+            <line class="leadln" pathLength="1" x1="464" y1="810" x2="686" y2="722"/>
+          </g>
+        </svg>
+
+        <!-- ══════════ WHY-Leiste ══════════ -->
+        <div class="layer">
+          <div class="why why1"><div class="adj">Planbar</div><div class="claim">Festpreis und Termin halten – auch wenn Anforderungen sich als ungenau oder widersprüchlich erweisen.</div></div>
+          <div class="why why2"><div class="adj">Richtig</div><div class="claim">Die Helaba rechnet morgen wie heute – oder die Abweichung ist freigegeben.</div></div>
+          <div class="why why3"><div class="adj">Sicher</div><div class="claim">Umstellung Welle für Welle – mit eingebauter Rückfalloption.</div></div>
+          <div class="why why4"><div class="adj">Unabhängig</div><div class="claim">Fachwissen gehört der Bank – nicht einzelnen Köpfen.</div></div>
+          <div class="why why5"><div class="adj">Zukunftsfest</div><div class="claim">Keine technischen Schulden von morgen.</div></div>
+        </div>
+
+        <!-- ══════════ Bausteine ══════════ -->
+        <div class="layer">
+          <!-- Region 1 -->
+          <div class="blk hel r1" style="left:520px;top:300px;width:110px;height:100px"><span class="badge">Helaba</span><div class="bt">Anforderung</div><div class="bs">aus dem Fachbereich</div></div>
+          <div class="blk epam tall r1" style="left:1260px;top:300px;width:170px;height:400px"><span class="badge">EPAM</span><div class="bt">Softwarefabrik</div><div class="bs">Code und Tests KI-gestützt erzeugt · bis INT</div></div>
+          <div class="blk neutral r1" style="left:1720px;top:450px;width:136px;height:100px"><div class="bt">Abgenommene Fachfunktion</div><div class="bs">in WDP / WPE-neu</div></div>
+          <!-- Region 2 -->
+          <div class="blk fin r2" style="left:690px;top:300px;width:210px;height:100px"><span class="badge">finius</span><div class="bt">Anforderungen aufnehmen</div><div class="bs">Dokumentation · neue Anforderungen · laufende Projekte</div></div>
+          <div class="blk epam r2" style="left:690px;top:450px;width:210px;height:100px"><span class="badge">EPAM</span><div class="bt">Bestand erfassen</div><div class="bs">Estate Scanner · acht Systeme</div></div>
+          <div class="blk fin r2" style="left:960px;top:300px;width:230px;height:100px"><span class="badge">finius</span><div class="bt">Fachlicher Wissensspeicher</div><div class="bs">Servicemodell · Anforderungen · Akzeptanzkriterien</div></div>
+          <div class="blk epam r2" style="left:960px;top:450px;width:230px;height:100px"><span class="badge">EPAM</span><div class="bt">Technischer Wissensspeicher</div><div class="bs bs-now">Altsysteme</div><div class="bs bs-alt">Alt- und Neusysteme</div></div>
+          <!-- Region 4 (Baustein 8, wächst aus Diamant) -->
+          <div class="blk hel tall r4 box8" style="left:1480px;top:300px;width:180px;height:400px"><span class="badge">Helaba</span><div class="bt">Prüfarbeitsplatz (IRE)</div><div class="bs">Abgleich mit heutigem Verhalten · ◆ Spezifikation freigeben · ◆ Ergebnis abnehmen</div></div>
+          <!-- Region 5 -->
+          <div class="blk hel r5" style="left:690px;top:600px;width:210px;height:100px"><span class="badge">Helaba + EPAM</span><div class="bt">Zielbild festlegen</div><div class="bs">Zielsysteme · Plattformvorgaben</div></div>
+          <div class="blk hel r5" style="left:960px;top:600px;width:230px;height:100px"><span class="badge">Helaba</span><div class="bt">Zielbild</div><div class="bs">TOM · Zielarchitektur</div></div>
+
+          <!-- Anschluss-Beschriftungen an der Softwarefabrik -->
+          <div class="r1" style="position:absolute;left:1150px;top:338px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Spezifikation</div>
+          <div class="r1" style="position:absolute;left:1150px;top:488px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Bestand</div>
+          <div class="r1" style="position:absolute;left:1150px;top:638px;width:104px;text-align:right;font-size:16px;color:var(--g4)">Zielbild</div>
+
+          <!-- Band 11 -->
+          <div class="band r3">
+            <span class="badge">EPAM</span>
+            <div class="bandhead"><div class="bt">Überführen</div><div class="bs">Produktivsetzung · Datenmigration · Stilllegung</div></div>
+            <div class="chips">
+              <span class="chip">Welle 1</span><span class="chip">Welle 2</span><span class="chip">Welle n</span><span class="chip hostaus">Host aus</span>
+            </div>
+          </div>
+
+          <!-- Befund-Kärtchen (Schritt 4) -->
+          <div class="befund" style="left:706px;top:196px;width:300px">Spezifiziert, nicht umgesetzt</div>
+          <div class="befund" style="left:1030px;top:196px;width:320px">Zwei Dokumente, drei Varianten</div>
+        </div>
+
+        <!-- ══════════ HOW-Tags ══════════ -->
+        <div class="layer">
+          <div class="howtag r1" style="left:1260px;top:250px">Eine Strecke, keine Übergaben</div>
+          <div class="howtag r2" style="left:690px;top:250px">Fachlichkeit und Code prüfen sich gegenseitig</div>
+          <div class="howtag r3" style="left:1096px;top:722px">Welle für Welle überführen</div>
+          <div class="howtag r4" style="left:1116px;top:180px">Jede Freigabe wird Wissen der Bank</div>
+          <div class="howtag r5" style="left:690px;top:700px">Jede Zeile kennt ihren fachlichen Grund</div>
+        </div>
+
+        <!-- ══════════ Overlays ══════════ -->
+        <div class="layer">
+          <div class="ov ov1" style="left:1180px;top:330px;width:640px;height:300px">
+            <div class="ovl">WHY 1 · PLANBAR</div>
+            <div class="ovc">Festpreis und Termin halten – auch wenn Anforderungen sich als ungenau oder widersprüchlich erweisen.</div>
+            <div class="ovd">In der klassischen Lieferkette ist jede Übergabe ein Rüstvorgang: Kontext aufbauen, einarbeiten, abstimmen, warten. Von der Fachlichkeit bis zur Abnahme sind es fünf solcher Übergaben. Jede Korrektur – ob gewollt oder weil eine Anforderung ungenau war – löst alle Rüstvorgänge erneut aus. Daran scheitern Festpreise.</div>
+          </div>
+          <div class="ov ov2" style="left:620px;top:300px;width:640px;height:260px">
+            <div class="ovl">WHY 2 · RICHTIG</div>
+            <div class="ovc">Die Helaba rechnet morgen wie heute – oder die Abweichung ist freigegeben.</div>
+            <div class="ovd">Niemand weiß vollständig, was die historisch gewachsenen Systeme heute tatsächlich rechnen. Widersprüche zwischen Dokumentation und Code fallen sonst erst im Test oder im Betrieb auf – dann, wenn sie am teuersten sind.</div>
+          </div>
+          <div class="ov ov3" style="left:1140px;top:540px;width:640px;height:210px">
+            <div class="ovl">WHY 3 · SICHER</div>
+            <div class="ovc">Umstellung Welle für Welle – mit eingebauter Rückfalloption.</div>
+            <div class="ovd">Ein Big Bang auf der Wertpapierabwicklung ist für eine Landesbank kein vertretbares Risiko. Und laufende Projekte dürfen nicht eingefroren werden.</div>
+          </div>
+          <div class="ov ov4" style="left:1020px;top:240px;width:640px;height:230px">
+            <div class="ovl">WHY 4 · UNABHÄNGIG</div>
+            <div class="ovc">Fachwissen gehört der Bank – nicht einzelnen Köpfen.</div>
+            <div class="ovd">Das Wissen über die historisch gewachsenen Systeme liegt bei wenigen Fachleuten. Jede Ruhestandswelle wird so zum Risiko für Betrieb und Migration.</div>
+          </div>
+          <div class="ov ov5" style="left:620px;top:440px;width:640px;height:260px">
+            <div class="ovl">WHY 5 · ZUKUNFTSFEST</div>
+            <div class="ovc">Keine technischen Schulden von morgen.</div>
+            <div class="ovd">Modernisierte Systeme werden zu historisch gewachsenen Systemen, sobald niemand mehr weiß, warum eine Codezeile existiert. Neue Zielvorgaben werden dann wieder zum Großprojekt.</div>
+          </div>
+        </div>
+
+        <!-- ══════════ Bühnenleiste ══════════ -->
+        <div class="layer">
+          <div class="bridge bridge2">Ohne Übergaben keine Rüstkosten – deshalb hält der Festpreis auch bei Änderungen.</div>
+          <div class="bridge bridge4">Widersprüche klären wir, bevor gebaut wird – nicht erst im Test.</div>
+          <div class="bridge bridge6">Jeder Schritt ist belegt – und ein Nachweis für DORA.</div>
+          <div class="bridge bridge8">Kopfmonopole lösen sich mit jeder Welle weiter auf.</div>
+          <div class="bridge bridge10">Code und Spezifikation laufen nie auseinander – die Plattform altert nicht.</div>
+          <div class="kern">
+            <span class="kl">KERNAUSSAGE</span>
+            <span class="kt">Wir migrieren Fähigkeiten auf Basis klarer fachlicher Anforderungen – nicht den Code als Blackbox.</span>
+            <span class="ks">Planbar. Richtig. Sicher. Unabhängig. Zukunftsfest.</span>
+          </div>
+        </div>
+
+        <!-- ══════════ Rollenzeile · Legende · Fußzeile ══════════ -->
+        <div class="roles"><span class="r-fin">finius</span> führt die Fachlichkeit <span class="sep">·</span> <span class="r-epam">EPAM</span> führt die Technik <span class="sep">·</span> <span class="r-hel">Helaba</span> entscheidet und gibt frei</div>
+        <div class="legend">
+          <span><span class="ln"></span>heute vorhanden</span>
+          <span><span class="ln proj"></span>entsteht im Projekt</span>
+          <span class="opt-item"><span class="ln opt"></span>Umfang nach Vereinbarung</span>
+        </div>
+        <div class="footer"><span>finius + EPAM · Vertraulich</span><span class="mid">Wertpapierkonsolidierung Helaba</span><span></span></div>
+
+        <!-- ══════════ Fragment-Träger (Schrittsteuerung) ══════════ -->
+        <div class="steps">
+          <span class="fragment" data-step="1"></span><span class="fragment" data-step="2"></span>
+          <span class="fragment" data-step="3"></span><span class="fragment" data-step="4"></span>
+          <span class="fragment" data-step="5"></span><span class="fragment" data-step="6"></span>
+          <span class="fragment" data-step="7"></span><span class="fragment" data-step="8"></span>
+          <span class="fragment" data-step="9"></span><span class="fragment" data-step="10"></span>
+          <span class="fragment" data-step="11"></span>
+        </div>
+
+        <aside class="notes" data-markdown>
+          Schritt 0: Fünf Fragen, die Sie uns stellen werden, bevor Sie Fachkonzeption und Umsetzung gemeinsam vergeben.
+          — Schritt 2: Wie eine Build-Pipeline – nur geht vorn die Anforderung hinein, und hinten kommt die abgenommene Fachfunktion heraus. Der Code ist Ergebnis, nicht Quelle. Eine Korrektur heißt: Spezifikation anpassen, neu erzeugen, eine Freigabe durch den Fachbereich.
+          — Schritt 4: finius baut das fachliche Modell, der Estate Scanner zeigt, was der Code heute tatsächlich tut. Wo beides nicht zusammenpasst, sehen Sie es vor dem Bau.
+          — Schritt 6: Bis zur Integrationsumgebung liefern wir fest. Produktivsetzung, Datenmigration und Stilllegung übernehmen wir gern mit – den Zuschnitt legen wir gemeinsam fest. Ihre laufenden Projekte werden Teil des Plans.
+          — Schritt 8: Ihre Fachleute prüfen im Prüfarbeitsplatz – nicht Zeile für Zeile, sondern je Fachfragment. Jede Anmerkung und jede Freigabe fließt in den Wissensspeicher zurück.
+          — Schritt 10: Jede Methode verweist auf ihre Anforderung. Ändern sich Zielarchitektur oder TOM, erzeugen wir neu. Die Lieferstrecke und die Wissensspeicher gehen an die Helaba über.
+          — Schritt 11: Wir migrieren Fähigkeiten auf Basis klarer fachlicher Anforderungen – nicht den Code als Blackbox.
+        </aside>
+      </section>
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1920, height: 1080, margin: 0, center: false, transition: 'none',
+      controls: true, progress: false, hash: true, slideNumber: false,
+      fragments: true, pdfSeparateFragments: true, plugins: [ RevealNotes ]
+    });
+
+    var master = document.getElementById('master');
+    function updateStep(){
+      var vis = master.querySelectorAll('.steps .fragment.visible');
+      var max = 0;
+      vis.forEach(function(f){ var s = parseInt(f.getAttribute('data-step'),10); if(s>max) max=s; });
+      master.setAttribute('data-step', max);
+      for(var i=1;i<=11;i++){ master.classList.toggle('s'+i, max>=i); }
+      if(max !== 11){ clearLens(); }
+    }
+    Reveal.on('ready', updateStep);
+    Reveal.on('fragmentshown', updateStep);
+    Reveal.on('fragmenthidden', updateStep);
+    Reveal.on('slidechanged', updateStep);
+
+    /* ── Linsen auf Abruf (nur Schritt 11) ── */
+    var lens = 0;
+    function applyLens(){
+      for(var i=1;i<=5;i++){ master.classList.toggle('lens'+i, lens===i); }
+      master.classList.toggle('lensing', lens!==0);
+    }
+    function setLens(n){
+      if(master.getAttribute('data-step') !== '11') return;
+      lens = (lens===n) ? 0 : n;
+      applyLens();
+    }
+    function clearLens(){ lens = 0; applyLens(); }
+    document.addEventListener('keydown', function(e){
+      if(master.getAttribute('data-step') !== '11') return;
+      if(e.key >= '1' && e.key <= '5'){ setLens(parseInt(e.key,10)); e.preventDefault(); e.stopPropagation(); }
+      else if(e.key === '0'){ clearLens(); e.preventDefault(); e.stopPropagation(); }
+    }, true);
+    document.querySelectorAll('.why').forEach(function(card, idx){
+      card.addEventListener('click', function(){ setLens(idx+1); });
+    });
+  </script>
+</body>
+</html>
