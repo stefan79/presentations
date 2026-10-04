@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Atruvia CMS &amp; DAM PoC</title>
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reset.css">
+  <link rel="stylesheet" href="../../node_modules/reveal.js/dist/reveal.css">
+  <link rel="stylesheet" href="../../templates/themes/epam.css">
+  <style>
+    /* ─────────────────────────────────────────────────────────────
+       Deck: Atruvia CMS-&-DAM-PoC (sechs entscheidungsorientierte Folien)
+       House style: EPAM dark kit (navy variant). EPAM Internal · Confidential.
+       COLOUR ROLES:
+         accent (blue) = die Validierungsfrage / Kernaussage / PoC-Umsetzung
+         teal          = positiv / native Fähigkeit / KI in der Zielplattform
+         amber         = Risiko / No-Go-Hinweise
+         red           = nicht umsetzbar
+       STATE by SHAPE (Folie 5): solid accent = reales Produkt · dashed accent =
+         PoC-Umsetzung · solid neutral = bestehendes Atruvia-System ·
+         dashed neutral = stubbed / simuliert.
+       Text ist verbatim per Deck-Spezifikation (Deutsch führt).
+       ───────────────────────────────────────────────────────────── */
+    :root{
+      --accent:#2AA3E6; --accent-bg:rgba(42,163,230,0.14); --accent-tint:rgba(42,163,230,0.06);
+      --teal:#2FD1B0; --teal-bg:rgba(47,209,176,0.12); --teal-tint:rgba(47,209,176,0.06);
+      --amber:#F2B84B; --amber-bg:rgba(242,184,75,0.12);
+      --red:#E5736B; --red-bg:rgba(229,115,107,0.12);
+      --bg:#0F1722; --surface:#172231; --surface2:#1B2838;
+      --subtle:#8B9AA8; --ink:#B7C4D0; --head:#EEF2F5; --line:#2A3A4C; --neutral:#6F7E8C;
+      --r-main-font-size:24px;
+    }
+    .reveal{ background:var(--bg); }
+    .reveal::after{ display:none !important; }
+    .reveal .slides section{ padding:42px 48px 38px; height:720px; box-sizing:border-box; text-align:left; color:var(--ink); background:var(--bg); }
+    .reveal .slides section[data-marker]{ display:flex; flex-direction:column; }
+    html.print-pdf .reveal .slides section[data-marker]{ padding:42px 48px 38px !important; display:flex !important; flex-direction:column !important; }
+
+    /* chrome */
+    .reveal .marker{ position:absolute; top:15px; left:48px; font-family:var(--r-heading-font); font-size:13px; color:var(--subtle); letter-spacing:0.08em; font-weight:600; }
+    .reveal .deck-footer{ position:absolute; bottom:13px; left:48px; right:48px; display:flex; gap:12px; font-size:10.5px; color:var(--subtle); letter-spacing:0.02em; font-family:var(--r-heading-font); }
+    .reveal .deck-footer .right{ margin-left:auto; }
+
+    /* eyebrow + title */
+    .reveal .eyebrow{ font-family:var(--r-heading-font); font-size:12.5px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--accent); margin-bottom:5px; }
+    .reveal .title{ font-family:var(--r-heading-font); font-weight:800; color:var(--head); font-size:29px; line-height:1.1; letter-spacing:-0.02em; margin:0; max-width:99%; }
+    .reveal .title .ac{ color:var(--accent); }
+    .reveal .stage{ flex:1; position:relative; margin-top:13px; display:flex; flex-direction:column; min-height:548px; }
+
+    /* body text */
+    .reveal .lbl{ font-size:11.5px; color:var(--subtle); letter-spacing:0.02em; }
+    .reveal .lbl.caps{ text-transform:uppercase; letter-spacing:0.1em; font-weight:700; font-family:var(--r-heading-font); }
+    .reveal .cap{ font-size:12px; color:var(--subtle); line-height:1.32; }
+
+    /* cards */
+    .reveal .card{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:13px 15px; display:flex; flex-direction:column; }
+    .reveal .card h3{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:16px; margin:0 0 7px; }
+    .reveal .card.accent{ border-top:2px solid var(--accent); }
+    .reveal .card.teal{ border-top:2px solid var(--teal); }
+
+    /* bullet list */
+    .reveal ul.blist{ list-style:none; margin:0; padding:0; }
+    .reveal ul.blist > li::marker{ content:""; }
+    .reveal ul.blist li{ position:relative; padding-left:15px; font-size:13px; color:var(--ink); line-height:1.3; margin:5px 0; }
+    .reveal ul.blist li::before{ content:""; position:absolute; left:0; top:7px; width:5px; height:5px; border-radius:50%; background:var(--accent); }
+    .reveal ul.blist.teal li::before{ background:var(--teal); }
+    .reveal ul.blist.sm li{ font-size:11.5px; margin:3px 0; line-height:1.26; padding-left:13px; }
+    .reveal ul.blist.sm li::before{ top:6px; width:4px; height:4px; }
+
+    /* bands / statements */
+    .reveal .band{ background:var(--accent-tint); border:1px solid var(--line); border-left:3px solid var(--accent); border-radius:8px; padding:11px 16px; font-size:15px; color:var(--head); line-height:1.38; }
+    .reveal .band .ac{ color:var(--accent); font-weight:600; }
+    .reveal .band.warn{ background:var(--amber-bg); border-color:var(--amber); border-left-color:var(--amber); }
+    .reveal .band.warn .am{ color:var(--amber); font-weight:700; }
+    .reveal .band.teal{ background:var(--teal-tint); border-color:var(--teal); border-left-color:var(--teal); }
+    .reveal .band.teal .tc{ color:var(--teal); font-weight:600; }
+
+    /* vertical funnel (Folie 1) */
+    .reveal .vflow{ display:flex; flex-direction:column; align-items:stretch; }
+    .reveal .vflow .vs{ background:var(--surface); border:1px solid var(--line); border-radius:7px; padding:6px 10px; text-align:center; font-size:12px; color:var(--ink); font-family:var(--r-heading-font); }
+    .reveal .vflow .vs.q{ border-color:var(--accent); color:var(--head); }
+    .reveal .vflow .vs.on{ border:1.5px solid var(--accent); background:var(--accent-bg); color:#CDEAFB; font-weight:700; }
+    .reveal .vflow .va{ height:11px; position:relative; }
+    .reveal .vflow .va::after{ content:"▼"; position:absolute; left:50%; top:0; transform:translateX(-50%); color:var(--subtle); font-size:9px; }
+
+    /* numbered card header */
+    .reveal .nhead{ display:flex; align-items:center; gap:9px; margin-bottom:7px; }
+    .reveal .num{ display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border-radius:50%; background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent); font-family:var(--r-heading-font); font-weight:800; font-size:13px; flex:none; }
+    .reveal .nhead h3{ margin:0; font-size:15px; }
+    .reveal .badge-risk{ font-family:var(--r-heading-font); font-weight:700; font-size:8.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--amber); background:var(--amber-bg); border:1px solid var(--amber); border-radius:5px; padding:1px 6px; margin-left:auto; }
+
+    /* horizontal step flow (Folie 4) */
+    .reveal .hflow{ display:flex; align-items:stretch; }
+    .reveal .hflow .hs{ flex:1; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:9px 7px 8px; text-align:center; position:relative; }
+    .reveal .hflow .hs.end{ border-color:var(--accent); background:var(--accent-tint); }
+    .reveal .hflow .hs .hn{ display:inline-flex; align-items:center; justify-content:center; width:19px; height:19px; border-radius:50%; background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent); font-family:var(--r-heading-font); font-weight:800; font-size:11px; margin-bottom:5px; }
+    .reveal .hflow .hs .ht{ font-family:var(--r-heading-font); font-size:11px; color:var(--head); line-height:1.2; font-weight:600; }
+    .reveal .hflow .hs + .hs{ margin-left:17px; }
+    .reveal .hflow .hs + .hs::before{ content:"▸"; position:absolute; left:-14px; top:50%; transform:translateY(-50%); color:var(--accent); font-size:13px; }
+
+    /* inline sequence chips */
+    .reveal .seq{ display:flex; flex-wrap:wrap; align-items:center; gap:4px; }
+    .reveal .seq .s{ background:var(--surface2); border:1px solid var(--line); border-radius:5px; padding:2px 6px; font-size:9.5px; color:var(--ink); font-family:var(--r-heading-font); white-space:nowrap; line-height:1.3; }
+    .reveal .seq .a{ color:var(--accent); font-size:9px; }
+
+    /* result-class pills (Folie 4) */
+    .reveal .rc{ display:flex; gap:7px; }
+    .reveal .rc .c{ flex:1; text-align:center; border-radius:7px; padding:9px 5px; font-family:var(--r-heading-font); font-weight:700; font-size:11.5px; line-height:1.15; }
+    .reveal .rc .c.n{ color:var(--teal); background:var(--teal-bg); border:1px solid var(--teal); }
+    .reveal .rc .c.cf{ color:#7FD4F5; background:var(--accent-bg); border:1px solid var(--accent); }
+    .reveal .rc .c.iu{ color:var(--head); background:var(--surface2); border:1px solid var(--neutral); }
+    .reveal .rc .c.wa{ color:var(--amber); background:var(--amber-bg); border:1px solid var(--amber); }
+    .reveal .rc .c.nu{ color:var(--red); background:var(--red-bg); border:1px solid var(--red); }
+
+    /* architecture (Folie 5) */
+    .reveal .arch{ display:flex; flex-direction:column; gap:7px; }
+    .reveal .arch .row{ display:flex; align-items:stretch; gap:9px; }
+    .reveal .ab{ border-radius:8px; padding:7px 10px; font-family:var(--r-heading-font); }
+    .reveal .ab .t{ font-weight:700; color:var(--head); font-size:12.5px; display:block; line-height:1.15; }
+    .reveal .ab .d{ font-size:9.5px; color:var(--subtle); line-height:1.3; display:block; margin-top:3px; }
+    .reveal .ab.real{ background:var(--accent-bg); border:1.5px solid var(--accent); }
+    .reveal .ab.poc{ background:transparent; border:1.5px dashed var(--accent); }
+    .reveal .ab.exist{ background:var(--surface2); border:1.5px solid var(--neutral); }
+    .reveal .ab.stub{ background:transparent; border:1.5px dashed var(--neutral); }
+    .reveal .arch .ar{ display:flex; align-items:center; color:var(--accent); font-size:14px; flex:none; }
+    .reveal .arch .intlink{ text-align:center; font-family:var(--r-heading-font); font-size:9px; color:var(--teal); border:1px dashed var(--teal); border-radius:5px; padding:2px 4px; background:var(--teal-tint); }
+
+    /* legend (Folie 5) */
+    .reveal .lg{ display:flex; flex-wrap:wrap; gap:12px; font-size:10px; color:var(--subtle); font-family:var(--r-heading-font); }
+    .reveal .lg .i{ display:flex; align-items:center; gap:6px; }
+    .reveal .lg .sw{ width:16px; height:12px; border-radius:3px; flex:none; }
+    .reveal .lg .sw.real{ background:var(--accent-bg); border:1.5px solid var(--accent); }
+    .reveal .lg .sw.poc{ background:transparent; border:1.5px dashed var(--accent); }
+    .reveal .lg .sw.exist{ background:var(--surface2); border:1.5px solid var(--neutral); }
+    .reveal .lg .sw.stub{ background:transparent; border:1.5px dashed var(--neutral); }
+
+    /* scenario icons — shared token across slide 3 cards and slide 6 callouts */
+    .reveal .scenario-ico{ width:17px; height:17px; stroke:var(--accent); fill:none; stroke-width:1.7; stroke-linecap:round; stroke-linejoin:round; flex:none; margin:0; }
+    /* embedded architecture SVG (Folie 6) */
+    .reveal .archframe{ flex:1; min-height:0; display:flex; align-items:center; justify-content:center; background:transparent; border:none; padding:0; }
+    .reveal .archframe img{ width:100%; height:100%; max-width:100%; max-height:100%; object-fit:contain; margin:0; }
+    /* callout key — bridges diagram ①–⑥ back to the six scenarios (Folie 6) */
+    .reveal .ckey{ display:flex; flex-direction:column; gap:4px; }
+    .reveal .ckey .ci{ display:flex; align-items:center; gap:8px; background:var(--surface); border:1px solid var(--line); border-left:2px solid var(--accent); border-radius:7px; padding:3.5px 9px; }
+    .reveal .ckey .cnum{ font-family:var(--r-heading-font); font-weight:800; color:var(--accent); font-size:15px; flex:none; width:15px; text-align:center; }
+    .reveal .ckey .cl{ font-family:var(--r-heading-font); font-weight:600; color:var(--head); font-size:11.5px; line-height:1.15; }
+
+    /* compact tables */
+    .reveal table.mt{ width:100%; border-collapse:collapse; font-size:10px; margin:3px 0 0; }
+    .reveal table.mt th{ font-family:var(--r-heading-font); text-align:left; padding:3px 9px; border-bottom:1px solid var(--line); font-weight:700; font-size:9.5px; color:var(--head); }
+    .reveal table.mt td{ padding:2.5px 9px; border-bottom:1px solid rgba(139,148,158,0.13); color:var(--ink); vertical-align:top; line-height:1.2; }
+    .reveal table.mt td.k{ color:var(--head); font-weight:600; font-family:var(--r-heading-font); width:46%; }
+
+    /* two-phase (Folie 6) */
+    .reveal .phase{ border-radius:9px; padding:11px 14px; }
+    .reveal .phase.p1{ background:var(--accent-tint); border:1px solid var(--line); border-top:2px solid var(--accent); }
+    .reveal .phase.p2{ background:var(--teal-tint); border:1px solid var(--line); border-top:2px solid var(--teal); }
+    .reveal .phase .ph{ display:flex; align-items:baseline; gap:9px; margin-bottom:6px; }
+    .reveal .phase .ph .pt{ font-family:var(--r-heading-font); font-weight:800; color:var(--head); font-size:15px; }
+    .reveal .phase .ph .pd{ font-family:var(--r-heading-font); font-weight:700; font-size:11px; color:var(--accent); background:var(--accent-bg); border-radius:20px; padding:1px 9px; }
+    .reveal .phase.p2 .ph .pd{ color:var(--teal); background:var(--teal-bg); }
+
+    /* deliverable mini-cards (Folie 6) */
+    .reveal .deliv{ background:var(--surface); border:1px solid var(--line); border-radius:9px; border-top:2px solid var(--accent); padding:10px 11px; display:flex; flex-direction:column; }
+    .reveal .deliv .dn{ font-family:var(--r-heading-font); font-weight:800; font-size:11px; color:var(--accent); margin-bottom:4px; }
+    .reveal .deliv h4{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:13px; margin:0 0 5px; line-height:1.15; }
+    .reveal .deliv p{ font-size:10.5px; color:var(--subtle); line-height:1.3; margin:0; }
+
+    /* cover */
+    .reveal section.cover{ padding:0; overflow:hidden; }
+    .reveal .cover-bg{ position:absolute; inset:0; background:var(--bg) url('assets/cover.png') center/cover no-repeat; }
+    .reveal .cover-scrim{ position:absolute; inset:0; background:
+        linear-gradient(90deg, rgba(15,23,34,0.93) 0%, rgba(15,23,34,0.82) 34%, rgba(15,23,34,0.52) 62%, rgba(15,23,34,0.22) 100%),
+        linear-gradient(0deg, rgba(15,23,34,0.55) 0%, transparent 34%); }
+    .reveal .cover-logos{ position:absolute; left:64px; top:44px; display:flex; align-items:center; gap:20px; z-index:3; }
+    .reveal .cover-logos img{ display:block; margin:0; max-width:none; max-height:none; }
+    .reveal .cover-logos .logo-epam{ height:23px; }
+    .reveal .cover-logos .logo-atruvia{ height:30px; }
+    .reveal .cover-logos .logo-div{ width:1px; height:26px; background:rgba(255,255,255,0.28); }
+    .reveal .cover-wrap{ position:absolute; left:64px; top:50%; transform:translateY(-50%); width:82%; }
+    .reveal .cover-eyebrow{ font-family:var(--r-heading-font); font-size:14px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--accent); margin-bottom:14px; }
+    .reveal .cover-rule{ width:64px; height:3px; background:var(--teal); margin-bottom:22px; }
+    .reveal .cover h1{ font-family:var(--r-heading-font); font-size:54px; font-weight:800; color:#fff; margin:0; letter-spacing:-0.025em; line-height:1.05; }
+    .reveal .cover h1::after{ display:none; }
+    .reveal .cover-subt{ font-size:21px; color:#E6E9ED; margin-top:18px; font-weight:400; line-height:1.4; max-width:84%; }
+    .reveal .cover-subt .ac{ color:var(--accent); }
+    .reveal .cover-meta{ font-size:13.5px; color:#9FB0BC; margin-top:22px; letter-spacing:0.02em; }
+    .reveal .cover-el{ position:absolute; left:64px; bottom:24px; font-size:11px; color:var(--subtle); font-family:var(--r-heading-font); letter-spacing:0.08em; }
+
+    /* closing */
+    .reveal .closing{ font-family:var(--r-heading-font); font-weight:800; color:var(--head); font-size:21px; line-height:1.22; letter-spacing:-0.01em; }
+    .reveal .closing .ac{ color:var(--accent); }
+    .reveal .closing .tc{ color:var(--teal); }
+  </style>
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <!-- Scenario icon sprite — shared by slide 3 cards and slide 6 callout key -->
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <defs>
+          <symbol id="ic-1" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></symbol>
+          <symbol id="ic-2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4"/></symbol>
+          <symbol id="ic-3" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.8"/><path d="M21 15l-5-5L5 21"/></symbol>
+          <symbol id="ic-4" viewBox="0 0 24 24"><path d="M12 22c5-1.5 8-5.5 8-10V5l-8-3-8 3v7c0 4.5 3 8.5 8 10z"/><path d="M9 12l2 2 4-4"/></symbol>
+          <symbol id="ic-5" viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="7" rx="2"/><rect x="2" y="14" width="20" height="7" rx="2"/><path d="M6 6.5h.01M6 17.5h.01"/></symbol>
+          <symbol id="ic-6" viewBox="0 0 24 24"><path d="M12 3l2 5.5L19.5 10 14 11.5 12 17l-2-5.5L4.5 10 10 8.5z"/><path d="M18.5 15l1 2.5L22 18.5l-2.5 1L18.5 22l-1-2.5L15 18.5l2.5-1z"/></symbol>
+        </defs>
+      </svg>
+
+
+      <!-- ═══════════════════ 01 COVER ═══════════════════ -->
+      <section class="cover">
+        <div class="cover-bg"></div>
+        <div class="cover-scrim"></div>
+        <div class="cover-logos">
+          <img class="logo-epam" src="../../templates/themes/epam-logo.png" alt="EPAM">
+          <span class="logo-div"></span>
+          <img class="logo-atruvia" src="assets/atruvia-logo-white.png" alt="Atruvia">
+        </div>
+        <div class="cover-wrap">
+          <div class="cover-eyebrow">EPAM Internal · PoC-Validierungsengagement</div>
+          <div class="cover-rule"></div>
+          <h1>Atruvia<br>CMS-&amp;-DAM-PoC</h1>
+          <div class="cover-subt">Contentstack und Bynder im Banking-Kontext validieren — <span class="ac">und mit KI die Entscheidung schneller erreichen</span></div>
+          <div class="cover-meta">Entscheidungsorientierte Proof-of-Concept · sechs ausführbare Validierungspfade</div>
+        </div>
+        <div class="cover-el">EPAM · Confidential</div>
+        <aside class="notes">Rahmung: Atruvia hat eine Richtung (Contentstack + Bynder) gewählt. Die PoC prüft, ob die Kombination im Banking-Kontext trägt, macht Lücken und Workarounds sichtbar und schafft belastbare Grundlagen für die Umsetzung. Zwei KI-Bedeutungen sauber trennen: KI in der Zielplattform vs. KI in der Durchführung.</aside>
+      </section>
+
+      <!-- ═══════════════════ 02 — FOLIE 1: Was die PoC beweisen muss ═══════════════════ -->
+      <section data-marker="02 / 07">
+        <div class="eyebrow">Was die PoC beweisen muss</div>
+        <h2 class="title">Von der Produktauswahl zu <span class="ac">belastbarer Umsetzungssicherheit</span></h2>
+        <div class="stage">
+          <div class="band" style="margin-bottom:11px;">Wir validieren, ob Contentstack und Bynder Atruvias künftiges <span class="ac">redaktionelles, technisches und betriebliches Modell</span> unterstützen können — und was eine Umsetzung im Maßstab erfordert.</div>
+          <div style="display:flex; gap:14px; flex:1; min-height:0;">
+            <!-- left: four tragfähigkeit cards 2x2 -->
+            <div style="width:66%; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+              <div class="card accent">
+                <h3>Nutzerseitige Tragfähigkeit</h3>
+                <ul class="blist sm">
+                  <li>Können Redakteurinnen und Redakteure effektiv arbeiten?</li>
+                  <li>Ist der Wechsel von der heutigen AEM-Erfahrung akzeptabel?</li>
+                  <li>Sind Workflow, Freigabe, Versionierung und Rollback geeignet?</li>
+                </ul>
+              </div>
+              <div class="card accent">
+                <h3>Technische Tragfähigkeit</h3>
+                <ul class="blist sm">
+                  <li>Spielen Contentstack, Bynder und Atruvia-Systeme sinnvoll zusammen?</li>
+                  <li>Lassen sich Auslieferung, IAM, APIs und Netzintegration umsetzen?</li>
+                  <li>Was ist nativ, konfigurierbar oder kundenspezifisch?</li>
+                </ul>
+              </div>
+              <div class="card accent">
+                <h3>Betriebliche Tragfähigkeit</h3>
+                <ul class="blist sm">
+                  <li>Kann Atruvia die Plattform administrieren und unterstützen?</li>
+                  <li>Funktioniert das Mandanten- und Delegationsmodell über die Banken?</li>
+                  <li>Sind Rollen, Rechte, Auditierbarkeit und Support betreibbar?</li>
+                </ul>
+              </div>
+              <div class="card accent">
+                <h3>Umsetzungsfähigkeit</h3>
+                <ul class="blist sm">
+                  <li>Was ist konfigurierbar, was erfordert Entwicklung oder Workaround?</li>
+                  <li>Was bedeutet eine repräsentative Migration?</li>
+                  <li>Welcher Aufwand und welche Produktionsreife-Arbeiten entstehen?</li>
+                </ul>
+              </div>
+            </div>
+            <!-- right: decision funnel -->
+            <div style="width:34%; display:flex; flex-direction:column;">
+              <div class="lbl caps" style="margin-bottom:8px;">Entscheidungsfunnel</div>
+              <div class="vflow" style="flex:1; justify-content:space-between;">
+                <div class="vs">Produktauswahl</div>
+                <div class="va"></div>
+                <div class="vs">PoC-Evidenz</div>
+                <div class="va"></div>
+                <div class="vs q">Ist es tragfähig?</div>
+                <div class="va"></div>
+                <div class="vs q">Wie muss es umgesetzt werden?</div>
+                <div class="va"></div>
+                <div class="vs q">Was erfordert die Implementierung?</div>
+                <div class="va"></div>
+                <div class="vs on">Umsetzungsentscheidung</div>
+              </div>
+            </div>
+          </div>
+          <div class="band warn" style="margin-top:11px;"><span class="am">Die PoC soll Gründe für ein Nichtweiterverfolgen sichtbar machen – nicht verbergen.</span> &nbsp;<span class="cap" style="color:var(--ink);">Mögliche negative Ergebnisse: zu viele Workarounds · nicht akzeptable Umgewöhnung der Redaktion · Compliance-Bedenken · Konflikte mit Atruvia-Prozessen.</span></div>
+        </div>
+        <aside class="notes">Die PoC beweist nicht, dass zwei SaaS-Produkte Funktionen besitzen. Sie reduziert Unsicherheit darüber, wie beide gemeinsam in der Atruvia-Umgebung funktionieren. Abstimmung: Welche Szenarien sind echte Go-/No-Go-Kriterien? Was muss demonstriert, was kann analytisch bewertet werden? Welche Evidenz gilt als erfolgreicher Nachweis?</aside>
+      </section>
+
+      <!-- ═══════════════════ 03 — FOLIE 2: Validierungsumfang ═══════════════════ -->
+      <section data-marker="03 / 07">
+        <div class="eyebrow">Vorgeschlagener Validierungsumfang</div>
+        <h2 class="title">Aus dem Anforderungskatalog werden <span class="ac">sechs ausführbare Validierungspfade</span></h2>
+        <div class="stage">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; flex:1; min-height:0;">
+            <div class="card">
+              <div class="nhead"><span class="num">1</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-1"/></svg><h3>Redaktionsprozess</h3></div>
+              <ul class="blist sm">
+                <li>Inhalte erstellen, bearbeiten und Bynder-Assets auswählen</li>
+                <li>Vier-Augen-Freigabe, Website und App veröffentlichen</li>
+                <li>Versionen vergleichen, zurückrollen — Vergleich mit AEM</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="nhead"><span class="num">2</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-2"/></svg><h3>Content-Verteilung</h3><span class="badge-risk">Risikobereich</span></div>
+              <ul class="blist sm">
+                <li>Zentral wiederverwendbare Inhalte an Banken weitergeben</li>
+                <li>Lokale Änderungen erkennbar, verpflichtendes/optionales Überschreiben</li>
+                <li>Bankspezifische Workflows vor der Veröffentlichung</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="nhead"><span class="num">3</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-3"/></svg><h3>CMS-zu-DAM-Integration</h3></div>
+              <ul class="blist sm">
+                <li>Assets aus Contentstack wählen, Referenzen und Versionen aktualisieren</li>
+                <li>Kanalbezogene Transformationen, Metadaten, Rechte, Ablaufdaten</li>
+                <li>Bynder-CDN, Asset-Änderungen nach der Veröffentlichung</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="nhead"><span class="num">4</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-4"/></svg><h3>Identität, Governance &amp; Administration</h3></div>
+              <ul class="blist sm">
+                <li>SSO, OIDC/OAuth2 und SCIM-Bereitstellung</li>
+                <li>Mandantenbezogene Rollen, Rechte-Mapping Contentstack ↔ Bynder</li>
+                <li>Delegierte Administration durch Banken, Auditierbarkeit</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="nhead"><span class="num">5</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-5"/></svg><h3>Auslieferungsarchitektur &amp; Skalierung</h3></div>
+              <ul class="blist sm">
+                <li>Contentstack Delivery API, Referenzschicht für Rendering</li>
+                <li>Google Cloud, Zusammenspiel mit Portal Content und HIP</li>
+                <li>Auswirkungen des Modells mit 775 Mandanten / Banken</li>
+              </ul>
+            </div>
+            <div class="card">
+              <div class="nhead"><span class="num">6</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-6"/></svg><h3>KI-gestützter Content</h3></div>
+              <ul class="blist sm">
+                <li>Markenkonforme Content-Erstellung, SEO-/GEO-Metadaten</li>
+                <li>Textgenerierung, -transformation und Bildbearbeitung</li>
+                <li>Governance-/Compliance-Filter, Auswirkung auf Rechte &amp; Metadaten</li>
+              </ul>
+            </div>
+          </div>
+          <div class="band" style="margin-top:11px;">Nicht jede Anforderung benötigt dieselbe Umsetzungstiefe. Wir schlagen <span class="ac">repräsentative Szenarien</span> vor, die die schwierigen Annahmen belegen.</div>
+        </div>
+        <aside class="notes">Die breite Themenliste ist verstanden, wird aber nicht zu Dutzenden Mini-Projekten. Content-Verteilung bleibt als eigenständiger Risikobereich sichtbar. Abstimmung: Welche Pfade tragen die risikoreichsten Annahmen? Welche 2–3 Szenarien pro Pfad liefern genügend Evidenz? Was muss native Funktion sein, wo ist individuelle Umsetzung akzeptabel?</aside>
+      </section>
+
+      <!-- ═══════════════════ 04 — FOLIE 3: KI-beschleunigte Durchführung ═══════════════════ -->
+      <section data-marker="04 / 07">
+        <div class="eyebrow">KI-beschleunigte Durchführung der PoC</div>
+        <h2 class="title">KI in der Lösung nutzen – <span class="ac">und die PoC schneller durchführen</span></h2>
+        <div class="stage">
+          <div style="display:flex; gap:13px; flex:1; min-height:0;">
+            <!-- left: KI in der Zielplattform -->
+            <div class="card teal" style="width:27%;">
+              <h3 style="color:var(--teal);">KI in der Zielplattform</h3>
+              <div class="lbl" style="margin-bottom:4px;">Atruvias Zielanwendungsfälle</div>
+              <ul class="blist teal sm">
+                <li>Content-Erstellung und -Transformation</li>
+                <li>Markenkonformität</li>
+                <li>SEO-/GEO-Metadaten</li>
+                <li>Bildbearbeitung</li>
+                <li>Compliance- und Governance-Filter</li>
+              </ul>
+              <div class="cap" style="margin-top:auto; padding-top:8px;">Das <b style="color:var(--teal);">Was</b> die Plattform können soll — Gegenstand der Validierung.</div>
+            </div>
+            <!-- right: KI in der Umsetzung (2x2) -->
+            <div style="width:73%; display:flex; flex-direction:column; gap:0;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:7px;">KI in der Umsetzung der PoC &nbsp;·&nbsp; das <span style="color:var(--accent);">Wie</span> wir die Evidenz schneller erzeugen</div>
+              <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px; flex:1; min-height:0;">
+                <div class="card accent" style="padding:10px 13px;">
+                  <h3 style="font-size:14px;">Engineering</h3>
+                  <ul class="blist sm">
+                    <li>Adapter, API-Clients und Rendering-Komponenten</li>
+                    <li>Integrationsgerüste, Konfig- und Deployment-Automatisierung</li>
+                    <li>Testgenerierung, synthetische Testdaten, Dokumentation</li>
+                  </ul>
+                  <div class="cap" style="margin-top:6px;">Architektur, Review, Sicherheit und Abnahme bleiben bei den Ingenieur:innen.</div>
+                </div>
+                <div class="card accent" style="padding:10px 13px;">
+                  <h3 style="font-size:14px;">Migration</h3>
+                  <div class="seq" style="margin-bottom:6px;">
+                    <span class="s">Ermitteln</span><span class="a">▸</span><span class="s">Klassifizieren</span><span class="a">▸</span><span class="s">Zuordnen</span><span class="a">▸</span><span class="s">Transformieren</span><span class="a">▸</span><span class="s">Laden</span><span class="a">▸</span><span class="s">Abgleichen</span><span class="a">▸</span><span class="s">Ausnahmen</span>
+                  </div>
+                  <ul class="blist sm">
+                    <li>AEM-Inhaltstypen, Felder, Referenzen, Hierarchie, Varianten</li>
+                    <li>DAM-Assets, Tags, Metadaten, Rechte und Ablaufdaten</li>
+                    <li>Abdeckungsgrad, manueller Anteil, Automatisierungspotenzial</li>
+                  </ul>
+                </div>
+                <div class="card accent" style="padding:10px 13px;">
+                  <h3 style="font-size:14px;">Analyse</h3>
+                  <div class="cap" style="margin-bottom:6px;">PoC-Artefakte als strukturierte Evidenz: Abnahmekriterien, Konfigurationen, Tests, Logs, Migrationsberichte, Architektur-Feststellungen.</div>
+                  <div class="seq">
+                    <span class="s">Anforderung</span><span class="a">▸</span><span class="s">Evidenz</span><span class="a">▸</span><span class="s">Ergebnis</span><span class="a">▸</span><span class="s">Lücke</span><span class="a">▸</span><span class="s">Produktionsauswirkung</span>
+                  </div>
+                </div>
+                <div class="card accent" style="padding:10px 13px;">
+                  <h3 style="font-size:14px;">Schätzung</h3>
+                  <div class="seq">
+                    <span class="s">PoC-Evidenz</span><span class="a">▸</span><span class="s">beobachtete Tasks</span><span class="a">▸</span><span class="s">Komplexitätsklasse</span><span class="a">▸</span><span class="s">Migrations-/Customizing-Muster</span><span class="a">▸</span><span class="s">Produktionsreife-Differenz</span><span class="a">▸</span><span class="s">Skalierungsfaktoren</span><span class="a">▸</span><span class="s">Umsetzungsschätzung</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="band" style="margin-top:11px;"><span class="ac">Schätzen auf Basis beobachteter Komplexität</span> statt ausschließlich auf Basis von Expertenmeinung — evidenzgestützte, KI-unterstützte Synthese mit Expertenvalidierung. KI ist kein Ersatz für repräsentative Evidenz.</div>
+        </div>
+        <aside class="notes">Zwei KI-Bedeutungen sauber getrennt: links KI in der künftigen Plattform (Validierungsgegenstand), rechts KI zur Durchführung der PoC (Beschleuniger). Abstimmung: repräsentative AEM-Daten bereitstellbar? Welche Daten dürfen mit KI-Werkzeugen verarbeitet werden? Vorgaben zu Modellen/Hosting? Wie viel menschliche Prüfung für generierte Mappings und Schätzungen?</aside>
+      </section>
+
+      <!-- ═══════════════════ 05 — FOLIE 4: Evidenzbasierte Methode ═══════════════════ -->
+      <section data-marker="05 / 07">
+        <div class="eyebrow">Evidenzbasierte Validierungsmethode</div>
+        <h2 class="title">Jedes PoC-Szenario erzeugt <span class="ac">Evidenz und eine Entscheidung</span></h2>
+        <div class="stage">
+          <div class="hflow" style="margin-bottom:13px;">
+            <div class="hs"><span class="hn">1</span><div class="ht">Hypothese</div></div>
+            <div class="hs"><span class="hn">2</span><div class="ht">Abnahme&shy;kriterien</div></div>
+            <div class="hs"><span class="hn">3</span><div class="ht">Minimale Umsetzung</div></div>
+            <div class="hs"><span class="hn">4</span><div class="ht">Szenario ausführen</div></div>
+            <div class="hs"><span class="hn">5</span><div class="ht">Evidenz erfassen</div></div>
+            <div class="hs"><span class="hn">6</span><div class="ht">Ergebnis bewerten</div></div>
+            <div class="hs end"><span class="hn">7</span><div class="ht">Produktions&shy;auswirkung</div></div>
+          </div>
+          <div style="display:flex; gap:14px; flex:1; min-height:0;">
+            <!-- left: beispielszenario -->
+            <div class="card" style="width:50%;">
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:7px;">Beispielszenario</div>
+              <div class="band" style="font-size:13px; font-style:italic; margin-bottom:9px;">Eine Bankredaktion kann mit Contentstack und Bynder Inhalte für Web und App erstellen und veröffentlichen, ohne dass der Aufwand gegenüber AEM unvertretbar steigt.</div>
+              <div class="lbl caps" style="margin-bottom:4px;">Zu erfassende Evidenz</div>
+              <div style="display:flex; gap:16px;">
+                <ul class="blist sm" style="flex:1;">
+                  <li>Anzahl Arbeitsschritte</li>
+                  <li>Bearbeitungszeit</li>
+                  <li>Notwendige Systemwechsel</li>
+                  <li>Manuelle Übergaben</li>
+                  <li>Freigaben und Rollen</li>
+                </ul>
+                <ul class="blist sm" style="flex:1;">
+                  <li>Konfigurationsaufwand</li>
+                  <li>Individueller Code</li>
+                  <li>Fehler und Workarounds</li>
+                  <li>Screenshots, API-Ergebnisse, Logs</li>
+                </ul>
+              </div>
+            </div>
+            <!-- right: ergebnisklassen + explanation -->
+            <div style="width:50%; display:flex; flex-direction:column; gap:12px;">
+              <div class="card">
+                <div class="lbl caps" style="margin-bottom:9px;">Einheitliche Ergebnisklassen</div>
+                <div class="rc">
+                  <div class="c n">Native Fähigkeit</div>
+                  <div class="c cf">Konfigurier&shy;bare Fähigkeit</div>
+                  <div class="c iu">Individuelle Umsetzung</div>
+                  <div class="c wa">Workaround</div>
+                  <div class="c nu">Nicht umsetzbar</div>
+                </div>
+              </div>
+              <div class="band" style="flex:1; display:flex; align-items:center;"><div><span class="ac">Wir optimieren die PoC auf Erkenntnisgewinn, nicht auf vollständige Produktionshärtung.</span> &nbsp;Vorrang hat der Nachweis der Abnahmekriterien; Produktionshärtung nur, wo sie für den Nachweis erforderlich ist.</div></div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Disziplinierte Untersuchung statt allgemeines Prototypprojekt. Jedes Szenario: Hypothese, messbare Abnahmekriterien, beobachtbare Evidenz, Produktionsauswirkung. Abstimmung: Sind die Abnahmekriterien messbar genug? Wer nimmt ab? Vergleichsbasis: heutiges AEM, Zielbild, Produktstandard? Wo dokumentieren — Confluence? Wie werden bedingte Ergebnisse eskaliert?</aside>
+      </section>
+
+      <!-- ═══════════════════ 06 — FOLIE 5: Architektur- & Migrationsscheibe ═══════════════════ -->
+      <section data-marker="06 / 07">
+        <div class="eyebrow">Repräsentative Architektur- &amp; Migrationsscheibe</div>
+        <h2 class="title">Eine repräsentative <span class="ac">vertikale Scheibe</span> der künftigen Plattform</h2>
+        <div class="stage">
+          <div style="display:flex; gap:16px; flex:1; min-height:0;">
+            <!-- left: embedded Archify architecture SVG (Validierungspfade ①–⑥) -->
+            <div style="width:68%; display:flex; flex-direction:column; min-height:0;">
+              <div class="archframe"><img src="assets/architektur.svg" alt="Atruvia PoC – Zielarchitektur mit den sechs Validierungspfaden ①–⑥"></div>
+            </div>
+            <!-- right: callout key (bridges diagram ①–⑥ back to slide 3) + migration sample -->
+            <div style="width:32%; display:flex; flex-direction:column; min-height:0;">
+              <div class="lbl caps" style="margin-bottom:6px;">Validierungspfade ①–⑥ · Callouts im Diagramm</div>
+              <div class="ckey" style="margin-bottom:8px;">
+                <div class="ci"><span class="cnum">①</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-1"/></svg><span class="cl">Redaktionsprozess</span></div>
+                <div class="ci"><span class="cnum">②</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-2"/></svg><span class="cl">Content-Verteilung</span></div>
+                <div class="ci"><span class="cnum">③</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-3"/></svg><span class="cl">CMS-zu-DAM-Integration</span></div>
+                <div class="ci"><span class="cnum">④</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-4"/></svg><span class="cl">Identität &amp; Governance</span></div>
+                <div class="ci"><span class="cnum">⑤</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-5"/></svg><span class="cl">Auslieferung &amp; Skalierung</span></div>
+                <div class="ci"><span class="cnum">⑥</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-6"/></svg><span class="cl">KI-gestützter Content</span></div>
+              </div>
+              <div class="lbl caps" style="margin-bottom:6px;">Repräsentatives Migrationssample</div>
+              <div class="card" style="padding:4px 10px; flex:1;">
+                <table class="mt">
+                  <thead><tr><th>Sample</th><th>Grund für die Aufnahme</th></tr></thead>
+                  <tbody>
+                    <tr><td class="k">Einfache Seite</td><td>Baseline</td></tr>
+                    <tr><td class="k">Strukturreiche Seite</td><td>Komplexität des Content-Modells</td></tr>
+                    <tr><td class="k">Geteilter / wiederverwendeter Inhalt</td><td>Referenzen und Wiederverwendung</td></tr>
+                    <tr><td class="k">Bankspezifische Variante</td><td>Mandantenfähigkeit, lokale Anpassung</td></tr>
+                    <tr><td class="k">Komplexe AEM-Komponente</td><td>Transformationskomplexität</td></tr>
+                    <tr><td class="k">Asset mit Rechten / Ablaufdatum</td><td>DAM-Migration und Governance</td></tr>
+                    <tr><td class="k">Navigationsstruktur</td><td>Auslieferungsmodell</td></tr>
+                    <tr><td class="k">Nicht abbildbares Beispiel</td><td>Ausnahmen &amp; Kalibrierung</td></tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="band" style="margin-top:7px; font-size:12px;">Das Migrationssample soll den <span class="ac">Erkenntnisgewinn maximieren, nicht die Menge.</span></div>
+            </div>
+          </div>
+        </div>
+        <aside class="notes">Nur der Teil der künftigen Architektur, den die PoC tatsächlich ausübt — kein vollständiges Enterprise-Zielbild. Zustände nach Form/Farbe getrennt. Abstimmung: Welche Content-Familien repräsentieren die reale Komplexität? Welche Exporte/Modelle/Assets bereitstellbar? Welche Integrationen müssen real sein, was wird gemockt? Wie viel des 775-Mandanten-Szenarios instanziiert vs. analytisch modelliert?</aside>
+      </section>
+
+      <!-- ═══════════════════ 07 — FOLIE 6: Ergebnisse & Engagement ═══════════════════ -->
+      <section data-marker="07 / 07">
+        <div class="eyebrow">Ergebnisse &amp; vorgeschlagenes Engagement</div>
+        <h2 class="title">Ein <span class="ac">Entscheidungspaket</span> für die Umsetzung – nicht nur eine PoC-Demo</h2>
+        <div class="stage">
+          <!-- top: 5 deliverables -->
+          <div class="lbl caps" style="margin-bottom:7px;">Liefergegenstände</div>
+          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:9px; margin-bottom:13px;">
+            <div class="deliv"><div class="dn">01</div><h4>Lauffähige PoC</h4><p>Durchgängige Szenarien über Contentstack, Bynder und repräsentative Atruvia-Integrationspunkte.</p></div>
+            <div class="deliv"><div class="dn">02</div><h4>Evidenzmatrix</h4><p>Anforderung → Ergebnis → Evidenz → Lücke → Produktionsauswirkung; unterscheidet nachgewiesen, bedingt, nicht getestet, nicht umsetzbar.</p></div>
+            <div class="deliv"><div class="dn">03</div><h4>Architektur-Feststellungen</h4><p>Validierte und verworfene Muster, Entscheidungen, Herstellerlücken, Skalierungs- und Mandantenfolgen.</p></div>
+            <div class="deliv"><div class="dn">04</div><h4>Migrationsbewertung</h4><p>Mappings, Automatisierungspotenzial, Ausnahmen-Taxonomie, manueller Aufwand, empfohlene Wellen.</p></div>
+            <div class="deliv"><div class="dn">05</div><h4>Umsetzungsschätzung</h4><p>Evidenzbasiert → Umsetzungsbacklog → Aufwandsmodell → Roadmap und Schätzung.</p></div>
+          </div>
+          <!-- bottom: two phases -->
+          <div class="lbl caps" style="margin-bottom:7px;">Vorgeschlagenes Zwei-Phasen-Engagement</div>
+          <div style="display:flex; gap:12px; flex:1; min-height:0;">
+            <div class="phase p1" style="width:46%; display:flex; flex-direction:column;">
+              <div class="ph"><span class="pt">Phase 1 — Abstimmen &amp; vorbereiten</span><span class="pd">1–2 Wochen</span></div>
+              <div style="display:flex; gap:14px;">
+                <ul class="blist sm" style="flex:1;">
+                  <li>Priorisierte Use Cases</li>
+                  <li>Vereinbarte Abnahmekriterien</li>
+                  <li>Repräsentatives Migrationssample</li>
+                  <li>Referenzarchitektur der PoC</li>
+                </ul>
+                <ul class="blist sm" style="flex:1;">
+                  <li>Umgebungen und Zugänge</li>
+                  <li>Vorgaben zu KI, Sicherheit, Datenverarbeitung</li>
+                  <li>Detailliertes Ausführungsbacklog</li>
+                  <li>Schätzmodell und Evidenzplan</li>
+                </ul>
+              </div>
+            </div>
+            <div class="phase p2" style="width:54%; display:flex; flex-direction:column;">
+              <div class="ph"><span class="pt">Phase 2 — Umsetzen &amp; bewerten</span><span class="pd">4–6 Wochen · erste Planungsspanne</span></div>
+              <div style="display:flex; align-items:center; gap:10px; flex:1;">
+                <div style="flex:1;">
+                  <div class="seq">
+                    <span class="s">Redaktion / CMS</span><span class="s">DAM / Integration</span><span class="s">Architektur / IAM</span><span class="s">Migration</span><span class="s">KI-Anwendungsfälle</span>
+                  </div>
+                  <div class="cap" style="margin-top:7px;">Parallele Arbeitsströme auf gemeinsamem Fundament.</div>
+                </div>
+                <div class="ar" style="color:var(--teal); font-size:15px;">▸</div>
+                <div style="flex:none; text-align:center;">
+                  <div class="ab real" style="border-color:var(--teal); background:var(--teal-bg); padding:6px 9px;"><span class="t" style="font-size:11px; color:var(--teal);">Gesamtauswertung</span></div>
+                  <div class="va" style="height:9px; position:relative;"><span style="position:absolute; left:50%; transform:translateX(-50%); color:var(--subtle); font-size:8px;">▼</span></div>
+                  <div class="ab real" style="border-color:var(--teal); background:var(--teal-bg); padding:6px 9px;"><span class="t" style="font-size:11px; color:var(--teal);">Umsetzungsschätzung</span></div>
+                </div>
+              </div>
+              <div class="cap" style="margin-top:4px;"><b style="color:var(--teal);">KI beschleunigt alle Ströme</b> — sie ist kein siebter Projektstrom.</div>
+            </div>
+          </div>
+          <div class="band teal" style="margin-top:12px;"><span class="tc">Wir validieren, wie KI Atruvias künftige Content-Plattform verbessert</span> — und setzen gleichzeitig KI ein, um Zeit und Kosten bis zu dieser Entscheidung zu reduzieren.</div>
+        </div>
+        <aside class="notes">Entscheidungspaket, keine Demo: pro Architekturthema „Weiterverfolgen / Mit Bedingungen weiterverfolgen / Neu bewerten" plus Umsetzungsfolgen, Risiken, Herstellerlücken, Roadmap. Phase 2 ist Planungsspanne, keine feste Zusage vor Abschluss Phase 1. Abstimmung: Schätzungsniveau (ROM, ±30 %, umsetzungsplanungsfähig)? Welche Entscheidungen muss Atruvia ableiten? Was muss vor Phase 2 verfügbar sein?</aside>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="../../node_modules/reveal.js/dist/reveal.js"></script>
+  <script src="../../node_modules/reveal.js/plugin/notes/notes.js"></script>
+  <script>
+    document.querySelectorAll('.reveal .slides section[data-marker]').forEach(function (s) {
+      var m = s.dataset.marker;
+      var marker = document.createElement('div');
+      marker.className = 'marker'; marker.textContent = m; s.appendChild(marker);
+      var f = document.createElement('div');
+      f.className = 'deck-footer';
+      f.innerHTML = '<span>EPAM Internal · Confidential — Atruvia CMS-&amp;-DAM-PoC</span>' +
+                    '<span class="right">' + m + '</span>';
+      s.appendChild(f);
+    });
+    Reveal.initialize({ width: 1280, height: 720, margin: 0, center: false, hash: true, slideNumber: false, transition: 'slide', plugins: [RevealNotes] });
+  </script>
+</body>
+</html>
