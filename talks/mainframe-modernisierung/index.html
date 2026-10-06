@@ -20,6 +20,12 @@
     .reveal .slides section { padding: 46px 56px 40px; height: 720px; box-sizing: border-box; }
     /* Body slides: center content vertically so the vertical space is used, not crammed to the top. */
     .reveal .slides section[data-marker] { display: flex; flex-direction: column; justify-content: center; }
+    /* Robust vertical centring: higher specificity than reveal's `.present{display:block}`,
+       so EVERY present content slide (incl. plain recaps) uses the full height instead of
+       hugging the top. Covers/breakers/divider keep their own (absolute) layout. */
+    .reveal .slides > section.present:not(.cover):not(.breaker):not(.section-divider) {
+      display: flex !important; flex-direction: column; justify-content: center;
+    }
     /* Reserve a fixed bottom band for the takeaway on every content slide. */
     .reveal .slides section[data-tk] { padding-bottom: 96px; }
 
@@ -223,110 +229,122 @@
                data-background-size="cover"
                data-background-position="center"><!--i18n:0--></section>
 
+      <!-- ═══════════════════════ SPEAKER INTRO ═══════════════════════ -->
+      <section><!--i18n:1--></section>
+
+      <!-- ═══════════════════════ EPAM — COMPANY INTRO ═══════════════════════ -->
+      <section><!--i18n:2--></section>
+
+      <!-- ═══════════════════════ DISCLAIMER / EINORDNUNG ═══════════════════════ -->
+      <section><!--i18n:3--></section>
+
       <!-- ═══════════════════════ 01 / 18 — Situation + Complication (Statistik) ═══════════════════════ -->
-      <section data-marker="01 / 18" data-tk><!--i18n:1--></section>
+      <section data-marker="01 / 18" data-tk><!--i18n:4--></section>
 
       <!-- ═══════════════════════ 02 / 18 — FUD → Phasen-Cluster (Agenda) ═══════════════════════ -->
-      <section data-marker="02 / 18" data-tk><!--i18n:2--></section>
+      <section data-marker="02 / 18" data-tk><!--i18n:5--></section>
 
       <!-- ═══════════════════════ BREAKER A ═══════════════════════ -->
-      <section class="breaker" data-background-image="assets/breaker-analysieren.png" data-background-size="cover" data-background-position="center"><!--i18n:3--></section>
+      <section class="breaker" data-background-image="assets/breaker-analysieren.png" data-background-size="cover" data-background-position="center"><!--i18n:6--></section>
 
       <!-- ═══════════════════════ 03 / 18 — Code ≠ Spezifikation (nach vorn gezogen) ═══════════════════════ -->
-      <section data-marker="03 / 18" data-tk><!--i18n:4--></section>
+      <section data-marker="03 / 18" data-tk><!--i18n:7--></section>
 
       <!-- ═══════════════════════ 04 / 18 — Übergangsarchitektur / Landschaft ═══════════════════════ -->
-      <section data-marker="04 / 18" data-tk><!--i18n:5--></section>
+      <section data-marker="04 / 18" data-tk><!--i18n:8--></section>
 
       <!-- ═══════════════════════ 05 / 18 ═══════════════════════ -->
-      <section data-marker="05 / 18" data-tk><!--i18n:6--></section>
+      <section data-marker="05 / 18" data-tk><!--i18n:9--></section>
 
       <!-- ═══════════════════════ 06 / 18 ═══════════════════════ -->
-      <section data-marker="06 / 18" data-tk><!--i18n:7--></section>
+      <section data-marker="06 / 18" data-tk><!--i18n:10--></section>
 
       <!-- ═══════════════════════ RECAP 1 (nach Abschnitt 1) ═══════════════════════ -->
-      <section><!--i18n:8--></section>
+      <section><!--i18n:11--></section>
 
       <!-- ═══════════════════════ BREAKER B ═══════════════════════ -->
-      <section class="breaker" data-background-image="assets/breaker-planen.png" data-background-size="cover" data-background-position="center"><!--i18n:9--></section>
+      <section class="breaker" data-background-image="assets/breaker-planen.png" data-background-size="cover" data-background-position="center"><!--i18n:12--></section>
 
       <!-- ═══════════════════════ 07 / 18 ═══════════════════════ -->
-      <section data-marker="07 / 18" data-tk><!--i18n:10--></section>
+      <section data-marker="07 / 18" data-tk><!--i18n:13--></section>
 
       <!-- ═══════════════════════ 08 / 18 ═══════════════════════ -->
-      <section data-marker="08 / 18" data-tk><!--i18n:11--></section>
+      <section data-marker="08 / 18" data-tk><!--i18n:14--></section>
 
       <!-- ═══════════════════════ 09 / 18 ═══════════════════════ -->
-      <section data-marker="09 / 18" data-tk><!--i18n:12--></section>
+      <section data-marker="09 / 18" data-tk><!--i18n:15--></section>
 
       <!-- ═══════════════════════ RECAP 2 (nach Abschnitt 2) ═══════════════════════ -->
-      <section><!--i18n:13--></section>
+      <section><!--i18n:16--></section>
 
       <!-- ═══════════════════════ BREAKER C ═══════════════════════ -->
-      <section class="breaker" data-background-image="assets/breaker-umsetzen.png" data-background-size="cover" data-background-position="center"><!--i18n:14--></section>
+      <section class="breaker" data-background-image="assets/breaker-umsetzen.png" data-background-size="cover" data-background-position="center"><!--i18n:17--></section>
 
       <!-- ═══════════════════════ 10 / 18 — End-to-End-Pipeline (öffnet Umsetzen) ═══════════════════════ -->
-      <section data-marker="10 / 18" data-tk><!--i18n:15--></section>
+      <section data-marker="10 / 18" data-tk><!--i18n:18--></section>
 
       <!-- ═══════════════════════ 11 / 18 — Was ist SDD / OpenSpec ═══════════════════════ -->
-      <section data-marker="11 / 18" data-tk><!--i18n:16--></section>
+      <section data-marker="11 / 18" data-tk><!--i18n:19--></section>
 
       <!-- ═══════════════════════ 12 / 18 — Zitat-Logik / Besonderheit ═══════════════════════ -->
-      <section data-marker="12 / 18" data-tk><!--i18n:17--></section>
+      <section data-marker="12 / 18" data-tk><!--i18n:20--></section>
 
       <!-- ═══════════════════════ 13 / 18 ═══════════════════════ -->
-      <section data-marker="13 / 18" data-tk><!--i18n:18--></section>
+      <section data-marker="13 / 18" data-tk><!--i18n:21--></section>
 
       <!-- ═══════════════════════ 14 / 18 ═══════════════════════ -->
-      <section data-marker="14 / 18" data-tk><!--i18n:19--></section>
+      <section data-marker="14 / 18" data-tk><!--i18n:22--></section>
 
       <!-- ═══════════════════════ RECAP 3 (nach Abschnitt 3) ═══════════════════════ -->
-      <section><!--i18n:20--></section>
+      <section><!--i18n:23--></section>
 
       <!-- ═══════════════════════ BREAKER D ═══════════════════════ -->
-      <section class="breaker" data-background-image="assets/breaker-ueberfuehren.png" data-background-size="cover" data-background-position="center"><!--i18n:21--></section>
+      <section class="breaker" data-background-image="assets/breaker-ueberfuehren.png" data-background-size="cover" data-background-position="center"><!--i18n:24--></section>
 
       <!-- ═══════════════════════ 15 / 18 ═══════════════════════ -->
-      <section data-marker="15 / 18" data-tk><!--i18n:22--></section>
+      <section data-marker="15 / 18" data-tk><!--i18n:25--></section>
 
       <!-- ═══════════════════════ 16 / 18 ═══════════════════════ -->
-      <section data-marker="16 / 18" data-tk><!--i18n:23--></section>
+      <section data-marker="16 / 18" data-tk><!--i18n:26--></section>
 
       <!-- ═══════════════════════ 17 / 18 ═══════════════════════ -->
-      <section data-marker="17 / 18" data-tk><!--i18n:24--></section>
+      <section data-marker="17 / 18" data-tk><!--i18n:27--></section>
 
       <!-- ═══════════════════════ RECAP 4 (nach Abschnitt 4 — alles gelöst) ═══════════════════════ -->
-      <section><!--i18n:25--></section>
+      <section><!--i18n:28--></section>
 
       <!-- ═══════════════════════ 18 / 18 ═══════════════════════ -->
-      <section data-marker="18 / 18" data-tk><!--i18n:26--></section>
+      <section data-marker="18 / 18" data-tk><!--i18n:29--></section>
 
       <!-- ═══════════════════════ CLOSING — Danke & Fragen ═══════════════════════ -->
       <section class="cover" style="padding:0; height:720px;"
                data-background-image="assets/closing.png"
                data-background-size="cover"
-               data-background-position="center"><!--i18n:27--></section>
+               data-background-position="center"><!--i18n:30--></section>
+
+      <!-- ═══════════════════════ BOOTH CALL TO ACTION ═══════════════════════ -->
+      <section><!--i18n:31--></section>
 
       <!-- ═══════════════════════ APPENDIX DIVIDER ═══════════════════════ -->
-      <section class="section-divider"><!--i18n:28--></section>
+      <section class="section-divider"><!--i18n:32--></section>
 
       <!-- ═══════════════════════ APPENDIX A ═══════════════════════ -->
-      <section data-marker="A"><!--i18n:29--></section>
+      <section data-marker="A"><!--i18n:33--></section>
 
       <!-- ═══════════════════════ APPENDIX B ═══════════════════════ -->
-      <section data-marker="B"><!--i18n:30--></section>
+      <section data-marker="B"><!--i18n:34--></section>
 
       <!-- ═══════════════════════ APPENDIX C ═══════════════════════ -->
-      <section data-marker="C"><!--i18n:31--></section>
+      <section data-marker="C"><!--i18n:35--></section>
 
       <!-- ═══════════════════════ APPENDIX D ═══════════════════════ -->
-      <section data-marker="D"><!--i18n:32--></section>
+      <section data-marker="D"><!--i18n:36--></section>
 
       <!-- ═══════════════════════ APPENDIX E ═══════════════════════ -->
-      <section data-marker="E"><!--i18n:33--></section>
+      <section data-marker="E"><!--i18n:37--></section>
 
       <!-- ═══════════════════════ APPENDIX F ═══════════════════════ -->
-      <section data-marker="F"><!--i18n:34--></section>
+      <section data-marker="F"><!--i18n:38--></section>
 
     </div>
   </div>
