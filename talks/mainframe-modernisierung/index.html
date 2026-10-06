@@ -402,11 +402,20 @@
       if (!W || !H) return;
       svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
       var NS = 'http://www.w3.org/2000/svg';
-      // node visual centre = (offsetLeft, offsetTop) because of translate(-50%,-50%)
+      // Measure the ACTUAL rendered node box (robust to the translate(-50%,-50%)
+      // centring and to Reveal's slide scale), expressed in the SVG's logical px.
+      var cRect = c.getBoundingClientRect();
+      var sx = cRect.width / (c.clientWidth || 1) || 1, sy = cRect.height / (c.clientHeight || 1) || 1;
       function box(id) {
         var el = c.querySelector('[data-g="' + id + '"]');
         if (!el) return null;
-        return { cx: el.offsetLeft, cy: el.offsetTop, hw: el.offsetWidth / 2, hh: el.offsetHeight / 2 };
+        var r = el.getBoundingClientRect();
+        return {
+          cx: (r.left + r.width / 2 - cRect.left) / sx,
+          cy: (r.top + r.height / 2 - cRect.top) / sy,
+          hw: (r.width / 2) / sx,
+          hh: (r.height / 2) / sy
+        };
       }
       function border(r, px, py) { // point on r's border toward (px,py), +3px gap
         var dx = px - r.cx, dy = py - r.cy;
@@ -419,26 +428,31 @@
       var edges = [
         // technical dependencies
         { a: 'terminal', b: 'cics', k: 'tech', l: 'bedient' },
-        { a: 'java', b: 'cics', k: 'tech', l: 'ruft auf' },
+        { a: 'java', b: 'cics', k: 'tech', l: 'ruft auf', lp: 0.62 },
         { a: 'java', b: 'mq', k: 'tech', l: 'sendet' },
         { a: 'jcl', b: 'cobol', k: 'tech', l: 'startet' },
         { a: 'cics', b: 'cobol', k: 'tech', l: 'ruft' },
         { a: 'cobol', b: 'db2', k: 'tech', l: 'liest/schreibt' },
-        { a: 'cobol', b: 'vsam', k: 'tech', l: 'liest/schreibt' },
-        { a: 'cics', b: 'mq', k: 'tech', l: 'put/get' },
+        { a: 'cobol', b: 'vsam', k: 'tech', l: '' },
+        { a: 'cics', b: 'mq', k: 'tech', l: 'put/get', lp: 0.72 },
         // business relations
         { a: 'bs', b: 'boV', k: 'biz', l: 'nutzt' },
         { a: 'bs', b: 'boK', k: 'biz', l: 'nutzt' },
         { a: 'boV', b: 'rq', k: 'biz', l: 'erfüllt' },
         // citations (FINIUS connects technik ↔ fachlichkeit)
-        { a: 'cics', b: 'bs', k: 'cite', l: 'implementiert' },
-        { a: 'cobol', b: 'bs', k: 'cite', l: 'implementiert' },
-        { a: 'cobol', b: 'rq', k: 'cite', l: 'erfüllt Regel' },
-        { a: 'db2', b: 'boV', k: 'cite', l: 'entspricht' },
-        { a: 'vsam', b: 'boK', k: 'cite', l: 'entspricht' }
+        { a: 'cics', b: 'bs', k: 'cite', l: '' },
+        { a: 'cobol', b: 'bs', k: 'cite', l: 'implementiert', lp: 0.66 },
+        { a: 'cobol', b: 'rq', k: 'cite', l: 'erfüllt Regel', lp: 0.44 },
+        { a: 'db2', b: 'boV', k: 'cite', l: 'entspricht', lp: 0.54 },
+        { a: 'vsam', b: 'boK', k: 'cite', l: '' }
       ];
       while (svg.firstChild) svg.removeChild(svg.firstChild);
+      // Staged reveal: tech graph (base) → business graph (step 1) → citations (step 2).
+      var vis = function (sel) { var el = c.querySelector(sel); return !!(el && el.classList.contains('visible')); };
+      var showBiz = vis('.gbiz'), showConn = vis('[data-conn]');
       edges.forEach(function (e) {
+        if (e.k === 'biz' && !showBiz) return;
+        if (e.k === 'cite' && !showConn) return;
         var A = box(e.a), B = box(e.b);
         if (!A || !B) return;
         var p1 = border(A, B.cx, B.cy), p2 = border(B, A.cx, A.cy);
@@ -450,18 +464,25 @@
         ln.setAttribute('opacity', e.k === 'tech' ? '0.75' : '0.9');
         if (e.k === 'cite') ln.setAttribute('stroke-dasharray', '5 4');
         svg.appendChild(ln);
-        var tx = document.createElementNS(NS, 'text');
-        tx.setAttribute('x', (p1.x + p2.x) / 2); tx.setAttribute('y', (p1.y + p2.y) / 2 - 2);
-        tx.setAttribute('text-anchor', 'middle');
-        tx.setAttribute('font-size', '10'); tx.setAttribute('font-family', "'Outfit',sans-serif");
-        tx.setAttribute('fill', e.k === 'tech' ? '#8B949E' : C.teal);
-        tx.setAttribute('stroke', '#0D1117'); tx.setAttribute('stroke-width', '3'); tx.setAttribute('paint-order', 'stroke');
-        tx.textContent = e.l;
-        svg.appendChild(tx);
+        if (e.l) {
+          var f = (typeof e.lp === 'number') ? e.lp : 0.5;
+          var lx = p1.x + (p2.x - p1.x) * f, ly = p1.y + (p2.y - p1.y) * f;
+          if (e.lo) { var ex = p2.x - p1.x, ey = p2.y - p1.y, el = Math.hypot(ex, ey) || 1; lx += -ey / el * e.lo; ly += ex / el * e.lo; }
+          var tx = document.createElementNS(NS, 'text');
+          tx.setAttribute('x', lx); tx.setAttribute('y', ly - 2);
+          tx.setAttribute('text-anchor', 'middle');
+          tx.setAttribute('font-size', '10'); tx.setAttribute('font-family', "'Outfit',sans-serif");
+          tx.setAttribute('fill', e.k === 'tech' ? '#8B949E' : C.teal);
+          tx.setAttribute('stroke', '#0D1117'); tx.setAttribute('stroke-width', '3'); tx.setAttribute('paint-order', 'stroke');
+          tx.textContent = e.l;
+          svg.appendChild(tx);
+        }
       });
     }
     Reveal.on('ready', drawGraph5);
     Reveal.on('slidechanged', function () { setTimeout(drawGraph5, 50); });
+    Reveal.on('fragmentshown', function () { setTimeout(drawGraph5, 20); });
+    Reveal.on('fragmenthidden', function () { setTimeout(drawGraph5, 20); });
     window.addEventListener('resize', function () { setTimeout(drawGraph5, 100); });
   </script>
 </body>

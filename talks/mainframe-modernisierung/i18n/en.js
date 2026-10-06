@@ -10,7 +10,7 @@ window.I18N.en = [
           <div style="width:72px; height:3px; background:linear-gradient(90deg,var(--epam-blue),var(--epam-accent)); border-radius:2px; margin:24px 0;"></div>
           <div style="font-size:24px; color:#E6E9ED; line-height:1.3; max-width:90%;">We know what we have — we know what we build.</div>
           <div style="font-size:14px; color:var(--epam-subtle); margin-top:28px;">
-            <span class="tag tag-confirm">[CONFIRM: Event name]</span> · <span class="tag tag-confirm">[CONFIRM: Date]</span> · Stefan Siprell, EPAM · Public
+            Stefan Siprell, EPAM · Public
           </div>
         </div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM" style="bottom:40px; left:64px; height:34px;">
@@ -44,7 +44,6 @@ window.I18N.en = [
           </div>
           <div class="sup-line" style="max-width:34%; text-align:right;">Our finding, not a statistic: skip the analysis and you find the rules in acceptance testing.</div>
         </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: Tile 22 % — keep both Advanced figures (22 % success / 46 % in-house planning)?]</span></div>
         <aside class="notes">Situation + Complication on one slide: mainframe migrations are complicated, AI is viewed with scepticism — both concerns legitimate. The synthesis at the bottom is the hinge line into the talk. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Take both concerns seriously. They define what the approach has to prove.</span></div>`,
 
@@ -128,7 +127,6 @@ window.I18N.en = [
           <div class="body-line" style="max-width:64%;">The code says <strong style="color:#fff;">what</strong> happens, not <strong style="color:#fff;">why</strong>. The requirements only emerge with context.</div>
           <div class="sup-line" style="max-width:34%; text-align:right;">Migrate code as-is and it's lift-and-shift in disguise: the accidents move along too.</div>
         </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-confirm">[CONFIRM: COBOL example illustrative — wording ok?]</span></div>
         <aside class="notes">First the thesis: never migrate code alone. The COBOL snippet shows an ambiguous rule; the cards list what may sit behind one line — indistinguishable from the code. „What is connected" is answered by the next slide. ~1.5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Reconstruct the business logic first, then build. Otherwise you migrate the old bugs too.</span></div>`,
 
@@ -213,29 +211,30 @@ window.I18N.en = [
         <div class="graph" id="g5" style="height:330px; margin-top:6px;">
           <!-- panel backdrops -->
           <div style="position:absolute; left:0.8%; top:20px; width:46%; height:292px; border:1px solid rgba(0,160,227,0.28); background:rgba(0,160,227,0.04); border-radius:12px; z-index:0;"></div>
-          <div style="position:absolute; right:0.8%; top:20px; width:44.5%; height:292px; border:1px solid rgba(0,201,167,0.32); background:rgba(0,201,167,0.04); border-radius:12px; z-index:0;"></div>
+          <div class="fragment" data-fragment-index="0" style="position:absolute; right:0.8%; top:20px; width:44.5%; height:292px; border:1px solid rgba(0,201,167,0.32); background:rgba(0,201,167,0.04); border-radius:12px; z-index:0;"></div>
           <!-- edges + labels drawn at runtime by drawGraph5(), attached to box borders -->
           <svg id="g5svg" preserveAspectRatio="none" style="z-index:1;"></svg>
+          <span class="fragment" data-fragment-index="1" data-conn aria-hidden="true" style="position:absolute;width:0;height:0;"></span>
 
           <!-- panel labels -->
           <div class="gband" style="top:0; left:2%; color:var(--epam-blue);">Technology — Estate Scanner (from code)</div>
-          <div class="gband" style="top:0; left:56%; color:var(--epam-accent);">Business — FINIUS (from specifications)</div>
+          <div class="gband fragment" data-fragment-index="0" style="top:0; left:56%; color:var(--epam-accent);">Business — FINIUS (from specifications)</div>
 
           <!-- technical nodes (left) — incl. terminal + java dependencies -->
-          <div class="gnode gtech" data-g="terminal" style="left:6%;  top:75px;"><span class="ty">Terminal 3270</span><b>Clerk</b></div>
-          <div class="gnode gtech" data-g="java" style="left:6%;  top:270px;"><span class="ty">Java</span><b>Channel API</b></div>
-          <div class="gnode gtech" data-g="jcl" style="left:15%; top:175px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
-          <div class="gnode gtech" data-g="cics" style="left:25%; top:80px;"><span class="ty">CICS</span><b>QUOT</b></div>
-          <div class="gnode gtech" data-g="cobol" style="left:26.5%; top:185px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
-          <div class="gnode gtech" data-g="mq" style="left:25%; top:288px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
-          <div class="gnode gtech" data-g="db2" style="left:43%; top:120px;"><span class="ty">DB2</span><b>CONTRACT</b></div>
-          <div class="gnode gtech" data-g="vsam" style="left:43%; top:255px;"><span class="ty">VSAM</span><b>KDNR</b></div>
+          <div class="gnode gtech" data-g="terminal" style="left:8%;  top:85px;"><span class="ty">Terminal 3270</span><b>Clerk</b></div>
+          <div class="gnode gtech" data-g="java" style="left:8%;  top:290px;"><span class="ty">Java</span><b>Channel API</b></div>
+          <div class="gnode gtech" data-g="jcl" style="left:8%; top:185px;"><span class="ty">JCL</span><b>NIGHTLY</b></div>
+          <div class="gnode gtech" data-g="cics" style="left:27%; top:88px;"><span class="ty">CICS</span><b>QUOT</b></div>
+          <div class="gnode gtech" data-g="cobol" style="left:27%; top:215px;"><span class="ty">COBOL</span><b>RATE-CALC</b></div>
+          <div class="gnode gtech" data-g="mq" style="left:18%; top:290px;"><span class="ty">MQ</span><b>PAYMENTS</b></div>
+          <div class="gnode gtech" data-g="db2" style="left:42%; top:150px;"><span class="ty">DB2</span><b>CONTRACT</b></div>
+          <div class="gnode gtech" data-g="vsam" style="left:42%; top:278px;"><span class="ty">VSAM</span><b>KDNR</b></div>
 
           <!-- business / requirement nodes (right) -->
-          <div class="gnode gbiz" data-g="bs" style="left:69%; top:80px;"><span class="ty">Business Service</span><b>Calculate premium</b></div>
-          <div class="gnode gbiz" data-g="boV" style="left:90%; top:155px;"><span class="ty">Business Object</span><b>Contract</b></div>
-          <div class="gnode gbiz" data-g="boK" style="left:69%; top:250px;"><span class="ty">Business Object</span><b>Customer</b></div>
-          <div class="gnode gbiz" data-g="rq" style="left:90%; top:285px;"><span class="ty">Requirement</span><b>Rounding §4</b></div>
+          <div class="gnode gbiz fragment" data-fragment-index="0" data-g="bs" style="left:65%; top:92px;"><span class="ty">Business Service</span><b>Calculate premium</b></div>
+          <div class="gnode gbiz fragment" data-fragment-index="0" data-g="boV" style="left:90%; top:150px;"><span class="ty">Business Object</span><b>Contract</b></div>
+          <div class="gnode gbiz fragment" data-fragment-index="0" data-g="boK" style="left:65%; top:255px;"><span class="ty">Business Object</span><b>Customer</b></div>
+          <div class="gnode gbiz fragment" data-fragment-index="0" data-g="rq" style="left:90%; top:268px;"><span class="ty">Requirement</span><b>Rounding §4</b></div>
         </div>
         <div class="sup-line" style="text-align:center; margin-top:6px;"><span style="color:#5B6875;">──</span> technical dependency &nbsp;·&nbsp; <span style="color:var(--epam-accent);">╌ ╌</span> source reference — FINIUS links technology and business</div>
 
@@ -243,7 +242,6 @@ window.I18N.en = [
           <div class="body-line" style="max-width:70%;">This is not just code on a graph. Every node and every edge carries its <span class="ac">source reference</span> <span class="sh">(citation)</span>, complete and consistent.</div>
           <div><span class="xref">fed from five witnesses</span></div>
         </div>
-        <div class="sup-line" style="margin-top:6px;"><span class="tag tag-owner">[FINIUS: Wordmark / logo]</span> · <span class="tag tag-confirm">[CONFIRM: Node examples (RATE-CALC, CONTRACT, Rounding §4) fitting, or a banking example?]</span></div>
         <aside class="notes">The graph is not just code: the Estate Scanner reads the technology (JCL, COBOL, CICS, DB2, VSAM, MQ) and their interactions; FINIUS extracts Business Services, Business Objects and requirements from the specifications and links them — a complete, consistent graph in which every edge is a source reference. ~1.5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Only when technology and rules are linked is the estate truly understood.</span></div>`,
 
@@ -373,7 +371,7 @@ window.I18N.en = [
 
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-top:12px;">
           <div class="sup-line" style="max-width:74%;">
-            Owner: <span class="odot" style="background:#00A0E3;"></span>EA &nbsp;<span class="odot" style="background:#E35050;"></span>Security &nbsp;<span class="odot" style="background:#00C9A7;"></span>Business &nbsp;<span class="odot" style="background:#E3A000;"></span>Quality &nbsp;<span class="odot" style="background:#A970FF;"></span>Compliance/Governance &nbsp;<span class="odot" style="background:#00A0E3;"></span>Technology → Graph &nbsp;·&nbsp; each fragment has an owner (feeds the review lineage) · <span style="font-family:var(--r-heading-font); font-weight:600;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span> <b style="color:#E6E9ED;">OKF</b>, versioned (Git). <span class="tag tag-owner">[Google: Wordmark]</span>
+            Owner: <span class="odot" style="background:#00A0E3;"></span>EA &nbsp;<span class="odot" style="background:#E35050;"></span>Security &nbsp;<span class="odot" style="background:#00C9A7;"></span>Business &nbsp;<span class="odot" style="background:#E3A000;"></span>Quality &nbsp;<span class="odot" style="background:#A970FF;"></span>Compliance/Governance &nbsp;<span class="odot" style="background:#00A0E3;"></span>Technology → Graph &nbsp;·&nbsp; each fragment has an owner (feeds the review lineage) · <span style="font-family:var(--r-heading-font); font-weight:600;"><span style="color:#4285F4;">G</span><span style="color:#EA4335;">o</span><span style="color:#FBBC05;">o</span><span style="color:#4285F4;">g</span><span style="color:#34A853;">l</span><span style="color:#EA4335;">e</span></span> <b style="color:#E6E9ED;">OKF</b>, versioned (Git).
           </div>
           <div style="text-align:right;"><span class="xref">sees only its slice</span><br><span class="xref" style="margin-top:6px; display:inline-block;">fed from five witnesses</span></div>
         </div>
@@ -497,7 +495,7 @@ window.I18N.en = [
             <div style="display:flex; justify-content:space-between; align-items:baseline;"><span style="font-size:11px; color:#E3A000;">Price · scope open</span><span style="font-family:var(--r-heading-font); font-weight:700; font-size:19px; color:#fff;">~ € 2 M</span></div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:4px;"><span class="tag tag-confirm">[CONFIRM: Figures illustrative — sanitise or mark as „illustrative"?]</span> · Confidence = how much knowledge we already have; it rises toward the upcoming wave.</div>
+        <div class="sup-line" style="margin-top:4px;">Confidence = how much knowledge we already have; it rises toward the upcoming wave.</div>
 
         <!-- Zone C: progressive elaboration + outcome -->
         <div class="sup-line" style="margin-top:8px;">Not everything up front: <b style="color:#E6E9ED;">high-level first</b> for the initial estimates — <b style="color:#E6E9ED;">details just-in-time</b> when the wave arrives. <span class="sh">Price per wave: scope × strategy × automation level × review capacity.</span></div>
@@ -774,7 +772,7 @@ window.I18N.en = [
           <span style="color:var(--epam-accent); align-self:center;">↗</span>
           <div style="flex:1.3; margin-bottom:64px; border:1.5px solid var(--epam-accent); border-radius:8px; padding:7px 9px; background:rgba(0,201,167,0.14);"><div style="font-size:10px; color:var(--epam-accent);">L4 · target</div><div style="font-size:12px; color:#fff; font-weight:700;">Dark Factory</div><div style="font-size:10px; color:#C9D1D9;">routine automatic, in policy</div></div>
         </div>
-        <div class="sup-line" style="margin-top:8px;">Engine upward: the <b style="color:#E6E9ED;">flywheel</b> (knowledge improves) + the <b style="color:#E6E9ED;">calibrated approval prediction</b> (raise the threshold safely). The higher the maturity, the less review effort per change, and the lower the cost. <span class="tag tag-owner">[Stefan: own figure — rework/defect rate per wave, if available]</span></div>
+        <div class="sup-line" style="margin-top:8px;">Engine upward: the <b style="color:#E6E9ED;">flywheel</b> (knowledge improves) + the <b style="color:#E6E9ED;">calibrated approval prediction</b> (raise the threshold safely). The higher the maturity, the less review effort per change, and the lower the cost.</div>
         <aside class="notes">Repurpose: the knowledge loop was already shown (section start). Here three new points: (1) concrete example — implementation per SAML, review demands OAuth 2, the AI proposes a knowledge base update (SAML→OAuth 2, owner Security). (2) Predict approval rate: from citation signals (evidence density, source status, currency, faithfulness, novelty) estimate a calibrated p(approval) per cluster — auto-confirm routine, first implementations to a human; prediction prioritises, does not decide; trained on the gate's past judgements. (3) Maturity growth L0→L4: the flywheel and the calibrated prediction raise the automation threshold safely — toward the Dark Factory (routine automatic in policy, human on exceptions). Higher maturity = cheaper. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Rejections and predictions calibrate the system, so autonomy grows only with evidence.</span></div>`,
 
@@ -875,7 +873,7 @@ window.I18N.en = [
         </div>
 
         <div class="body-line" style="margin-top:12px; font-size:18px;">Because every unit carries its citation: <span style="font-family:var(--r-code-font); color:var(--epam-accent); font-size:15px;">span → unit → citation → fragment → owner</span>. A production problem finds its way back to its knowledge and its owner.</div>
-        <div class="sup-line" style="margin-top:4px;">Router and monitor emerge in the same pipeline, with source references to the target operating model. Both systems run until the business owner approves the cut. <span class="tag tag-confirm">[CONFIRM: dash0 has no mainframe agent; z/OS emits OTel via z/OS Connect / Broadcom z/IRIS / Open Mainframe Project — dash0 ingests any OTLP. Name the reference this way?]</span></div>
+        <div class="sup-line" style="margin-top:4px;">Router and monitor emerge in the same pipeline, with source references to the target operating model. Both systems run until the business owner approves the cut.</div>
         <aside class="notes">The transition architecture in one picture. Router (per area): commands are replicated (dual-write), reads come from the leading system, fallback to legacy in policy with human confirmation; modes per area legacy-leads → new-leads → new-alone; clients never change. Right: the Estate Scanner also captures the newly generated software (AST graph); this structure graph is overlaid on the runtime telemetry graph (OpenTelemetry, visualised in dash0). An automatic healthcheck compares legacy and new; a problem triggers fallback (router) and a follow-up fix (back into the pipeline, Agent0 style). Because units carry citations, a span leads via unit → citation → fragment → owner to the right knowledge and person. ~2 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">Every runtime problem traces back to unit, citation and owner, with fallback built in.</span></div>`,
 
@@ -1004,7 +1002,7 @@ window.I18N.en = [
             <div class="sup-line" style="margin:8px 0; border-left:3px solid var(--epam-accent); padding-left:10px; color:#E6E9ED;"><span style="color:var(--epam-accent); font-weight:700;">4.</span> We compose and engineer our factory from building blocks — and build it up in phases.</div>
           </div>
         </div>
-        <div class="sup-line" style="margin-top:14px;">EPAM Estate Scanner, knowledge base, harness and review environment — with FINIUS for the business ruleset. &nbsp;<span class="tag tag-confirm">[CONFIRM: Takeaways 1–3 wording; name FINIUS in the line?]</span></div>
+        <div class="sup-line" style="margin-top:14px;">EPAM Estate Scanner, knowledge base, harness and review environment — with FINIUS for the business ruleset.</div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM">
         <aside class="notes">The close: building blocks across four phases; the test bench as the answer to „model vendor"; four takeaways. The slide where EPAM is named. ~1.5 min.</aside>
           <div class="takeaway"><span class="tk-label">Takeaway</span><span class="tk-text">No monolith, no vendor lock-in: building blocks, built up in phases and swappable anytime.</span></div>`,
@@ -1017,7 +1015,7 @@ window.I18N.en = [
           <div style="width:72px; height:3px; background:linear-gradient(90deg,var(--epam-blue),var(--epam-accent)); border-radius:2px; margin:24px 0;"></div>
           <div style="font-size:24px; color:#E6E9ED; line-height:1.3; max-width:92%;">We know what we have — we know what we build.</div>
           <div style="font-size:15px; color:var(--epam-subtle); margin-top:28px;">
-            Stefan Siprell · EPAM · <span class="tag tag-confirm">[CONFIRM: Contact / email]</span> · Public
+            Stefan Siprell · EPAM · Public
           </div>
         </div>
         <img class="logo" src="../../templates/themes/epam-logo.png" alt="EPAM" style="bottom:40px; left:64px; height:34px;">
@@ -1040,7 +1038,7 @@ window.I18N.en = [
 /* 30 */ `<span class="appendix-tag">Appendix B · Evidence</span>
         <h2 class="title" style="font-size:24px;">This is what a piece of evidence looks like: <span class="ac">every step is readable</span>, without a chat log.</h2>
         <div style="display:flex; gap:18px; margin-top:18px; align-items:flex-start;">
-          <div style="flex:1.4;"><div class="shot" style="height:300px; text-align:left; align-items:flex-start;"><span class="tag tag-owner">[Stefan: abstracted generation receipt (YAML) — identity and approved basis, factory configuration, produced artefacts, verification and findings, approvals, integrity; client names removed]</span></div></div>
+          <div style="flex:1.4;"><div class="shot" style="height:300px; text-align:left; align-items:flex-start;"><span style="color:var(--epam-subtle); font-size:12px;">Generation receipt · YAML</span></div></div>
           <div style="flex:1; display:flex; flex-direction:column; gap:8px;">
             <div class="chip">Order</div><div class="chip">Basis</div><div class="chip">Configuration</div><div class="chip">Results</div><div class="chip">Verification</div><div class="chip">Approvals and hashes</div>
           </div>
