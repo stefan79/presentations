@@ -13,9 +13,9 @@
        House style: EPAM dark kit (navy variant). EPAM Internal · Confidential.
        COLOUR ROLES:
          accent (blue) = die Validierungsfrage / Kernaussage / PoC-Umsetzung
-         teal          = positiv / native Fähigkeit / KI in der Zielplattform
+         teal          = positiv / Atruvia-Beitrag / KI in der Zielplattform
          amber         = Risiko / No-Go-Hinweise
-         red           = nicht umsetzbar
+         red           = (reserviert)
        STATE by SHAPE (Folie 5): solid accent = reales Produkt · dashed accent =
          PoC-Umsetzung · solid neutral = bestehendes Atruvia-System ·
          dashed neutral = stubbed / simuliert.
@@ -145,6 +145,49 @@
     .reveal .ckey .cnum{ font-family:var(--r-heading-font); font-weight:800; color:var(--accent); font-size:15px; flex:none; width:15px; text-align:center; }
     .reveal .ckey .cl{ font-family:var(--r-heading-font); font-weight:600; color:var(--head); font-size:11.5px; line-height:1.15; }
 
+    /* ── Folie 2: Perspektiven-Dreieck ──────────── */
+    .reveal .tri{ position:relative; width:100%; height:390px; }
+    .reveal .tri-svg{ position:absolute; inset:0; width:100%; height:100%; }
+    .reveal .tri-card{ position:absolute; width:342px; background:var(--surface); border:1px solid var(--line); border-top:2px solid var(--accent); border-radius:10px; padding:11px 15px; box-sizing:border-box; z-index:2; }
+    .reveal .tri-card h3{ font-family:var(--r-heading-font); font-weight:700; color:var(--head); font-size:15px; margin:0 0 5px; }
+    .reveal .tri-card p{ font-size:12px; color:var(--ink); line-height:1.3; margin:0; }
+    .reveal .tri-card .q{ color:var(--accent); font-weight:600; }
+    .reveal .tri-card .lim{ display:block; margin-top:5px; font-size:10px; color:var(--subtle); line-height:1.25; }
+    .reveal .tri-center{ position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); width:258px; text-align:center; background:var(--accent-bg); border:1.5px solid var(--accent); border-radius:12px; padding:11px 14px; z-index:3; }
+    .reveal .tri-center .tc-t{ font-family:var(--r-heading-font); font-weight:800; color:#CDEAFB; font-size:15px; line-height:1.12; }
+    .reveal .tri-center .tc-s{ font-size:11px; color:var(--subtle); margin-top:5px; font-family:var(--r-heading-font); }
+    .reveal .cfunnel{ display:flex; align-items:center; gap:9px; flex-wrap:wrap; }
+    .reveal .cfunnel .cf{ background:var(--surface); border:1px solid var(--line); border-radius:7px; padding:6px 13px; font-family:var(--r-heading-font); font-size:12.5px; color:var(--head); }
+    .reveal .cfunnel .cf.on{ background:var(--accent-bg); border-color:var(--accent); color:#CDEAFB; font-weight:600; }
+    .reveal .cfunnel .ca{ color:var(--accent); font-size:13px; }
+
+    /* ── Folie 3: Kunden-SME-Zeile ──────────────── */
+    .reveal .sme{ margin-top:auto; padding-top:7px; border-top:1px solid var(--line); font-family:var(--r-heading-font); font-size:10.5px; font-weight:600; color:var(--accent); line-height:1.25; }
+    .reveal .sme b{ color:var(--subtle); font-weight:700; }
+
+    /* ── Folie 5: Rollen-Grid (EPAM / Atruvia je Schritt) ── */
+    .reveal .rolegrid{ display:grid; grid-template-columns:60px repeat(7,1fr); gap:6px 6px; align-items:stretch; }
+    .reveal .rolegrid .rstep{ background:var(--surface); border:1px solid var(--line); border-radius:7px; padding:7px 3px 6px; text-align:center; }
+    .reveal .rolegrid .rstep.end{ border-color:var(--accent); background:var(--accent-tint); }
+    .reveal .rolegrid .rstep .rn{ display:inline-flex; align-items:center; justify-content:center; width:17px; height:17px; border-radius:50%; background:var(--accent-bg); border:1px solid var(--accent); color:var(--accent); font-family:var(--r-heading-font); font-weight:800; font-size:10px; margin-bottom:3px; }
+    .reveal .rolegrid .rstep .rt{ font-family:var(--r-heading-font); font-size:9.5px; color:var(--head); line-height:1.1; font-weight:600; display:block; }
+    .reveal .rolegrid .rlabel{ display:flex; align-items:center; font-family:var(--r-heading-font); font-weight:800; font-size:11px; letter-spacing:0.02em; }
+    .reveal .rolegrid .rlabel.epam{ color:var(--accent); }
+    .reveal .rolegrid .rlabel.atr{ color:var(--teal); }
+    .reveal .rolegrid .rcell{ border:1px solid var(--line); border-radius:6px; padding:4px 5px; font-size:9.5px; color:var(--ink); line-height:1.15; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .reveal .rolegrid .rcell.epam{ border-left:2px solid var(--accent); background:var(--accent-tint); }
+    .reveal .rolegrid .rcell.atr{ border-left:2px solid var(--teal); background:var(--teal-tint); }
+
+    /* ── Folie 7: Zusammenarbeit-Zeilen ─────────── */
+    .reveal .collab{ display:flex; flex-direction:column; gap:10px; }
+    .reveal .collab .crow{ display:flex; align-items:center; gap:12px; background:var(--surface); border:1px solid var(--line); border-radius:9px; padding:9px 14px; }
+    .reveal .collab .crow.epam{ border-left:3px solid var(--accent); }
+    .reveal .collab .crow.atr{ border-left:3px solid var(--teal); }
+    .reveal .collab .ctag{ font-family:var(--r-heading-font); font-weight:800; font-size:12.5px; flex:none; width:62px; }
+    .reveal .collab .crow.epam .ctag{ color:var(--accent); }
+    .reveal .collab .crow.atr .ctag{ color:var(--teal); }
+    .reveal .collab .ctext{ font-size:12px; color:var(--ink); line-height:1.3; }
+
     /* compact tables */
     .reveal table.mt{ width:100%; border-collapse:collapse; font-size:10px; margin:3px 0 0; }
     .reveal table.mt th{ font-family:var(--r-heading-font); text-align:left; padding:3px 9px; border-bottom:1px solid var(--line); font-weight:700; font-size:9.5px; color:var(--head); }
@@ -223,8 +266,8 @@
           <div class="cover-eyebrow">EPAM Internal · PoC-Validierungsengagement</div>
           <div class="cover-rule"></div>
           <h1>Atruvia<br>CMS-&amp;-DAM-PoC</h1>
-          <div class="cover-subt">Contentstack und Bynder im Banking-Kontext validieren — <span class="ac">und mit KI die Entscheidung schneller erreichen</span></div>
-          <div class="cover-meta">Entscheidungsorientierte Proof-of-Concept · sechs ausführbare Validierungspfade</div>
+          <div class="cover-subt">Contentstack und Bynder im Banking-Kontext validieren — <span class="ac">KI unterstützt die Durchführung der PoC</span></div>
+          <div class="cover-meta">Entscheidungsorientierter Proof of Concept · sechs Validierungspfade mit Atruvias Fachexpert:innen</div>
         </div>
         <div class="cover-el">EPAM · Confidential</div>
         <aside class="notes">Rahmung: Atruvia hat eine Richtung (Contentstack + Bynder) gewählt. Die PoC prüft, ob die Kombination im Banking-Kontext trägt, macht Lücken und Workarounds sichtbar und schafft belastbare Grundlagen für die Umsetzung. Zwei KI-Bedeutungen sauber trennen: KI in der Zielplattform vs. KI in der Durchführung.</aside>
@@ -232,73 +275,52 @@
 
       <!-- ═══════════════════ 02 — FOLIE 1: Was die PoC beweisen muss ═══════════════════ -->
       <section data-marker="02 / 07">
-        <div class="eyebrow">Was die PoC beweisen muss</div>
-        <h2 class="title">Von der Produktauswahl zu <span class="ac">belastbarer Umsetzungssicherheit</span></h2>
+        <div class="eyebrow">Drei Perspektiven auf die künftige Lösung</div>
+        <h2 class="title">Von den Produktfähigkeiten zur <span class="ac">passenden Atruvia-Lösung</span></h2>
         <div class="stage">
-          <div class="band" style="margin-bottom:11px;">Wir validieren, ob Contentstack und Bynder Atruvias künftiges <span class="ac">redaktionelles, technisches und betriebliches Modell</span> unterstützen können — und was eine Umsetzung im Maßstab erfordert.</div>
-          <div style="display:flex; gap:14px; flex:1; min-height:0;">
-            <!-- left: four tragfähigkeit cards 2x2 -->
-            <div style="width:66%; display:grid; grid-template-columns:1fr 1fr; gap:10px;">
-              <div class="card accent">
-                <h3>Nutzerseitige Tragfähigkeit</h3>
-                <ul class="blist sm">
-                  <li>Können Redakteurinnen und Redakteure effektiv arbeiten?</li>
-                  <li>Ist der Wechsel von der heutigen AEM-Erfahrung akzeptabel?</li>
-                  <li>Sind Workflow, Freigabe, Versionierung und Rollback geeignet?</li>
-                </ul>
-              </div>
-              <div class="card accent">
-                <h3>Technische Tragfähigkeit</h3>
-                <ul class="blist sm">
-                  <li>Spielen Contentstack, Bynder und Atruvia-Systeme sinnvoll zusammen?</li>
-                  <li>Lassen sich Auslieferung, IAM, APIs und Netzintegration umsetzen?</li>
-                  <li>Was ist nativ, konfigurierbar oder kundenspezifisch?</li>
-                </ul>
-              </div>
-              <div class="card accent">
-                <h3>Betriebliche Tragfähigkeit</h3>
-                <ul class="blist sm">
-                  <li>Kann Atruvia die Plattform administrieren und unterstützen?</li>
-                  <li>Funktioniert das Mandanten- und Delegationsmodell über die Banken?</li>
-                  <li>Sind Rollen, Rechte, Auditierbarkeit und Support betreibbar?</li>
-                </ul>
-              </div>
-              <div class="card accent">
-                <h3>Umsetzungsfähigkeit</h3>
-                <ul class="blist sm">
-                  <li>Was ist konfigurierbar, was erfordert Entwicklung oder Workaround?</li>
-                  <li>Was bedeutet eine repräsentative Migration?</li>
-                  <li>Welcher Aufwand und welche Produktionsreife-Arbeiten entstehen?</li>
-                </ul>
-              </div>
+          <div class="band" style="margin-bottom:12px;">Wir prüfen, was Contentstack und Bynder bereits leisten, wie sie in Atruvias Umgebung integriert werden und welche <span class="ac">Anpassungen für den Wechsel von AEM</span> erforderlich sind.</div>
+          <div class="tri">
+            <svg class="tri-svg" viewBox="0 0 1184 390" preserveAspectRatio="none" aria-hidden="true">
+              <polygon points="592,124 190,265 994,265" fill="rgba(42,163,230,0.05)" stroke="var(--accent)" stroke-width="1.3" stroke-dasharray="7,6"/>
+              <circle cx="592" cy="124" r="4" fill="var(--accent)"/>
+              <circle cx="190" cy="265" r="4" fill="var(--accent)"/>
+              <circle cx="994" cy="265" r="4" fill="var(--accent)"/>
+            </svg>
+            <!-- top corner: Produktfähigkeiten -->
+            <div class="tri-card" style="left:421px; top:4px;">
+              <h3>Produktfähigkeiten</h3>
+              <p><span class="q">Was bieten Contentstack und Bynder bereits?</span> Funktionen, Grenzen und Zusammenspiel der Produkte.<span class="lim">Beurteilt vorhandene Fähigkeiten — Konfiguration und Integration sind die anderen Ecken.</span></p>
             </div>
-            <!-- right: decision funnel -->
-            <div style="width:34%; display:flex; flex-direction:column;">
-              <div class="lbl caps" style="margin-bottom:8px;">Entscheidungsfunnel</div>
-              <div class="vflow" style="flex:1; justify-content:space-between;">
-                <div class="vs">Produktauswahl</div>
-                <div class="va"></div>
-                <div class="vs">PoC-Evidenz</div>
-                <div class="va"></div>
-                <div class="vs q">Ist es tragfähig?</div>
-                <div class="va"></div>
-                <div class="vs q">Wie muss es umgesetzt werden?</div>
-                <div class="va"></div>
-                <div class="vs q">Was erfordert die Implementierung?</div>
-                <div class="va"></div>
-                <div class="vs on">Umsetzungsentscheidung</div>
-              </div>
+            <!-- bottom-left corner: Integration -->
+            <div class="tri-card" style="left:14px; top:265px;">
+              <h3>Integration</h3>
+              <p><span class="q">Was muss angebunden, eingerichtet oder ergänzt werden?</span> Atruvia-Systeme, IAM, APIs und Auslieferung.<span class="lim">Verbindungen und zusätzliche technische Komponenten, inkl. erforderlicher neuer Umsysteme.</span></p>
+            </div>
+            <!-- bottom-right corner: Konfiguration und Migration -->
+            <div class="tri-card" style="right:14px; top:265px;">
+              <h3>Konfiguration und Migration</h3>
+              <p><span class="q">Was muss für die Nutzung angepasst werden?</span> Modelle, Workflows, Rollen, Inhalte und AEM-Migration.<span class="lim">Produktparametrisierung und Überführung von Inhalten/Assets — Schnittstellen gehören zur Integration.</span></p>
+            </div>
+            <!-- centre: shared goal -->
+            <div class="tri-center" style="top:218px;">
+              <div class="tc-t">Passende Lösung für Atruvia</div>
+              <div class="tc-s">Redaktion · Fachbereiche · Betrieb · Sicherheit</div>
             </div>
           </div>
-          <div class="band warn" style="margin-top:11px;"><span class="am">Die PoC soll Gründe für ein Nichtweiterverfolgen sichtbar machen – nicht verbergen.</span> &nbsp;<span class="cap" style="color:var(--ink);">Mögliche negative Ergebnisse: zu viele Workarounds · nicht akzeptable Umgewöhnung der Redaktion · Compliance-Bedenken · Konflikte mit Atruvia-Prozessen.</span></div>
+          <div style="display:flex; align-items:center; gap:18px; margin-top:12px;">
+            <div class="cfunnel">
+              <span class="cf">PoC-Nachweise</span><span class="ca">▸</span><span class="cf">Bewertung durch Atruvia</span><span class="ca">▸</span><span class="cf on">Empfehlungen für die Umsetzung</span>
+            </div>
+            <div class="cap" style="flex:1;"><b style="color:var(--head);">Ergebnis:</b> eine bewertete Lösung mit nachvollziehbaren Anpassungen und einem begründeten Umsetzungsaufwand.</div>
+          </div>
         </div>
-        <aside class="notes">Die PoC beweist nicht, dass zwei SaaS-Produkte Funktionen besitzen. Sie reduziert Unsicherheit darüber, wie beide gemeinsam in der Atruvia-Umgebung funktionieren. Abstimmung: Welche Szenarien sind echte Go-/No-Go-Kriterien? Was muss demonstriert, was kann analytisch bewertet werden? Welche Evidenz gilt als erfolgreicher Nachweis?</aside>
+        <aside class="notes">Die drei Ecken sind ein Betrachtungsrahmen, kein Score und kein Optimierungsmodell: Produktfähigkeiten ist qualitativ, Integration und Konfiguration/Migration erfassen auch Aufwand. Im Zentrum steht das gemeinsame Lösungsziel mit Redaktion, Fachbereichen, Betrieb und Sicherheit. Hinweis (früher auf der Folie): Die PoC soll Gründe für ein Nichtweiterverfolgen sichtbar machen – nicht verbergen. Mögliche negative Ergebnisse: zu viele Workarounds, nicht akzeptable Umgewöhnung der Redaktion, Compliance-Bedenken, Konflikte mit Atruvia-Prozessen.</aside>
       </section>
 
       <!-- ═══════════════════ 03 — FOLIE 2: Validierungsumfang ═══════════════════ -->
       <section data-marker="03 / 07">
         <div class="eyebrow">Vorgeschlagener Validierungsumfang</div>
-        <h2 class="title">Aus dem Anforderungskatalog werden <span class="ac">sechs ausführbare Validierungspfade</span></h2>
+        <h2 class="title">Sechs Validierungspfade – <span class="ac">jeweils mit einer verantwortlichen Atruvia-Fachperson</span></h2>
         <div class="stage">
           <div style="display:grid; grid-template-columns:1fr 1fr 1fr; grid-template-rows:1fr 1fr; gap:10px; flex:1; min-height:0;">
             <div class="card">
@@ -308,6 +330,7 @@
                 <li>Vier-Augen-Freigabe, Website und App veröffentlichen</li>
                 <li>Versionen vergleichen, zurückrollen — Vergleich mit AEM</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> Redaktion / fachliche CMS-Verantwortung</div>
             </div>
             <div class="card">
               <div class="nhead"><span class="num">2</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-2"/></svg><h3>Content-Verteilung</h3><span class="badge-risk">Risikobereich</span></div>
@@ -316,6 +339,7 @@
                 <li>Lokale Änderungen erkennbar, verpflichtendes/optionales Überschreiben</li>
                 <li>Bankspezifische Workflows vor der Veröffentlichung</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> Content Provider / Bankredaktion</div>
             </div>
             <div class="card">
               <div class="nhead"><span class="num">3</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-3"/></svg><h3>CMS-zu-DAM-Integration</h3></div>
@@ -324,6 +348,7 @@
                 <li>Kanalbezogene Transformationen, Metadaten, Rechte, Ablaufdaten</li>
                 <li>Bynder-CDN, Asset-Änderungen nach der Veröffentlichung</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> DAM-/Medienmanagement</div>
             </div>
             <div class="card">
               <div class="nhead"><span class="num">4</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-4"/></svg><h3>Identität, Governance &amp; Administration</h3></div>
@@ -332,6 +357,7 @@
                 <li>Mandantenbezogene Rollen, Rechte-Mapping Contentstack ↔ Bynder</li>
                 <li>Delegierte Administration durch Banken, Auditierbarkeit</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> IAM / Informationssicherheit / Administration</div>
             </div>
             <div class="card">
               <div class="nhead"><span class="num">5</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-5"/></svg><h3>Auslieferungsarchitektur &amp; Skalierung</h3></div>
@@ -340,6 +366,7 @@
                 <li>Google Cloud, Zusammenspiel mit Portal Content und HIP</li>
                 <li>Auswirkungen des Modells mit 775 Mandanten / Banken</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> Plattformarchitektur / Betrieb</div>
             </div>
             <div class="card">
               <div class="nhead"><span class="num">6</span><svg class="scenario-ico" viewBox="0 0 24 24"><use href="#ic-6"/></svg><h3>KI-gestützter Content</h3></div>
@@ -348,17 +375,18 @@
                 <li>Textgenerierung, -transformation und Bildbearbeitung</li>
                 <li>Governance-/Compliance-Filter, Auswirkung auf Rechte &amp; Metadaten</li>
               </ul>
+              <div class="sme"><b>Kunden-SME:</b> Content-/Markenverantwortung mit KI-Governance</div>
             </div>
           </div>
-          <div class="band" style="margin-top:11px;">Nicht jede Anforderung benötigt dieselbe Umsetzungstiefe. Wir schlagen <span class="ac">repräsentative Szenarien</span> vor, die die schwierigen Annahmen belegen.</div>
+          <div class="band" style="margin-top:11px;">In <span class="ac">Phase 1</span> vereinbaren wir je Szenario SME, Abnahmekriterien, Eingabematerial, Bewertungsverfahren und Review-Termin.</div>
         </div>
-        <aside class="notes">Die breite Themenliste ist verstanden, wird aber nicht zu Dutzenden Mini-Projekten. Content-Verteilung bleibt als eigenständiger Risikobereich sichtbar. Abstimmung: Welche Pfade tragen die risikoreichsten Annahmen? Welche 2–3 Szenarien pro Pfad liefern genügend Evidenz? Was muss native Funktion sein, wo ist individuelle Umsetzung akzeptabel?</aside>
+        <aside class="notes">Die sechs Pfade und ihre Nummerierung bleiben erhalten; kein erneuter allgemeiner Abgleich mit dem Originalbriefing als eigener Arbeitsblock. Rollen sind Vorschläge — Atruvia benennt in Phase 1 pro Szenario eine verantwortliche Person und ggf. weitere Prüfende; eine Person darf mehrere Szenarien betreuen. Keine sechs unabhängig gebauten PoC-Systeme. Überlappung: Pfad 2 (fachliche Verteilung) und Pfad 3 (CMS-/DAM-Beziehung) dürfen sich Evidenz teilen; Rollen/Rechte gehören zu Pfad 4, Auslieferung/Betrieb zu Pfad 5. Gemeinsame Komponenten werden einmal aufgebaut. Nicht jede Anforderung benötigt dieselbe Umsetzungstiefe.</aside>
       </section>
 
-      <!-- ═══════════════════ 04 — FOLIE 3: KI-beschleunigte Durchführung ═══════════════════ -->
+      <!-- ═══════════════════ 04 — FOLIE 3: KI unterstützt Umsetzung und Auswertung ═══════════════════ -->
       <section data-marker="04 / 07">
-        <div class="eyebrow">KI-beschleunigte Durchführung der PoC</div>
-        <h2 class="title">KI in der Lösung nutzen – <span class="ac">und die PoC schneller durchführen</span></h2>
+        <div class="eyebrow">KI unterstützt Umsetzung und Auswertung</div>
+        <h2 class="title">KI in der Lösung nutzen – <span class="ac">und die Durchführung der PoC unterstützen</span></h2>
         <div class="stage">
           <div style="display:flex; gap:13px; flex:1; min-height:0;">
             <!-- left: KI in der Zielplattform -->
@@ -376,7 +404,7 @@
             </div>
             <!-- right: KI in der Umsetzung (2x2) -->
             <div style="width:73%; display:flex; flex-direction:column; gap:0;">
-              <div class="lbl caps" style="color:var(--accent); margin-bottom:7px;">KI in der Umsetzung der PoC &nbsp;·&nbsp; das <span style="color:var(--accent);">Wie</span> wir die Evidenz schneller erzeugen</div>
+              <div class="lbl caps" style="color:var(--accent); margin-bottom:7px;">KI in der Umsetzung der PoC &nbsp;·&nbsp; <span style="color:var(--accent);">unterstützt die Umsetzung und Aufbereitung der Nachweise</span></div>
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:9px; flex:1; min-height:0;">
                 <div class="card accent" style="padding:10px 13px;">
                   <h3 style="font-size:14px;">Engineering</h3>
@@ -385,7 +413,7 @@
                     <li>Integrationsgerüste, Konfig- und Deployment-Automatisierung</li>
                     <li>Testgenerierung, synthetische Testdaten, Dokumentation</li>
                   </ul>
-                  <div class="cap" style="margin-top:6px;">Architektur, Review, Sicherheit und Abnahme bleiben bei den Ingenieur:innen.</div>
+                  <div class="cap" style="margin-top:6px;">EPAM verantwortet Engineering, technische Prüfung und Qualität. Atruvias SMEs bewerten die Szenarien anhand der gemeinsam vereinbarten Kriterien.</div>
                 </div>
                 <div class="card accent" style="padding:10px 13px;">
                   <h3 style="font-size:14px;">Migration</h3>
@@ -400,15 +428,16 @@
                 </div>
                 <div class="card accent" style="padding:10px 13px;">
                   <h3 style="font-size:14px;">Analyse</h3>
-                  <div class="cap" style="margin-bottom:6px;">PoC-Artefakte als strukturierte Evidenz: Abnahmekriterien, Konfigurationen, Tests, Logs, Migrationsberichte, Architektur-Feststellungen.</div>
+                  <div class="cap" style="margin-bottom:6px;">KI unterstützt die Aufbereitung von Eingabematerial, PoC-Artefakten und Review-Protokollen. Die Zusammenfassung ordnet Beobachtungen, SME-Bewertungen und Verbesserungsvorschläge den Abnahmekriterien zu.</div>
                   <div class="seq">
-                    <span class="s">Anforderung</span><span class="a">▸</span><span class="s">Evidenz</span><span class="a">▸</span><span class="s">Ergebnis</span><span class="a">▸</span><span class="s">Lücke</span><span class="a">▸</span><span class="s">Produktionsauswirkung</span>
+                    <span class="s">Material</span><span class="a">▸</span><span class="s">Erprobung</span><span class="a">▸</span><span class="s">SME-Bewertung</span><span class="a">▸</span><span class="s">Szenariobericht</span>
                   </div>
                 </div>
                 <div class="card accent" style="padding:10px 13px;">
                   <h3 style="font-size:14px;">Schätzung</h3>
+                  <div class="cap" style="margin-bottom:6px;">Beobachtete Umsetzungs- und Migrationstasks, dokumentierte Aufwände und empfohlene Anpassungen bilden die Grundlage. Annahmen und verbleibende Unsicherheit werden ausgewiesen.</div>
                   <div class="seq">
-                    <span class="s">PoC-Evidenz</span><span class="a">▸</span><span class="s">beobachtete Tasks</span><span class="a">▸</span><span class="s">Komplexitätsklasse</span><span class="a">▸</span><span class="s">Migrations-/Customizing-Muster</span><span class="a">▸</span><span class="s">Produktionsreife-Differenz</span><span class="a">▸</span><span class="s">Skalierungsfaktoren</span><span class="a">▸</span><span class="s">Umsetzungsschätzung</span>
+                    <span class="s">beobachtete Tasks</span><span class="a">▸</span><span class="s">dokumentierte Aufwände</span><span class="a">▸</span><span class="s">Mengen &amp; Skalierung</span><span class="a">▸</span><span class="s">Annahmen &amp; Unsicherheit</span><span class="a">▸</span><span class="s">Umsetzungsschätzung</span>
                   </div>
                 </div>
               </div>
@@ -416,62 +445,67 @@
           </div>
           <div class="band" style="margin-top:11px;"><span class="ac">Schätzen auf Basis beobachteter Komplexität</span> statt ausschließlich auf Basis von Expertenmeinung — evidenzgestützte, KI-unterstützte Synthese mit Expertenvalidierung. KI ist kein Ersatz für repräsentative Evidenz.</div>
         </div>
-        <aside class="notes">Zwei KI-Bedeutungen sauber getrennt: links KI in der künftigen Plattform (Validierungsgegenstand), rechts KI zur Durchführung der PoC (Beschleuniger). Abstimmung: repräsentative AEM-Daten bereitstellbar? Welche Daten dürfen mit KI-Werkzeugen verarbeitet werden? Vorgaben zu Modellen/Hosting? Wie viel menschliche Prüfung für generierte Mappings und Schätzungen?</aside>
+        <aside class="notes">Zwei KI-Bedeutungen sauber getrennt: links KI in der künftigen Plattform (Validierungsgegenstand), rechts KI zur Durchführung der PoC (Unterstützung). EPAM verantwortet Engineering und technische Prüfung; Atruvias SMEs bewerten fachlich. Qualitative Kundenbewertungen allein liefern keine Personentage — dafür bleiben tatsächliche Engineering-/Migrationsaufwände, Mengen und Skalierungsannahmen erforderlich; die neue Bewertungsmethode hebt diese Daten nicht auf. Abstimmung: repräsentative AEM-Daten bereitstellbar? Welche Daten dürfen mit KI-Werkzeugen verarbeitet werden? Vorgaben zu Modellen/Hosting?</aside>
       </section>
 
       <!-- ═══════════════════ 05 — FOLIE 4: Evidenzbasierte Methode ═══════════════════ -->
       <section data-marker="05 / 07">
-        <div class="eyebrow">Evidenzbasierte Validierungsmethode</div>
-        <h2 class="title">Jedes PoC-Szenario erzeugt <span class="ac">Evidenz und eine Entscheidung</span></h2>
+        <div class="eyebrow">Gemeinsame Durchführung und Bewertung</div>
+        <h2 class="title">Jedes Szenario endet mit <span class="ac">Atruvias Bewertung und konkreten Verbesserungsvorschlägen</span></h2>
         <div class="stage">
-          <div class="hflow" style="margin-bottom:13px;">
-            <div class="hs"><span class="hn">1</span><div class="ht">Hypothese</div></div>
-            <div class="hs"><span class="hn">2</span><div class="ht">Abnahme&shy;kriterien</div></div>
-            <div class="hs"><span class="hn">3</span><div class="ht">Minimale Umsetzung</div></div>
-            <div class="hs"><span class="hn">4</span><div class="ht">Szenario ausführen</div></div>
-            <div class="hs"><span class="hn">5</span><div class="ht">Evidenz erfassen</div></div>
-            <div class="hs"><span class="hn">6</span><div class="ht">Ergebnis bewerten</div></div>
-            <div class="hs end"><span class="hn">7</span><div class="ht">Produktions&shy;auswirkung</div></div>
+          <div class="rolegrid" style="margin-bottom:13px;">
+            <div class="rlabel" style="color:var(--subtle); font-weight:700; font-size:9px;">SCHRITT</div>
+            <div class="rstep"><span class="rn">1</span><span class="rt">Hypothese</span></div>
+            <div class="rstep"><span class="rn">2</span><span class="rt">Kriterien</span></div>
+            <div class="rstep"><span class="rn">3</span><span class="rt">Umsetzung</span></div>
+            <div class="rstep"><span class="rn">4</span><span class="rt">Erprobung</span></div>
+            <div class="rstep"><span class="rn">5</span><span class="rt">Dokumentation</span></div>
+            <div class="rstep"><span class="rn">6</span><span class="rt">Bewertung</span></div>
+            <div class="rstep end"><span class="rn">7</span><span class="rt">Empfehlungen</span></div>
+
+            <div class="rlabel epam">EPAM</div>
+            <div class="rcell epam">Vorschlagen</div>
+            <div class="rcell epam">Vorbereiten</div>
+            <div class="rcell epam">Bauen / beschreiben</div>
+            <div class="rcell epam">Moderieren</div>
+            <div class="rcell epam">Erfassen</div>
+            <div class="rcell epam">Bericht erstellen</div>
+            <div class="rcell epam">Anpassungen ableiten</div>
+
+            <div class="rlabel atr">Atruvia</div>
+            <div class="rcell atr">Ziel bestätigen</div>
+            <div class="rcell atr">Vereinbaren</div>
+            <div class="rcell atr">Material liefern</div>
+            <div class="rcell atr">Prüfen</div>
+            <div class="rcell atr">Aussagen prüfen</div>
+            <div class="rcell atr">SME-Urteil bestätigen</div>
+            <div class="rcell atr">Priorisieren</div>
           </div>
           <div style="display:flex; gap:14px; flex:1; min-height:0;">
             <!-- left: beispielszenario -->
             <div class="card" style="width:50%;">
               <div class="lbl caps" style="color:var(--accent); margin-bottom:7px;">Beispielszenario</div>
-              <div class="band" style="font-size:13px; font-style:italic; margin-bottom:9px;">Eine Bankredaktion kann mit Contentstack und Bynder Inhalte für Web und App erstellen und veröffentlichen, ohne dass der Aufwand gegenüber AEM unvertretbar steigt.</div>
-              <div class="lbl caps" style="margin-bottom:4px;">Zu erfassende Evidenz</div>
-              <div style="display:flex; gap:16px;">
-                <ul class="blist sm" style="flex:1;">
-                  <li>Anzahl Arbeitsschritte</li>
-                  <li>Bearbeitungszeit</li>
-                  <li>Notwendige Systemwechsel</li>
-                  <li>Manuelle Übergaben</li>
-                  <li>Freigaben und Rollen</li>
-                </ul>
-                <ul class="blist sm" style="flex:1;">
-                  <li>Konfigurationsaufwand</li>
-                  <li>Individueller Code</li>
-                  <li>Fehler und Workarounds</li>
-                  <li>Screenshots, API-Ergebnisse, Logs</li>
-                </ul>
+              <div class="band" style="font-size:13px; font-style:italic; margin-bottom:10px;">Die Bankredaktion erprobt den implementierten Veröffentlichungsprozess mit repräsentativen Inhalten. Der Kunden-SME bewertet ihn anhand der vereinbarten Kriterien und benennt erforderliche Workflow-Anpassungen.</div>
+              <div class="lbl caps" style="margin-bottom:6px;">Material je Szenario</div>
+              <div class="seq" style="margin-bottom:9px;">
+                <span class="s">Eingabematerial</span><span class="a">▸</span><span class="s">Anwendung oder Konzeptunterlage</span><span class="a">▸</span><span class="s">Review-Protokoll</span><span class="a">▸</span><span class="s">Bewertung je Kriterium</span><span class="a">▸</span><span class="s">Verbesserungsvorschläge</span>
               </div>
+              <div class="cap" style="margin-top:auto; padding-top:9px;">Technische Logs, Screenshots und Messwerte bleiben ergänzende Nachweise, wenn ein Kriterium sie benötigt. Eine qualitative Bewertung ersetzt keinen erforderlichen Funktions- oder Messnachweis.</div>
             </div>
-            <!-- right: ergebnisklassen + explanation -->
-            <div style="width:50%; display:flex; flex-direction:column; gap:12px;">
-              <div class="card">
-                <div class="lbl caps" style="margin-bottom:9px;">Einheitliche Ergebnisklassen</div>
-                <div class="rc">
-                  <div class="c n">Native Fähigkeit</div>
-                  <div class="c cf">Konfigurier&shy;bare Fähigkeit</div>
-                  <div class="c iu">Individuelle Umsetzung</div>
-                  <div class="c wa">Workaround</div>
-                  <div class="c nu">Nicht umsetzbar</div>
-                </div>
-              </div>
-              <div class="band" style="flex:1; display:flex; align-items:center;"><div><span class="ac">Wir optimieren die PoC auf Erkenntnisgewinn, nicht auf vollständige Produktionshärtung.</span> &nbsp;Vorrang hat der Nachweis der Abnahmekriterien; Produktionshärtung nur, wo sie für den Nachweis erforderlich ist.</div></div>
+            <!-- right: szenariobericht -->
+            <div class="card accent" style="width:50%;">
+              <h3 style="font-size:16px;">Ein Szenariobericht enthält</h3>
+              <ul class="blist sm">
+                <li>vereinbarte Fragestellung und Kriterien;</li>
+                <li>verwendetes Eingabematerial und geprüfte PoC-Artefakte;</li>
+                <li>begründete Bewertung des Kunden-SME;</li>
+                <li>offene Punkte und empfohlene Anpassungen.</li>
+              </ul>
+              <div class="cap" style="margin-top:auto; padding-top:9px;">Überwiegend qualitativ: ein erfülltes Kriterium wird mit konkreten Beobachtungen begründet; ein <b style="color:var(--head);">nicht geprüftes oder nicht belegtes Kriterium bleibt sichtbar</b>. Keine farbige Ergebnisklassifikation.</div>
             </div>
           </div>
         </div>
-        <aside class="notes">Disziplinierte Untersuchung statt allgemeines Prototypprojekt. Jedes Szenario: Hypothese, messbare Abnahmekriterien, beobachtbare Evidenz, Produktionsauswirkung. Abstimmung: Sind die Abnahmekriterien messbar genug? Wer nimmt ab? Vergleichsbasis: heutiges AEM, Zielbild, Produktstandard? Wo dokumentieren — Confluence? Wie werden bedingte Ergebnisse eskaliert?</aside>
+        <aside class="notes">Beiträge beider Seiten je Schritt (Kurzfassung auf der Folie, ausführliche Fassung im Übergabematerial). Schriftliches Review-Protokoll ist Standard; ein freigegebenes Transkript kann zusätzliche Quelle sein. Die Zusammenfassung unterscheidet protokollierte Kundenbewertung von den daraus abgeleiteten EPAM-Empfehlungen. Ein KI-generiertes Transkript/eine Zusammenfassung gilt erst nach Prüfung durch den SME als dessen bestätigte Bewertung. Konzepte/Dokumente sind geeignete Prüfobjekte, wo diese Nachweisform vorab vereinbart wurde; vereinbarte Funktionsnachweise werden nicht durch Papier ersetzt.</aside>
       </section>
 
       <!-- ═══════════════════ 06 — FOLIE 5: Architektur- & Migrationsscheibe ═══════════════════ -->
@@ -520,60 +554,39 @@
 
       <!-- ═══════════════════ 07 — FOLIE 6: Ergebnisse & Engagement ═══════════════════ -->
       <section data-marker="07 / 07">
-        <div class="eyebrow">Ergebnisse &amp; vorgeschlagenes Engagement</div>
-        <h2 class="title">Ein <span class="ac">Entscheidungspaket</span> für die Umsetzung – nicht nur eine PoC-Demo</h2>
+        <div class="eyebrow">Ergebnisse, Zusammenarbeit und realistischer Plan</div>
+        <h2 class="title">Gemeinsame Bewertung und <span class="ac">belastbare Grundlagen für die Umsetzung</span></h2>
         <div class="stage">
-          <!-- top: 5 deliverables -->
-          <div class="lbl caps" style="margin-bottom:7px;">Liefergegenstände</div>
-          <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:9px; margin-bottom:13px;">
-            <div class="deliv"><div class="dn">01</div><h4>Lauffähige PoC</h4><p>Durchgängige Szenarien über Contentstack, Bynder und repräsentative Atruvia-Integrationspunkte.</p></div>
-            <div class="deliv"><div class="dn">02</div><h4>Evidenzmatrix</h4><p>Anforderung → Ergebnis → Evidenz → Lücke → Produktionsauswirkung; unterscheidet nachgewiesen, bedingt, nicht getestet, nicht umsetzbar.</p></div>
-            <div class="deliv"><div class="dn">03</div><h4>Architektur-Feststellungen</h4><p>Validierte und verworfene Muster, Entscheidungen, Herstellerlücken, Skalierungs- und Mandantenfolgen.</p></div>
-            <div class="deliv"><div class="dn">04</div><h4>Migrationsbewertung</h4><p>Mappings, Automatisierungspotenzial, Ausnahmen-Taxonomie, manueller Aufwand, empfohlene Wellen.</p></div>
-            <div class="deliv"><div class="dn">05</div><h4>Umsetzungsschätzung</h4><p>Evidenzbasiert → Umsetzungsbacklog → Aufwandsmodell → Roadmap und Schätzung.</p></div>
+          <!-- top: 4 deliverables -->
+          <div class="lbl caps" style="margin-bottom:7px;">Vier Liefergegenstände</div>
+          <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:10px; margin-bottom:12px;">
+            <div class="deliv"><div class="dn">01</div><h4>PoC-Umsetzung</h4><p>Vereinbarte Szenarien auf einem gemeinsamen Fundament, mit lauffähigen Komponenten und den vereinbarten Konzeptunterlagen.</p></div>
+            <div class="deliv"><div class="dn">02</div><h4>Szenarioberichte</h4><p>Eingabematerial, Nachweise, Kunden-SME-Bewertung und Empfehlungen je Szenario; gemeinsame Übersicht zur Nachverfolgung.</p></div>
+            <div class="deliv"><div class="dn">03</div><h4>Architektur- &amp; Entscheidungsunterlagen</h4><p>ADRs und wesentliche Entscheidungsvorlagen (KDRs) zur Bewertung in Atruvias Prozessen.</p></div>
+            <div class="deliv"><div class="dn">04</div><h4>Migrations- &amp; Umsetzungsplanung</h4><p>Mappings, Ausnahmen, erforderliche Anpassungen, Aufwandsschätzung und empfohlene nächste Schritte.</p></div>
           </div>
-          <!-- bottom: two phases -->
-          <div class="lbl caps" style="margin-bottom:7px;">Vorgeschlagenes Zwei-Phasen-Engagement</div>
-          <div style="display:flex; gap:12px; flex:1; min-height:0;">
-            <div class="phase p1" style="width:46%; display:flex; flex-direction:column;">
-              <div class="ph"><span class="pt">Phase 1 — Abstimmen &amp; vorbereiten</span><span class="pd">1–2 Wochen</span></div>
-              <div style="display:flex; gap:14px;">
-                <ul class="blist sm" style="flex:1;">
-                  <li>Priorisierte Use Cases</li>
-                  <li>Vereinbarte Abnahmekriterien</li>
-                  <li>Repräsentatives Migrationssample</li>
-                  <li>Referenzarchitektur der PoC</li>
-                </ul>
-                <ul class="blist sm" style="flex:1;">
-                  <li>Umgebungen und Zugänge</li>
-                  <li>Vorgaben zu KI, Sicherheit, Datenverarbeitung</li>
-                  <li>Detailliertes Ausführungsbacklog</li>
-                  <li>Schätzmodell und Evidenzplan</li>
-                </ul>
-              </div>
+          <!-- middle: two phases -->
+          <div class="lbl caps" style="margin-bottom:7px;">Zwei-Phasen-Engagement <span style="color:var(--subtle); font-weight:600; text-transform:none; letter-spacing:0;">· erster Gesamtrahmen 8–11 Wochen, in Phase 1 festgelegt</span></div>
+          <div style="display:flex; gap:12px; margin-bottom:12px;">
+            <div class="phase p1" style="width:50%;">
+              <div class="ph"><span class="pt">Phase 1 — Gemeinsam vorbereiten</span><span class="pd">2–3 Wochen</span></div>
+              <div class="cap" style="color:var(--ink); font-size:12.5px;">Je Szenario: SME und Kriterien vereinbaren, Material und Zugänge sichern, Review-Termin planen.</div>
+              <div class="cap" style="margin-top:5px;">Abschluss je Szenario erst, wenn SME, Kriterien, Material, Nachweisform, Zugänge und Review-Termin vereinbart sind.</div>
             </div>
-            <div class="phase p2" style="width:54%; display:flex; flex-direction:column;">
-              <div class="ph"><span class="pt">Phase 2 — Umsetzen &amp; bewerten</span><span class="pd">4–6 Wochen · erste Planungsspanne</span></div>
-              <div style="display:flex; align-items:center; gap:10px; flex:1;">
-                <div style="flex:1;">
-                  <div class="seq">
-                    <span class="s">Redaktion / CMS</span><span class="s">DAM / Integration</span><span class="s">Architektur / IAM</span><span class="s">Migration</span><span class="s">KI-Anwendungsfälle</span>
-                  </div>
-                  <div class="cap" style="margin-top:7px;">Parallele Arbeitsströme auf gemeinsamem Fundament.</div>
-                </div>
-                <div class="ar" style="color:var(--teal); font-size:15px;">▸</div>
-                <div style="flex:none; text-align:center;">
-                  <div class="ab real" style="border-color:var(--teal); background:var(--teal-bg); padding:6px 9px;"><span class="t" style="font-size:11px; color:var(--teal);">Gesamtauswertung</span></div>
-                  <div class="va" style="height:9px; position:relative;"><span style="position:absolute; left:50%; transform:translateX(-50%); color:var(--subtle); font-size:8px;">▼</span></div>
-                  <div class="ab real" style="border-color:var(--teal); background:var(--teal-bg); padding:6px 9px;"><span class="t" style="font-size:11px; color:var(--teal);">Umsetzungsschätzung</span></div>
-                </div>
-              </div>
-              <div class="cap" style="margin-top:4px;"><b style="color:var(--teal);">KI beschleunigt alle Ströme</b> — sie ist kein siebter Projektstrom.</div>
+            <div class="phase p2" style="width:50%;">
+              <div class="ph"><span class="pt">Phase 2 — Umsetzen, erproben und bewerten</span><span class="pd">6–8 Wochen</span></div>
+              <div class="cap" style="color:var(--ink); font-size:12.5px;">Umsetzung und SME-Reviews in abgestimmten Takten; Berichte und Anpassungsempfehlungen fortlaufend konsolidieren.</div>
+              <div class="cap" style="margin-top:5px;">Zur Diskussion gestellte Kalenderplanung; verzögerte Kunden-/Herstellerbeiträge verändern die Dauer.</div>
             </div>
           </div>
-          <div class="band teal" style="margin-top:12px;"><span class="tc">Wir validieren, wie KI Atruvias künftige Content-Plattform verbessert</span> — und setzen gleichzeitig KI ein, um Zeit und Kosten bis zu dieser Entscheidung zu reduzieren.</div>
+          <!-- bottom: collaboration -->
+          <div class="lbl caps" style="margin-top:auto; margin-bottom:7px;">Vorgeschlagene Zusammenarbeit <span style="color:var(--subtle); font-weight:600; text-transform:none; letter-spacing:0;">· Funktionen und Mitwirkung, keine bereits vereinbarten Zusagen</span></div>
+          <div class="collab">
+            <div class="crow epam"><span class="ctag">EPAM</span><span class="ctext">Delivery Lead / BA · Solution Architect · CMS-/Frontend- und DAM-/Integrations-Engineering · Migration / QA</span></div>
+            <div class="crow atr"><span class="ctag">Atruvia</span><span class="ctext">Szenario-SMEs, Inhalte und Zugänge, regelmäßige Reviews, Bewertung und Priorisierung der Entscheidungen.</span></div>
+          </div>
         </div>
-        <aside class="notes">Entscheidungspaket, keine Demo: pro Architekturthema „Weiterverfolgen / Mit Bedingungen weiterverfolgen / Neu bewerten" plus Umsetzungsfolgen, Risiken, Herstellerlücken, Roadmap. Phase 2 ist Planungsspanne, keine feste Zusage vor Abschluss Phase 1. Abstimmung: Schätzungsniveau (ROM, ±30 %, umsetzungsplanungsfähig)? Welche Entscheidungen muss Atruvia ableiten? Was muss vor Phase 2 verfügbar sein?</aside>
+        <aside class="notes">Vier Liefergegenstände; die bisherige Evidenzmatrix wird als Übersicht der Szenarioberichte weitergeführt (Kriterien, Artefakte, Kundenbewertung, offene Punkte) — alte Ergebnisklassen entfallen. ADRs dokumentieren technische Optionen, Begründung, Folgen, offenen Entscheidungsbedarf; KDRs (Vorschlag Stefan) erfassen übergreifende Entscheidungen (Workflows, Betriebsmodell, Umfang); Bezeichnung/Format mit Atruvia abstimmen, keinen bestehenden KDR-Standard behaupten. Jede Entscheidungsvorlage nennt den PoC-Befund und unterscheidet EPAM-Empfehlung von bereits bestätigter Atruvia-Entscheidung. Migration und Umsetzungsschätzung im gemeinsamen vierten Liefergegenstand; falls im Briefing nachweisbar getrennt gefordert, getrennt führen. Zeitspannen 2–3 + 6–8 Wochen = 8–11 Wochen, Annahme rechtzeitig verfügbarer Zugänge/Materialien/SME-Termine; keine unbegrenzten Überarbeitungszyklen. EPAM-Team = Funktionen, nicht fünf VZÄ; Rollen kombinierbar (Delivery Lead/BA, Solution Architect, CMS-/Frontend-Eng., DAM-/Integrations-Eng., Migration/QA), Zusatzrollen je Szenario (IAM, Sicherheit, Cloud-Betrieb, KI-Content). Atruvia-Mitwirkung: Koordination (eine Ansprechperson), benannte SMEs für alle sechs Pfade, Ausgangsmaterial (AEM-Inhalte/Assets, Modelle, Workflow-Beispiele, Umsysteme), Zugänge/technische Mitarbeit, Rückmeldung (Review-Termine, Fristen), Verarbeitungsrahmen (Daten, KI-Werkzeuge, Dokumentationsform inkl. möglicher Aufzeichnungen).</aside>
       </section>
 
     </div>

@@ -402,26 +402,26 @@
         <text data-detail="fine" x="945" y="746" class="t-backend" font-size="7" text-anchor="middle">KI-gestützt</text>
         </g>
 
-        <g id="node-evid" data-node-id="evid" data-node-label="Evidenzerfassung" tabindex="0" role="button" aria-label="Evidenzerfassung fokussieren, nativ · Konfig. · Eigenentw. · Workaround, Architekturkomponente" aria-pressed="false" data-node-kind="backend" data-node-sublabel="nativ · Konfig. · Eigenentw. · Workaround" data-node-context="Architekturkomponente">
-          <title>Evidenzerfassung · nativ · Konfig. · Eigenentw. · Workaround · Architekturkomponente</title>
+        <g id="node-evid" data-node-id="evid" data-node-label="Evidenzerfassung" tabindex="0" role="button" aria-label="Evidenzerfassung fokussieren, Artefakte · Review-Protokoll · SME-Bewertung, Architekturkomponente" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Artefakte · Review-Protokoll · SME-Bewertung" data-node-context="Architekturkomponente">
+          <title>Evidenzerfassung · Artefakte · Review-Protokoll · SME-Bewertung · Architekturkomponente</title>
           <rect x="1070" y="690" width="240" height="64" rx="6" class="c-mask"/>
           <rect x="1070" y="690" width="240" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1076 696) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="1190" y="720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Evidenzerfassung</text>
-        <text data-detail="context" x="1190" y="736" class="t-muted" font-size="9" text-anchor="middle">nativ · Konfig. · Eigenentw. · Workaround</text>
+        <text data-detail="context" x="1190" y="736" class="t-muted" font-size="9" text-anchor="middle">Artefakte · Review-Protokoll · SME-Bewertung</text>
         </g>
 
-        <g id="node-res" data-node-id="res" data-node-label="Ergebnisse" tabindex="0" role="button" aria-label="Ergebnisse fokussieren, ADRs · Backlog · Aufwandsschätzung, Architekturkomponente" aria-pressed="false" data-node-kind="backend" data-node-sublabel="ADRs · Backlog · Aufwandsschätzung" data-node-tag="KI-gestützte Auswertung" data-node-context="Architekturkomponente">
-          <title>Ergebnisse · ADRs · Backlog · Aufwandsschätzung · Architekturkomponente · KI-gestützte Auswertung</title>
+        <g id="node-res" data-node-id="res" data-node-label="Ergebnisse" tabindex="0" role="button" aria-label="Ergebnisse fokussieren, Szenarioberichte · Entscheidungsvorlagen · Umsetzungsplanung, Architekturkomponente" aria-pressed="false" data-node-kind="backend" data-node-sublabel="Szenarioberichte · Entscheidungsvorlagen · Umsetzungsplanung" data-node-tag="KI-gestützte Auswertung" data-node-context="Architekturkomponente">
+          <title>Ergebnisse · Szenarioberichte · Entscheidungsvorlagen · Umsetzungsplanung · Architekturkomponente · KI-gestützte Auswertung</title>
           <rect x="1360" y="690" width="300" height="64" rx="6" class="c-mask"/>
           <rect x="1360" y="690" width="300" height="64" rx="6" class="c-backend" stroke-width="1.5"/>
           <g aria-hidden="true" data-semantic-sigil="backend" class="semantic-sigil s-backend" transform="translate(1366 696) scale(0.6875)">
             <path d="M6 3 3 8l3 5M10 3l3 5-3 5"/>
           </g>
           <text data-node-label="" data-detail-anchor="" x="1510" y="720" class="t-primary" font-size="11" font-weight="600" text-anchor="middle">Ergebnisse</text>
-        <text data-detail="context" x="1510" y="736" class="t-muted" font-size="9" text-anchor="middle">ADRs · Backlog · Aufwandsschätzung</text>
+        <text data-detail="context" x="1510" y="736" class="t-muted" font-size="9" text-anchor="middle">Szenarioberichte · Entscheidungsvorlagen · Umsetzungsplanung</text>
         <text data-detail="fine" x="1510" y="746" class="t-backend" font-size="7" text-anchor="middle">KI-gestützte Auswertung</text>
         </g>
 
